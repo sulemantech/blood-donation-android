@@ -6,4 +6,15 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
     </style>
+    <style name="Base.Custom.BloodDonation" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#dc1114</item>
+        <item name="colorPrimaryDark">#a00e11</item>
+        <item name="colorAccent">#ffffff</item>
+        <item name="android:windowBackground">#dc1114</item>
+        <item name="android:textColorPrimary">#ffffff</item>
+        <item name="android:textColorSecondary">#aaaaaa</item>
+        <!-- Other theme attributes -->
+    </style>
+
 </resources>

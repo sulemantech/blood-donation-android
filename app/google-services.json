@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "163442629191",
+    "project_id": "blooddonation-41a1b",
+    "storage_bucket": "blooddonation-41a1b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:163442629191:android:72d2ee08c5ad7d2dabef62",
+        "android_client_info": {
+          "package_name": "com.welfare.blooddonation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "163442629191-487083acbhkflkj7s782fkfv2udk4hms.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClz4KRGcQcorb80vOBq2_WY7Z3sFOVRcE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "163442629191-487083acbhkflkj7s782fkfv2udk4hms.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,4 +1,2 @@
 <resources>
-    <dimen name="fab_margin">200dp</dimen>
-    <dimen name="activity_horizontal_margin">200dp</dimen>
-</resources>
+    <dimen name="fab_margin">200dp</dimen></resources>
