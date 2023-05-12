@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single"
+        android:id="@+id/first">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Request Blood" />
+    </group>
+    <group android:checkableBehavior="single"
+        android:id="@+id/second">
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Donate Blood" />
+    </group>
+    <group android:checkableBehavior="single"
+        android:id="@+id/third">
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Blood Requests" />
+    </group>
+    <group android:checkableBehavior="single"
+        android:id="@+id/fourth">
+        <item android:title=""/>
+    </group>
+</menu>
