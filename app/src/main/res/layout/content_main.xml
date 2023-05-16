@@ -68,10 +68,12 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="0dp"
+            android:id="@+id/bloodrequest_cardview"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             app:cardCornerRadius="20dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:onClick="onCardViewClicked">
 
             <RelativeLayout
                 android:layout_width="match_parent"

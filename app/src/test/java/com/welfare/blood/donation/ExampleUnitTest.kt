@@ -1,4 +1,4 @@
-package com.test.myapplication
+package com.welfare.blood.donation
 
 import org.junit.Test
 

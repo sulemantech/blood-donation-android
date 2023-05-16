@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.test.myapplication'
+    namespace 'com.welfare.blood.donation'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.test.myapplication"
+        applicationId "com.welfare.blood.donation"
         minSdk 24
         targetSdk 33
         versionCode 1

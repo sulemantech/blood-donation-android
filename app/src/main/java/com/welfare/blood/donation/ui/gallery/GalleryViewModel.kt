@@ -1,4 +1,4 @@
-package com.test.myapplication.ui.gallery
+package com.welfare.blood.donation.ui.gallery
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

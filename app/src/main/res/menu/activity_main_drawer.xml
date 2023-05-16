@@ -3,29 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single"
-        android:id="@+id/first">
+    <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Request Blood" />
-    </group>
-    <group android:checkableBehavior="single"
-        android:id="@+id/second">
+            android:title="@string/menu_home" />
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Donate Blood" />
-    </group>
-    <group android:checkableBehavior="single"
-        android:id="@+id/third">
+            android:title="@string/menu_gallery" />
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Blood Requests" />
-    </group>
-    <group android:checkableBehavior="single"
-        android:id="@+id/fourth">
-        <item android:title=""/>
+            android:title="@string/menu_slideshow" />
     </group>
 </menu>
