@@ -17,7 +17,7 @@ class BloodDonorActivity : AppCompatActivity() {
         val bloodDonors: ArrayList<BloodDonorModel> = ArrayList()
 
 // Create dummy data for blood donors
-        for (i in 1..10) {
+        for (i in 1..100000) {
             val donor = BloodDonorModel(
                 pic = R.drawable.a_neg,
                 name = "Donor $i",
