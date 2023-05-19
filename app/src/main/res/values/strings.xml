@@ -2,8 +2,8 @@
     <string name="app_name">BloodDonation</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">Pipal Welfare Organization</string>
+    <string name="nav_header_subtitle">donate@pipalwelfare.org</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
@@ -11,4 +11,26 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="image_description">Blood Group</string>
+
+    <!-- Strings related to login -->
+    <string name="signup">Register</string>
+    <string name="prompt_email">Email</string>
+    <string name="register">Create an account</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="prompt_password">Password</string>
+    <string name="prompt_confirm_password">Confirm password</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="reset">Reset</string>
+    <string name="displayName">Full Name</string>
+    <string name="mobile">Mobile No</string>
+    <string name="userAddress">Address</string>
+    <string name="nearH">Find nearest Hospitals</string>
+    <string name="fndBlood">Find Blood Donor</string>
+    <string name="lgout">Log out</string>
+    <string name="devinfo">About us</string>
+    <string name="bloodinfo">Blood Info</string>
+    <string name="BloodGroup">Blood Group</string>
+    <string name="Division">Choose Division</string>
+    <string name="Post">Post</string>
+
 </resources>
