@@ -6,14 +6,17 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
+    <color name="black1">#272727</color>
     <color name="white">#FFFFFFFF</color>
     <color name="round_button_color">#7a49a5</color>
     <color name="round_gradient_button_start_color">#7a49a5</color>
     <color name="round_gradient_button_end_color">#7a49a5</color>
     <color name="colorPrimary">#d50000</color>
+    <color name="colorPrimary1">#4C050D</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="primary">#e74c3c</color>
+    <color name="primary2">#DFA19B</color>
     <color name="primary_dark">#c13f31</color>
     <color name="transparent_black_ten_percent">#1A000000</color>
     <color name="blood_bank_ic_launcher_background">#26A69A</color>
