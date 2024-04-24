@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:src="@drawable/drop"
+            android:id="@+id/img"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="10dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Blood Donation"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img"
+            android:fontFamily="@font/inter_bold"
+            android:textColor="@color/black1"
+            android:id="@+id/blood_donation"
+            android:textSize="15dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/blood_donation"
+            android:fontFamily="@font/inter_bold"
+            android:textColor="@color/black1"
+            android:id="@+id/name"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="25dp"
+            android:textSize="15dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/ed_name"
+            android:background="@drawable/ed_border"
+            android:padding="8dp"
+            android:maxLines="1"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:hint="Enter Name"
+            android:paddingStart="15dp"
+            android:layout_marginTop="5dp"
+            android:paddingEnd="20dp"
+            android:drawableRight="@drawable/vector"
+            app:layout_constraintTop_toBottomOf="@+id/name"
+            android:drawablePadding="8dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone Number"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ed_name"
+            android:fontFamily="@font/inter_bold"
+            android:textColor="@color/black1"
+            android:id="@+id/phone"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="15dp"
+            android:textSize="15dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/ed_phone"
+            android:background="@drawable/ed_border"
+            android:padding="8dp"
+            android:layout_marginTop="5dp"
+            android:maxLines="1"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:hint="+92 000 00000"
+            android:paddingStart="15dp"
+            android:paddingEnd="20dp"
+            android:drawableRight="@drawable/phone"
+            app:layout_constraintTop_toBottomOf="@+id/phone"
+            android:drawablePadding="8dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="E-Mail"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ed_phone"
+            android:fontFamily="@font/inter_bold"
+            android:textColor="@color/black1"
+            android:id="@+id/email"
+            android:layout_marginStart="15dp"
+            android:textSize="15dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/ed_email"
+            android:background="@drawable/ed_border"
+            android:padding="8dp"
+            android:maxLines="1"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:hint="Enter Email"
+            android:paddingStart="15dp"
+            android:paddingEnd="20dp"
+            android:drawableRight="@drawable/email"
+            app:layout_constraintTop_toBottomOf="@+id/email"
+            android:drawablePadding="8dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Password"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ed_email"
+            android:fontFamily="@font/inter_bold"
+            android:textColor="@color/black1"
+            android:id="@+id/password"
+            android:layout_marginStart="15dp"
+            android:textSize="15dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/ed_password"
+            android:background="@drawable/ed_border"
+            android:padding="8dp"
+            android:maxLines="1"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:hint="Enter Password"
+            android:paddingStart="15dp"
+            android:paddingEnd="20dp"
+            android:drawableRight="@drawable/password_icon"
+            app:layout_constraintTop_toBottomOf="@+id/password"
+            android:drawablePadding="8dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date of Birth"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ed_password"
+            android:fontFamily="@font/inter_bold"
+            android:textColor="@color/black1"
+            android:id="@+id/date_of_birth"
+            android:layout_marginStart="15dp"
+            android:textSize="15dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/ed_date_birth"
+            android:background="@drawable/ed_border"
+            android:padding="8dp"
+            android:maxLines="1"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:hint="DD/MM/YYYY"
+            android:paddingStart="15dp"
+            android:paddingEnd="20dp"
+            android:drawableRight="@drawable/password_icon"
+            app:layout_constraintTop_toBottomOf="@+id/date_of_birth"
+            android:drawablePadding="8dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Blood Group"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ed_date_birth"
+            android:fontFamily="@font/inter_bold"
+            android:textColor="@color/black1"
+            android:id="@+id/blood_group"
+            android:layout_marginStart="15dp"
+            android:textSize="15dp"/>
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:layout_centerInParent="true"
+            android:layout_marginEnd="30dp"
+            android:layout_marginStart="30dp"
+            android:background="@drawable/spinner_border"
+            app:layout_constraintTop_toBottomOf="@+id/blood_group"
+            android:entries="@array/select"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Do you want donate blood"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinner"
+            android:fontFamily="@font/inter_bold"
+            android:textColor="@color/black1"
+            android:layout_marginTop="10dp"
+            android:id="@+id/want_to_donate"
+            android:layout_marginStart="15dp"
+            android:textSize="15dp"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/no_yes"
+            android:background="@drawable/ed_border"
+            android:padding="8dp"
+            android:layout_marginTop="5dp"
+            android:maxLines="1"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:hint="Enter Email"
+            android:paddingStart="15dp"
+            android:paddingEnd="20dp"
+            android:drawableRight="@drawable/password_icon"
+            app:layout_constraintTop_toBottomOf="@+id/want_to_donate"
+            android:drawablePadding="8dp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/sign_up"
+            android:textAllCaps="false"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="30dp"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@+id/no_yes"
+            android:background="@drawable/btn_shape2"
+            android:text="Sign Up"
+            android:layout_marginEnd="30dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

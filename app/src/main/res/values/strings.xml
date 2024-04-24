@@ -33,4 +33,10 @@
     <string name="Division">Choose Division</string>
     <string name="Post">Post</string>
 
+    <string-array name="select">
+        <item>A+</item>
+        <item>B+</item>
+        <item>AB+</item>
+        <item>O+</item>
+    </string-array>
 </resources>
