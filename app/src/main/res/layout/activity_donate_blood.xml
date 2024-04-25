@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Reset Credential"
+        android:text="Blood Donation"
         android:fontFamily="@font/inter_bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -20,7 +20,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et"
+        android:text="Please let us know if ypu need the blood for yourself
+ or for some one else  "
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="130dp"
         android:layout_marginStart="30dp"
@@ -30,44 +31,39 @@
         android:textColor="@color/black"/>
 
     <TextView
+        android:id="@+id/bllod_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Password"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/inter_bold"
+        android:text="Blood Type"
         android:textColor="@color/black1"
-        android:id="@+id/email"
-        android:layout_marginTop="30dp"
-        android:layout_marginStart="20dp"
-        android:textSize="15dp"/>
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text" />
 
-    <EditText
+    <Spinner
+        android:id="@+id/spinner"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:id="@+id/ed_email"
-        android:background="@drawable/ed_border"
-        android:padding="8dp"
-        android:maxLines="1"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_centerInParent="true"
         android:layout_marginEnd="20dp"
-        android:hint="Enter new Password"
-        android:paddingStart="15dp"
-        android:paddingEnd="20dp"
-        android:drawableRight="@drawable/password_icon"
-        app:layout_constraintTop_toBottomOf="@+id/email"
-        android:drawablePadding="8dp"/>
+        android:layout_marginStart="20dp"
+        android:background="@drawable/spinner_border"
+        app:layout_constraintTop_toBottomOf="@+id/bllod_type"
+        android:entries="@array/select"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Confirm Password"
+        android:text="Location"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ed_email"
+        app:layout_constraintTop_toBottomOf="@+id/spinner"
         android:fontFamily="@font/inter_bold"
         android:textColor="@color/black1"
-        android:id="@+id/confirm_pass"
+        android:id="@+id/location"
         android:layout_marginTop="30dp"
         android:layout_marginStart="20dp"
         android:textSize="15dp"/>
@@ -75,32 +71,32 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:id="@+id/ed_confirm_pass"
+        android:id="@+id/ed_location"
         android:background="@drawable/ed_border"
         android:padding="8dp"
         android:maxLines="1"
         android:layout_marginTop="10dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:hint="Enter Confirm Password"
+        android:hint="Type here..."
         android:paddingStart="15dp"
         android:paddingEnd="20dp"
-        android:drawableRight="@drawable/password_icon"
-        app:layout_constraintTop_toBottomOf="@+id/confirm_pass"
+        app:layout_constraintTop_toBottomOf="@+id/location"
         android:drawablePadding="8dp"/>
 
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:id="@+id/send_otp"
+        android:id="@+id/donate"
         android:textAllCaps="false"
         android:layout_gravity="center"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="25dp"
         android:layout_marginStart="30dp"
-        android:textColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@+id/ed_confirm_pass"
-        android:background="@drawable/btn_shape2"
-        android:text="Save Password"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/ed_location"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Donate"
+        android:backgroundTint="@color/white"
         android:layout_marginEnd="30dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
