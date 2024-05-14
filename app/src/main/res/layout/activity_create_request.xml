@@ -80,7 +80,7 @@
             android:textColor="@color/black1"
             android:id="@+id/name"
             android:layout_marginTop="10dp"
-            android:layout_marginStart="25dp"
+            android:layout_marginStart="28dp"
             android:textSize="15dp"/>
 
         <EditText
@@ -109,7 +109,7 @@
             android:textColor="@color/black1"
             android:id="@+id/phone"
             android:layout_marginTop="10dp"
-            android:layout_marginStart="25dp"
+            android:layout_marginStart="30dp"
             android:textSize="15dp"/>
 
         <EditText
@@ -131,7 +131,7 @@
             android:id="@+id/bllod_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
+            android:layout_marginStart="29dp"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/inter_bold"
             android:text="Blood Type"
@@ -155,7 +155,7 @@
             android:id="@+id/required_unit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
+            android:layout_marginStart="29dp"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/inter_bold"
             android:text="Required Unit"
@@ -185,7 +185,7 @@
             android:fontFamily="@font/inter_bold"
             android:textColor="@color/black1"
             android:id="@+id/date_of_birth"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="29dp"
             android:textSize="15dp"/>
 
         <EditText
@@ -214,7 +214,7 @@
             android:textColor="@color/black1"
             android:layout_marginTop="10dp"
             android:id="@+id/want_to_donate"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="29dp"
             android:textSize="15dp"/>
         <EditText
             android:layout_width="match_parent"
@@ -242,7 +242,7 @@
             android:textColor="@color/black1"
             android:id="@+id/hospital"
             android:layout_marginTop="10dp"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="29dp"
             android:textSize="15dp"/>
 
         <EditText
@@ -270,7 +270,7 @@
             android:textColor="@color/black1"
             android:id="@+id/location"
             android:layout_marginTop="10dp"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="29dp"
             android:textSize="15dp"/>
 
         <EditText
@@ -294,14 +294,23 @@
             android:id="@+id/send_request"
             android:textAllCaps="false"
             android:layout_gravity="center"
-            android:layout_marginTop="25dp"
-            android:layout_marginStart="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="40dp"
+            android:visibility="gone"
             android:textColor="@color/black"
             app:layout_constraintTop_toBottomOf="@+id/ed_location"
             app:layout_constraintEnd_toEndOf="parent"
             android:text="Send Request"
             android:backgroundTint="@color/white"
-            android:layout_marginEnd="30dp"/>
+            android:layout_marginEnd="40dp"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:src="@drawable/sendrequest"
+            app:layout_constraintTop_toBottomOf="@+id/ed_location"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/btn_donate" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

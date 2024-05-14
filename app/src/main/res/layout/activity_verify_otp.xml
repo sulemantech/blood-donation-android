@@ -25,7 +25,7 @@
         android:fontFamily="@font/inter_bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="130dp"
         android:layout_marginStart="30dp"
         android:textSize="25sp"
         android:textColor="@color/black"/>
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et  "
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="180dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="100dp"
         android:textSize="15sp"
@@ -45,18 +45,19 @@
     <com.chaos.view.PinView
         android:id="@+id/pinview"
         app:itemCount="4"
-        app:itemWidth="60dp"
-        app:itemHeight="60dp"
+        app:itemWidth="75dp"
+        app:itemHeight="75dp"
         android:gravity="center"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="280dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:itemBackground="@color/white"
         android:layout_gravity="center"
+        app:lineColor="@color/grey"
         android:inputType="number"
         android:cursorVisible="true"
         app:hideLineWhenFilled="false"
-        app:itemRadius="10dp"
+        app:itemRadius="15dp"
         style="@style/PinWidget.PinView"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -66,16 +67,16 @@
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:id="@+id/send_otp"
         android:textAllCaps="false"
         android:layout_gravity="center"
-        android:layout_marginTop="35dp"
-        android:layout_marginStart="30dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginStart="50dp"
         android:textColor="@color/white"
         app:layout_constraintTop_toBottomOf="@+id/pinview"
         android:background="@drawable/btn_shape2"
         android:text="Verify OTP"
-        android:layout_marginEnd="30dp"/>
+        android:layout_marginEnd="50dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

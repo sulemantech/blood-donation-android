@@ -14,7 +14,7 @@ class RegisterActivity : AppCompatActivity() {
         val signUp = findViewById<Button>(R.id.sign_up)
 
         signUp.setOnClickListener {
-            val intent = Intent(this, HomeActivity::class.java)
+            val intent = Intent(this, VerifyOtpActivity::class.java)
             startActivity(intent)
         }
     }

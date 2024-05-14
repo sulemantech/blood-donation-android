@@ -15,7 +15,7 @@ import com.welfare.blood.donation.fragments.InboxFragment
 import com.welfare.blood.donation.fragments.NotificationFragment
 
   class HomeActivity : AppCompatActivity() {
-    private val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+   // private val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,15 +50,15 @@ import com.welfare.blood.donation.fragments.NotificationFragment
 //        }
         setCurrentFragment(homeFragment)
 
-        bottomNavigationView.setOnNavigationItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.home -> setCurrentFragment(homeFragment)
-                R.id.inbox -> setCurrentFragment(inboxFragment)
-                R.id.notification -> setCurrentFragment(notificationFragment)
-                R.id.history -> setCurrentFragment(historyFragment)
-            }
-            true
-        }
+//        bottomNavigationView.setOnNavigationItemSelectedListener { menuItem ->
+//            when (menuItem.itemId) {
+//                R.id.home -> setCurrentFragment(homeFragment)
+//                R.id.inbox -> setCurrentFragment(inboxFragment)
+//                R.id.notification -> setCurrentFragment(notificationFragment)
+//                R.id.history -> setCurrentFragment(historyFragment)
+//            }
+//            true
+//        }
 
     }
 

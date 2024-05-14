@@ -71,7 +71,7 @@
             android:textColor="@color/black1"
             android:id="@+id/phone"
             android:layout_marginTop="10dp"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="25dp"
             android:textSize="15dp"/>
 
         <EditText
@@ -100,7 +100,7 @@
             android:fontFamily="@font/inter_bold"
             android:textColor="@color/black1"
             android:id="@+id/email"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="27dp"
             android:textSize="15dp"/>
 
         <EditText
@@ -129,7 +129,7 @@
             android:fontFamily="@font/inter_bold"
             android:textColor="@color/black1"
             android:id="@+id/password"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="28dp"
             android:textSize="15dp"/>
 
         <EditText
@@ -158,7 +158,7 @@
             android:fontFamily="@font/inter_bold"
             android:textColor="@color/black1"
             android:id="@+id/date_of_birth"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="28dp"
             android:textSize="15dp"/>
 
         <EditText
@@ -187,17 +187,17 @@
             android:fontFamily="@font/inter_bold"
             android:textColor="@color/black1"
             android:id="@+id/blood_group"
-            android:layout_marginStart="15dp"
-            android:textSize="15dp"/>
+            android:layout_marginStart="29dp"
+            android:textSize="15sp"/>
 
         <Spinner
             android:id="@+id/spinner"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_marginTop="5dp"
             android:layout_centerInParent="true"
-            android:layout_marginEnd="30dp"
-            android:layout_marginStart="30dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
             android:background="@drawable/spinner_border"
             app:layout_constraintTop_toBottomOf="@+id/blood_group"
             android:entries="@array/select"/>
@@ -212,8 +212,8 @@
             android:textColor="@color/black1"
             android:layout_marginTop="10dp"
             android:id="@+id/want_to_donate"
-            android:layout_marginStart="15dp"
-            android:textSize="15dp"/>
+            android:layout_marginStart="28dp"
+            android:textSize="15sp"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -237,7 +237,7 @@
             android:id="@+id/sign_up"
             android:textAllCaps="false"
             android:layout_gravity="center"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="15dp"
             android:layout_marginStart="30dp"
             android:textColor="@color/white"
             app:layout_constraintTop_toBottomOf="@+id/no_yes"
