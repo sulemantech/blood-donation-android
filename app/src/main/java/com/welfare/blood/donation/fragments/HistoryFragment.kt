@@ -7,6 +7,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.welfare.blood.donation.BloodbankActivity
 import com.welfare.blood.donation.R
@@ -54,21 +57,28 @@ class HistoryFragment : Fragment() {
     }
 
     private fun showRateUsDialog(context: Context) {
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_rate_us, null)
+        val editTextFeedback = dialogView.findViewById<TextView>(R.id.rate_us)
+
         AlertDialog.Builder(context)
             .setTitle("Rate Our App")
-            .setMessage("If you enjoy using our app, please take a moment to rate it. Thank you for your support!")
+            .setView(dialogView)
             .setPositiveButton("Rate Now") { dialog, which ->
-                // Open Play Store for rating
+                val feedback = editTextFeedback.text.toString().trim()
+                if (feedback.isNotEmpty()) {
+                    showToast("Thank you for your feedback: $feedback")
+                }
                 openPlayStoreForRating(context)
             }
-            .setNegativeButton("Later") { dialog, which ->
-                // Do nothing, just close the dialog
+            .setNegativeButton("Cancel") { dialog, which ->
                 dialog.dismiss()
             }
             .setCancelable(true)
             .show()
     }
- // added test line
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
     private fun openPlayStoreForRating(context: Context) {
         val appPackageName = context.packageName
         try {
@@ -77,7 +87,6 @@ class HistoryFragment : Fragment() {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             context.startActivity(intent)
         } catch (e: android.content.ActivityNotFoundException) {
-            // If Play Store app is not available, open the app page in browser
             val intent = Intent(
                 Intent.ACTION_VIEW,
                 Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")
