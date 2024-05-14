@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="500dp"
+    android:orientation="horizontal"
+    android:background="@color/white"
+    android:paddingLeft="15dp">
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_emoji"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:paddingTop="30dp"
+        android:text="Help us to Improve App!"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/type"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="15dp"
+        android:paddingBottom="160dp"
+        android:paddingStart="10dp"
+        android:background="@drawable/ed_border"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/text_emoji"
+        android:text="Type here"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/type"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent">
+        <Button
+            android:id="@+id/send"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="right"
+            android:text="Send"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:textAllCaps="false"
+            android:backgroundTint="@color/green"
+            android:textColor="@color/white"/>
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="right"
+            android:text="Cancel"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:textAllCaps="false"
+            android:backgroundTint="@color/maron"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -41,4 +41,8 @@
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit_sed_do_eiusmod_tempor_incididunt_ut_labore_et">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et</string>
+    <string name="what_is_blood_bank">What is Blood Bank?</string>
+    <string name="a_blood_bank_is_a_center_where_blood_gathered_as_result_of_blood_donation_is_stored_as_preserved_for_later_use_in_blood_transfusion_the_term_blood_bank_typically_refers_to_divisionof_a_hospital_where_the_storage_of_blood_product_occurs_and_where_proper_testing_is_performed">A Blood bank is a center where blood gathered as result of blood donation is stored as preserved for later use in blood transfusion. The term “Blood Bank” typically refers to divisionof a hospital where the storage of blood product occurs and where proper testing is performed</string>
+
 </resources>

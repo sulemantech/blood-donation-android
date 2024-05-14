@@ -224,7 +224,7 @@
             android:maxLines="1"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:hint="Enter Email"
+            android:hint="Enter Yes/No"
             android:paddingStart="15dp"
             android:paddingEnd="20dp"
             android:drawableRight="@drawable/password_icon"

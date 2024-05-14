@@ -9,13 +9,25 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="40dp"
+        android:drawableLeft="@drawable/back"
+        android:layout_marginStart="30dp"
+        android:textSize="25dp"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Verify OTP"
         android:fontFamily="@font/inter_bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="80dp"
         android:layout_marginStart="30dp"
-        android:textSize="25dp"
+        android:textSize="25sp"
         android:textColor="@color/black"/>
     <TextView
         android:layout_width="match_parent"
@@ -25,26 +37,45 @@
         android:layout_marginTop="130dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="100dp"
-        android:textSize="15dp"
+        android:textSize="15sp"
         android:id="@+id/text"
         android:textColor="@color/black"/>
 
 
-    <EditText
+    <com.chaos.view.PinView
+        android:id="@+id/pinview"
+        app:itemCount="4"
+        app:itemWidth="60dp"
+        app:itemHeight="60dp"
+        android:gravity="center"
+        android:layout_marginTop="200dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:itemBackground="@color/white"
+        android:layout_gravity="center"
+        android:inputType="number"
+        android:cursorVisible="true"
+        app:hideLineWhenFilled="false"
+        app:itemRadius="10dp"
+        style="@style/PinWidget.PinView"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingClass">
+    </com.chaos.view.PinView>
+
+    <Button
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:id="@+id/ed_email"
-        android:background="@drawable/ed_border"
-        android:padding="8dp"
-        android:maxLines="1"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:hint="Enter Email or Phone number"
-        android:paddingStart="15dp"
-        android:paddingEnd="20dp"
-        android:drawableRight="@drawable/email"
-        android:drawablePadding="8dp"/>
-
+        android:id="@+id/send_otp"
+        android:textAllCaps="false"
+        android:layout_gravity="center"
+        android:layout_marginTop="35dp"
+        android:layout_marginStart="30dp"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@+id/pinview"
+        android:background="@drawable/btn_shape2"
+        android:text="Verify OTP"
+        android:layout_marginEnd="30dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
