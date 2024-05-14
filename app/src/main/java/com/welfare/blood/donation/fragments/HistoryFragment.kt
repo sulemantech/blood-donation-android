@@ -68,7 +68,7 @@ class HistoryFragment : Fragment() {
             .setCancelable(true)
             .show()
     }
-
+ // added test line
     private fun openPlayStoreForRating(context: Context) {
         val appPackageName = context.packageName
         try {
