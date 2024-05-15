@@ -4,16 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/onboard"
     tools:context=".onBoardingActivity">
 
     <ImageView
         android:id="@+id/img"
         android:layout_width="match_parent"
         android:layout_height="275dp"
+        android:scaleType="fitXY"
         android:src="@drawable/onboard"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -23,6 +25,7 @@
         android:id="@+id/cardview"
         app:layout_constraintTop_toBottomOf="@+id/img"
         android:background="@color/white">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="120dp"
@@ -56,22 +59,19 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/darkbtn"
+            android:src="@drawable/next_button"
             android:layout_marginTop="360dp"
             android:id="@+id/dont_have"
             android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
-            />
+            android:layout_marginEnd="30dp" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/nextbtn"
+            android:src="@drawable/account_button"
             android:layout_marginTop="435dp"
             android:layout_marginStart="30dp"
             android:id="@+id/already_have"
-            android:layout_marginEnd="30dp"
-            />
-
+            android:layout_marginEnd="30dp" />
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

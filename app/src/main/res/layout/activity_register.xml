@@ -19,7 +19,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="10dp" />
+            android:layout_marginTop="15dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -40,8 +40,8 @@
             android:fontFamily="@font/inter_bold"
             android:textColor="@color/black1"
             android:id="@+id/name"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="25dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="28dp"
             android:textSize="15dp"/>
 
         <EditText
@@ -57,7 +57,7 @@
             android:paddingStart="15dp"
             android:layout_marginTop="5dp"
             android:paddingEnd="20dp"
-            android:drawableRight="@drawable/vector"
+            android:drawableRight="@drawable/ic_vector_person"
             app:layout_constraintTop_toBottomOf="@+id/name"
             android:drawablePadding="8dp"/>
 
@@ -70,7 +70,7 @@
             android:fontFamily="@font/inter_bold"
             android:textColor="@color/black1"
             android:id="@+id/phone"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:layout_marginStart="25dp"
             android:textSize="15dp"/>
 
@@ -87,14 +87,14 @@
             android:hint="+92 000 00000"
             android:paddingStart="15dp"
             android:paddingEnd="20dp"
-            android:drawableRight="@drawable/phone"
+            android:drawableRight="@drawable/ic_vector_phone"
             app:layout_constraintTop_toBottomOf="@+id/phone"
             android:drawablePadding="8dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="E-Mail"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ed_phone"
             android:fontFamily="@font/inter_bold"
@@ -116,14 +116,14 @@
             android:hint="Enter Email"
             android:paddingStart="15dp"
             android:paddingEnd="20dp"
-            android:drawableRight="@drawable/email"
+            android:drawableRight="@drawable/ic_vector_email"
             app:layout_constraintTop_toBottomOf="@+id/email"
             android:drawablePadding="8dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Password"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ed_email"
             android:fontFamily="@font/inter_bold"
@@ -145,14 +145,14 @@
             android:hint="Enter Password"
             android:paddingStart="15dp"
             android:paddingEnd="20dp"
-            android:drawableRight="@drawable/password_icon"
+            android:drawableRight="@drawable/ic_vector_lock"
             app:layout_constraintTop_toBottomOf="@+id/password"
             android:drawablePadding="8dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Date of Birth"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ed_password"
             android:fontFamily="@font/inter_bold"
@@ -174,14 +174,13 @@
             android:hint="DD/MM/YYYY"
             android:paddingStart="15dp"
             android:paddingEnd="20dp"
-            android:drawableRight="@drawable/password_icon"
             app:layout_constraintTop_toBottomOf="@+id/date_of_birth"
             android:drawablePadding="8dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Blood Group"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ed_date_birth"
             android:fontFamily="@font/inter_bold"
@@ -210,7 +209,7 @@
             app:layout_constraintTop_toBottomOf="@+id/spinner"
             android:fontFamily="@font/inter_bold"
             android:textColor="@color/black1"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:id="@+id/want_to_donate"
             android:layout_marginStart="28dp"
             android:textSize="15sp"/>
@@ -227,23 +226,28 @@
             android:hint="Enter Yes/No"
             android:paddingStart="15dp"
             android:paddingEnd="20dp"
-            android:drawableRight="@drawable/password_icon"
             app:layout_constraintTop_toBottomOf="@+id/want_to_donate"
             android:drawablePadding="8dp"/>
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
+        <TextView
             android:id="@+id/sign_up"
-            android:textAllCaps="false"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
-            android:layout_marginStart="30dp"
-            android:textColor="@color/white"
-            app:layout_constraintTop_toBottomOf="@+id/no_yes"
-            android:background="@drawable/btn_shape2"
-            android:text="Sign Up"
-            android:layout_marginEnd="30dp"/>
+            android:layout_marginHorizontal="12dp"
+            android:background="@drawable/signup_button"
+            android:textAllCaps="false"
+            app:layout_constraintEnd_toEndOf="@+id/no_yes"
+            app:layout_constraintStart_toStartOf="@+id/no_yes"
+            app:layout_constraintTop_toBottomOf="@+id/no_yes" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:layout_marginHorizontal="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sign_up" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

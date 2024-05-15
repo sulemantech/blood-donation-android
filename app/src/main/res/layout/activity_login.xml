@@ -14,7 +14,7 @@
 
     <ImageView
         android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_height="130dp"
         android:src="@drawable/drop"
         android:id="@+id/img"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,7 +49,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:id="@+id/ed_name"
+            android:id="@+id/ed_username"
             android:background="@drawable/ed_border"
             android:padding="8dp"
             android:maxLines="1"
@@ -59,7 +59,7 @@
             android:hint="Enter Name"
             android:paddingStart="15dp"
             android:paddingEnd="20dp"
-            android:drawableRight="@drawable/vector"
+            android:drawableRight="@drawable/ic_vector_person"
             app:layout_constraintTop_toBottomOf="@+id/name"
             android:drawablePadding="8dp"/>
 
@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:text="Password"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ed_name"
+            app:layout_constraintTop_toBottomOf="@+id/ed_username"
             android:fontFamily="@font/inter_bold"
             android:textColor="@color/black1"
             android:layout_marginTop="20dp"
@@ -89,7 +89,7 @@
             android:hint="Enter Password"
             android:paddingStart="15dp"
             android:paddingEnd="20dp"
-            android:drawableRight="@drawable/password_icon"
+            android:drawableRight="@drawable/ic_vector_lock"
             app:layout_constraintTop_toBottomOf="@+id/password"
             android:drawablePadding="8dp"/>
         <TextView
@@ -116,18 +116,16 @@
             android:id="@+id/reset"
             android:textSize="15dp"/>
 
-        <Button
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="66dp"
             android:id="@+id/login"
             android:textAllCaps="false"
             android:layout_gravity="center"
             android:layout_marginTop="90dp"
             android:layout_marginStart="30dp"
-            android:textColor="@color/white"
             app:layout_constraintTop_toBottomOf="@+id/ed_password"
-            android:background="@drawable/btn_shape2"
-            android:text="Login"
+            android:background="@drawable/login_button"
             android:layout_marginEnd="30dp"/>
 
         <TextView
