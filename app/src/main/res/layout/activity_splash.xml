@@ -11,53 +11,55 @@
     tools:context=".SplashActivity"
     android:gravity="center"
     android:orientation="vertical"
-    android:background="@drawable/red_button_bg">
+    >
 
     <LinearLayout
         android:layout_gravity="center"
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/white"
         android:gravity="center">
         <ImageView
             android:id="@+id/load_image"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/splash_animation"/>
+            android:src="@drawable/splash_animation"
+            app:tint="@color/black" />
     </LinearLayout>
     <TextView
         android:layout_marginTop="15dp"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:textSize="48sp"
         android:textStyle="bold"
         android:text="@string/app_name"
+        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <TextView
         android:textSize="24sp"
         android:text="Donate Blood, Save Life"
         android:layout_width="wrap_content"
+        android:textColor="@color/black"
         android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="353dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
         android:layout_marginTop="200dp"
+        android:layout_gravity="center"
         android:text="Pipal Welfare Organization"
-        android:textColor="#F3F3F3"
+        android:textColor="@color/black"
         android:textSize="25sp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
+        android:layout_gravity="center"
         android:text="www.pipalwelfare.org"
-        android:textColor="#FFFFFF" />
+        android:textColor="@color/black" />
 
 </LinearLayout>

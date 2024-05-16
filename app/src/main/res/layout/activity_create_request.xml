@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/pinkk"
     tools:context=".CreateRequestActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,7 +15,7 @@
             android:fontFamily="@font/inter_bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
             android:drawableLeft="@drawable/back"
             android:layout_marginStart="30dp"
             android:textSize="25dp"
@@ -37,11 +36,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Please let us know if ypu need the blood for yourself
- or for some one else"
+ \n for some one else"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="120dp"
         android:layout_marginStart="30dp"
-        android:layout_marginEnd="100dp"
+        android:layout_marginEnd="10dp"
         android:textSize="15dp"
         android:id="@+id/text"
         android:textColor="@color/black"/>
@@ -312,7 +311,6 @@
             app:layout_constraintTop_toBottomOf="@+id/ed_location"
             app:layout_constraintEnd_toEndOf="parent"
             android:id="@+id/btn_donate" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

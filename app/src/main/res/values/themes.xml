@@ -2,8 +2,9 @@
     <!-- Base application theme. -->
     <style name="Theme.BloodDonation" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="android:statusBarColor">@android:color/white</item>
 
+        <item name="android:statusBarColor">@android:color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="Theme.BloodDonation.NoActionBar">

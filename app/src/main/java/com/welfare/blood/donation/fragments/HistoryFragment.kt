@@ -1,4 +1,5 @@
 package com.welfare.blood.donation.fragments
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -7,7 +8,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -56,6 +56,7 @@ class HistoryFragment : Fragment() {
         context.startActivity(Intent.createChooser(shareIntent, "Share via"))
     }
 
+    @SuppressLint("MissingInflatedId")
     private fun showRateUsDialog(context: Context) {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_rate_us, null)
         val editTextFeedback = dialogView.findViewById<TextView>(R.id.rate_us)
