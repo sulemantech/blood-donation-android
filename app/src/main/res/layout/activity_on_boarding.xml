@@ -7,15 +7,25 @@
     android:background="@drawable/onboard"
     tools:context=".onBoardingActivity">
 
-    <ImageView
-        android:id="@+id/img"
+
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="275dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/onboard"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:id="@+id/app_bar_main"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="match_parent"
+            android:layout_height="275dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/onboard"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -23,7 +33,7 @@
         app:cardCornerRadius="40dp"
         app:cardElevation="4dp"
         android:id="@+id/cardview"
-        app:layout_constraintTop_toBottomOf="@+id/img"
+        app:layout_constraintTop_toBottomOf="@+id/app_bar_main"
         android:background="@color/white">
 
         <ImageView

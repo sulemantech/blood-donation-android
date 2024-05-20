@@ -9,6 +9,7 @@
     <color name="black1">#272727</color>
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#6E6B6B</color>
+    <color name="dark">#D1C9C9</color>
     <color name="round_button_color">#7a49a5</color>
     <color name="round_gradient_button_start_color">#7a49a5</color>
     <color name="round_gradient_button_end_color">#7a49a5</color>

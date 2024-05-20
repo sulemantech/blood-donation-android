@@ -43,7 +43,7 @@
             android:textColor="@color/black1"
             android:layout_marginTop="10dp"
             android:id="@+id/name"
-            android:layout_marginStart="25dp"
+            android:layout_marginStart="35dp"
             android:textSize="15dp"/>
 
         <EditText
@@ -73,7 +73,7 @@
             android:textColor="@color/black1"
             android:layout_marginTop="25dp"
             android:id="@+id/password"
-            android:layout_marginStart="25dp"
+            android:layout_marginStart="35dp"
             android:textSize="15dp"/>
 
         <EditText
@@ -98,7 +98,6 @@
             android:text="Forget Password?"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ed_password"
-            android:textColor="@color/black1"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="75dp"
             android:id="@+id/forget_password"
@@ -112,13 +111,13 @@
             android:textColor="@color/black1"
             android:fontFamily="@font/inter_bold"
             android:layout_marginTop="12dp"
-            android:layout_marginEnd="30dp"
+            android:layout_marginEnd="28dp"
             android:id="@+id/reset"
             android:textSize="15dp"/>
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="66dp"
             android:id="@+id/login"
             android:textAllCaps="false"
             android:layout_gravity="center"
@@ -134,7 +133,6 @@
             android:text="Don't Have Account?"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/login"
-            android:textColor="@color/black1"
             android:layout_marginHorizontal="100dp"
             android:layout_marginTop="15dp"
             android:id="@+id/have_account"
@@ -149,7 +147,7 @@
             android:textColor="@color/black1"
             android:fontFamily="@font/inter_bold"
             android:layout_marginTop="15dp"
-            android:layout_marginEnd="115dp"
+            android:layout_marginEnd="108dp"
             android:id="@+id/register"
             android:textSize="15dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>

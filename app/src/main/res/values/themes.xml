@@ -2,14 +2,28 @@
     <!-- Base application theme. -->
     <style name="Theme.BloodDonation" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-
-        <item name="android:statusBarColor">@android:color/white</item>
-        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="Theme.BloodDonation.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <!-- Theme for Activity A -->
+    <style name="ThemeA" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <!-- Theme for Activity B -->
+    <style name="ThemeB" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@color/colorPrimary1</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+    <style name="ThemeC" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@color/dark</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
 
     <style name="Theme.BloodDonation.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
