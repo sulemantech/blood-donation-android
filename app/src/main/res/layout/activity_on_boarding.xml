@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/onboard"
     tools:context=".onBoardingActivity">
 
 
@@ -29,7 +28,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="615dp"
+        android:layout_height="645dp"
         app:cardCornerRadius="40dp"
         app:cardElevation="4dp"
         android:id="@+id/cardview"

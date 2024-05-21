@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.navigation.Navigation.findNavController
 import com.welfare.blood.donation.BloodDonorActivity
 import com.welfare.blood.donation.CreateRequestActivity
+import com.welfare.blood.donation.DonateBloodActivity
 import com.welfare.blood.donation.R
 import com.welfare.blood.donation.databinding.FragmentHome2Binding
 
@@ -38,7 +39,7 @@ class HomeFragment : Fragment() {
         }
 
         cardView2.setOnClickListener {
-            val intent = Intent(requireContext(), BloodDonorActivity::class.java)
+            val intent = Intent(requireContext(), DonateBloodActivity::class.java)
             startActivity(intent)
         }
 
@@ -46,9 +47,9 @@ class HomeFragment : Fragment() {
             val intent = Intent(requireContext(), BloodDonorActivity::class.java)
             startActivity(intent)
         }
-        cardView4.setOnClickListener {
-            val intent = Intent(requireContext(), HistoryFragment::class.java)
-            startActivity(intent)
-        }
+//        cardView4.setOnClickListener {
+//            val intent = Intent(requireContext(), HistoryFragment::class.java)
+//            startActivity(intent)
+//        }
     }
 }

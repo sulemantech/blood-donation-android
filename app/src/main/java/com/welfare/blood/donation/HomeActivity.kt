@@ -1,9 +1,7 @@
 package com.welfare.blood.donation
 
-import com.welfare.blood.donation.R
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.welfare.blood.donation.fragments.HistoryFragment
@@ -19,8 +17,13 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        loadFragment(HomeFragment())
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
+
+        // Load the HomeFragment initially
+        if (savedInstanceState == null) {
+            loadFragment(HomeFragment())
+        }
+
         bottomNavigationView.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.home -> {
@@ -42,22 +45,21 @@ class HomeActivity : AppCompatActivity() {
                 else -> false
             }
         }
-
     }
 
-    private  fun loadFragment(fragment: Fragment){
+    private fun loadFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.container,fragment)
-        transaction.addToBackStack(null)
+        transaction.replace(R.id.container, fragment)
         transaction.commit()
     }
 
     override fun onBackPressed() {
-
-        if (supportFragmentManager.backStackEntryCount > 1) {
-            supportFragmentManager.popBackStack()
+        val currentFragment = supportFragmentManager.findFragmentById(R.id.container)
+        if (currentFragment !is HomeFragment) {
+            loadFragment(HomeFragment())
+            bottomNavigationView.selectedItemId = R.id.home
         } else {
-            finish()
+            super.onBackPressed()
         }
     }
 }

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_emoji"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="20dp"
+        android:fontFamily="@font/inter_bold"
+        android:layout_marginStart="30dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:paddingTop="30dp"
+        android:text="Log Out?"/>
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_emoji2"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="17dp"
+        android:layout_marginStart="30dp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/text_emoji"
+        android:text="Are You Sure You want to Logout? "/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_emoji"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent">
+        <TextView
+            android:id="@+id/Cancel"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:layout_gravity="right"
+            android:text="Cancel"
+            android:gravity="center"
+            android:background="@drawable/button_can"
+            android:layout_marginEnd="5dp"
+            android:textAllCaps="false"
+            android:textColor="@color/black"/>
+        <TextView
+            android:id="@+id/logout"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:layout_gravity="right"
+            android:text="Logout"
+            android:gravity="center"
+            android:background="@drawable/button_log"
+            android:layout_marginStart="5dp"
+            android:textAllCaps="false"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

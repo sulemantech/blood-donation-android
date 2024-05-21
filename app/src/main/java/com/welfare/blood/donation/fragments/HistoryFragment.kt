@@ -33,10 +33,14 @@ class HistoryFragment : Fragment() {
         view.findViewById<View>(R.id.share).setOnClickListener {
             shareApp(requireContext())
         }
-        view.findViewById<View>(R.id.rate_us).setOnClickListener {
+        view.findViewById<View>(R.id.feedback).setOnClickListener {
             showRateUsDialog(requireContext())
         }
+        view.findViewById<View>(R.id.logout).setOnClickListener {
+           // showLogoutDialog(requireContext())
+        }
     }
+
 
 
     private fun navigateToBloodBankActivity(context: Context) {
@@ -56,26 +60,35 @@ class HistoryFragment : Fragment() {
         context.startActivity(Intent.createChooser(shareIntent, "Share via"))
     }
 
+//    private fun showLogoutDialog(requireContext: Context) {
+//
+//        val dialogView = LayoutInflater.from(context).inflate(R.layout.logout_dialog_box,null)
+//        val editTextLogout = dialogView.findViewById<TextView>(R.id.logout)
+//        AlertDialog.Builder(context)
+//            .setTitle("")
+//
+//    }
+
     @SuppressLint("MissingInflatedId")
     private fun showRateUsDialog(context: Context) {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_rate_us, null)
-        val editTextFeedback = dialogView.findViewById<TextView>(R.id.rate_us)
+        val editTextFeedback = dialogView.findViewById<TextView>(R.id.feedback)
 
-        AlertDialog.Builder(context)
-            .setTitle("Rate Our App")
-            .setView(dialogView)
-            .setPositiveButton("Rate Now") { dialog, which ->
-                val feedback = editTextFeedback.text.toString().trim()
-                if (feedback.isNotEmpty()) {
-                    showToast("Thank you for your feedback: $feedback")
-                }
-                openPlayStoreForRating(context)
-            }
-            .setNegativeButton("Cancel") { dialog, which ->
-                dialog.dismiss()
-            }
-            .setCancelable(true)
-            .show()
+//        AlertDialog.Builder(context)
+//            .setTitle("Rate Our App")
+//            .setView(dialogView)
+//            .setPositiveButton("Rate Now") { dialog, which ->
+//                val feedback = editTextFeedback.text.toString().trim()
+//                if (feedback.isNotEmpty()) {
+//                    showToast("Thank you for your feedback: $feedback")
+//                }
+//                openPlayStoreForRating(context)
+//            }
+//            .setNegativeButton("Cancel") { dialog, which ->
+//                dialog.dismiss()
+//            }
+//            .setCancelable(true)
+//            .show()
     }
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()

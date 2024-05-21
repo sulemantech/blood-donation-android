@@ -18,13 +18,17 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.signUp.setOnClickListener {
-            val enteredUsername = binding.edName.text.toString()
-            val enteredPassword = binding.edPassword.text.toString()
-            val enteredEmail = binding.edEmail.text.toString()
-            val enteredPhone = binding.edPhone.text.toString()
-            val enteredDateBirth = binding.edDateBirth.text.toString()
-            val enteredYes = binding.noYes.text.toString()
-
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+        }
+//        binding.signUp.setOnClickListener {
+//            val enteredUsername = binding.edName.text.toString()
+//            val enteredPassword = binding.edPassword.text.toString()
+//            val enteredEmail = binding.edEmail.text.toString()
+//            val enteredPhone = binding.edPhone.text.toString()
+//            val enteredDateBirth = binding.edDateBirth.text.toString()
+//            val enteredYes = binding.noYes.text.toString()
+//
 //            if (enteredUsername.isEmpty() || enteredPassword.isEmpty() || enteredEmail.isEmpty() || enteredPhone.isEmpty() || enteredDateBirth.isEmpty() || enteredYes.isEmpty()) {
 //                Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
 //            } else if (enteredUsername.length < 6) {
@@ -49,29 +53,30 @@ class RegisterActivity : AppCompatActivity() {
 //                val intent = Intent(this, HomeActivity::class.java)
 //                startActivity(intent)
 //            }
-        }
+//        }
     }
-        private fun isValidEmail(email: String): Boolean {
-            val pattern = Pattern.compile("^\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}\$")
-            val matcher = pattern.matcher(email)
-            return matcher.matches()
-        }
-
-        private fun isValidPhoneNumber(phone: String): Boolean {
-            val pattern = Pattern.compile("^\\d{10}\$")
-            val matcher = pattern.matcher(phone)
-            return matcher.matches()
-        }
-
-        private fun isValidDateOfBirth(dateOfBirth: String): Boolean {
-            val pattern = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}\$")
-            val matcher = pattern.matcher(dateOfBirth)
-            return matcher.matches()
-        }
-    }
-        private fun containsSpecialCharacter(text: String): Boolean {
-            val pattern = Pattern.compile("[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]")
-            val matcher = pattern.matcher(text)
-            return matcher.find()
-
-    }
+//        private fun isValidEmail(email: String): Boolean {
+//            val pattern = Pattern.compile("^\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}\$")
+//            val matcher = pattern.matcher(email)
+//            return matcher.matches()
+//        }
+//
+//        private fun isValidPhoneNumber(phone: String): Boolean {
+//            val pattern = Pattern.compile("^\\d{11}\$")
+//            val matcher = pattern.matcher(phone)
+//            return matcher.matches()
+//        }
+//
+//        private fun isValidDateOfBirth(dateOfBirth: String): Boolean {
+//            val pattern = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}\$")
+//            val matcher = pattern.matcher(dateOfBirth)
+//            return matcher.matches()
+//        }
+//    }
+//        private fun containsSpecialCharacter(text: String): Boolean {
+//            val pattern = Pattern.compile("[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]")
+//            val matcher = pattern.matcher(text)
+//            return matcher.find()
+//
+//    }
+}

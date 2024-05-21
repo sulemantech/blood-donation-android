@@ -12,6 +12,11 @@ class SentSuccessfullActivity : AppCompatActivity() {
         binding=ActivitySentSuccessfullBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+        binding.backArrow.setOnClickListener {
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+        }
         binding.homeBtn.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
