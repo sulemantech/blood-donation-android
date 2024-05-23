@@ -4,17 +4,18 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import com.welfare.blood.donation.databinding.ActivityForgetPasswordBinding
+import com.welfare.blood.donation.databinding.ActivityVerifyOtpBinding
 
 class VerifyOtpActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityVerifyOtpBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_verify_otp)
+        binding=ActivityVerifyOtpBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val signUp = findViewById<Button>(R.id.send_otp)
-
-        signUp.setOnClickListener {
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
+        binding.backArrow.setOnClickListener {
+            onBackPressed()
         }
     }
 }

@@ -7,15 +7,16 @@
     tools:context=".DonateBloodActivity">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:fontFamily="@font/inter_bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="40dp"
-        android:drawableLeft="@drawable/back"
-        android:layout_marginStart="30dp"
-        android:textSize="25dp"
+        android:drawableLeft="@drawable/baseline_arrow_back_ios_24"
+        android:layout_marginStart="25dp"
+        android:textSize="30dp"
+        android:textStyle="bold"
         android:id="@+id/back_arrow"
         android:textColor="@color/black"/>
 
@@ -41,8 +42,7 @@
         android:layout_marginEnd="100dp"
         android:textSize="15dp"
         android:id="@+id/text"
-        app:layout_constraintTop_toBottomOf="@+id/blood"
-        android:textColor="@color/black"/>
+        app:layout_constraintTop_toBottomOf="@+id/blood" />
 
     <TextView
         android:id="@+id/bllod_type"
@@ -114,11 +114,20 @@
         android:backgroundTint="@color/white"
         android:layout_marginEnd="30dp"/>
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="150dp"
-        android:src="@drawable/donate"
-        app:layout_constraintTop_toBottomOf="@+id/donate"
+    <TextView
+        android:id="@+id/send_request"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/signin_btn"
+        android:gravity="center"
+        android:text="Donate"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        android:id="@+id/btn_donate" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ed_location" />
 </androidx.constraintlayout.widget.ConstraintLayout>

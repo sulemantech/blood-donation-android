@@ -21,17 +21,18 @@
             android:id="@+id/object"
             />
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:fontFamily="@font/inter_bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="30dp"
-            android:drawableLeft="@drawable/back"
-            android:layout_marginStart="30dp"
-            android:textSize="25dp"
-            android:drawableTint="@color/black"
-            android:gravity="center" />
+            android:layout_marginTop="40dp"
+            android:drawableLeft="@drawable/baseline_arrow_back_ios_24"
+            android:layout_marginStart="25dp"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:id="@+id/back_arrow"
+            android:textColor="@color/black"/>
 
     </androidx.cardview.widget.CardView>
 

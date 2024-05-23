@@ -40,7 +40,7 @@
             android:layout_height="120dp"
             android:src="@drawable/dark"
             android:layout_gravity="center"
-            android:layout_marginBottom="200dp"/>
+            android:layout_marginBottom="215dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
             android:textSize="20dp"
             android:id="@+id/blood"
             android:textColor="@color/black1"
-            android:layout_marginBottom="115dp"
+            android:layout_marginBottom="125dp"
             android:layout_gravity="center">
         </TextView>
         <TextView

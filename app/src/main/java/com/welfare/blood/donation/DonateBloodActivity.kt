@@ -13,9 +13,8 @@ class DonateBloodActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding= ActivityDonateBloodBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.backArrow.setOnClickListener{
-            val intent= Intent(this,HomeActivity::class.java)
-            startActivity(intent)
+        binding.backArrow.setOnClickListener {
+            onBackPressed()
         }
 
     }

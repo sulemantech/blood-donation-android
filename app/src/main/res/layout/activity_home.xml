@@ -10,6 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="35dp"
+        android:visibility="gone"
         android:background="@color/colorPrimary1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,6 +20,7 @@
         android:layout_height="120dp"
         app:cardCornerRadius="30dp"
         app:cardElevation="4dp"
+        android:visibility="gone"
         android:id="@+id/cardview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -176,7 +178,7 @@
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigationView"
             android:layout_width="match_parent"
-            android:layout_height="75dp"
+            android:layout_height="55dp"
             app:itemIconTint="@color/maron"
             app:itemTextColor="@color/maron"
             android:background="@color/gray"

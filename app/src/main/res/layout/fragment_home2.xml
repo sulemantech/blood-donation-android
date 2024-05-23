@@ -90,7 +90,7 @@
                 android:textSize="20dp"
                 android:textColor="@color/colorPrimary1"
                 android:layout_gravity="center"
-                android:layout_marginStart="30dp" />
+                android:layout_marginStart="26sp" />
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -121,7 +121,7 @@
                 android:textSize="20dp"
                 android:textColor="@color/colorPrimary1"
                 android:layout_gravity="center"
-                android:layout_marginStart="30dp" />
+                android:layout_marginStart="31dp" />
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -152,7 +152,7 @@
                 android:textSize="20dp"
                 android:textColor="@color/colorPrimary1"
                 android:layout_gravity="center"
-                android:layout_marginStart="30dp" />
+                android:layout_marginStart="8dp" />
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

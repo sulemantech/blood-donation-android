@@ -41,11 +41,19 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit_sed_do_eiusmod_tempor_incididunt_ut_labore_et">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et</string>
-    <string name="what_is_blood_bank">What is Blood Bank?</string>
+    <string name="what_is_blood_bank">
+        <font color="#0000000">What is</font> <font color="#9C1405">Blood Bank?</font>
+        </string>
     <string name="a_blood_bank_is_a_center_where_blood_gathered_as_result_of_blood_donation_is_stored_as_preserved_for_later_use_in_blood_transfusion_the_term_blood_bank_typically_refers_to_divisionof_a_hospital_where_the_storage_of_blood_product_occurs_and_where_proper_testing_is_performed">A Blood bank is a center where blood gathered as result of blood donation is stored as preserved for later use in blood transfusion. The term “Blood Bank” typically refers to divisionof a hospital where the storage of blood product occurs and where proper testing is performed</string>
     <string name="title_activity_main_home">MainActivityHome</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="please_let_us_know_if_ypu_need_the_blood_for_yourself_n_for_some_one_else">Please let us know if ypu need the blood for yourself \n for some one else</string>
+    <string name="blood_type">Blood Type</string>
+    <string name="required_unit">Required Unit</string>
+    <string name="required_date">Required Date</string>
+    <string name="dd_mm_yyyy">DD/MM/YYYY</string>
+    <string name="send_request">Send Request</string>
 
 </resources>
