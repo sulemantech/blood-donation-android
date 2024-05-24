@@ -55,19 +55,19 @@ class CreateRequestActivity : AppCompatActivity() {
 
     private fun sendRequest() {
         val patientName = binding.edName.text.toString()
-        val patientAge = binding.edPhone.text.toString()
+      //  val patientAge = binding.edPhone.text.toString()
         val bloodType = binding.spinner.selectedItem.toString()
         val requiredUnits = binding.spinner2.selectedItem.toString()
         val requiredDate = binding.edDateRequired.text.toString()
-        val hospital = binding.noYes.text.toString()
-        val location = binding.edLocation.text.toString()
+     //   val hospital = binding.noYes.text.toString()
+     //   val location = binding.edLocation.text.toString()
         val requesterType = when (binding.radioGroup.checkedRadioButtonId) {
             R.id.radio1 -> "Myself"
             R.id.radio2 -> "For other"
             else -> ""
         }
 
-        if (patientName.isEmpty() || patientAge.isEmpty() || requiredDate.isEmpty() || hospital.isEmpty() || location.isEmpty()) {
+        if (patientName.isEmpty()  || requiredDate.isEmpty()) {
             Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
             return
         }

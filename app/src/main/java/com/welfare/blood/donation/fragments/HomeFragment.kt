@@ -11,6 +11,7 @@ import com.welfare.blood.donation.BloodDonorActivity
 import com.welfare.blood.donation.CreateRequestActivity
 import com.welfare.blood.donation.DonateBloodActivity
 import com.welfare.blood.donation.R
+import com.welfare.blood.donation.SearchActivity
 import com.welfare.blood.donation.databinding.FragmentHome2Binding
 
 class HomeFragment : Fragment() {
@@ -44,7 +45,7 @@ class HomeFragment : Fragment() {
         }
 
         cardView3.setOnClickListener {
-            val intent = Intent(requireContext(), BloodDonorActivity::class.java)
+            val intent = Intent(requireContext(), SearchActivity::class.java)
             startActivity(intent)
         }
 //        cardView4.setOnClickListener {

@@ -22,25 +22,26 @@
         <ImageView
             android:id="@+id/load_image"
             android:layout_weight="0"
-            android:layout_width="180dp"
-            android:layout_height="180dp"
+            android:layout_width="170dp"
+            android:layout_height="170dp"
             android:src="@drawable/splash_animation"
             app:tint="@color/black" />
     </LinearLayout>
     <TextView
         android:layout_marginTop="15dp"
         android:textColor="@android:color/black"
-        android:textSize="48sp"
-        android:textStyle="bold"
+        android:textSize="38sp"
+        android:fontFamily="@font/inter_bold"
         android:text="@string/app_name"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <TextView
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:text="Donate Blood, Save Life"
         android:layout_width="wrap_content"
         android:textColor="@color/black"
+        android:fontFamily="@font/inter_bold"
         android:layout_height="wrap_content" />
 
     <TextView
@@ -51,8 +52,8 @@
         android:layout_gravity="center"
         android:text="Pipal Welfare Organization"
         android:textColor="@color/black"
-        android:textSize="25sp"
-        android:textStyle="bold" />
+        android:fontFamily="@font/inter_bold"
+        android:textSize="23sp" />
 
     <TextView
         android:id="@+id/textView2"
