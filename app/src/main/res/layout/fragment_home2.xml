@@ -6,11 +6,9 @@
     android:background="@color/pinkk"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.HomeFragment">
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -24,7 +22,6 @@
             android:id="@+id/cardview"
             android:backgroundTint="@color/colorPrimary1"
             tools:ignore="MissingConstraints">
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -35,8 +32,6 @@
                 android:layout_marginTop="5sp"
                 android:layout_gravity="center"/>
         </androidx.cardview.widget.CardView>
-
-
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="130dp"
@@ -116,12 +111,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Search Blood \n Donor"
+                android:text="Find Blood Donor"
                 android:fontFamily="@font/inter_bold"
                 android:textSize="20dp"
                 android:textColor="@color/colorPrimary1"
                 android:layout_gravity="center"
-                android:layout_marginStart="31dp" />
+                android:layout_marginStart="46dp" />
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -147,7 +142,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="History"
+                android:text="Activies"
                 android:fontFamily="@font/inter_bold"
                 android:textSize="20dp"
                 android:textColor="@color/colorPrimary1"

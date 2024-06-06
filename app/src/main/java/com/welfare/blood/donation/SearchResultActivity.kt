@@ -1,6 +1,5 @@
 package com.welfare.blood.donation
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,17 +15,14 @@ class SearchResultActivity : AppCompatActivity() {
         binding = ActivitySearchResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.backArrow.setOnClickListener {
+            onBackPressed()
+        }
+
         val searchResults = intent.getParcelableArrayListExtra<Patient>("searchResults") ?: arrayListOf()
 
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = PeopleAdapter(searchResults)
         binding.recyclerView.adapter = adapter
-
-        adapter.setOnItemClickListener { person ->
-            val intent = Intent(this, PatientDetailActivity::class.java).apply {
-                putExtra("patientDetail", person)
-            }
-            startActivity(intent)
-        }
     }
 }

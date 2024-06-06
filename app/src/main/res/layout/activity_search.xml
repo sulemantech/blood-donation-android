@@ -38,7 +38,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select the blood Group "
+            android:text="Select blood Group "
             android:textColor="@color/white"
             android:textSize="25dp"
             android:fontFamily="@font/inter_bold"

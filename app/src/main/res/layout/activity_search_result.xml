@@ -11,7 +11,6 @@
         android:layout_height="65dp"
         android:background="@color/colorPrimary1"
         tools:ignore="MissingConstraints" />
-
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="130dp"
@@ -20,7 +19,6 @@
         android:id="@+id/cardview"
         android:backgroundTint="@color/colorPrimary1"
         tools:ignore="MissingConstraints">
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

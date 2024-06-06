@@ -1,6 +1,7 @@
 package com.welfare.blood.donation
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.RadioGroup
@@ -34,7 +35,6 @@ class CreateRequestActivity : AppCompatActivity() {
             sendRequest()
         }
 
-        // Other UI setup can be added here
     }
 
     private fun showDatePickerDialog(editText: EditText) {
@@ -55,24 +55,27 @@ class CreateRequestActivity : AppCompatActivity() {
 
     private fun sendRequest() {
         val patientName = binding.edName.text.toString()
-      //  val patientAge = binding.edPhone.text.toString()
         val bloodType = binding.spinner.selectedItem.toString()
         val requiredUnits = binding.spinner2.selectedItem.toString()
         val requiredDate = binding.edDateRequired.text.toString()
-     //   val hospital = binding.noYes.text.toString()
-     //   val location = binding.edLocation.text.toString()
         val requesterType = when (binding.radioGroup.checkedRadioButtonId) {
             R.id.radio1 -> "Myself"
             R.id.radio2 -> "For other"
             else -> ""
         }
 
-        if (patientName.isEmpty()  || requiredDate.isEmpty()) {
+        if (patientName.isEmpty() || requiredDate.isEmpty()) {
             Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
             return
         }
 
-        // Send the request (network request or database operation can be done here)
+        // Proceed with sending the request and navigating to the next activity
+        // For demonstration purposes, let's assume we're navigating to SuccessfulActivity
+        val intent = Intent(this, SentSuccessfullActivity::class.java)
+        startActivity(intent)
+
+
+    // Send the request (network request or database operation can be done here)
         // Show success message or handle the result accordingly
     }
 }

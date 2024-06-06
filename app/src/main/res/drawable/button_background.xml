@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Button pressed -->
-    <item android:drawable="@color/white" android:state_pressed="true"/>
-    <!-- Button focused -->
-    <item android:drawable="@color/white" android:state_focused="true"/>
-    <!-- Button normal -->
-    <item android:drawable="@color/button_bg"/>
+    <item android:state_pressed="true" android:drawable="@color/white"/> <!-- when button is pressed -->
+    <item android:state_selected="true" android:drawable="@color/white"/> <!-- when button is selected -->
+    <item android:drawable="@color/background"/> <!-- default color -->
 </selector>

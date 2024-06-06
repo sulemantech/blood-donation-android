@@ -18,13 +18,14 @@
         android:textSize="20dp"
         android:textColor="@color/black"
         android:textStyle="bold"
-        android:paddingTop="30dp"
+       android:layout_marginTop="30dp"
+        app:layout_constraintTop_toTopOf="parent"
         android:text="Help us to Improve App!"/>
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:id="@+id/type"
+        android:layout_height="193dp"
+        android:id="@+id/editTextFeedback"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,16 +35,15 @@
         android:paddingStart="10dp"
         android:background="@drawable/ed_border"
         android:layout_marginTop="10dp"
-        android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/text_emoji"
-        android:text="Type here"/>
+        android:hint="Type here"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/type"
-        android:layout_marginTop="30dp"
+        app:layout_constraintTop_toBottomOf="@+id/editTextFeedback"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent">
         <Button
             android:id="@+id/send"
@@ -67,7 +67,5 @@
             android:textAllCaps="false"
             android:backgroundTint="@color/maron"
             android:textColor="@color/white"/>
-
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

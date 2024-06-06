@@ -1,54 +1,91 @@
 package com.welfare.blood.donation.fragments
-import android.annotation.SuppressLint
+
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.GravityCompat
+import androidx.fragment.app.Fragment
 import com.welfare.blood.donation.BloodbankActivity
 import com.welfare.blood.donation.R
+import com.welfare.blood.donation.databinding.FragmentHistoryBinding
 
 class HistoryFragment : Fragment() {
+
+    private var _binding: FragmentHistoryBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_history, container, false)
+        _binding = FragmentHistoryBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<View>(R.id.blood_bank).setOnClickListener {
-            navigateToBloodBankActivity(requireContext())
+        // Set up the navigation view
+        binding.navView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.nav_edit_profile -> {
+                    navigateToEditProfile()
+                    true
+                }
+                R.id.nav_blood_bank -> {
+                    navigateToBloodBankActivity(requireContext())
+                    true
+                }
+                R.id.nav_share -> {
+                    sharegooglestore(requireContext())
+                    true
+                }
+                R.id.nav_rate_us -> {
+                    showRateUsDialog(requireContext())
+                    true
+                }
+                R.id.nav_feedback -> {
+                    showFeedbackDialog(requireContext())
+                    true
+                }
+                R.id.nav_logout -> {
+                    performLogout()
+                    true
+                }
+                else -> false
+            }.also {
+                binding.drawerLayout.closeDrawer(GravityCompat.START)
+            }
         }
 
-        view.findViewById<View>(R.id.share).setOnClickListener {
-            shareApp(requireContext())
-        }
-        view.findViewById<View>(R.id.feedback).setOnClickListener {
-            showRateUsDialog(requireContext())
-        }
-        view.findViewById<View>(R.id.logout).setOnClickListener {
-           // showLogoutDialog(requireContext())
+        // Set up the drawer toggle
+        binding.menuLine.setOnClickListener {
+            if (!binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                binding.drawerLayout.openDrawer(GravityCompat.START)
+            }
         }
     }
 
-
+    private fun navigateToEditProfile() {
+        // Open edit profile activity
+        // startActivity(Intent(requireContext(), EditProfileActivity::class.java))
+    }
 
     private fun navigateToBloodBankActivity(context: Context) {
         val intent = Intent(context, BloodbankActivity::class.java)
         context.startActivity(intent)
     }
 
-    private fun shareApp(context: Context) {
+    private fun sharegooglestore(context: Context) {
         val appPackageName = context.packageName
         val shareIntent = Intent(Intent.ACTION_SEND)
         shareIntent.type = "text/plain"
@@ -60,54 +97,49 @@ class HistoryFragment : Fragment() {
         context.startActivity(Intent.createChooser(shareIntent, "Share via"))
     }
 
-//    private fun showLogoutDialog(requireContext: Context) {
-//
-//        val dialogView = LayoutInflater.from(context).inflate(R.layout.logout_dialog_box,null)
-//        val editTextLogout = dialogView.findViewById<TextView>(R.id.logout)
-//        AlertDialog.Builder(context)
-//            .setTitle("")
-//
-//    }
-
-    @SuppressLint("MissingInflatedId")
     private fun showRateUsDialog(context: Context) {
-        val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_rate_us, null)
-        val editTextFeedback = dialogView.findViewById<TextView>(R.id.feedback)
-
-//        AlertDialog.Builder(context)
-//            .setTitle("Rate Our App")
-//            .setView(dialogView)
-//            .setPositiveButton("Rate Now") { dialog, which ->
-//                val feedback = editTextFeedback.text.toString().trim()
-//                if (feedback.isNotEmpty()) {
-//                    showToast("Thank you for your feedback: $feedback")
-//                }
-//                openPlayStoreForRating(context)
-//            }
-//            .setNegativeButton("Cancel") { dialog, which ->
-//                dialog.dismiss()
-//            }
-//            .setCancelable(true)
-//            .show()
+        // Show rate us dialog implementation
     }
+
+    private fun showFeedbackDialog(context: Context) {
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_rate_us, null)
+        val editTextFeedback = dialogView.findViewById<EditText>(R.id.editTextFeedback)
+
+        val alertDialog = AlertDialog.Builder(context)
+            .setView(dialogView)
+            .create()
+
+        dialogView.findViewById<Button>(R.id.send).setOnClickListener {
+            val feedback = editTextFeedback.text.toString().trim()
+            if (feedback.isNotEmpty()) {
+                showToast("Thank you for your feedback: $feedback")
+                alertDialog.dismiss()
+            } else {
+                showToast("Please enter your feedback")
+            }
+        }
+
+        dialogView.findViewById<Button>(R.id.cancel).setOnClickListener {
+            alertDialog.dismiss()
+        }
+
+        alertDialog.show()
+    }
+
+    private fun showFeedbackAndSuggestion() {
+        // Show feedback and suggestion implementation
+    }
+
+    private fun performLogout() {
+        // Perform logout implementation
+    }
+
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
-    private fun openPlayStoreForRating(context: Context) {
-        val appPackageName = context.packageName
-        try {
-            val intent =
-                Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$appPackageName"))
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            context.startActivity(intent)
-        } catch (e: android.content.ActivityNotFoundException) {
-            val intent = Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")
-            )
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            context.startActivity(intent)
-        }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null // Release binding
     }
 }
-

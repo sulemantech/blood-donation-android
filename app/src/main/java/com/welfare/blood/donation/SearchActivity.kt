@@ -16,6 +16,9 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.backArrow.setOnClickListener {
+            onBackPressed()
+        }
 
         binding.btnAPlus.setOnClickListener(bloodGroupClickListener)
         binding.btnABPlus.setOnClickListener(bloodGroupClickListener)
