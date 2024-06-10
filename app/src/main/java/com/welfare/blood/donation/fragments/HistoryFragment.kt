@@ -1,9 +1,7 @@
 package com.welfare.blood.donation.fragments
 
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +13,13 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.welfare.blood.donation.BloodbankActivity
+import com.welfare.blood.donation.BothHistoryActivity
+import com.welfare.blood.donation.CreateRequestActivity
+import com.welfare.blood.donation.DonateBloodActivity
+import com.welfare.blood.donation.FAQActivity
+import com.welfare.blood.donation.LoginActivity
 import com.welfare.blood.donation.R
+import com.welfare.blood.donation.SearchActivity
 import com.welfare.blood.donation.databinding.FragmentHistoryBinding
 
 class HistoryFragment : Fragment() {
@@ -33,6 +37,29 @@ class HistoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val cardView1 = binding.cardview1
+        val cardView2 = binding.cardview2
+        val cardView3 = binding.cardview3
+        val cardView4 = binding.cardview4
+
+        cardView1.setOnClickListener {
+//            val intent = Intent(requireContext(), CreateRequestActivity::class.java)
+//            startActivity(intent)
+        }
+
+        cardView2.setOnClickListener {
+            val intent = Intent(requireContext(), BloodbankActivity::class.java)
+            startActivity(intent)
+        }
+
+        cardView3.setOnClickListener {
+            val intent = Intent(requireContext(), FAQActivity::class.java)
+            startActivity(intent)
+        }
+        cardView4.setOnClickListener {
+           sharegooglestore(requireContext())
+        }
 
         // Set up the navigation view
         binding.navView.setNavigationItemSelectedListener { menuItem ->
@@ -58,7 +85,7 @@ class HistoryFragment : Fragment() {
                     true
                 }
                 R.id.nav_logout -> {
-                    performLogout()
+                    showLogoutDialog(requireContext())
                     true
                 }
                 else -> false
@@ -115,13 +142,14 @@ class HistoryFragment : Fragment() {
                 showToast("Thank you for your feedback: $feedback")
                 alertDialog.dismiss()
             } else {
-                showToast("Please enter your feedback")
+                showToast("Please Enter Your Feedback")
             }
         }
 
         dialogView.findViewById<Button>(R.id.cancel).setOnClickListener {
             alertDialog.dismiss()
         }
+        alertDialog.setCancelable(false)
 
         alertDialog.show()
     }
@@ -130,8 +158,36 @@ class HistoryFragment : Fragment() {
         // Show feedback and suggestion implementation
     }
 
+    private fun showLogoutDialog(context: Context) {
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_logout, null)
+
+        val alertDialog = AlertDialog.Builder(context)
+            .setView(dialogView)
+            .create()
+
+        // Make the dialog non-cancelable
+        alertDialog.setCancelable(false)
+
+        dialogView.findViewById<Button>(R.id.btnCancel).setOnClickListener {
+            alertDialog.dismiss()
+        }
+
+        dialogView.findViewById<Button>(R.id.btnLogout).setOnClickListener {
+            // Handle logout logic here
+            alertDialog.dismiss()
+            performLogout()
+        }
+
+        alertDialog.show()
+    }
+
     private fun performLogout() {
-        // Perform logout implementation
+        // Your logout logic here, e.g., clearing user data, navigating to login screen, etc.
+        val intent = Intent(requireContext(), LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+
+        showToast("Logged out successfully")
     }
 
     private fun showToast(message: String) {
@@ -140,6 +196,6 @@ class HistoryFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null // Release binding
+        _binding = null
     }
 }
