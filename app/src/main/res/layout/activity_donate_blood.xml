@@ -56,11 +56,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text" />
 
-    <Spinner
-        android:id="@+id/spinner"
+    <EditText
+        android:id="@+id/bloodTypeEditText"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:background="@drawable/spinner_border"
+        android:background="@drawable/ed_border"
         android:layout_marginTop="5dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
@@ -80,10 +80,10 @@
         android:layout_marginTop="20dp"
         android:layout_marginStart="35dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/bloodTypeEditText" />
 
     <EditText
-        android:id="@+id/ed_location"
+        android:id="@+id/locationEditText"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:background="@drawable/ed_border"
@@ -106,9 +106,10 @@
         android:textSize="15dp"
         android:textColor="@color/black1"
         android:layout_marginTop="20dp"
+        android:visibility="gone"
         android:layout_marginStart="35dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ed_location" />
+        app:layout_constraintTop_toBottomOf="@+id/locationEditText" />
 
     <EditText
         android:id="@+id/ed_donation_date"
@@ -116,6 +117,7 @@
         android:layout_height="50dp"
         android:background="@drawable/ed_border"
         android:hint="DD/MM/YYYY"
+        android:visibility="gone"
         android:paddingStart="15dp"
         android:paddingEnd="20dp"
         android:layout_marginTop="5dp"
@@ -126,7 +128,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/send_request"
+        android:id="@+id/donateButton"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:background="@drawable/signin_btn"

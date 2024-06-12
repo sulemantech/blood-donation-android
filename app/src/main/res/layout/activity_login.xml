@@ -133,7 +133,7 @@
             app:layout_constraintTop_toBottomOf="@id/ed_password" />
 
         <TextView
-            android:id="@+id/login"
+            android:id="@+id/btn_login"
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_marginStart="40dp"
@@ -158,7 +158,7 @@
             android:text="Don't Have Account?"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/login" />
+            app:layout_constraintTop_toBottomOf="@id/btn_login" />
 
         <TextView
             android:id="@+id/register"
@@ -172,7 +172,7 @@
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/have_account"
-            app:layout_constraintTop_toBottomOf="@id/login" />
+            app:layout_constraintTop_toBottomOf="@id/btn_login" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

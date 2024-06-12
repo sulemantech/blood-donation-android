@@ -204,19 +204,20 @@
             app:layout_constraintTop_toBottomOf="@+id/ed_date_birth" />
 
 
-        <Spinner
+        <EditText
             android:id="@+id/spinner"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginEnd="4dp"
             android:layout_centerInParent="true"
+            android:hint="Blood Group"
+            android:paddingLeft="10dp"
             android:background="@drawable/spinner_border"
-            android:entries="@array/select"
             app:layout_constraintEnd_toStartOf="@+id/line50"
             app:layout_constraintStart_toStartOf="@+id/ed_date_birth"
             app:layout_constraintTop_toBottomOf="@+id/blood_group" />
 
-        <EditText
+        <CheckBox
             android:id="@+id/no_yes"
             android:layout_width="0dp"
             android:layout_height="50dp"
@@ -224,6 +225,7 @@
             android:background="@drawable/ed_border"
             android:drawablePadding="8dp"
             android:hint="No"
+            android:gravity="center"
             android:maxLines="1"
             android:padding="8dp"
             android:paddingStart="15dp"

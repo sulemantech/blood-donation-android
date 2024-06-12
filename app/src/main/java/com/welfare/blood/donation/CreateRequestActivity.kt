@@ -1,18 +1,21 @@
 package com.welfare.blood.donation
 
-import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
-import android.widget.EditText
-import android.widget.RadioGroup
-import android.widget.Spinner
-import android.widget.TextView
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.welfare.blood.donation.databinding.ActivityCreateRequestBinding
-import java.util.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import retrofit2.HttpException
+import java.io.IOException
 
 class CreateRequestActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityCreateRequestBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,62 +23,118 @@ class CreateRequestActivity : AppCompatActivity() {
         binding = ActivityCreateRequestBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupUI()
-    }
-
-    private fun setupUI() {
-        binding.backArrow.setOnClickListener {
-            onBackPressed()
-        }
-        binding.edDateRequired.setOnClickListener {
-            showDatePickerDialog(binding.edDateRequired)
-        }
-
         binding.sendRequest.setOnClickListener {
-            sendRequest()
+            if (validateInput()) {
+                val bloodForMyself = binding.radioForMyself.isChecked
+                val bloodRequest = ApiService.BloodRequest(
+                    bloodForMyself = bloodForMyself,
+                    patientName = binding.patientName.text.toString(),
+                    age = binding.age.text.toString().toInt(),
+                    bloodType = binding.bloodType.text.toString(),
+                    requiredUnit = binding.requiredUnit.text.toString().toInt(),
+                    requiredDate = binding.requiredDate.text.toString(),
+                    hospital = binding.hospital.text.toString(),
+                    location = binding.location.text.toString()
+                )
+                createRequest(bloodRequest)
+            }
         }
-
     }
 
-    private fun showDatePickerDialog(editText: EditText) {
-        val calendar = Calendar.getInstance()
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
-
-        val datePickerDialog = DatePickerDialog(this,
-            { _, selectedYear, selectedMonth, selectedDay ->
-                val selectedDate = "${selectedDay.toString().padStart(2, '0')}/" +
-                        "${(selectedMonth + 1).toString().padStart(2, '0')}/" +
-                        selectedYear
-                editText.setText(selectedDate)
-            }, year, month, day)
-        datePickerDialog.show()
+    private fun validateInput(): Boolean {
+        val requiredUnitStr = binding.requiredUnit.text.toString()
+        Log.d("CreateRequestActivity", "Required Unit Input: $requiredUnitStr")
+        return when {
+            binding.patientName.text.isBlank() -> {
+                showToast("Please enter the patient's name")
+                false
+            }
+            binding.age.text.isBlank() -> {
+                showToast("Please enter the age")
+                false
+            }
+            !isInteger(binding.age.text.toString()) -> {
+                showToast("Please enter a valid age")
+                false
+            }
+            binding.bloodType.text.isBlank() -> {
+                showToast("Please enter the blood type")
+                false
+            }
+            requiredUnitStr.isBlank() -> {
+                showToast("Please enter the required unit")
+                false
+            }
+            !isInteger(requiredUnitStr) -> {
+                showToast("Please enter a valid required unit")
+                false
+            }
+            requiredUnitStr.toInt() <= 1 -> {
+                showToast("Please enter a valid required unit greater than one")
+                false
+            }
+            binding.requiredDate.text.isBlank() -> {
+                showToast("Please enter the required date")
+                false
+            }
+            binding.hospital.text.isBlank() -> {
+                showToast("Please enter the hospital name")
+                false
+            }
+            binding.location.text.isBlank() -> {
+                showToast("Please enter the location")
+                false
+            }
+            else -> true
+        }
     }
 
-    private fun sendRequest() {
-        val patientName = binding.edName.text.toString()
-        val bloodType = binding.spinner.selectedItem.toString()
-        val requiredUnits = binding.spinner2.selectedItem.toString()
-        val requiredDate = binding.edDateRequired.text.toString()
-        val requesterType = when (binding.radioGroup.checkedRadioButtonId) {
-            R.id.radio1 -> "Myself"
-            R.id.radio2 -> "For other"
-            else -> ""
+    private fun isInteger(str: String): Boolean {
+        return try {
+            str.toInt()
+            true
+        } catch (e: NumberFormatException) {
+            false
         }
+    }
 
-        if (patientName.isEmpty() || requiredDate.isEmpty()) {
-            Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
-            return
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    }
+
+    private fun createRequest(bloodRequest: ApiService.BloodRequest) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = RetrofitInstance.api.createRequest(bloodRequest)
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful) {
+                        val bloodResponse = response.body()
+                        Toast.makeText(this@CreateRequestActivity, "Request ID: ${bloodResponse?.id}", Toast.LENGTH_LONG).show()
+                        val intent = Intent(this@CreateRequestActivity, SentSuccessfullActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        val errorBody = response.errorBody()?.string()
+                        Log.e("CreateRequestActivity", "Error: $errorBody")
+                        Toast.makeText(this@CreateRequestActivity, "Failed to create request: $errorBody", Toast.LENGTH_LONG).show()
+                    }
+                }
+            } catch (e: IOException) {
+                withContext(Dispatchers.Main) {
+                    Log.e("CreateRequestActivity", "Network Error: ${e.message}")
+                    Toast.makeText(this@CreateRequestActivity, "Network Error: ${e.message}", Toast.LENGTH_LONG).show()
+                }
+            } catch (e: HttpException) {
+                withContext(Dispatchers.Main) {
+                    Log.e("CreateRequestActivity", "HTTP Error: ${e.message}")
+                    Toast.makeText(this@CreateRequestActivity, "HTTP Error: ${e.message}", Toast.LENGTH_LONG).show()
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Log.e("CreateRequestActivity", "Unexpected Error: ${e.message}")
+                    Toast.makeText(this@CreateRequestActivity, "Unexpected Error: ${e.message}", Toast.LENGTH_LONG).show()
+                }
+            }
         }
-
-        // Proceed with sending the request and navigating to the next activity
-        // For demonstration purposes, let's assume we're navigating to SuccessfulActivity
-        val intent = Intent(this, SentSuccessfullActivity::class.java)
-        startActivity(intent)
-
-
-    // Send the request (network request or database operation can be done here)
-        // Show success message or handle the result accordingly
     }
 }

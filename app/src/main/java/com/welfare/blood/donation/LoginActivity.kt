@@ -1,55 +1,83 @@
 package com.welfare.blood.donation
 
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
-import java.util.regex.Pattern
+import androidx.appcompat.app.AppCompatActivity
 import com.welfare.blood.donation.databinding.ActivityLoginBinding
-import com.welfare.blood.donation.fragments.HomeFragment
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
+    private val apiService = RetrofitInstance.api
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-        binding.login.setOnClickListener {
-            val enteredUsername = binding.edUsername.text.toString()
-            val enteredPassword = binding.edPassword.text.toString()
-
-            if (enteredUsername.isEmpty() || enteredPassword.isEmpty()) {
-                Toast.makeText(this, "Please enter both username and password", Toast.LENGTH_SHORT).show()
-            } else if (enteredUsername.length < 6) {
-                Toast.makeText(this, "Username must be at least 6 characters long", Toast.LENGTH_SHORT).show()
-            } else if (enteredPassword.length < 8) {
-                Toast.makeText(this, "Password must be at least 8 characters long", Toast.LENGTH_SHORT).show()
-            } else if (!containsSpecialCharacter(enteredPassword)) {
-                Toast.makeText(this, "Password must contain at least one special character", Toast.LENGTH_SHORT).show()
-            } else {
-                val intent = Intent(this, HomeActivity::class.java)
-                startActivity(intent)
-            }
-        }
-
-        binding.reset.setOnClickListener {
-            val intent = Intent(this, ForgetPasswordActivity::class.java)
-            startActivity(intent)
-        }
-
         binding.register.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
+        binding.forgetPassword.setOnClickListener {
+            val intent = Intent(this, ForgetPasswordActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.btnLogin.setOnClickListener {
+            val username = binding.name.text.toString()
+            val password = binding.password.text.toString()
+
+            if (username.isNotEmpty() && password.isNotEmpty()) {
+                loginUser(username, password)
+            } else {
+                Toast.makeText(this, "Please enter username and password", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
-    private fun containsSpecialCharacter(text: String): Boolean {
-        val pattern = Pattern.compile("[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]")
-        val matcher = pattern.matcher(text)
-        return matcher.find()
+    private fun loginUser(username: String, password: String) {
+        val loginRequest = ApiService.LoginRequest(name = username, password = password)
+        RetrofitInstance.api.login(loginRequest).enqueue(object : Callback<ApiService.LoginResponse> {
+            override fun onResponse(call: Call<ApiService.LoginResponse>, response: Response<ApiService.LoginResponse>) {
+                if (response.isSuccessful) {
+                    val loginResponse = response.body()
+                    if (loginResponse != null && loginResponse.auth) {
+                        Toast.makeText(this@LoginActivity, "Login Successful", Toast.LENGTH_SHORT).show()
+                        saveToken(loginResponse.token)
+                        navigateToMainActivity()
+                    } else {
+                        val errorMessage = "Incorrect username or password"
+                        Toast.makeText(this@LoginActivity, errorMessage, Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    val errorMessage = response.errorBody()?.string() ?: "Unknown error"
+                    Toast.makeText(this@LoginActivity, errorMessage, Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ApiService.LoginResponse>, t: Throwable) {
+                Toast.makeText(this@LoginActivity, t.message ?: "Unknown error", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun saveToken(token: String) {
+        val sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("auth_token", token)
+        editor.apply()
+    }
+
+    private fun navigateToMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish() // Call finish() to close the LoginActivity so the user can't go back to it
     }
 }
