@@ -51,7 +51,7 @@
             android:maxLines="1"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:hint="Enter Name"
+            android:hint="Enter Username"
             android:paddingStart="15dp"
             android:layout_marginTop="5dp"
             android:paddingEnd="20dp"
@@ -165,73 +165,69 @@
             android:layout_marginTop="5dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:hint="DD/MM/YYYY"
+            android:hint="YYYY-MM-DD"
             android:paddingStart="15dp"
             android:paddingEnd="20dp"
             app:layout_constraintTop_toBottomOf="@+id/date_of_birth"
             android:drawablePadding="8dp"/>
-        <androidx.constraintlayout.widget.Guideline
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/line50"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.47"/>
 
         <TextView
-            android:id="@+id/blood_group"
+            android:id="@+id/text_blood_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/inter_bold"
             android:layout_marginTop="10dp"
             android:text="Blood Group"
-            android:textColor="@color/black1"
             android:textSize="18sp"
-            android:layout_marginStart="15dp"
-            app:layout_constraintStart_toStartOf="@+id/ed_date_birth"
+            android:fontFamily="@font/inter_bold"
+            android:textColor="@color/black1"
+            android:layout_marginStart="35dp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ed_date_birth" />
+
+        <EditText
+            android:id="@+id/blood_group"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:padding="8dp"
+            android:maxLines="1"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_centerInParent="true"
+            android:hint="Blood Group"
+            android:paddingLeft="10dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="20dp"
+            android:background="@drawable/spinner_border"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_blood_group" />
 
         <TextView
             android:id="@+id/want_to_donate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_bold"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="65dp"
             android:layout_marginTop="10dp"
             android:text="Donate Blood?"
             android:textColor="@color/black1"
             android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="@+id/line50"
-            app:layout_constraintTop_toBottomOf="@+id/ed_date_birth" />
-
-
-        <EditText
-            android:id="@+id/spinner"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_marginEnd="4dp"
-            android:layout_centerInParent="true"
-            android:hint="Blood Group"
-            android:paddingLeft="10dp"
-            android:background="@drawable/spinner_border"
-            app:layout_constraintEnd_toStartOf="@+id/line50"
-            app:layout_constraintStart_toStartOf="@+id/ed_date_birth"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/blood_group" />
+
+
 
         <CheckBox
             android:id="@+id/no_yes"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:background="@drawable/ed_border"
-            android:drawablePadding="8dp"
-            android:hint="No"
-            android:gravity="center"
-            android:maxLines="1"
             android:padding="8dp"
-            android:paddingStart="15dp"
-            app:layout_constraintEnd_toEndOf="@+id/ed_date_birth"
-            app:layout_constraintStart_toStartOf="@+id/line50"
-            app:layout_constraintTop_toBottomOf="@+id/want_to_donate" />
+            android:paddingStart="18dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/blood_group"
+            app:layout_constraintEnd_toStartOf="@+id/want_to_donate"
+            />
 
         <TextView
             android:id="@+id/sign_up"
@@ -239,11 +235,13 @@
             android:layout_height="55dp"
             android:layout_gravity="center"
             android:layout_marginHorizontal="15dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="5dp"
             android:background="@drawable/signup_button"
             android:textAllCaps="false"
-            app:layout_constraintEnd_toEndOf="@+id/no_yes"
-            app:layout_constraintStart_toStartOf="@+id/spinner"
+            android:layout_marginEnd="25sp"
+            android:layout_marginStart="25sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/no_yes" />
         <View
             android:layout_width="match_parent"

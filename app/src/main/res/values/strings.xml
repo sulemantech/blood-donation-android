@@ -69,7 +69,7 @@
     <string name="blood_type">Blood Type</string>
     <string name="required_unit">Required Unit</string>
     <string name="required_date">Required Date</string>
-    <string name="dd_mm_yyyy">DD/MM/YYYY</string>
+    <string name="dd_mm_yyyy">YYYY-MM-DD</string>
     <string name="send_request">Send Request</string>
     <string name="hospital_location">HospitalLocation</string>
     <string name="please_let_us_know_if_you_need_the_blood_for_yourself_or_for_someone_else">Please let us know if you need the blood for yourself or for someone else.</string>

@@ -25,6 +25,7 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
+
         binding.forgetPassword.setOnClickListener {
             val intent = Intent(this, ForgetPasswordActivity::class.java)
             startActivity(intent)
@@ -44,7 +45,8 @@ class LoginActivity : AppCompatActivity() {
 
     private fun loginUser(username: String, password: String) {
         val loginRequest = ApiService.LoginRequest(name = username, password = password)
-        RetrofitInstance.api.login(loginRequest).enqueue(object : Callback<ApiService.LoginResponse> {
+
+        apiService.login(loginRequest).enqueue(object : Callback<ApiService.LoginResponse> {
             override fun onResponse(call: Call<ApiService.LoginResponse>, response: Response<ApiService.LoginResponse>) {
                 if (response.isSuccessful) {
                     val loginResponse = response.body()
@@ -53,17 +55,17 @@ class LoginActivity : AppCompatActivity() {
                         saveToken(loginResponse.token)
                         navigateToMainActivity()
                     } else {
-                        val errorMessage = "Incorrect username or password"
-                        Toast.makeText(this@LoginActivity, errorMessage, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@LoginActivity, "Incorrect username or password", Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    val errorMessage = response.errorBody()?.string() ?: "Unknown error"
+                    val errorMessage = response.errorBody()?.string() ?: "Login Failed. Please try again later."
                     Toast.makeText(this@LoginActivity, errorMessage, Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<ApiService.LoginResponse>, t: Throwable) {
-                Toast.makeText(this@LoginActivity, t.message ?: "Unknown error", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@LoginActivity, "Network Error. Please check your internet connection.", Toast.LENGTH_SHORT).show()
+                Log.e("LoginActivity", "Login failed", t)
             }
         })
     }
@@ -78,6 +80,6 @@ class LoginActivity : AppCompatActivity() {
     private fun navigateToMainActivity() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
-        finish() // Call finish() to close the LoginActivity so the user can't go back to it
+        finish()
     }
 }

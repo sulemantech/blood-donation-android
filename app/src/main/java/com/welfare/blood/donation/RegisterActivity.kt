@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.welfare.blood.donation.databinding.ActivityRegisterBinding
+import com.welfare.blood.donation.models.RegisterRequest
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -53,7 +54,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun registerUser(name: String, phoneNumber: Long, email: String, password: String, dateOfBirth: String, bloodGroup: String, donateBlood: Boolean) {
-        val registerRequest = ApiService.RegisterRequest(
+        val registerRequest = RegisterRequest(
             name,
             phoneNumber,
             email,
@@ -86,7 +87,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun isValidPhoneNumber(phone: String): Boolean {
-        val pattern = Pattern.compile("^\\d{10}\$")
+        val pattern = Pattern.compile("^\\d{11}\$")
         val matcher = pattern.matcher(phone)
         return matcher.matches()
     }

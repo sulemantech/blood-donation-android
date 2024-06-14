@@ -1,5 +1,6 @@
 package com.welfare.blood.donation
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -41,6 +42,10 @@ class DonateBloodActivity : AppCompatActivity() {
                 val response = RetrofitInstance.api.donateBlood(request)
                 withContext(Dispatchers.Main) {
                     Toast.makeText(this@DonateBloodActivity, "Donation successful! ID: ${response.id}", Toast.LENGTH_LONG).show()
+
+                    val intent = Intent(this@DonateBloodActivity, HomeActivity::class.java)
+                    startActivity(intent)
+                    finish()
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
