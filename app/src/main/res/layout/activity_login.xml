@@ -57,7 +57,7 @@
             android:background="@drawable/ed_border"
             android:drawablePadding="8dp"
             android:drawableRight="@drawable/ic_vector_person"
-            android:hint="Enter Name"
+            android:hint="Enter Username"
             android:maxLines="1"
             android:padding="8dp"
             android:paddingStart="15dp"

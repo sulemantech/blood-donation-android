@@ -134,6 +134,7 @@
             android:background="@drawable/ed_border"
             android:padding="8dp"
             android:maxLines="1"
+            android:inputType="textPassword"
             android:layout_marginTop="5dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
@@ -184,24 +185,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ed_date_birth" />
 
-        <EditText
-            android:id="@+id/blood_group"
-            android:layout_width="match_parent"
+        <Spinner
+            android:id="@+id/spinner_blood_group"
+            android:layout_width="0dp"
             android:layout_height="50dp"
-            android:padding="8dp"
-            android:maxLines="1"
             android:layout_marginTop="5dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:layout_centerInParent="true"
-            android:hint="Blood Group"
-            android:paddingLeft="10dp"
+            android:background="@drawable/spinner_border"
             android:paddingStart="15dp"
             android:paddingEnd="20dp"
-            android:background="@drawable/spinner_border"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_blood_group" />
-
         <TextView
             android:id="@+id/want_to_donate"
             android:layout_width="wrap_content"
@@ -213,7 +209,7 @@
             android:textColor="@color/black1"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/blood_group" />
+            app:layout_constraintTop_toBottomOf="@+id/spinner_blood_group" />
 
 
 
@@ -223,9 +219,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:padding="8dp"
-            android:paddingStart="18dp"
+            android:paddingStart="19dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/blood_group"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_blood_group"
             app:layout_constraintEnd_toStartOf="@+id/want_to_donate"
             />
 
@@ -243,6 +239,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/no_yes" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sign_up" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="16dp"

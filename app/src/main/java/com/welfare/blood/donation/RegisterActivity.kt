@@ -2,6 +2,7 @@ package com.welfare.blood.donation
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.welfare.blood.donation.databinding.ActivityRegisterBinding
@@ -28,6 +29,7 @@ class RegisterActivity : AppCompatActivity() {
             val enteredDateBirth = binding.edDateBirth.text.toString()
             val donateBlood = binding.noYes.isChecked
 
+            //validations
             if (enteredUsername.isEmpty() || enteredPassword.isEmpty() || enteredEmail.isEmpty() || enteredPhone.isEmpty() || enteredDateBirth.isEmpty()) {
                 Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
             } else if (enteredUsername.length < 6) {

@@ -7,7 +7,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.welfare.blood.donation.databinding.ActivityCreateRequestBinding
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -69,8 +68,8 @@ class CreateRequestActivity : AppCompatActivity() {
                 showToast("Please enter a valid required unit")
                 false
             }
-            requiredUnitStr.toInt() <= 1 -> {
-                showToast("Please enter a valid required unit greater than one")
+            requiredUnitStr.toInt() <= 0 -> {  // changed to <= 0
+                showToast("Please enter a valid required unit greater than zero")
                 false
             }
             binding.requiredDate.text.isBlank() -> {
@@ -88,7 +87,6 @@ class CreateRequestActivity : AppCompatActivity() {
             else -> true
         }
     }
-
     private fun isInteger(str: String): Boolean {
         return try {
             str.toInt()
@@ -97,43 +95,33 @@ class CreateRequestActivity : AppCompatActivity() {
             false
         }
     }
-
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
-
     private fun createRequest(bloodRequest: ApiService.BloodRequest) {
-        CoroutineScope(Dispatchers.IO).launch {
+        lifecycleScope.launch {
             try {
-                val response = RetrofitInstance.api.createRequest(bloodRequest)
-                withContext(Dispatchers.Main) {
-                    if (response.isSuccessful) {
-                        val bloodResponse = response.body()
-                        Toast.makeText(this@CreateRequestActivity, "Request ID: ${bloodResponse?.id}", Toast.LENGTH_LONG).show()
-                        val intent = Intent(this@CreateRequestActivity, SentSuccessfullActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    } else {
-                        val errorBody = response.errorBody()?.string()
-                        Log.e("CreateRequestActivity", "Error: $errorBody")
-                        Toast.makeText(this@CreateRequestActivity, "Failed to create request: $errorBody", Toast.LENGTH_LONG).show()
-                    }
+                val response = withContext(Dispatchers.IO) { RetrofitInstance.api.createRequest(bloodRequest) }
+                if (response.isSuccessful) {
+                    val bloodResponse = response.body()
+                    showToast("Request ID: ${bloodResponse?.id}")
+                    val intent = Intent(this@CreateRequestActivity, SentSuccessfullActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("CreateRequestActivity", "Error: $errorBody")
+                    showToast("Failed to create request: $errorBody")
                 }
             } catch (e: IOException) {
-                withContext(Dispatchers.Main) {
-                    Log.e("CreateRequestActivity", "Network Error: ${e.message}")
-                    Toast.makeText(this@CreateRequestActivity, "Network Error: ${e.message}", Toast.LENGTH_LONG).show()
-                }
+                Log.e("CreateRequestActivity", "Network Error: ${e.message}")
+                showToast("Network Error: ${e.message}")
             } catch (e: HttpException) {
-                withContext(Dispatchers.Main) {
-                    Log.e("CreateRequestActivity", "HTTP Error: ${e.message}")
-                    Toast.makeText(this@CreateRequestActivity, "HTTP Error: ${e.message}", Toast.LENGTH_LONG).show()
-                }
+                Log.e("CreateRequestActivity", "HTTP Error: ${e.message}")
+                showToast("HTTP Error: ${e.message}")
             } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    Log.e("CreateRequestActivity", "Unexpected Error: ${e.message}")
-                    Toast.makeText(this@CreateRequestActivity, "Unexpected Error: ${e.message}", Toast.LENGTH_LONG).show()
-                }
+                Log.e("CreateRequestActivity", "Unexpected Error: ${e.message}")
+                showToast("Unexpected Error: ${e.message}")
             }
         }
     }
