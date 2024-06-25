@@ -197,7 +197,8 @@
             android:paddingEnd="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_blood_group" />
+            app:layout_constraintTop_toBottomOf="@+id/text_blood_group"
+            android:entries="@array/blood_groups" />
         <TextView
             android:id="@+id/want_to_donate"
             android:layout_width="wrap_content"
@@ -211,8 +212,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spinner_blood_group" />
 
-
-
         <CheckBox
             android:id="@+id/no_yes"
             android:layout_width="wrap_content"
@@ -222,8 +221,7 @@
             android:paddingStart="19dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spinner_blood_group"
-            app:layout_constraintEnd_toStartOf="@+id/want_to_donate"
-            />
+            app:layout_constraintEnd_toStartOf="@+id/want_to_donate" />
 
         <TextView
             android:id="@+id/sign_up"

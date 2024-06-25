@@ -17,15 +17,15 @@ class onBoardingActivity : AppCompatActivity() {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
         actionBar?.hide()
 
-        val image1 = findViewById<ImageView>(R.id.dont_have)
-        val image2 = findViewById<ImageView>(R.id.already_have)
+        val button1 = findViewById<ImageView>(R.id.dont_have)
+        val button2 = findViewById<ImageView>(R.id.already_have)
 
-        image1.setOnClickListener {
+        button1.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
 
-        image2.setOnClickListener {
+        button2.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }

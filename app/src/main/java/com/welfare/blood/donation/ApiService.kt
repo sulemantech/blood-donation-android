@@ -1,5 +1,5 @@
 package com.welfare.blood.donation
-import com.welfare.blood.donation.models.RegisterRequest
+//import com.welfare.blood.donation.models.RegisterRequest
 import com.welfare.blood.donation.models.RegisterResponse
 import retrofit2.Call
 import retrofit2.Response
@@ -7,8 +7,8 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface ApiService {
-    @POST("user/register/")
-    suspend fun registerUser(@Body request: RegisterRequest): RegisterResponse
+//    @POST("user/register/")
+//    suspend fun registerUser(@Body request: RegisterRequest): RegisterResponse
 
 
 
