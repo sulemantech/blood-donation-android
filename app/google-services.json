@@ -1,14 +1,13 @@
 {
   "project_info": {
-    "project_number": "708124654695",
-    "firebase_url": "https://blood-donation-5b627-default-rtdb.firebaseio.com",
-    "project_id": "blood-donation-5b627",
-    "storage_bucket": "blood-donation-5b627.appspot.com"
+    "project_number": "996525398341",
+    "project_id": "blood-donation-app-31f26",
+    "storage_bucket": "blood-donation-app-31f26.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:708124654695:android:7bbcfe799ac199d60e68c2",
+        "mobilesdk_app_id": "1:996525398341:android:5eded85f7fa79e4850462c",
         "android_client_info": {
           "package_name": "com.welfare.blood.donation"
         }
@@ -16,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyB4TulIbUnqy2rgM6GSxuMsiNqzQw9SUjU"
+          "current_key": "AIzaSyCE5GR-2GbcVGn1n0HyUzex_ghL4gtnAbk"
         }
       ],
       "services": {

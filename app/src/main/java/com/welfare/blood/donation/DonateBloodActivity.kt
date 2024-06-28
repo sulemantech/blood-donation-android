@@ -1,57 +1,89 @@
 package com.welfare.blood.donation
-
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.firestore.FirebaseFirestore
 import com.welfare.blood.donation.databinding.ActivityDonateBloodBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class DonateBloodActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityDonateBloodBinding
+    private lateinit var db: FirebaseFirestore
+    private lateinit var selectedDonationDate: String
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDonateBloodBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.backArrow.setOnClickListener {
-            onBackPressed()
+        try {
+            db = FirebaseFirestore.getInstance()
+        } catch (e: Exception) {
+            Log.w("DonateBloodActivity", "Error initializing Firestore", e)
         }
 
         binding.donateButton.setOnClickListener {
-            val bloodType = binding.bloodTypeEditText.text.toString()
-            val location = binding.locationEditText.text.toString()
-
-            if (bloodType.isNotEmpty() && location.isNotEmpty()) {
-                donateBlood(bloodType, location)
-            } else {
-                Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
-            }
+            saveDonationData()
         }
+        binding.edDate.setOnClickListener {
+            showDatePickerDialogForLastDonationDate()
+        }
+
     }
 
-    private fun donateBlood(bloodType: String, location: String) {
-        val request = ApiService.DonateBloodRequest(bloodType, location)
 
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val response = RetrofitInstance.api.donateBlood(request)
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(this@DonateBloodActivity, "Donation successful! ID: ${response.id}", Toast.LENGTH_LONG).show()
+    private fun showDatePickerDialogForLastDonationDate() {
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-                    val intent = Intent(this@DonateBloodActivity, HomeActivity::class.java)
+        val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
+            val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            calendar.set(selectedYear, selectedMonth, selectedDay)
+            selectedDonationDate = sdf.format(calendar.time)
+            binding.edDate.setText(selectedDonationDate)
+        }, year, month, day)
+        datePickerDialog.show()
+    }
+
+    private fun saveDonationData() {
+        val bloodType = binding.bloodTypeEditText.selectedItem.toString()
+        val location = binding.locationEditText.text.toString()
+        val date = binding.edDate.text.toString()
+
+        if (bloodType.isNotEmpty() && location.isNotEmpty() && date.isNotEmpty()) {
+            val donationData = hashMapOf(
+                "bloodType" to bloodType,
+                "location" to location,
+                "date" to date
+            )
+
+            db.collection("donations")
+                .add(donationData)
+                .addOnSuccessListener { documentReference ->
+                    Log.d("DonateBloodActivity", "DocumentSnapshot added with ID: ${documentReference.id}")
+                    Toast.makeText(this, "send Successful", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, HomeActivity::class.java)
                     startActivity(intent)
                     finish()
                 }
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(this@DonateBloodActivity, "Donation failed: ${e.message}", Toast.LENGTH_LONG).show()
+                .addOnFailureListener { e ->
+                    Log.w("DonateBloodActivity", "Error adding document", e)
+                    Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
+
                 }
-            }
+        } else {
+            Log.w("DonateBloodActivity", "Please fill all fields")
         }
     }
 }
+
+

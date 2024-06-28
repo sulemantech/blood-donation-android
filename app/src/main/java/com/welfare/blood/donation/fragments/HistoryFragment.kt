@@ -16,8 +16,10 @@ import com.welfare.blood.donation.BloodbankActivity
 import com.welfare.blood.donation.BothHistoryActivity
 import com.welfare.blood.donation.CreateRequestActivity
 import com.welfare.blood.donation.DonateBloodActivity
+import com.welfare.blood.donation.EditProfileActivity
 import com.welfare.blood.donation.FAQActivity
 import com.welfare.blood.donation.LoginActivity
+import com.welfare.blood.donation.ProfileActivity
 import com.welfare.blood.donation.R
 import com.welfare.blood.donation.SearchActivity
 import com.welfare.blood.donation.databinding.FragmentHistoryBinding
@@ -44,8 +46,8 @@ class HistoryFragment : Fragment() {
         val cardView4 = binding.cardview4
 
         cardView1.setOnClickListener {
-//            val intent = Intent(requireContext(), CreateRequestActivity::class.java)
-//            startActivity(intent)
+            val intent = Intent(requireContext(), ProfileActivity::class.java)
+            startActivity(intent)
         }
 
         cardView2.setOnClickListener {
@@ -103,8 +105,7 @@ class HistoryFragment : Fragment() {
     }
 
     private fun navigateToEditProfile() {
-        // Open edit profile activity
-        // startActivity(Intent(requireContext(), EditProfileActivity::class.java))
+         startActivity(Intent(requireContext(), EditProfileActivity::class.java))
     }
 
     private fun navigateToBloodBankActivity(context: Context) {
