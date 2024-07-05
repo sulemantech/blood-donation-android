@@ -30,10 +30,21 @@ class LoginActivity : AppCompatActivity() {
         val currentUser = auth.currentUser
         if (currentUser != null) {
             navigateToHome()
+            return // Exit onCreate if user is already logged in
         }
 
         binding.btnLogin.setOnClickListener {
             loginUser()
+        }
+        binding.register.setOnClickListener{
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        binding.reset.setOnClickListener{
+            val intent = Intent(this, ForgetPasswordActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 

@@ -10,6 +10,7 @@ import android.widget.DatePicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.welfare.blood.donation.databinding.ActivityRegisterBinding
@@ -22,10 +23,8 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
     private lateinit var progressDialog: ProgressDialog
-
     private lateinit var selectedDateOfBirth: String
     private lateinit var selectedLastDonationDate: String
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,29 +42,29 @@ class RegisterActivity : AppCompatActivity() {
             registerUser()
         }
 
-        binding.edDateBirth.setOnClickListener {
-            showDatePickerDialogForDateOfBirth()
-        }
+//        binding.edDateBirth.setOnClickListener {
+//            showDatePickerDialogForDateOfBirth()
+//        }
 
         binding.edLastdonationdate.setOnClickListener {
             showDatePickerDialogForLastDonationDate()
         }
     }
 
-    private fun showDatePickerDialogForDateOfBirth() {
-        val calendar = Calendar.getInstance()
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
-
-        val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
-            val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-            calendar.set(selectedYear, selectedMonth, selectedDay)
-            selectedDateOfBirth = sdf.format(calendar.time)
-            binding.edDateBirth.setText(selectedDateOfBirth)
-        }, year, month, day)
-        datePickerDialog.show()
-    }
+//    private fun showDatePickerDialogForDateOfBirth() {
+//        val calendar = Calendar.getInstance()
+//        val year = calendar.get(Calendar.YEAR)
+//        val month = calendar.get(Calendar.MONTH)
+//        val day = calendar.get(Calendar.DAY_OF_MONTH)
+//
+//        val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
+//            val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+//            calendar.set(selectedYear, selectedMonth, selectedDay)
+//            selectedDateOfBirth = sdf.format(calendar.time)
+//            binding.edDateBirth.setText(selectedDateOfBirth)
+//        }, year, month, day)
+//        datePickerDialog.show()
+//    }
 
     private fun showDatePickerDialogForLastDonationDate() {
         val calendar = Calendar.getInstance()
@@ -82,78 +81,81 @@ class RegisterActivity : AppCompatActivity() {
         datePickerDialog.show()
     }
 
-    private fun showDatePickerDialog() {
-        val calendar = Calendar.getInstance()
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
-
-        val datePickerDialog = DatePickerDialog(this, { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDay: Int ->
-            binding.edLastdonationdate.setText("$selectedYear-${selectedMonth + 1}-$selectedDay")
-        }, year, month, day)
-        datePickerDialog.show()
-    }
-
     private fun registerUser() {
         val name = binding.edName.text.toString().trim()
         val email = binding.edEmail.text.toString().trim()
         val phone = binding.edPhone.text.toString().trim()
-        val dateOfBirth = binding.edDateBirth.text.toString().trim()
+      //  val dateOfBirth = binding.edDateBirth.text.toString().trim()
         val bloodGroup = binding.spinnerBloodGroup.selectedItem.toString()
         val wantsToDonate = binding.noYes.isChecked
-        val city = binding.edCity.text.toString().trim()
+     //   val city = binding.edCity.text.toString().trim()
         val location = binding.edLocation.text.toString().trim()
         val lastDonationDate = binding.edLastdonationdate.text.toString().trim()
         val password = binding.edPassword.text.toString().trim()
 
-        if (name.isEmpty() || email.isEmpty() || phone.isEmpty() || dateOfBirth.isEmpty() || bloodGroup.isEmpty() || city.isEmpty() || location.isEmpty() || lastDonationDate.isEmpty() || password.isEmpty()) {
+        if (name.isEmpty() || email.isEmpty() || phone.isEmpty()  || bloodGroup.isEmpty()  || location.isEmpty() || lastDonationDate.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
             return
         }
 
-        binding.progressBar.visibility = View.VISIBLE
-
-        progressDialog.show()
-
-        auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                progressDialog.dismiss()
-
+        // Check if user already exists with the provided email
+        auth.fetchSignInMethodsForEmail(email)
+            .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    val userID = auth.currentUser!!.uid
+                    val signInMethods = task.result?.signInMethods ?: emptyList()
+                    if (signInMethods.isNotEmpty()) {
+                        // User already exists
+                        Toast.makeText(this, "User with this email already exists", Toast.LENGTH_SHORT).show()
+                    } else {
+                        // User does not exist, proceed with registration
+                        binding.progressBar.visibility = View.VISIBLE
+                        progressDialog.show()
 
-                    val user = hashMapOf(
-                        "userID" to userID,
-                        "name" to name,
-                        "email" to email,
-                        "phone" to phone,
-                        "bloodType" to bloodGroup,
-                        "city" to city,
-                        "location" to location,
-                        "lastDonationDate" to lastDonationDate,
-                        "isDonor" to wantsToDonate,
-                        "lastLoginAt" to null,
-                        "dateOfBirth" to dateOfBirth
-                    )
+                        auth.createUserWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(this) { task ->
+                                progressDialog.dismiss()
 
-                    db.collection("users").document(userID).set(user, SetOptions.merge())
-                        .addOnSuccessListener {
-                            Log.d(TAG, "DocumentSnapshot successfully written!")
-                            binding.progressBar.visibility = View.GONE
-                            Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show()
-                            val intent = Intent(this, LoginActivity::class.java)
-                            startActivity(intent)
-                            finish()
-                        }
-                        .addOnFailureListener { e ->
-                            Log.w(TAG, "Error writing document", e)
-                            binding.progressBar.visibility = View.GONE
-                            Toast.makeText(this, "Registration Failed", Toast.LENGTH_SHORT).show()
-                        }
+                                if (task.isSuccessful) {
+                                    val userID = auth.currentUser!!.uid
+
+                                    val user = hashMapOf(
+                                        "userID" to userID,
+                                        "name" to name,
+                                        "email" to email,
+                                        "phone" to phone,
+                                        "bloodGroup" to bloodGroup,
+                                      //  "city" to city,
+                                        "location" to location,
+                                        "lastDonationDate" to lastDonationDate,
+                                        "isDonor" to wantsToDonate,
+                                        "lastLoginAt" to null,
+                                       // "dateOfBirth" to dateOfBirth
+                                    )
+
+                                    db.collection("users").document(userID).set(user, SetOptions.merge())
+                                        .addOnSuccessListener {
+                                            Log.d(TAG, "DocumentSnapshot successfully written!")
+                                            binding.progressBar.visibility = View.GONE
+                                            Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show()
+                                            val intent = Intent(this, LoginActivity::class.java)
+                                            startActivity(intent)
+                                            finish()
+                                        }
+                                        .addOnFailureListener { e ->
+                                            Log.w(TAG, "Error writing document", e)
+                                            binding.progressBar.visibility = View.GONE
+                                            Toast.makeText(this, "Registration Failed", Toast.LENGTH_SHORT).show()
+                                        }
+                                } else {
+                                    Log.w(TAG, "createUserWithEmailAndPassword:failure", task.exception)
+                                    binding.progressBar.visibility = View.GONE
+                                    Toast.makeText(this, "Authentication Failed", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                    }
                 } else {
-                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                    binding.progressBar.visibility = View.GONE
-                    Toast.makeText(this, "Authentication Failed", Toast.LENGTH_SHORT).show()
+                    Log.w(TAG, "fetchSignInMethodsForEmail:failure", task.exception)
+                    Toast.makeText(this, "Registration failed. Please try again later.", Toast.LENGTH_SHORT).show()
                 }
             }
     }
@@ -161,7 +163,7 @@ class RegisterActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "RegisterActivity"
     }
-}//after complete the register than i want to create a user profile and user will edit their profile also
+}
 
 
 

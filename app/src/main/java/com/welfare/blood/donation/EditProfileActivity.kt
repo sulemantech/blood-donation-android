@@ -1,15 +1,22 @@
 package com.welfare.blood.donation
 
 import android.app.DatePickerDialog
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.DatePicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.welfare.blood.donation.databinding.ActivityEditProfileBinding
 import java.text.SimpleDateFormat
 import java.util.*
@@ -19,8 +26,16 @@ class EditProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEditProfileBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
+    private lateinit var storageRef: StorageReference
     private lateinit var selectedDateOfBirth: String
     private lateinit var selectedLastDonationDate: String
+    private var userProfileImageUrl: String? = null
+    private var selectedGender: String? = null
+
+    companion object {
+        private const val TAG = "EditProfileActivity"
+        private const val IMAGE_PICK_CODE = 1000
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +44,7 @@ class EditProfileActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
+        storageRef = FirebaseStorage.getInstance().reference
 
         loadUserProfile()
 
@@ -40,8 +56,31 @@ class EditProfileActivity : AppCompatActivity() {
             showDatePickerDialogForLastDonationDate()
         }
 
+        binding.profileImageView.setOnClickListener {
+            pickImageFromGallery()
+        }
+
         binding.btnSave.setOnClickListener {
             saveUserProfile()
+        }
+
+        // Set up gender spinner
+        val genderAdapter = ArrayAdapter.createFromResource(
+            this,
+            R.array.gender_array,
+            android.R.layout.simple_spinner_item
+        )
+        genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spinnerGender.adapter = genderAdapter
+
+        binding.spinnerGender.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                selectedGender = parent?.getItemAtPosition(position).toString()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Do nothing
+            }
         }
     }
 
@@ -64,6 +103,23 @@ class EditProfileActivity : AppCompatActivity() {
                 val bloodGroups = resources.getStringArray(R.array.blood_groups)
                 val index = bloodGroups.indexOf(bloodGroup)
                 binding.spinnerBloodGroup.setSelection(index)
+                // Set spinner value for gender
+                val gender = document.getString("gender")
+                val genderArray = resources.getStringArray(R.array.gender_array)
+                val genderIndex = genderArray.indexOf(gender)
+                binding.spinnerGender.setSelection(genderIndex)
+
+                // Load profile image if exists
+                val imageUrl = document.getString("profileImageUrl")
+                if (!imageUrl.isNullOrEmpty()) {
+                    userProfileImageUrl = imageUrl
+                    // Use Glide to load the image into ImageView
+                    Glide.with(this)
+                        .load(imageUrl)
+                        .placeholder(R.drawable.baseline_person_outline_24)
+                        .error(R.drawable.baseline_person_outline_24)
+                        .into(binding.profileImageView)
+                }
             }
         }
     }
@@ -98,6 +154,51 @@ class EditProfileActivity : AppCompatActivity() {
         datePickerDialog.show()
     }
 
+    private fun pickImageFromGallery() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, IMAGE_PICK_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == IMAGE_PICK_CODE && resultCode == RESULT_OK && data != null && data.data != null) {
+            val imageUri = data.data
+            uploadImageToFirebase(imageUri)
+        }
+    }
+
+    private fun uploadImageToFirebase(imageUri: Uri?) {
+        if (imageUri == null) return
+
+        val user = auth.currentUser ?: return
+        val userId = user.uid
+
+      //  binding.progressBar.visibility = View.VISIBLE
+
+        val fileRef = storageRef.child("profile_images/$userId")
+
+        val uploadTask = fileRef.putFile(imageUri)
+        uploadTask.continueWithTask { task ->
+            if (!task.isSuccessful) {
+                task.exception?.let {
+                    throw it
+                }
+            }
+            fileRef.downloadUrl
+        }.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val downloadUri = task.result
+                userProfileImageUrl = downloadUri.toString()
+                saveUserProfile()
+            } else {
+                // Handle failures
+                Toast.makeText(this, "Failed to upload image", Toast.LENGTH_SHORT).show()
+              //  binding.progressBar.visibility = View.GONE
+            }
+        }
+    }
+
     private fun saveUserProfile() {
         val user = auth.currentUser ?: return
         val userId = user.uid
@@ -112,12 +213,12 @@ class EditProfileActivity : AppCompatActivity() {
         val lastDonationDate = binding.edLastdonationdate.text.toString().trim()
         val isDonor = binding.noYes.isChecked
 
-        if (name.isEmpty() || email.isEmpty() || phone.isEmpty() || dateOfBirth.isEmpty() || bloodGroup.isEmpty() || city.isEmpty() || location.isEmpty() || lastDonationDate.isEmpty()) {
+        if (name.isEmpty() || email.isEmpty() || phone.isEmpty() || dateOfBirth.isEmpty() || bloodGroup.isEmpty() || city.isEmpty() || location.isEmpty() || lastDonationDate.isEmpty() || selectedGender.isNullOrEmpty()) {
             Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
             return
         }
 
-        binding.progressBar.visibility = View.VISIBLE
+     //   binding.progressBar.visibility = View.VISIBLE
 
         val userMap = hashMapOf(
             "name" to name,
@@ -128,24 +229,22 @@ class EditProfileActivity : AppCompatActivity() {
             "city" to city,
             "location" to location,
             "lastDonationDate" to lastDonationDate,
-            "isDonor" to isDonor
+            "isDonor" to isDonor,
+            "gender" to selectedGender,
+            "profileImageUrl" to userProfileImageUrl
         )
 
         db.collection("users").document(userId).set(userMap, SetOptions.merge())
             .addOnSuccessListener {
                 Log.d(TAG, "DocumentSnapshot successfully written!")
-                binding.progressBar.visibility = View.GONE
+             //   binding.progressBar.visibility = View.GONE
                 Toast.makeText(this, "Profile Updated", Toast.LENGTH_SHORT).show()
                 finish()
             }
             .addOnFailureListener { e ->
                 Log.w(TAG, "Error writing document", e)
-                binding.progressBar.visibility = View.GONE
+             //   binding.progressBar.visibility = View.GONE
                 Toast.makeText(this, "Profile Update Failed", Toast.LENGTH_SHORT).show()
             }
-    }
-
-    companion object {
-        private const val TAG = "EditProfileActivity"
     }
 }

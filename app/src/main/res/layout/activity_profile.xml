@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
@@ -18,8 +19,38 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="16dp"
-                android:src="@drawable/baseline_person_outline_24" />
+                android:layout_marginTop="26dp"
+                android:src="@drawable/baseline_person_outline_24"
+                app:tint="@color/grey"
+                />
+
+            <ImageButton
+                android:id="@+id/ivCamera"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@id/ivProfileImage"
+                android:layout_alignBottom="@id/ivProfileImage"
+                android:layout_marginEnd="-14dp"
+                android:layout_marginBottom="-8dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:src="@drawable/baseline_photo_camera_24"
+                android:padding="8dp"
+                android:contentDescription="Edit Profile Image"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/btnDeleteProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/ivProfileImage"
+                android:layout_alignEnd="@id/ivProfileImage"
+                android:layout_marginEnd="-14dp"
+                android:layout_marginTop="8dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:src="@drawable/baseline_delete_24"
+                android:padding="8dp"
+                android:contentDescription="Delete Profile Image"
+                android:visibility="visible" />
 
             <TextView
                 android:id="@+id/tvName"
@@ -28,7 +59,7 @@
                 android:layout_below="@id/ivProfileImage"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="8dp"
-                android:text="Zabi Ullah"
+                android:text=""
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -39,7 +70,7 @@
                 android:layout_below="@id/tvName"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="4dp"
-                android:text="abcdef123@gmail.com"
+                android:text=""
                 android:textSize="14sp" />
 
             <ProgressBar
@@ -59,7 +90,7 @@
                 android:layout_below="@id/pbProfileCompletion"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="4dp"
-                android:text="Profile completion 70%"
+                android:text=""
                 android:textSize="14sp" />
         </RelativeLayout>
 
@@ -80,6 +111,7 @@
                 android:layout_height="wrap_content"
                 android:text="Account Details"
                 android:textSize="16sp"
+                android:textColor="@color/black"
                 android:textStyle="bold" />
 
             <View
@@ -97,14 +129,15 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/phone" />
+                    android:src="@drawable/phone"
+                    app:tint="@color/maron" />
 
                 <TextView
                     android:id="@+id/tvPhone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="+92 000 0000000"
+                    android:text=""
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -117,14 +150,15 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/location" />
+                    android:src="@drawable/location"
+                    app:tint="@color/maron" />
 
                 <TextView
                     android:id="@+id/tvLocation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="Plot 655 i9/3 Islamabad"
+                    android:text=""
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -137,14 +171,15 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_vector_person" />
+                    android:src="@drawable/baseline_person_outline_24"
+                    app:tint="@color/maron" />
 
                 <TextView
                     android:id="@+id/tvGender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="Add your Gender"
+                    android:text=""
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -157,14 +192,15 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/noti" />
+                    android:src="@drawable/noti"
+                    app:tint="@color/maron"/>
 
                 <TextView
                     android:id="@+id/tvBirthday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="Add your Birthday"
+                    android:text=""
                     android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
@@ -175,6 +211,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
+            android:textAllCaps="false"
+            android:backgroundTint="@color/maron"
             android:text="Edit Profile" />
     </LinearLayout>
 </ScrollView>

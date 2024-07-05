@@ -1,5 +1,6 @@
 package com.welfare.blood.donation
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
 import androidx.appcompat.app.AppCompatActivity
@@ -22,9 +23,21 @@ class SplashActivity : AppCompatActivity() {
 
         val handler = Handler(Looper.getMainLooper())
         handler.postDelayed({
-            val intent = Intent(applicationContext, onBoardingActivity::class.java)
-            startActivity(intent)
-            finish()
-        }, 2000)
+            // Check login state
+            val sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+            val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
+
+            if (isLoggedIn) {
+                // User is logged in, navigate to HomeActivity
+                val intent = Intent(applicationContext, HomeActivity::class.java)
+                startActivity(intent)
+                finish()
+            } else {
+                // User is not logged in, navigate to OnboardingActivity
+                val intent = Intent(applicationContext, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }, 2000) // Delay for 2 seconds
     }
 }

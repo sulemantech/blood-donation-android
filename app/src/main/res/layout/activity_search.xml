@@ -12,6 +12,7 @@
         android:layout_height="50dp"
         android:background="@color/colorPrimary1"
         tools:ignore="MissingConstraints" />
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="150dp"
@@ -38,82 +39,142 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select blood Group "
+            android:text="Select Blood Group"
             android:textColor="@color/white"
             android:textSize="25dp"
             android:fontFamily="@font/inter_bold"
             android:layout_marginTop="5sp"
             android:layout_gravity="center"/>
     </androidx.cardview.widget.CardView>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:id="@+id/linear"
-            android:padding="25dp"
-            android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/cardview">
-            <Button
-                android:id="@+id/btnAPlus"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:backgroundTint="@color/maron"
-                android:text="A+" />
-            <Button
-                android:id="@+id/btnABPlus"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:backgroundTint="@color/maron"
-                android:layout_marginStart="5dp"
-                android:text="AB+" />
-            <Button
-                android:id="@+id/btnBPlus"
-                android:layout_width="0dp"
-                android:layout_marginStart="5dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:backgroundTint="@color/maron"
-                android:text="B+" />
-            <Button
-                android:id="@+id/btnOPlus"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:backgroundTint="@color/maron"
-                android:layout_marginStart="5dp"
-                android:text="O+" />
-        </LinearLayout>
-        <TextView
-            android:id="@+id/tvSelectedGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="130dp"
-            android:text=""
-            android:textSize="108sp"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:textColor="@color/maron"
-            app:layout_constraintTop_toBottomOf="@+id/linear"
-            android:layout_marginTop="15dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="16dp" />
-        <TextView
-            android:id="@+id/btnSearch"
+
+    <Spinner
+        android:id="@+id/spinner_city"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@color/light_grey"
+        app:layout_constraintTop_toBottomOf="@+id/cardview" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/linear"
+        android:layout_marginTop="65dp"
+        app:layout_constraintTop_toBottomOf="@+id/cardview"
+        android:gravity="center"
+        android:weightSum="4">
+
+        <Button
+            android:id="@+id/btnAPlus"
             android:layout_width="0dp"
-            android:layout_height="55dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginTop="80dp"
-            android:background="@drawable/save_password_button__2_"
-            android:gravity="center"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvSelectedGroup" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/maron"
+            android:text="A+" />
+        <Button
+            android:id="@+id/btnAMinus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/maron"
+            android:layout_marginStart="5dp"
+            android:text="A-" />
+        <Button
+            android:id="@+id/btnBPlus"
+            android:layout_width="0dp"
+            android:layout_marginStart="5dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/maron"
+            android:text="B+" />
+        <Button
+            android:id="@+id/btnBMinus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/maron"
+            android:layout_marginStart="5dp"
+            android:text="B-" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/linear2"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/linear"
+        android:gravity="center"
+        android:weightSum="4">
+
+        <Button
+            android:id="@+id/btnABPlus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/maron"
+            android:text="AB+" />
+        <Button
+            android:id="@+id/btnABMinus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/maron"
+            android:layout_marginStart="5dp"
+            android:text="AB-" />
+        <Button
+            android:id="@+id/btnOPlus"
+            android:layout_width="0dp"
+            android:layout_marginStart="5dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/maron"
+            android:text="O+" />
+        <Button
+            android:id="@+id/btnOMinus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/maron"
+            android:layout_marginStart="5dp"
+            android:text="O-" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvSelectedGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="130dp"
+        android:text=""
+        android:textSize="108sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:textColor="@color/maron"
+        app:layout_constraintTop_toBottomOf="@+id/linear2"
+        android:layout_marginTop="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:id="@+id/btnSearch"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/save_password_button__2_"
+        android:gravity="center"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSelectedGroup" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
+        android:visibility="gone"
         android:src="@drawable/ic_launcher_foreground"/>
 
     <TextView
@@ -17,6 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Name"
+        android:visibility="gone"
         android:textSize="16sp"
         android:textStyle="bold"
         android:layout_marginTop="8dp"/>
@@ -26,6 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Email"
+        android:visibility="gone"
         android:textSize="14sp"
         android:layout_marginTop="4dp"/>
 
@@ -35,6 +38,7 @@
         android:layout_height="wrap_content"
         android:text="Address"
         android:textSize="14sp"
+        android:visibility="gone"
         android:layout_marginTop="4dp"/>
 
     <TextView
@@ -43,5 +47,6 @@
         android:layout_height="wrap_content"
         android:text="Blood Group"
         android:textSize="14sp"
+        android:visibility="gone"
         android:layout_marginTop="4dp"/>
 </LinearLayout>

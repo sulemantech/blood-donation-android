@@ -9,11 +9,12 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
+
     <TextView
-        android:id="@+id/donorName"
+        android:id="@+id/recipientName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Donor Name"
+        android:text="Recipient Name"
         android:textStyle="bold"
         android:textSize="16sp"
         android:textColor="#000000"/>
@@ -22,7 +23,7 @@
         android:id="@+id/location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/donorName"
+        android:layout_below="@id/recipientName"
         android:text="Islamabad"
         android:textSize="14sp"
         android:textColor="#000000"/>
@@ -44,7 +45,7 @@
         android:background="@drawable/dark_bg"
         android:padding="4dp"
         android:gravity="center"
-        android:text="Requested"
+        android:text="Donated"
         android:textColor="#FFFFFF"/>
 
     <TextView
@@ -58,7 +59,7 @@
         android:textColor="#000000"/>
 
     <TextView
-        android:id="@+id/requestDate"
+        android:id="@+id/donationDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/bloodType"
@@ -68,5 +69,4 @@
         android:layout_alignParentEnd="true"
         android:textColor="#000000"/>
     </RelativeLayout>
-
 </androidx.cardview.widget.CardView>

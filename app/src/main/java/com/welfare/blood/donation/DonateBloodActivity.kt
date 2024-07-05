@@ -1,10 +1,13 @@
 package com.welfare.blood.donation
+
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.welfare.blood.donation.databinding.ActivityDonateBloodBinding
 import java.text.SimpleDateFormat
@@ -16,15 +19,20 @@ class DonateBloodActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDonateBloodBinding
     private lateinit var db: FirebaseFirestore
     private lateinit var selectedDonationDate: String
-
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDonateBloodBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.backArrow.setOnClickListener {
+            onBackPressed()
+        }
+
         try {
             db = FirebaseFirestore.getInstance()
+            auth = FirebaseAuth.getInstance()
         } catch (e: Exception) {
             Log.w("DonateBloodActivity", "Error initializing Firestore", e)
         }
@@ -32,12 +40,11 @@ class DonateBloodActivity : AppCompatActivity() {
         binding.donateButton.setOnClickListener {
             saveDonationData()
         }
+
         binding.edDate.setOnClickListener {
             showDatePickerDialogForLastDonationDate()
         }
-
     }
-
 
     private fun showDatePickerDialogForLastDonationDate() {
         val calendar = Calendar.getInstance()
@@ -54,23 +61,38 @@ class DonateBloodActivity : AppCompatActivity() {
         datePickerDialog.show()
     }
 
+    private fun showProgressBar() {
+        binding.progressBar.visibility = View.VISIBLE
+        binding.donateButton.visibility = View.GONE
+    }
+
+    private fun hideProgressBar() {
+        binding.progressBar.visibility = View.GONE
+        binding.donateButton.visibility = View.VISIBLE
+    }
+
     private fun saveDonationData() {
         val bloodType = binding.bloodTypeEditText.selectedItem.toString()
         val location = binding.locationEditText.text.toString()
         val date = binding.edDate.text.toString()
+        val currentUserId = auth.currentUser?.uid
 
-        if (bloodType.isNotEmpty() && location.isNotEmpty() && date.isNotEmpty()) {
+        if (bloodType.isNotEmpty() && location.isNotEmpty() && date.isNotEmpty() && currentUserId != null) {
             val donationData = hashMapOf(
                 "bloodType" to bloodType,
                 "location" to location,
-                "date" to date
+                "date" to date,
+                "userId" to currentUserId
             )
+
+            showProgressBar()
 
             db.collection("donations")
                 .add(donationData)
                 .addOnSuccessListener { documentReference ->
                     Log.d("DonateBloodActivity", "DocumentSnapshot added with ID: ${documentReference.id}")
-                    Toast.makeText(this, "send Successful", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Send Successful", Toast.LENGTH_SHORT).show()
+                    hideProgressBar()
                     val intent = Intent(this, HomeActivity::class.java)
                     startActivity(intent)
                     finish()
@@ -78,12 +100,10 @@ class DonateBloodActivity : AppCompatActivity() {
                 .addOnFailureListener { e ->
                     Log.w("DonateBloodActivity", "Error adding document", e)
                     Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
-
+                    hideProgressBar()
                 }
         } else {
             Log.w("DonateBloodActivity", "Please fill all fields")
         }
     }
 }
-
-

@@ -1,11 +1,14 @@
 package com.welfare.blood.donation
 
 data class User(
-    val name: String,
-    val phone: String,
-    val email: String,
-    val password: String,
-    val dateOfBirth: String,
-    val bloodGroup: String,
-    val wantToDonate: Boolean
+    val userID: String = "",
+    val name: String = "",
+    val email: String = "",
+    val phone: String = "",
+    val bloodGroup: String = "",
+    val city: String = "",
+    val location: String = "",
+    val lastDonationDate: String = "",
+    val isDonor: Boolean = false,
+    val dateOfBirth: String = ""
 )

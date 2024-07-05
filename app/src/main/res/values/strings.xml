@@ -65,7 +65,7 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    <string name="please_let_us_know_if_ypu_need_the_blood_for_yourself_n_for_some_one_else">Please let us know if ypu need the blood for yourself \n for some one else</string>
+    <string name="please_let_us_know_if_you_need_the_blood_for_yourself_n_for_some_one_else">Please let us know if ypu need the blood for yourself \n for some one else</string>
     <string name="blood_type">Blood Type</string>
     <string name="required_unit">Required Unit</string>
     <string name="required_date">Required Date</string>
@@ -86,4 +86,75 @@
         <item>O+</item>
         <item>O-</item>
     </string-array>
+
+
+    <string-array name="gender_array">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
+
+
+        <string-array name="pakistan_cities">
+            <item>Karachi</item>
+            <item>Lahore</item>
+            <item>Faisalabad</item>
+            <item>Rawalpindi</item>
+            <item>Multan</item>
+            <item>Hyderabad</item>
+            <item>Gujranwala</item>
+            <item>Peshawar</item>
+            <item>Quetta</item>
+            <item>Islamabad</item>
+            <item>Sargodha</item>
+            <item>Sialkot</item>
+            <item>Bahawalpur</item>
+            <item>Sukkur</item>
+            <item>Larkana</item>
+            <item>Sheikhupura</item>
+            <item>Jhang</item>
+            <item>Sahiwal</item>
+            <item>Rahim Yar Khan</item>
+            <item>Mardan</item>
+            <item>Mingora</item>
+            <item>Nawabshah</item>
+            <item>Chiniot</item>
+            <item>Kohat</item>
+            <item>Dera Ghazi Khan</item>
+            <item>Okara</item>
+            <item>Bannu</item>
+            <item>Mirpur Khas</item>
+            <item>Attock</item>
+            <item>Kasur</item>
+            <item>Muzaffargarh</item>
+            <item>Jhelum</item>
+            <item>Sadiqabad</item>
+            <item>Gujrat</item>
+            <item>Chishtian</item>
+            <item>Kamoke</item>
+            <item>Khairpur</item>
+            <item>Vehari</item>
+            <item>Nowshera</item>
+            <item>Dera Ismail Khan</item>
+            <item>Abbottabad</item>
+            <item>Hafizabad</item>
+            <item>Khanewal</item>
+            <item>Kotli</item>
+            <item>Jaranwala</item>
+            <item>Chakwal</item>
+            <item>Swabi</item>
+            <item>Shikarpur</item>
+            <item>Mansehra</item>
+            <item>Charsadda</item>
+            <item>Mandi Bahauddin</item>
+            <item>Pakpattan</item>
+            <item>Parachinar</item>
+            <item>Kohlu</item>
+            <item>Gwadar</item>
+            <item>Zhob</item>
+            <item>Gilgit</item>
+            <item>Skardu</item>
+        </string-array>
+
+
 </resources>
