@@ -85,15 +85,12 @@ class RegisterActivity : AppCompatActivity() {
         val name = binding.edName.text.toString().trim()
         val email = binding.edEmail.text.toString().trim()
         val phone = binding.edPhone.text.toString().trim()
-      //  val dateOfBirth = binding.edDateBirth.text.toString().trim()
         val bloodGroup = binding.spinnerBloodGroup.selectedItem.toString()
         val wantsToDonate = binding.noYes.isChecked
-     //   val city = binding.edCity.text.toString().trim()
-        val location = binding.edLocation.text.toString().trim()
-        val lastDonationDate = binding.edLastdonationdate.text.toString().trim()
+        val location = binding.edLocation.selectedItem.toString()
         val password = binding.edPassword.text.toString().trim()
 
-        if (name.isEmpty() || email.isEmpty() || phone.isEmpty()  || bloodGroup.isEmpty()  || location.isEmpty() || lastDonationDate.isEmpty() || password.isEmpty()) {
+        if (name.isEmpty() || email.isEmpty() || phone.isEmpty() || bloodGroup.isEmpty() || location.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
             return
         }
@@ -124,12 +121,9 @@ class RegisterActivity : AppCompatActivity() {
                                         "email" to email,
                                         "phone" to phone,
                                         "bloodGroup" to bloodGroup,
-                                      //  "city" to city,
                                         "location" to location,
-                                        "lastDonationDate" to lastDonationDate,
                                         "isDonor" to wantsToDonate,
-                                        "lastLoginAt" to null,
-                                       // "dateOfBirth" to dateOfBirth
+                                        "lastLoginAt" to null
                                     )
 
                                     db.collection("users").document(userID).set(user, SetOptions.merge())
@@ -137,7 +131,11 @@ class RegisterActivity : AppCompatActivity() {
                                             Log.d(TAG, "DocumentSnapshot successfully written!")
                                             binding.progressBar.visibility = View.GONE
                                             Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show()
-                                            val intent = Intent(this, LoginActivity::class.java)
+
+                                            // Pass "Myself" option to CreateRequestActivity
+                                            val intent = Intent(this, HomeActivity::class.java).apply {
+                                                putExtra("bloodFor", "Myself")
+                                            }
                                             startActivity(intent)
                                             finish()
                                         }

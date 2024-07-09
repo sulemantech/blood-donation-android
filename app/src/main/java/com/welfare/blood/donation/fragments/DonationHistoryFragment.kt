@@ -59,6 +59,8 @@ class DonationHistoryFragment : Fragment() {
                         donationList.add(donation)
                     }
                     adapter.notifyDataSetChanged()
+                    displayRequestCount(donationList.size)
+
 
                     // Show empty state if no donations
                     if (donationList.isEmpty()) {
@@ -74,4 +76,9 @@ class DonationHistoryFragment : Fragment() {
                 }
         }
     }
-}//updated
+        private fun displayRequestCount(count: Int) {
+            binding.receivedDonationCount.text = "Requests Received: $count"
+        }
+
+    }
+

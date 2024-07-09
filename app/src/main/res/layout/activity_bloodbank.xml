@@ -49,14 +49,16 @@
         app:layout_constraintTop_toBottomOf="@+id/cardView_bank"
         android:textColor="@color/black"/>
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/a_blood_bank_is_a_center_where_blood_gathered_as_result_of_blood_donation_is_stored_as_preserved_for_later_use_in_blood_transfusion_the_term_blood_bank_typically_refers_to_divisionof_a_hospital_where_the_storage_of_blood_product_occurs_and_where_proper_testing_is_performed"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="10dp"
-        android:layout_marginStart="20dp"
         android:textSize="15dp"
         android:id="@+id/handing"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/blood_bank"
         android:textColor="@color/black"/>
 

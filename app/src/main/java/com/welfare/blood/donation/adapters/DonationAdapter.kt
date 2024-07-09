@@ -35,4 +35,3 @@ class DonationAdapter(private val donationList: List<Donation>) :
         }
     }
 }
-

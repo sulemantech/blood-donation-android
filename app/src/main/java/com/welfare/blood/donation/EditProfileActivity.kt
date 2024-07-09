@@ -93,7 +93,7 @@ class EditProfileActivity : AppCompatActivity() {
                 binding.edName.setText(document.getString("name"))
                 binding.edEmail.setText(document.getString("email"))
                 binding.edPhone.setText(document.getString("phone"))
-                binding.edCity.setText(document.getString("city"))
+              //  binding.edCity.setText(document.getString("city"))
                 binding.edLocation.setText(document.getString("location"))
                 binding.edDateBirth.setText(document.getString("dateOfBirth"))
                 binding.edLastdonationdate.setText(document.getString("lastDonationDate"))
@@ -208,12 +208,12 @@ class EditProfileActivity : AppCompatActivity() {
         val phone = binding.edPhone.text.toString().trim()
         val dateOfBirth = binding.edDateBirth.text.toString().trim()
         val bloodGroup = binding.spinnerBloodGroup.selectedItem.toString()
-        val city = binding.edCity.text.toString().trim()
+      //  val city = binding.edCity.text.toString().trim()
         val location = binding.edLocation.text.toString().trim()
         val lastDonationDate = binding.edLastdonationdate.text.toString().trim()
         val isDonor = binding.noYes.isChecked
 
-        if (name.isEmpty() || email.isEmpty() || phone.isEmpty() || dateOfBirth.isEmpty() || bloodGroup.isEmpty() || city.isEmpty() || location.isEmpty() || lastDonationDate.isEmpty() || selectedGender.isNullOrEmpty()) {
+        if (name.isEmpty() || email.isEmpty() || phone.isEmpty() || dateOfBirth.isEmpty() || bloodGroup.isEmpty() || location.isEmpty() || location.isEmpty() || lastDonationDate.isEmpty() || selectedGender.isNullOrEmpty()) {
             Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
             return
         }
@@ -226,7 +226,7 @@ class EditProfileActivity : AppCompatActivity() {
             "phone" to phone,
             "dateOfBirth" to dateOfBirth,
             "bloodType" to bloodGroup,
-            "city" to city,
+          //  "city" to city,
             "location" to location,
             "lastDonationDate" to lastDonationDate,
             "isDonor" to isDonor,

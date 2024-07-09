@@ -35,7 +35,7 @@ class RequestHistoryFragment : Fragment() {
         db = FirebaseFirestore.getInstance()
         auth = FirebaseAuth.getInstance()
 
-        binding.recyclerView.layoutManager = LinearLayoutManager(context)
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         requestList = mutableListOf()
         adapter = RequestAdapter(requestList)
         binding.recyclerView.adapter = adapter
@@ -44,23 +44,30 @@ class RequestHistoryFragment : Fragment() {
     }
 
     private fun fetchRequests() {
-        val currentUserId = auth.currentUser?.uid
-
-        if (currentUserId != null) {
-            db.collection("requests")
-                .whereEqualTo("userId", currentUserId)
-                .get()
-                .addOnSuccessListener { result ->
-                    requestList.clear()
-                    for (document in result) {
-                        val request = document.toObject(Request::class.java)
-                        requestList.add(request)
-                    }
-                    adapter.notifyDataSetChanged()
-                }
-                .addOnFailureListener { exception ->
-                    Log.w("RequestHistoryFragment", "Error getting documents: ", exception)
-                }
+        val currentUser = auth.currentUser
+        if (currentUser == null) {
+            Log.w("RequestHistoryFragment", "User not logged in")
+            return
         }
+
+        db.collection("requests")
+            .whereEqualTo("userId", currentUser.uid)
+            .get()
+            .addOnSuccessListener { documents ->
+                requestList.clear()
+                for (document in documents) {
+                    val request = document.toObject(Request::class.java)
+                    requestList.add(request)
+                }
+                adapter.notifyDataSetChanged()
+                displayRequestCount(requestList.size)
+
+            }
+            .addOnFailureListener { e ->
+                Log.w("RequestHistoryFragment", "Error fetching requests", e)
+            }
+    }
+    private fun displayRequestCount(count: Int) {
+        binding.receivedRequestCount.text = "Requests Received: $count"
     }
 }

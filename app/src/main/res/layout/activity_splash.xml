@@ -25,11 +25,11 @@
             android:layout_width="170dp"
             android:layout_height="170dp"
             android:src="@drawable/splash_animation"
-            app:tint="@color/black" />
+            app:tint="@color/maron" />
     </LinearLayout>
     <TextView
         android:layout_marginTop="15dp"
-        android:textColor="@android:color/black"
+        android:textColor="@color/maron"
         android:textSize="38sp"
         android:fontFamily="@font/inter_bold"
         android:text="@string/app_name"
@@ -40,7 +40,7 @@
         android:textSize="20sp"
         android:text="Donate Blood, Save Life"
         android:layout_width="wrap_content"
-        android:textColor="@color/black"
+        android:textColor="@color/maron"
         android:fontFamily="@font/inter_bold"
         android:layout_height="wrap_content" />
 
@@ -51,7 +51,7 @@
         android:layout_marginTop="200dp"
         android:layout_gravity="center"
         android:text="Pipal Welfare Organization"
-        android:textColor="@color/black"
+        android:textColor="@color/maron"
         android:fontFamily="@font/inter_bold"
         android:textSize="23sp" />
 
@@ -61,6 +61,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="www.pipalwelfare.org"
-        android:textColor="@color/black" />
+        android:textColor="@color/maron" />
 
 </LinearLayout>

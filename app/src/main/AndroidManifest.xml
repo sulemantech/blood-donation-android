@@ -27,16 +27,18 @@
 
         <activity
             android:name=".FAQActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/ThemeA"/>
         <activity
             android:name=".ChatActivity"
             android:exported="false" />
+
+        <activity android:name=".fragments.ReceivedRequestsFragment" />
+
         <activity
             android:name=".BothHistoryActivity"
-            android:exported="false" />
-        <activity
-            android:name=".PatientDetailActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/ThemeB"/>
         <activity
             android:name=".SearchResultActivity"
             android:exported="false"

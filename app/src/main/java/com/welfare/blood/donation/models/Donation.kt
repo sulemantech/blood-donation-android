@@ -6,6 +6,6 @@ data class Donation(
     val bloodType: String = "",
     val dateDonated: String = "",
     val userId: String = "",// User ID
-    var status: String // Add status field
+    var status: String = "",
 
 )

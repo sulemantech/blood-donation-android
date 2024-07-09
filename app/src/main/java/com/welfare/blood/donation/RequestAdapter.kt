@@ -28,7 +28,7 @@ class RequestAdapter(private val requestList: List<Request>) :
             binding.donorName.text = request.patientName
             binding.location.text = request.location
             binding.bloodGroup.text = request.bloodType
-            binding.status.text = "Requested"
+            binding.statusTextView.text = "${request.status}"
             binding.bloodType.text = request.bloodType
             binding.requestDate.text = request.dateRequired
         }

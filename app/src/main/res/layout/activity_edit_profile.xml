@@ -100,6 +100,7 @@
             android:layout_marginTop="8dp"
             android:hint="City"
             android:paddingStart="10dp"
+            android:visibility="gone"
             android:background="@drawable/ed_border"
             android:inputType="text" />
 
@@ -108,7 +109,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="8dp"
-            android:hint="Location"
+            android:hint="City"
             android:paddingStart="10dp"
             android:background="@drawable/ed_border"
             android:inputType="text" />

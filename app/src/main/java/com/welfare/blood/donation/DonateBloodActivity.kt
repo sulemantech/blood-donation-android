@@ -73,7 +73,7 @@ class DonateBloodActivity : AppCompatActivity() {
 
     private fun saveDonationData() {
         val bloodType = binding.bloodTypeEditText.selectedItem.toString()
-        val location = binding.locationEditText.text.toString()
+        val location = binding.locationEditText.selectedItem.toString()
         val date = binding.edDate.text.toString()
         val currentUserId = auth.currentUser?.uid
 
@@ -82,7 +82,8 @@ class DonateBloodActivity : AppCompatActivity() {
                 "bloodType" to bloodType,
                 "location" to location,
                 "date" to date,
-                "userId" to currentUserId
+                "userId" to currentUserId,
+                "status" to "pending"
             )
 
             showProgressBar()

@@ -67,7 +67,7 @@ class CreateRequestActivity : AppCompatActivity() {
         val bloodType = binding.bloodType.selectedItem.toString().trim()
         val requiredUnitStr = binding.requiredUnit.text.toString().trim()
         val dateRequired = binding.edDateRequired.text.toString().trim()
-       // val hospital = binding.edHospital.text.toString().trim()
+        // val hospital = binding.edHospital.text.toString().trim()
         val location = binding.location.text.toString().trim()
 
         if (patientName.isEmpty()) {
@@ -92,10 +92,10 @@ class CreateRequestActivity : AppCompatActivity() {
             return false
         }
 
-//        if (hospital.isEmpty()) {
-//            binding.edHospital.error = "Hospital is required"
-//            return false
-//        }
+        // if (hospital.isEmpty()) {
+        // binding.edHospital.error = "Hospital is required"
+        // return false
+        // }
 
         if (location.isEmpty()) {
             binding.location.error = "Location is required"
@@ -125,21 +125,22 @@ class CreateRequestActivity : AppCompatActivity() {
         val selectedId = binding.bloodForMyselfGroup.checkedRadioButtonId
         val bloodFor = findViewById<RadioButton>(selectedId).text.toString()
 
-        val user = hashMapOf(
+        val request = hashMapOf(
             "patientName" to binding.patientName.text.toString().trim(),
             "age" to binding.age.text.toString().trim().toInt(),
             "bloodType" to binding.bloodType.selectedItem.toString().trim(),
             "requiredUnit" to binding.requiredUnit.text.toString().trim().toInt(),
             "dateRequired" to binding.edDateRequired.text.toString().trim(),
-           // "hospital" to binding.edHospital.text.toString().trim(),
+            // "hospital" to binding.edHospital.text.toString().trim(),
             "location" to binding.location.text.toString().trim(),
             "bloodFor" to bloodFor,
-            "userId" to currentUser.uid // Add user ID here
+            "userId" to currentUser.uid, // Add user ID here
+            "status" to "pending" // Add status field here
         )
 
         // Add a new document with a generated ID
         db.collection("requests")
-            .add(user)
+            .add(request)
             .addOnSuccessListener { documentReference ->
                 Log.d("CreateRequestActivity", "DocumentSnapshot added with ID: ${documentReference.id}")
                 Toast.makeText(this, "Create Request Successfully", Toast.LENGTH_SHORT).show()

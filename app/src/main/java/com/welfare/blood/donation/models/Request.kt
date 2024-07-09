@@ -10,6 +10,6 @@ data class Request(
     val location: String = "",
     val bloodFor: String = "",
     val userId: String = "", // Sender ID
-    val recipientId: String = "" // Recipient ID
+    val recipientId: String = "", // Recipient ID
+    var status: String = "pending" // Default status is pending
 )
-

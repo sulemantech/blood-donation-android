@@ -40,7 +40,7 @@
 
         <TextView
             android:id="@+id/text"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/please_let_us_know_if_you_need_the_blood_for_yourself_n_for_some_one_else"
             android:textSize="15dp"
@@ -91,7 +91,7 @@
             app:layout_constraintTop_toBottomOf="@+id/blood_for_myself_group"
             android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="35dp" />
+            android:layout_marginStart="25dp" />
 
         <EditText
             android:id="@+id/patient_name"
@@ -105,8 +105,8 @@
             android:layout_marginTop="5dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp" />
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp" />
   <TextView
             android:id="@+id/text_age"
             android:layout_width="wrap_content"
@@ -118,22 +118,23 @@
             app:layout_constraintTop_toBottomOf="@+id/patient_name"
             android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="35dp" />
+            android:layout_marginStart="25dp" />
 
         <EditText
             android:id="@+id/age"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:background="@drawable/ed_border"
-            android:hint="Enter Name"
+            android:hint="Enter Age"
             android:paddingStart="15dp"
+            android:inputType="number"
             android:paddingEnd="20dp"
             app:layout_constraintTop_toBottomOf="@+id/text_age"
             android:layout_marginTop="5dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp" />
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp" />
 
 
 
@@ -148,15 +149,15 @@
             app:layout_constraintTop_toBottomOf="@+id/age"
             android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="35dp" />
+            android:layout_marginStart="25dp" />
 
         <Spinner
             android:id="@+id/bloodType"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginTop="5dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
             android:background="@drawable/spinner_border"
             android:paddingStart="15dp"
             android:paddingEnd="20dp"
@@ -176,7 +177,7 @@
             app:layout_constraintTop_toBottomOf="@+id/bloodType"
             android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="35dp" />
+            android:layout_marginStart="25dp" />
 
         <EditText
             android:id="@+id/required_unit"
@@ -187,11 +188,12 @@
             android:layout_marginTop="5dp"
             android:paddingStart="15dp"
             android:paddingEnd="20dp"
+            android:inputType="number"
             android:hint="Enter Required Unit"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"/>
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"/>
 
         <TextView
             android:id="@+id/required_date"
@@ -204,7 +206,7 @@
             app:layout_constraintTop_toBottomOf="@+id/required_unit"
             android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="35dp" />
+            android:layout_marginStart="25dp" />
 
         <EditText
             android:id="@+id/ed_date_required"
@@ -221,8 +223,8 @@
             android:layout_marginTop="5dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp" />
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp" />
 
 
 
@@ -237,7 +239,7 @@
             app:layout_constraintTop_toBottomOf="@+id/ed_date_required"
             android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="35dp" />
+            android:layout_marginStart="25dp" />
 
         <EditText
             android:id="@+id/location"
@@ -251,8 +253,8 @@
             android:layout_marginTop="5dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp" />
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp" />
 
 
         <TextView

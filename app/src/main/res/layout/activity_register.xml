@@ -248,21 +248,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ed_city" />
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
+        <Spinner
             android:id="@+id/ed_location"
-            android:background="@drawable/ed_border"
-            android:padding="8dp"
-            android:maxLines="1"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
             android:layout_marginTop="5dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:hint="Enter Location"
+            android:background="@drawable/spinner_border"
             android:paddingStart="15dp"
             android:paddingEnd="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/location"
-            android:drawablePadding="8dp"/>
+            android:entries="@array/pakistan_cities" />
         <TextView
             android:id="@+id/lastdonationdate"
             android:layout_width="wrap_content"
@@ -270,6 +269,7 @@
             android:layout_marginTop="10dp"
             android:text="Last Donation Date"
             android:textSize="18sp"
+            android:visibility="gone"
             android:fontFamily="@font/inter_bold"
             android:textColor="@color/black1"
             android:layout_marginStart="35dp"
@@ -282,6 +282,7 @@
             android:id="@+id/ed_lastdonationdate"
             android:background="@drawable/ed_border"
             android:padding="8dp"
+            android:visibility="gone"
             android:maxLines="1"
             android:inputType="none"
             android:focusable="false"
