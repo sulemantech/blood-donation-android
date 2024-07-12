@@ -15,7 +15,7 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySearchBinding
     private lateinit var db: FirebaseFirestore
     private var selectedBloodGroup: String? = null
-    private var selectedCity: String? = null
+    private var selectedLocation: String? = null // Changed from selectedCity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,14 +37,14 @@ class SearchActivity : AppCompatActivity() {
         binding.btnOPlus.setOnClickListener { setSelectedBloodGroup("O+") }
         binding.btnOMinus.setOnClickListener { setSelectedBloodGroup("O-") }
 
-        val cities = resources.getStringArray(R.array.pakistan_cities)
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, cities)
+        val locations = resources.getStringArray(R.array.pakistan_cities) // Assuming your array resource is named pakistan_cities
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, locations)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerCity.adapter = adapter
 
         binding.spinnerCity.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                selectedCity = cities[position]
+                selectedLocation = locations[position] // Changed from selectedCity
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -53,10 +53,10 @@ class SearchActivity : AppCompatActivity() {
         }
 
         binding.btnSearch.setOnClickListener {
-            if (selectedBloodGroup.isNullOrEmpty() || selectedCity.isNullOrEmpty()) {
-                Toast.makeText(this, "Please select a blood group and a city", Toast.LENGTH_SHORT).show()
+            if (selectedBloodGroup.isNullOrEmpty() || selectedLocation.isNullOrEmpty()) { // Changed from selectedCity
+                Toast.makeText(this, "Please select a blood group and a location", Toast.LENGTH_SHORT).show() // Changed from city to location
             } else {
-                saveSearchData(selectedBloodGroup!!, selectedCity!!)
+                saveSearchData(selectedBloodGroup!!, selectedLocation!!) // Changed from city to location
             }
         }
     }
@@ -66,10 +66,10 @@ class SearchActivity : AppCompatActivity() {
         binding.tvSelectedGroup.text = bloodGroup
     }
 
-    private fun saveSearchData(bloodGroup: String, city: String) {
+    private fun saveSearchData(bloodGroup: String, location: String) { // Changed from city to location
         val searchData = hashMapOf(
             "bloodGroup" to bloodGroup,
-            "city" to city
+            "location" to location // Changed from city to location
         )
 
         db.collection("searches")

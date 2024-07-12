@@ -9,32 +9,48 @@
     tools:context=".SearchResultActivity">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:background="@color/colorPrimary1"
-        tools:ignore="MissingConstraints" />
+        android:layout_height="110dp"
+        android:background="@drawable/top_header"/>
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="130dp"
-        app:cardCornerRadius="35dp"
-        app:cardElevation="4dp"
+        app:cardCornerRadius="30dp"
         android:id="@+id/cardview"
-        android:backgroundTint="@color/colorPrimary1"
         tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:scaleType="fitXY"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/top_header"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="44dp"
+            android:layout_marginTop="54dp"
             android:drawableLeft="@drawable/back"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="20dp"
             android:textSize="25dp"
             android:id="@+id/back_arrow"
             android:drawableTint="@color/white"
             android:gravity="center" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Blood Donors"
+            android:textColor="@color/white"
+            android:textSize="25dp"
+            android:fontFamily="@font/inter_bold"
+            android:layout_marginTop="5sp"
+            android:layout_gravity="center"/>
     </androidx.cardview.widget.CardView>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"

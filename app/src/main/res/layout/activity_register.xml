@@ -240,7 +240,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Location"
+            android:text="City"
             android:textSize="18sp"
             android:fontFamily="@font/inter_bold"
             android:textColor="@color/black1"

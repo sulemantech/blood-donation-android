@@ -27,7 +27,6 @@ class BothHistoryActivity : AppCompatActivity() {
             tab.text = when (position) {
                 0 -> "My Requests"
                 1 -> "My Donations"
-                2 -> "Others Requests"
                 else -> null
             }
         }.attach()

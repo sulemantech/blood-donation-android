@@ -28,6 +28,8 @@
     <color name="primary_dark">#c13f31</color>
     <color name="green">#56EC5C</color>
     <color name="maron">#B20B1F</color>
+    <color name="dark_maron">#FF4C050D</color>
+    <color name="menu_item_color">#FF4C050D</color>
     <color name="pinkk">#F6EBEA</color>
     <color name="reddd">#B20B1F</color>
     <color name="gray">#F1E2E1</color>

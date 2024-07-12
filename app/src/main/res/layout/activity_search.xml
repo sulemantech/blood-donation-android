@@ -9,18 +9,22 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/colorPrimary1"
-        tools:ignore="MissingConstraints" />
+        android:layout_height="110dp"
+        android:background="@drawable/top_header"/>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        app:cardCornerRadius="35dp"
-        app:cardElevation="4dp"
+        android:layout_height="130dp"
+        app:cardCornerRadius="30dp"
         android:id="@+id/cardview"
-        android:backgroundTint="@color/colorPrimary1"
         tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:scaleType="fitXY"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/top_header"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -28,7 +32,7 @@
             android:fontFamily="@font/inter_bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="64dp"
+            android:layout_marginTop="54dp"
             android:drawableLeft="@drawable/back"
             android:layout_marginStart="20dp"
             android:textSize="25dp"
@@ -57,7 +61,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:entries="@array/pakistan_cities"
-        android:background="@color/light_grey"
+        android:background="@drawable/spinner_border"
         app:layout_constraintTop_toBottomOf="@+id/cardview" />
 
     <LinearLayout
@@ -65,7 +69,9 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:id="@+id/linear"
-        android:layout_marginTop="65dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
         app:layout_constraintTop_toBottomOf="@+id/cardview"
         android:gravity="center"
         android:weightSum="4">
@@ -109,6 +115,8 @@
         android:orientation="horizontal"
         android:id="@+id/linear2"
         android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintTop_toBottomOf="@+id/linear"
         android:gravity="center"
         android:weightSum="4">
@@ -156,12 +164,10 @@
         android:layout_gravity="center"
         android:textColor="@color/maron"
         app:layout_constraintTop_toBottomOf="@+id/linear2"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="16dp" />
+     />
 
     <TextView
         android:id="@+id/btnSearch"
@@ -169,7 +175,7 @@
         android:layout_height="55dp"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="60dp"
         android:background="@drawable/save_password_button__2_"
         android:gravity="center"
         android:textAllCaps="false"

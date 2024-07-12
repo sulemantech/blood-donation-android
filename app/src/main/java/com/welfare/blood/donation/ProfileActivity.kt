@@ -33,7 +33,7 @@ class ProfileActivity : AppCompatActivity() {
 
         binding.btnEditProfile.setOnClickListener {
             val intent = Intent(this, EditProfileActivity::class.java)
-            startActivity(intent)
+            startActivityForResult(intent, EDIT_PROFILE_REQUEST_CODE)
         }
 
         binding.ivCamera.setOnClickListener {
@@ -42,6 +42,16 @@ class ProfileActivity : AppCompatActivity() {
 
         binding.btnDeleteProfile.setOnClickListener {
             deleteProfileImage()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == EDIT_PROFILE_REQUEST_CODE && resultCode == RESULT_OK) {
+            loadUserProfile() // Refresh profile after editing
+        } else if (requestCode == IMAGE_PICK_CODE && resultCode == RESULT_OK && data != null && data.data != null) {
+            val imageUri = data.data
+            uploadImageToFirebase(imageUri)
         }
     }
 
@@ -96,14 +106,6 @@ class ProfileActivity : AppCompatActivity() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
         startActivityForResult(intent, IMAGE_PICK_CODE)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == IMAGE_PICK_CODE && resultCode == RESULT_OK && data != null && data.data != null) {
-            val imageUri = data.data
-            uploadImageToFirebase(imageUri)
-        }
     }
 
     private fun uploadImageToFirebase(imageUri: Uri?) {
@@ -177,5 +179,6 @@ class ProfileActivity : AppCompatActivity() {
 
     companion object {
         private const val IMAGE_PICK_CODE = 1000
+        private const val EDIT_PROFILE_REQUEST_CODE = 1001
     }
 }

@@ -11,17 +11,22 @@
         android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/colorPrimary1"
-            tools:ignore="MissingConstraints" />
+            android:layout_height="110dp"
+            android:background="@drawable/top_header"/>
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            app:cardCornerRadius="35dp"
-            app:cardElevation="4dp"
+            android:layout_height="130dp"
+            app:cardCornerRadius="30dp"
             android:id="@+id/cardview"
-            android:backgroundTint="@color/colorPrimary1"
             tools:ignore="MissingConstraints">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:scaleType="fitXY"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/top_header"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -111,12 +116,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Find Blood Donor"
+                android:text="Find Donor"
                 android:fontFamily="@font/inter_bold"
                 android:textSize="20dp"
                 android:textColor="@color/colorPrimary1"
                 android:layout_gravity="center"
-                android:layout_marginStart="46dp" />
+                android:layout_marginStart="19dp" />
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -142,12 +147,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Activity"
+                android:text="My Activity"
                 android:fontFamily="@font/inter_bold"
                 android:textSize="20dp"
                 android:textColor="@color/colorPrimary1"
                 android:layout_gravity="center"
-                android:layout_marginStart="8dp" />
+                android:layout_marginStart="26dp" />
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -17,9 +17,10 @@
 
     <!-- Theme for Activity B -->
     <style name="ThemeB" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="android:statusBarColor">@color/colorPrimary1</item>
+        <item name="android:statusBarColor">@color/dark_maron</item>
         <item name="android:windowLightStatusBar">false</item>
     </style>
+
     <style name="ThemeC" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:statusBarColor">@color/dark</item>
         <item name="android:windowLightStatusBar">false</item>
@@ -29,4 +30,9 @@
     <style name="Theme.BloodDonation.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.BloodDonation.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <!-- Base application theme. -->
+    <style name="Base.Theme.BloodDonation" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
 </resources>

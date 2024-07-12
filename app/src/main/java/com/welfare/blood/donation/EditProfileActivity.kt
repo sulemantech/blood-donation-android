@@ -93,8 +93,8 @@ class EditProfileActivity : AppCompatActivity() {
                 binding.edName.setText(document.getString("name"))
                 binding.edEmail.setText(document.getString("email"))
                 binding.edPhone.setText(document.getString("phone"))
-              //  binding.edCity.setText(document.getString("city"))
-                binding.edLocation.setText(document.getString("location"))
+                //  binding.edCity.setText(document.getString("city"))
+                // binding.edLocation.setText(document.getString("location"))
                 binding.edDateBirth.setText(document.getString("dateOfBirth"))
                 binding.edLastdonationdate.setText(document.getString("lastDonationDate"))
                 binding.noYes.isChecked = document.getBoolean("isDonor") == true
@@ -103,6 +103,11 @@ class EditProfileActivity : AppCompatActivity() {
                 val bloodGroups = resources.getStringArray(R.array.blood_groups)
                 val index = bloodGroups.indexOf(bloodGroup)
                 binding.spinnerBloodGroup.setSelection(index)
+                // Set spinner value for location
+                val location = document.getString("location")
+                val locationArray = resources.getStringArray(R.array.pakistan_cities)
+                val locationIndex = locationArray.indexOf(location)
+                binding.edLocation.setSelection(locationIndex)
                 // Set spinner value for gender
                 val gender = document.getString("gender")
                 val genderArray = resources.getStringArray(R.array.gender_array)
@@ -174,7 +179,7 @@ class EditProfileActivity : AppCompatActivity() {
         val user = auth.currentUser ?: return
         val userId = user.uid
 
-      //  binding.progressBar.visibility = View.VISIBLE
+        binding.progressBar.visibility = View.VISIBLE
 
         val fileRef = storageRef.child("profile_images/$userId")
 
@@ -194,7 +199,7 @@ class EditProfileActivity : AppCompatActivity() {
             } else {
                 // Handle failures
                 Toast.makeText(this, "Failed to upload image", Toast.LENGTH_SHORT).show()
-              //  binding.progressBar.visibility = View.GONE
+                binding.progressBar.visibility = View.GONE
             }
         }
     }
@@ -208,8 +213,8 @@ class EditProfileActivity : AppCompatActivity() {
         val phone = binding.edPhone.text.toString().trim()
         val dateOfBirth = binding.edDateBirth.text.toString().trim()
         val bloodGroup = binding.spinnerBloodGroup.selectedItem.toString()
-      //  val city = binding.edCity.text.toString().trim()
-        val location = binding.edLocation.text.toString().trim()
+        //  val city = binding.edCity.text.toString().trim()
+        val location = binding.edLocation.selectedItem.toString().trim()
         val lastDonationDate = binding.edLastdonationdate.text.toString().trim()
         val isDonor = binding.noYes.isChecked
 
@@ -218,7 +223,7 @@ class EditProfileActivity : AppCompatActivity() {
             return
         }
 
-     //   binding.progressBar.visibility = View.VISIBLE
+        binding.progressBar.visibility = View.VISIBLE
 
         val userMap = hashMapOf(
             "name" to name,
@@ -226,7 +231,7 @@ class EditProfileActivity : AppCompatActivity() {
             "phone" to phone,
             "dateOfBirth" to dateOfBirth,
             "bloodType" to bloodGroup,
-          //  "city" to city,
+            //  "city" to city,
             "location" to location,
             "lastDonationDate" to lastDonationDate,
             "isDonor" to isDonor,
@@ -237,13 +242,14 @@ class EditProfileActivity : AppCompatActivity() {
         db.collection("users").document(userId).set(userMap, SetOptions.merge())
             .addOnSuccessListener {
                 Log.d(TAG, "DocumentSnapshot successfully written!")
-             //   binding.progressBar.visibility = View.GONE
+                binding.progressBar.visibility = View.GONE
                 Toast.makeText(this, "Profile Updated", Toast.LENGTH_SHORT).show()
+                setResult(RESULT_OK)
                 finish()
             }
             .addOnFailureListener { e ->
                 Log.w(TAG, "Error writing document", e)
-             //   binding.progressBar.visibility = View.GONE
+                binding.progressBar.visibility = View.GONE
                 Toast.makeText(this, "Profile Update Failed", Toast.LENGTH_SHORT).show()
             }
     }

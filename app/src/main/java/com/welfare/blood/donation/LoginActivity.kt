@@ -2,6 +2,8 @@ package com.welfare.blood.donation
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -17,6 +19,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
+    private var isPasswordVisible = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,13 +39,12 @@ class LoginActivity : AppCompatActivity() {
         binding.btnLogin.setOnClickListener {
             loginUser()
         }
-        binding.register.setOnClickListener{
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
-            finish()
+        binding.checkBoxShowPassword.setOnCheckedChangeListener { _, isChecked ->
+            isPasswordVisible = isChecked
+            togglePasswordVisibility()
         }
-        binding.reset.setOnClickListener{
-            val intent = Intent(this, ForgetPasswordActivity::class.java)
+        binding.register.setOnClickListener {
+            val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
             finish()
         }
@@ -73,6 +75,12 @@ class LoginActivity : AppCompatActivity() {
                     db.collection("users").document(userID).set(updateData, SetOptions.merge())
                         .addOnSuccessListener {
                             binding.progressBar.visibility = View.GONE
+                            // Save login state in SharedPreferences
+                            val sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
+                            with(sharedPreferences.edit()) {
+                                putBoolean("isLoggedIn", true)
+                                apply()
+                            }
                             navigateToHome()
                         }
                         .addOnFailureListener { e ->
@@ -88,6 +96,17 @@ class LoginActivity : AppCompatActivity() {
             }
     }
 
+    private fun togglePasswordVisibility() {
+        if (isPasswordVisible) {
+            // Show password
+            binding.edPassword.transformationMethod = HideReturnsTransformationMethod.getInstance()
+        } else {
+            // Hide password
+            binding.edPassword.transformationMethod = PasswordTransformationMethod.getInstance()
+        }
+        binding.edPassword.setSelection(binding.edPassword.text.length)
+    }
+
     private fun navigateToHome() {
         val intent = Intent(this, HomeActivity::class.java)
         startActivity(intent)
@@ -98,7 +117,6 @@ class LoginActivity : AppCompatActivity() {
         private const val TAG = "LoginActivity"
     }
 }
-
 
 
 //        binding.forgotPassword.setOnClickListener {

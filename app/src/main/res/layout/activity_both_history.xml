@@ -7,18 +7,22 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/colorPrimary1"
-        tools:ignore="MissingConstraints" />
+        android:layout_height="110dp"
+        android:background="@drawable/top_header"/>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        app:cardCornerRadius="35dp"
-        app:cardElevation="4dp"
+        android:layout_height="130dp"
+        app:cardCornerRadius="30dp"
         android:id="@+id/cardview"
-        android:backgroundTint="@color/colorPrimary1"
         tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:scaleType="fitXY"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/top_header"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -26,7 +30,7 @@
             android:fontFamily="@font/inter_bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="64dp"
+            android:layout_marginTop="54dp"
             android:drawableLeft="@drawable/back"
             android:layout_marginStart="20dp"
             android:textSize="25dp"
@@ -37,7 +41,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Activity"
+            android:text="My Activity"
             android:textColor="@color/white"
             android:textSize="25dp"
             android:fontFamily="@font/inter_bold"
@@ -49,7 +53,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabMode="fixed"
+        app:tabIndicatorColor="@color/maron"
         android:layout_marginTop="5dp"
+        app:tabTextColor="@color/maron"
         android:layout_below="@+id/cardview"
         app:tabGravity="fill"/>
 

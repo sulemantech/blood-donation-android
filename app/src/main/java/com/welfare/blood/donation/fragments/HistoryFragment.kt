@@ -12,19 +12,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
-import com.welfare.blood.donation.BloodbankActivity
-import com.welfare.blood.donation.BothHistoryActivity
-import com.welfare.blood.donation.CreateRequestActivity
-import com.welfare.blood.donation.DonateBloodActivity
-import com.welfare.blood.donation.EditProfileActivity
-import com.welfare.blood.donation.FAQActivity
-import com.welfare.blood.donation.LoginActivity
-import com.welfare.blood.donation.ProfileActivity
-import com.welfare.blood.donation.R
-import com.welfare.blood.donation.SearchActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.welfare.blood.donation.*
 import com.welfare.blood.donation.databinding.FragmentHistoryBinding
 
 class HistoryFragment : Fragment() {
+
+    private val auth = FirebaseAuth.getInstance()
 
     private var _binding: FragmentHistoryBinding? = null
     private val binding get() = _binding!!
@@ -60,7 +54,7 @@ class HistoryFragment : Fragment() {
             startActivity(intent)
         }
         cardView4.setOnClickListener {
-           sharegooglestore(requireContext())
+            shareGoogleStore(requireContext())
         }
 
         // Set up the navigation view
@@ -75,7 +69,7 @@ class HistoryFragment : Fragment() {
                     true
                 }
                 R.id.nav_share -> {
-                    sharegooglestore(requireContext())
+                    shareGoogleStore(requireContext())
                     true
                 }
                 R.id.nav_rate_us -> {
@@ -105,7 +99,7 @@ class HistoryFragment : Fragment() {
     }
 
     private fun navigateToEditProfile() {
-         startActivity(Intent(requireContext(), EditProfileActivity::class.java))
+        startActivity(Intent(requireContext(), EditProfileActivity::class.java))
     }
 
     private fun navigateToBloodBankActivity(context: Context) {
@@ -113,7 +107,7 @@ class HistoryFragment : Fragment() {
         context.startActivity(intent)
     }
 
-    private fun sharegooglestore(context: Context) {
+    private fun shareGoogleStore(context: Context) {
         val appPackageName = context.packageName
         val shareIntent = Intent(Intent.ACTION_SEND)
         shareIntent.type = "text/plain"
@@ -155,10 +149,6 @@ class HistoryFragment : Fragment() {
         alertDialog.show()
     }
 
-    private fun showFeedbackAndSuggestion() {
-        // Show feedback and suggestion implementation
-    }
-
     private fun showLogoutDialog(context: Context) {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_logout, null)
 
@@ -166,7 +156,6 @@ class HistoryFragment : Fragment() {
             .setView(dialogView)
             .create()
 
-        // Make the dialog non-cancelable
         alertDialog.setCancelable(false)
 
         dialogView.findViewById<Button>(R.id.btnCancel).setOnClickListener {
@@ -174,7 +163,6 @@ class HistoryFragment : Fragment() {
         }
 
         dialogView.findViewById<Button>(R.id.btnLogout).setOnClickListener {
-            // Handle logout logic here
             alertDialog.dismiss()
             performLogout()
         }
@@ -183,7 +171,14 @@ class HistoryFragment : Fragment() {
     }
 
     private fun performLogout() {
-        // Your logout logic here, e.g., clearing user data, navigating to login screen, etc.
+        auth.signOut()
+
+        val sharedPreferences = requireContext().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+        with(sharedPreferences.edit()) {
+            putBoolean("isLoggedIn", false)
+            apply()
+        }
+
         val intent = Intent(requireContext(), LoginActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)

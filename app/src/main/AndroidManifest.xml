@@ -2,8 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_SMS"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
 
     <application
         android:allowBackup="true"
@@ -14,6 +20,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BloodDonation"
         tools:targetApi="31">
+        <activity
+            android:name=".ReceivedRequestsActivity"
+            android:exported="false"
+            android:theme="@style/ThemeB" />
         <activity
             android:name=".EditProfileActivity"
             android:exported="false" />
@@ -28,17 +38,15 @@
         <activity
             android:name=".FAQActivity"
             android:exported="false"
-            android:theme="@style/ThemeA"/>
+            android:theme="@style/ThemeB" />
         <activity
             android:name=".ChatActivity"
             android:exported="false" />
-
         <activity android:name=".fragments.ReceivedRequestsFragment" />
-
         <activity
             android:name=".BothHistoryActivity"
             android:exported="false"
-            android:theme="@style/ThemeB"/>
+            android:theme="@style/ThemeB" />
         <activity
             android:name=".SearchResultActivity"
             android:exported="false"

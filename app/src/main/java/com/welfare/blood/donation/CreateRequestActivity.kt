@@ -12,8 +12,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.welfare.blood.donation.databinding.ActivityCreateRequestBinding
 import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Locale
+import java.util.*
 
 class CreateRequestActivity : AppCompatActivity() {
 
@@ -26,14 +25,26 @@ class CreateRequestActivity : AppCompatActivity() {
         binding = ActivityCreateRequestBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Initialize Firestore
         db = FirebaseFirestore.getInstance()
 
         binding.backArrow.setOnClickListener {
             onBackPressed()
         }
 
-        // Handle send request button click
+        val bloodForMyself = intent.getStringExtra("bloodFor") ?: ""
+        if (bloodForMyself == "Myself") {
+            binding.radioForMyself.isChecked = true
+            fillFormFields()
+        }
+
+        binding.bloodForMyselfGroup.setOnCheckedChangeListener { _, checkedId ->
+            if (checkedId == R.id.radio_for_myself) {
+                fillFormFields()
+            } else if (checkedId == R.id.radio_for_others) {
+                clearFormFields()
+            }
+        }
+
         binding.sendRequest.setOnClickListener {
             if (validateInputs()) {
                 showProgressBar()
@@ -43,6 +54,33 @@ class CreateRequestActivity : AppCompatActivity() {
 
         binding.edDateRequired.setOnClickListener {
             showDatePickerDialogForLastDonationDate()
+        }
+    }
+
+    private fun fillFormFields() {
+        binding.patientName.setText(intent.getStringExtra("name"))
+        // binding.phone.setText(intent.getStringExtra("phone"))
+        binding.bloodType.setSelection(getBloodTypeIndex(intent.getStringExtra("bloodGroup")!!))
+        setLocationSpinner(intent.getStringExtra("location")!!)
+    }
+
+    private fun clearFormFields() {
+        binding.patientName.setText("")
+        // binding.phone.setText("")
+        binding.bloodType.setSelection(0)
+        binding.location.setSelection(0)
+    }
+
+    private fun getBloodTypeIndex(bloodGroup: String): Int {
+        val bloodTypes = resources.getStringArray(R.array.blood_groups)
+        return bloodTypes.indexOf(bloodGroup)
+    }
+
+    private fun setLocationSpinner(location: String) {
+        val locations = resources.getStringArray(R.array.pakistan_cities)
+        val index = locations.indexOf(location)
+        if (index >= 0) {
+            binding.location.setSelection(index)
         }
     }
 
@@ -67,8 +105,7 @@ class CreateRequestActivity : AppCompatActivity() {
         val bloodType = binding.bloodType.selectedItem.toString().trim()
         val requiredUnitStr = binding.requiredUnit.text.toString().trim()
         val dateRequired = binding.edDateRequired.text.toString().trim()
-        // val hospital = binding.edHospital.text.toString().trim()
-        val location = binding.location.text.toString().trim()
+        val location = binding.location.selectedItem.toString().trim()
 
         if (patientName.isEmpty()) {
             binding.patientName.error = "Patient name is required"
@@ -92,15 +129,10 @@ class CreateRequestActivity : AppCompatActivity() {
             return false
         }
 
-        // if (hospital.isEmpty()) {
-        // binding.edHospital.error = "Hospital is required"
-        // return false
-        // }
-
-        if (location.isEmpty()) {
-            binding.location.error = "Location is required"
-            return false
-        }
+//        if (location.isEmpty()) {
+//            binding.location.error = "Location is required"
+//            return false
+//        }
 
         return true
     }
@@ -131,14 +163,12 @@ class CreateRequestActivity : AppCompatActivity() {
             "bloodType" to binding.bloodType.selectedItem.toString().trim(),
             "requiredUnit" to binding.requiredUnit.text.toString().trim().toInt(),
             "dateRequired" to binding.edDateRequired.text.toString().trim(),
-            // "hospital" to binding.edHospital.text.toString().trim(),
-            "location" to binding.location.text.toString().trim(),
+            "location" to binding.location.selectedItem.toString().trim(),
             "bloodFor" to bloodFor,
-            "userId" to currentUser.uid, // Add user ID here
-            "status" to "pending" // Add status field here
+            "userId" to currentUser.uid,
+            "status" to "pending"
         )
 
-        // Add a new document with a generated ID
         db.collection("requests")
             .add(request)
             .addOnSuccessListener { documentReference ->
@@ -157,6 +187,6 @@ class CreateRequestActivity : AppCompatActivity() {
     private fun navigateToOtherActivity() {
         val intent = Intent(this, SentSuccessfullActivity::class.java)
         startActivity(intent)
-        finish()  // Optional: call finish() if you don't want to keep CreateRequestActivity in the back stack
+        finish()
     }
 }

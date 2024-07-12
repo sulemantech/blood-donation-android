@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/home_screen_4"
     tools:context=".DonateBloodActivity">
     <TextView
         android:id="@+id/back_arrow"
@@ -34,8 +35,8 @@
         android:id="@+id/text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/please_let_us_know_if_you_need_the_blood_for_yourself_or_for_someone_else"
         android:textSize="15dp"
+        android:text="@string/please_let_us_know_if_you_need_the_blood_for_yourself_or_for_any_relatives"
         android:layout_marginTop="5dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
@@ -163,7 +164,7 @@
         android:id="@+id/donateButton"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:background="@drawable/signin_btn"
+        android:background="@drawable/buttons"
         android:gravity="center"
         android:text="Donate"
         android:textAllCaps="false"

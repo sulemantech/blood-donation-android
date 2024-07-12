@@ -12,8 +12,8 @@
 
         <ImageView
             android:id="@+id/profileImageView"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
             android:layout_gravity="center"
             android:contentDescription="Profile Image"
             android:src="@drawable/baseline_person_outline_24" />
@@ -93,25 +93,25 @@
             android:background="@drawable/spinner_border"
             android:entries="@array/blood_groups" />
 
-        <EditText
+        <TextView
             android:id="@+id/edCity"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="8dp"
-            android:hint="City"
+            android:layout_height="wrap_content"
+            android:text="City"
             android:paddingStart="10dp"
-            android:visibility="gone"
-            android:background="@drawable/ed_border"
-            android:inputType="text" />
+            android:layout_marginTop="5dp"
 
-        <EditText
+            />
+
+        <Spinner
             android:id="@+id/edLocation"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="8dp"
             android:hint="City"
             android:paddingStart="10dp"
-            android:background="@drawable/ed_border"
+            android:entries="@array/pakistan_cities"
+            android:background="@drawable/spinner_border"
             android:inputType="text" />
 
         <EditText
@@ -132,14 +132,25 @@
             android:layout_marginTop="8dp"
             android:text="I am a donor" />
 
-        <Button
+        <TextView
             android:id="@+id/btnSave"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:textAllCaps="false"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:background="@drawable/buttons"
             android:backgroundTint="@color/maron"
             android:layout_gravity="center_horizontal"
             android:text="Save" />
+
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar"
+            android:visibility="gone"
+            />
 
     </LinearLayout>
 </ScrollView>
