@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="General Info"
+        android:enabled="false"
+        android:checkable="false"
+        android:textColor="@color/black">
+    </item>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_edit_profile"
+            android:title="Edit Profile"
+            android:iconTint="@color/maron"
+            android:textColor="@color/menu_item_color"
+            android:icon="@drawable/ic_vector_person"/>
+        <item
+            android:id="@+id/nav_blood_bank"
+            android:title="Blood Bank"
+            android:textColor="@color/menu_item_color"
+            android:icon="@drawable/ic_blood_drop"/>
+        <item
+            android:id="@+id/nav_share"
+            android:title="Share with Friends"
+            android:textColor="@color/menu_item_color"
+            android:icon="@drawable/ic_share"/>
+        <item
+            android:id="@+id/nav_rate_us"
+            android:title="Rate our App"
+            android:icon="@drawable/star"
+            android:textColor="@color/menu_item_color"/>
+    </group>
+    <item
+        android:title="Privacy"
+        android:enabled="false"
+        android:checkable="false"
+        android:textColor="@color/black">
+    </item>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_feedback"
+            android:textColor="@color/menu_item_color"
+            android:title="Feedback &amp; Suggestion"
+            android:icon="@drawable/feedback"/>
+    </group>
+    <item
+        android:id="@+id/nav_logout"
+        android:title="Logout"
+        android:textColor="@color/menu_item_color"
+        android:icon="@drawable/ic_logout"/>
+</menu>

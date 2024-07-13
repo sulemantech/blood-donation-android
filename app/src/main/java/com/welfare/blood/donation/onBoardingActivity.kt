@@ -4,7 +4,9 @@ import android.content.Intent
 import android.graphics.drawable.GradientDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import androidx.cardview.widget.CardView
 
 class onBoardingActivity : AppCompatActivity() {
@@ -12,8 +14,11 @@ class onBoardingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_on_boarding)
 
-        val button1 = findViewById<Button>(R.id.button1)
-        val button2 = findViewById<Button>(R.id.button2)
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+        actionBar?.hide()
+
+        val button1 = findViewById<ImageView>(R.id.dont_have)
+        val button2 = findViewById<ImageView>(R.id.already_have)
 
         button1.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)

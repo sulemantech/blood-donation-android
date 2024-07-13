@@ -12,7 +12,6 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="image_description">Blood Group</string>
 
-    <!-- Strings related to login -->
     <string name="signup">Register</string>
     <string name="prompt_email">Email</string>
     <string name="register">Create an account</string>
@@ -33,10 +32,165 @@
     <string name="Division">Choose Division</string>
     <string name="Post">Post</string>
 
-    <string-array name="select">
-        <item>A+</item>
-        <item>B+</item>
-        <item>AB+</item>
-        <item>O+</item>
+    <string-array name="required_units">
+        <item>2</item>
+        <item>2.4</item>
+        <item>3</item>
+        <item>3.5</item>
+        <item>4</item>
+        <item>4.5</item>
+        <item>5</item>
+        <item>5.5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+
     </string-array>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit_sed_do_eiusmod_tempor_incididunt_ut_labore_et">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et</string>
+    <string name="what_is_blood_bank">
+        <font color="#0000000">What is</font> <font color="#9C1405">Blood Bank?</font>
+        </string>
+    <string name="a_blood_bank_is_a_center_where_blood_gathered_as_result_of_blood_donation_is_stored_as_preserved_for_later_use_in_blood_transfusion_the_term_blood_bank_typically_refers_to_divisionof_a_hospital_where_the_storage_of_blood_product_occurs_and_where_proper_testing_is_performed">A Blood bank is a center where blood gathered as result of blood donation is stored as preserved for later use in blood transfusion. The term “Blood Bank” typically refers to divisionof a hospital where the storage of blood product occurs and where proper testing is performed</string>
+    <string name="title_activity_main_home">MainActivityHome</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="please_let_us_know_if_you_need_the_blood_for_yourself_n_for_some_one_else">Please let us know if ypu need the blood for yourself \n for some one else</string>
+    <string name="blood_type">Blood Type</string>
+    <string name="required_unit">Required Unit</string>
+    <string name="required_date">Required Date</string>
+    <string name="dd_mm_yyyy">YYYY-MM-DD</string>
+    <string name="send_request">Send Request</string>
+    <string name="hospital_location">HospitalLocation</string>
+    <string name="are_you_sure_you_want_to_logout">Are You Sure You want to Logout?</string>
+    <string name="tt_sed_do_eiusmod_tempor_incididunt_ut_labore_et_dolore_magna_aliqua_ut_enim_ad_minim_veniam_quis_nostrud_exercitation_ullamco_laboris_nisi_ut_aliquip_ex_ea_commodo_consequat_duis_aute_irure_dolor_in_reprehenderit_in_voluptate_velit_esse_cillum_dolore_eu_fugiat_nulla_pariatur_excepteur_sint_occaecat_cupidatat_non_proident_sunt_in_culpa_qui_officia_deserunt_mollit_anim_id_est_laborum">tt, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+
+    <string-array name="blood_groups">
+        <item>A+</item>
+        <item>A-</item>
+        <item>B+</item>
+        <item>B-</item>
+        <item>AB+</item>
+        <item>AB-</item>
+        <item>O+</item>
+        <item>O-</item>
+    </string-array>
+
+
+    <string-array name="gender_array">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="pakistan_cities">
+        <item>Abbottabad</item>
+        <item>Attock</item>
+        <item>Bahawalpur</item>
+        <item>Bannu</item>
+        <item>Chakwal</item>
+        <item>Chiniot</item>
+        <item>Chishtian</item>
+        <item>Dera Ghazi Khan</item>
+        <item>Dera Ismail Khan</item>
+        <item>Faisalabad</item>
+        <item>Gilgit</item>
+        <item>Gujranwala</item>
+        <item>Gujrat</item>
+        <item>Gwadar</item>
+        <item>Hafizabad</item>
+        <item>Hyderabad</item>
+        <item>Islamabad</item>
+        <item>Jaranwala</item>
+        <item>Jhang</item>
+        <item>Jhelum</item>
+        <item>Kamoke</item>
+        <item>Karachi</item>
+        <item>Kasur</item>
+        <item>Khanewal</item>
+        <item>Khairpur</item>
+        <item>Kohat</item>
+        <item>Kohlu</item>
+        <item>Kotli</item>
+        <item>Lahore</item>
+        <item>Larkana</item>
+        <item>Mandi Bahauddin</item>
+        <item>Mardan</item>
+        <item>Mansehra</item>
+        <item>Mingora</item>
+        <item>Mirpur Khas</item>
+        <item>Multan</item>
+        <item>Muzaffargarh</item>
+        <item>Nawabshah</item>
+        <item>Nowshera</item>
+        <item>Okara</item>
+        <item>Pakpattan</item>
+        <item>Parachinar</item>
+        <item>Peshawar</item>
+        <item>Quetta</item>
+        <item>Rahim Yar Khan</item>
+        <item>Rawalpindi</item>
+        <item>Sadiqabad</item>
+        <item>Sahiwal</item>
+        <item>Sargodha</item>
+        <item>Sheikhupura</item>
+        <item>Shikarpur</item>
+        <item>Sialkot</item>
+        <item>Skardu</item>
+        <item>Sukkur</item>
+        <item>Swabi</item>
+        <item>Vehari</item>
+        <item>Zhob</item>
+    </string-array>
+
+    <string name="title_activity_received_request">ReceivedRequestActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="lorem_ipsum">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
+        volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
+        dui nec risus. Maecenas non sodales nisi, vel dictum dolor. Class aptent taciti sociosqu ad
+        litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse blandit eleifend
+        diam, vel rutrum tellus vulputate quis. Aliquam eget libero aliquet, imperdiet nisl a,
+        ornare ex. Sed rhoncus est ut libero porta lobortis. Fusce in dictum tellus.\n\n
+        Suspendisse interdum ornare ante. Aliquam nec cursus lorem. Morbi id magna felis. Vivamus
+        egestas, est a condimentum egestas, turpis nisl iaculis ipsum, in dictum tellus dolor sed
+        neque. Morbi tellus erat, dapibus ut sem a, iaculis tincidunt dui. Interdum et malesuada
+        fames ac ante ipsum primis in faucibus. Curabitur et eros porttitor, ultricies urna vitae,
+        molestie nibh. Phasellus at commodo eros, non aliquet metus. Sed maximus nisl nec dolor
+        bibendum, vel congue leo egestas.\n\n
+        Sed interdum tortor nibh, in sagittis risus mollis quis. Curabitur mi odio, condimentum sit
+        amet auctor at, mollis non turpis. Nullam pretium libero vestibulum, finibus orci vel,
+        molestie quam. Fusce blandit tincidunt nulla, quis sollicitudin libero facilisis et. Integer
+        interdum nunc ligula, et fermentum metus hendrerit id. Vestibulum lectus felis, dictum at
+        lacinia sit amet, tristique id quam. Cras eu consequat dui. Suspendisse sodales nunc ligula,
+        in lobortis sem porta sed. Integer id ultrices magna, in luctus elit. Sed a pellentesque
+        est.\n\n
+        Aenean nunc velit, lacinia sed dolor sed, ultrices viverra nulla. Etiam a venenatis nibh.
+        Morbi laoreet, tortor sed facilisis varius, nibh orci rhoncus nulla, id elementum leo dui
+        non lorem. Nam mollis ipsum quis auctor varius. Quisque elementum eu libero sed commodo. In
+        eros nisl, imperdiet vel imperdiet et, scelerisque a mauris. Pellentesque varius ex nunc,
+        quis imperdiet eros placerat ac. Duis finibus orci et est auctor tincidunt. Sed non viverra
+        ipsum. Nunc quis augue egestas, cursus lorem at, molestie sem. Morbi a consectetur ipsum, a
+        placerat diam. Etiam vulputate dignissim convallis. Integer faucibus mauris sit amet finibus
+        convallis.\n\n
+        Phasellus in aliquet mi. Pellentesque habitant morbi tristique senectus et netus et
+        malesuada fames ac turpis egestas. In volutpat arcu ut felis sagittis, in finibus massa
+        gravida. Pellentesque id tellus orci. Integer dictum, lorem sed efficitur ullamcorper,
+        libero justo consectetur ipsum, in mollis nisl ex sed nisl. Donec maximus ullamcorper
+        sodales. Praesent bibendum rhoncus tellus nec feugiat. In a ornare nulla. Donec rhoncus
+        libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
+        vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
+    </string>
+    <string name="please_let_us_know_if_you_need_the_blood_for_yourself_or_for_any_relatives">Please let us know if you need the blood for yourself or for any relatives.</string>
+
+
 </resources>

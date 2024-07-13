@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_gradient"
+    tools:context=".SentSuccessfullActivity">
+    <TextView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:fontFamily="@font/inter_bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="40dp"
+        android:drawableLeft="@drawable/baseline_arrow_back_ios_24"
+        android:layout_marginStart="25dp"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:id="@+id/back_arrow"
+        android:textColor="@color/black"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sent Successfully"
+        android:fontFamily="@font/inter_bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/back_arrow"
+        android:layout_marginTop="35dp"
+        android:layout_marginStart="30dp"
+        android:textSize="25dp"
+        android:id="@+id/successful"
+        android:textColor="@color/black"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et   "
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="100dp"
+        android:textSize="15dp"
+        app:layout_constraintTop_toBottomOf="@+id/successful"
+        android:id="@+id/text" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="370dp"
+        android:src="@drawable/sent"
+        android:id="@+id/imge_sent"
+        app:layout_constraintTop_toBottomOf="@+id/text"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/home_btn"
+        android:textAllCaps="false"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="40dp"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/imge_sent"
+        android:background="@drawable/save_password_btn"
+        android:layout_marginEnd="40dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

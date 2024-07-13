@@ -4,23 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/onboard"
     tools:context=".onBoardingActivity">
 
-    <ImageView
+
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="275dp"
-        android:src="@drawable/onboard"
-        android:id="@+id/img"/>
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:id="@+id/app_bar_main"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="match_parent"
+            android:layout_height="275dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/onboard"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="480dp"
-        app:cardCornerRadius="45dp"
+        android:layout_height="645dp"
+        app:cardCornerRadius="40dp"
         app:cardElevation="4dp"
         android:id="@+id/cardview"
-        app:layout_constraintTop_toBottomOf="@+id/img"
+        app:layout_constraintTop_toBottomOf="@+id/app_bar_main"
         android:background="@color/white">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="120dp"
+            android:src="@drawable/dark"
+            android:layout_gravity="center"
+            android:layout_marginBottom="215dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -29,7 +49,7 @@
             android:textSize="20dp"
             android:id="@+id/blood"
             android:textColor="@color/black1"
-            android:layout_marginBottom="110dp"
+            android:layout_marginBottom="125dp"
             android:layout_gravity="center">
         </TextView>
         <TextView
@@ -37,33 +57,30 @@
             android:layout_height="wrap_content"
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco "
             android:fontFamily="@font/inter_bold"
-            android:textSize="15dp"
+            android:textSize="15sp"
+            android:id="@+id/text"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginTop="155dp"
+            android:layout_marginTop="215dp"
             android:gravity="center">
         </TextView>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="50dp"
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/btn_register"
+            android:layout_marginTop="360dp"
+            android:id="@+id/dont_have"
             android:layout_marginStart="30dp"
-            android:id="@+id/button1"
-            android:textAllCaps="false"
-            android:background="@drawable/btn_shape1"
-            android:text="Don't Have an Account?"
-            android:layout_marginEnd="30dp"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:id="@+id/button2"
-            android:textAllCaps="false"
-            android:layout_gravity="center"
-            android:layout_marginTop="130dp"
+            android:layout_marginEnd="30dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/account_button"
+            android:layout_marginTop="435dp"
             android:layout_marginStart="30dp"
-            android:background="@drawable/btn_shape2"
-            android:text="Already Have an Account?"
-            android:layout_marginEnd="30dp"/>
+            android:id="@+id/already_have"
+            android:layout_marginEnd="30dp" />
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
