@@ -136,4 +136,5 @@ class HomeFragment : Fragment() {
     private fun displayPatientCount(count: Int) {
         binding.emergencyPatientsLabel.text = "Emergency Patients: $count"
     }
+
 }

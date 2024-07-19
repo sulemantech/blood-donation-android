@@ -5,8 +5,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp"
     app:cardElevation="6dp"
-    app:cardCornerRadius="9dp"
+    app:cardCornerRadius="10dp"
     android:layout_margin="5dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="140dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -112,6 +116,10 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="100dp"
-        android:layout_marginStart="275dp" />
+        android:layout_marginStart="275dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>
