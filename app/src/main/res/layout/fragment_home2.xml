@@ -10,36 +10,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/top_header"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            app:cardCornerRadius="30dp"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="4dp"
             android:id="@+id/cardview"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp">
+            app:layout_constraintEnd_toEndOf="parent">
 
-            <ImageView
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/top_header" />
+                android:layout_height="match_parent">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Home"
-                android:textColor="@color/white"
-                android:textSize="25sp"
-                android:fontFamily="@font/inter_bold"
-                android:layout_gravity="center" />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/top_header"
+                    android:contentDescription="@string/header_image" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Home"
+                    android:textColor="@color/white"
+                    android:textSize="25sp"
+                    android:fontFamily="@font/inter_bold"
+                    android:layout_gravity="center" />
+            </FrameLayout>
         </androidx.cardview.widget.CardView>
 
         <TextView
@@ -68,19 +68,24 @@
             android:id="@+id/cardview6"
             android:layout_marginStart="25dp">
 
-            <ImageView
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/top_image"
-                android:layout_gravity="center"
-                android:scaleType="fitCenter" />
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/bg_profile"
-                android:layout_gravity="center"
-                android:scaleType="fitXY" />
+                android:layout_height="match_parent">
 
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/top_image"
+                    android:scaleType="fitCenter"
+                    android:contentDescription="@string/top_image" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/bg_profile"
+                    android:scaleType="fitXY"
+                    android:contentDescription="@string/background_profile_image" />
+            </FrameLayout>
         </androidx.cardview.widget.CardView>
 
         <TextView
@@ -91,7 +96,7 @@
             android:textSize="15sp"
             android:id="@+id/home"
             android:layout_marginTop="10dp"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="30dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardview6" />
 
@@ -106,98 +111,104 @@
             android:layout_marginEnd="25dp"
             app:cardUseCompatPadding="true"
             android:id="@+id/cardview5"
-            android:layout_marginStart="25dp"
-            >
+            android:layout_marginStart="25dp">
 
-            <ImageView
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="118dp"
-                android:textColor="@color/gray"
-                android:scaleType="fitXY"
-                android:src="@drawable/bg_cardview"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp">
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_cardview">
 
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="5dp"
 
-                    android:src="@drawable/ic_a_plus" />
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="1dp"
-                    android:layout_marginTop="5dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp">
 
-                    android:src="@drawable/ic_a_minus" />
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="1dp"
-                    android:layout_marginTop="5dp"
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/ic_a_plus"
+                        android:contentDescription="@string/a_plus_icon" />
 
-                    android:src="@drawable/ic_b_plus" />
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="1dp"
-                    android:layout_marginTop="5dp"
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/ic_a_minus"
+                        android:contentDescription="@string/a_minus_icon" />
 
-                    android:src="@drawable/ic_b_minus" />
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="1dp"
-                    android:layout_marginTop="5dp"
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/ic_b_plus"
+                        android:contentDescription="@string/b_plus_icon" />
 
-                    android:src="@drawable/ic_ab_plus" />
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="1dp"
-                    android:layout_marginTop="5dp"
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/ic_b_minus"
+                        android:contentDescription="@string/b_minus_icon" />
 
-                    android:src="@drawable/ic_ab_minus" />
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="1dp"
-                    android:layout_marginTop="5dp"
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/ic_ab_plus"
+                        android:contentDescription="@string/ab_plus_icon" />
 
-                    android:src="@drawable/ic_o_plus" />
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="1dp"
-                    android:layout_marginTop="5dp"
-                    android:src="@drawable/ic_o_minus" />
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/ic_ab_minus"
+                        android:contentDescription="@string/ab_minus_icon" />
 
-            </LinearLayout>
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/ic_o_plus"
+                        android:contentDescription="@string/o_plus_icon" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="13sp"
-                android:text="Blood Requests"
-                android:layout_gravity="center"
-                android:layout_marginTop="30dp"
-                android:layout_marginStart="60dp"
-                android:textColor="@color/black" />
-            <TextView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:fontFamily="@font/inter_bold"
-                android:textSize="15sp"
-                android:layout_marginStart="319dp"
-                android:background="@drawable/next_ic"
-                android:layout_marginTop="69dp"
-              />
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/ic_o_minus"
+                        android:contentDescription="@string/o_minus_icon" />
+                </LinearLayout>
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:text="Blood Requests"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginStart="60dp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:fontFamily="@font/inter_bold"
+                    android:textSize="15sp"
+                    android:layout_marginStart="319dp"
+                    android:background="@drawable/next_ic"
+                    android:layout_marginTop="69dp"/>
+            </FrameLayout>
         </androidx.cardview.widget.CardView>
 
         <TextView
@@ -205,7 +216,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Emergency Patients"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="35dp"
             android:layout_marginTop="10dp"
             android:textSize="15sp"
             android:textColor="@color/maron"
@@ -222,156 +233,56 @@
             android:layout_marginEnd="25dp"
             android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cardview5"
-             />
-            <!-- RecyclerView for emergency patients -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/critical_patient_recyclerview"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:layout_marginEnd="25dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/white"
-                tools:listitem="@layout/critical_patient_item"
-                app:layout_constraintTop_toBottomOf="@+id/emergencyPatientsLabel"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/cardview5"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/critical_patient_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="25dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            tools:listitem="@layout/critical_patient_item"
+            app:layout_constraintTop_toBottomOf="@id/tvSeeAll"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <TextView
+            android:id="@+id/recentCampaignsLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Are You Looking For?"
-            android:textColor="@color/maron"
-            android:textSize="15sp"
+            android:text="Recent Campaigns"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
+            android:textSize="15sp"
+            android:textColor="@color/maron"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/critical_patient_recyclerview" />
+            app:layout_constraintTop_toBottomOf="@id/critical_patient_recyclerview"/>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="160dp"
-            android:layout_marginTop="25dp"
-            app:layout_constraintTop_toBottomOf="@id/critical_patient_recyclerview"
-            app:cardCornerRadius="8dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="8dp"
-            app:cardUseCompatPadding="true"
-            app:cardElevation="6dp"
-            android:id="@+id/cardview1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/cardview2">
-
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/ic_blood_request"
-                android:layout_marginStart="55dp"
-                android:layout_marginTop="15dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Blood Requests"
-                android:textSize="15sp"
-                android:layout_gravity="center"
-                android:layout_marginTop="35dp" />
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="160dp"
-            android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@id/critical_patient_recyclerview"
-            app:cardCornerRadius="8dp"
-            android:layout_marginEnd="8dp"
-            app:cardUseCompatPadding="true"
-            app:cardElevation="6dp"
-            android:id="@+id/cardview2"
+        <TextView
+            android:id="@+id/tvCampaignSeeAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="See All"
+            android:textColor="@color/maron"
+            android:textStyle="bold"
+            android:layout_marginEnd="25dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/cardview1">
+            app:layout_constraintTop_toBottomOf="@id/critical_patient_recyclerview"/>
 
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/ic_donate_blood"
-                android:layout_marginStart="55dp"
-                android:layout_marginTop="15dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Blood Donors"
-                android:textSize="15sp"
-                android:layout_gravity="center"
-                android:layout_marginTop="35dp" />
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="160dp"
-            app:layout_constraintTop_toBottomOf="@id/cardview1"
-            app:cardCornerRadius="8dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="8dp"
-            app:cardUseCompatPadding="true"
-            app:cardElevation="6dp"
-            android:id="@+id/cardview3"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/campaign_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="25dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            tools:listitem="@layout/campaign_item"
+            app:layout_constraintTop_toBottomOf="@id/recentCampaignsLabel"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/cardview4">
-
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="55dp"
-                android:src="@drawable/ic_blood_bank"
-                android:layout_marginTop="15dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Blood Banks"
-                android:textSize="15sp"
-                android:layout_gravity="center"
-                android:layout_marginTop="35dp" />
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="160dp"
-            app:layout_constraintTop_toBottomOf="@id/cardview2"
-            app:cardCornerRadius="8dp"
-            android:layout_marginEnd="8dp"
-            app:cardUseCompatPadding="true"
-            app:cardElevation="6dp"
-            android:id="@+id/cardview4"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/cardview3">
-
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="55dp"
-                android:src="@drawable/ic_blood_donor"
-                android:layout_marginTop="15dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Donate Blood"
-                android:textSize="15sp"
-                android:layout_gravity="center"
-                android:layout_marginTop="35dp" />
-
-        </androidx.cardview.widget.CardView>
-
+            app:layout_constraintEnd_toEndOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </ScrollView>
