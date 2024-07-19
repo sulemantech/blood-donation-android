@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp"
+    app:cardElevation="6dp"
+    app:cardCornerRadius="9dp"
+    android:layout_margin="5dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/patientName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="iqra"
+            android:textSize="16sp"
+            android:textColor="#000000"/>
+        <TextView
+            android:id="@+id/dateRequired"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/patientName"
+
+            android:text="23/45/6675"
+            android:textSize="12sp"
+            android:layout_marginTop="5dp"
+            android:textColor="#000000"/>
+
+
+        <TextView
+            android:id="@+id/bloodGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/condition2"
+            android:textSize="20sp"
+            android:layout_marginEnd="5dp"
+            android:layout_alignParentEnd="true"
+            android:text="A-"
+            android:textColor="#000000"/>
+
+        <TextView
+            android:id="@+id/tvRequiredUnit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bloodGroup"
+            android:textSize="14sp"
+            android:visibility="gone"
+            android:textColor="#000000"/>
+
+        <TextView
+            android:id="@+id/condition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/dark_bg"
+            android:padding="4dp"
+            android:visibility="gone"
+            android:gravity="center"
+            android:textColor="#FFFFFF"/>
+        <TextView
+            android:id="@+id/condition2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:padding="4dp"
+            android:text="Critical"
+            android:gravity="center"
+            android:textColor="@color/maron"/>
+
+        <TextView
+            android:id="@+id/contactInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dateRequired"
+            android:textSize="14sp"
+            android:text="abcc"
+            android:textColor="#000000"/>
+
+        <TextView
+            android:id="@+id/hospital"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/contactInfo"
+
+            android:textSize="12sp"
+            android:visibility="gone"
+            android:layout_marginTop="5dp"
+            android:textColor="#000000"/>
+        <TextView
+            android:id="@+id/requiredUnit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/contactInfo"
+
+            android:text="2"
+            android:textSize="12sp"
+            android:layout_marginTop="5dp"
+            android:textColor="#000000"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40sp"
+        android:background="@drawable/donate_now"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="100dp"
+        android:layout_marginStart="275dp" />
+
+</androidx.cardview.widget.CardView>

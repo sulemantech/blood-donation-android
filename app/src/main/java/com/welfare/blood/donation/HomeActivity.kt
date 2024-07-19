@@ -8,6 +8,7 @@ import com.welfare.blood.donation.fragments.HistoryFragment
 import com.welfare.blood.donation.fragments.HomeFragment
 import com.welfare.blood.donation.fragments.InboxFragment
 import com.welfare.blood.donation.fragments.NotificationFragment
+import com.welfare.blood.donation.fragments.ReceivedRequestsFragment
 
 class HomeActivity : AppCompatActivity() {
 
@@ -34,6 +35,10 @@ class HomeActivity : AppCompatActivity() {
                     loadFragment(InboxFragment())
                     true
                 }
+                R.id.activity -> {
+                    loadFragment(ReceivedRequestsFragment())
+                    true
+                }
                 R.id.notification -> {
                     loadFragment(NotificationFragment())
                     true
@@ -50,6 +55,7 @@ class HomeActivity : AppCompatActivity() {
     private fun loadFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.container, fragment)
+        transaction.addToBackStack(null)
         transaction.commit()
     }
 

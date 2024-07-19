@@ -2,24 +2,35 @@ package com.welfare.blood.donation.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.welfare.blood.donation.BloodbankActivity
 import com.welfare.blood.donation.BothHistoryActivity
+import com.welfare.blood.donation.CreateRequestActivity
+import com.welfare.blood.donation.CriticalPatientsListActivity
 import com.welfare.blood.donation.DonateBloodActivity
-import com.welfare.blood.donation.R
-import com.welfare.blood.donation.ReceivedRequestsActivity
+import com.welfare.blood.donation.ProfileActivity
 import com.welfare.blood.donation.SearchActivity
+import com.welfare.blood.donation.adapters.CriticalPatientAdapter
 import com.welfare.blood.donation.databinding.FragmentHome2Binding
+import com.welfare.blood.donation.models.CriticalPatient
+import com.welfare.blood.donation.models.Request
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHome2Binding
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
+    private lateinit var tvWelcomeMessage: TextView
+    private lateinit var criticalPatientAdapter: CriticalPatientAdapter
+    private val criticalPatients = mutableListOf<CriticalPatient>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,28 +46,94 @@ class HomeFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
 
-        val cardView1 = binding.cardview1
-        val cardView2 = binding.cardview2
-        val cardView3 = binding.cardview3
-        val cardView4 = binding.cardview4
+        tvWelcomeMessage = binding.home1
 
-        cardView1.setOnClickListener {
-            val intent = Intent(requireContext(), ReceivedRequestsActivity::class.java)
-            startActivity(intent)
+        // Fetch user details from Firestore
+        val userID = auth.currentUser?.uid
+        userID?.let { uid ->
+            db.collection("users").document(uid).get()
+                .addOnSuccessListener { document ->
+                    if (document != null) {
+                        val userName = document.getString("name")
+                        tvWelcomeMessage.text = "Welcome, $userName"
+                    } else {
+                        tvWelcomeMessage.text = "Welcome"
+                    }
+                }
+                .addOnFailureListener {
+                    tvWelcomeMessage.text = "Welcome"
+                }
         }
 
-        cardView2.setOnClickListener {
-            val intent = Intent(requireContext(), DonateBloodActivity::class.java)
-            startActivity(intent)
+        // Setup RecyclerView
+        binding.criticalPatientRecyclerview.layoutManager = LinearLayoutManager(requireContext())
+        criticalPatientAdapter = CriticalPatientAdapter(criticalPatients)
+        binding.criticalPatientRecyclerview.adapter = criticalPatientAdapter
+
+        fetchCriticalPatients()
+
+        binding.cardview1.setOnClickListener {
+            startActivity(Intent(requireContext(), CreateRequestActivity::class.java))
         }
 
-        cardView3.setOnClickListener {
-            val intent = Intent(requireContext(), SearchActivity::class.java)
-            startActivity(intent)
+        binding.cardview2.setOnClickListener {
+            startActivity(Intent(requireContext(), SearchActivity::class.java))
         }
-        cardView4.setOnClickListener {
-            val intent = Intent(requireContext(), BothHistoryActivity::class.java)
-            startActivity(intent)
+
+        binding.cardview3.setOnClickListener {
+            startActivity(Intent(requireContext(), BloodbankActivity::class.java))
         }
+
+        binding.cardview4.setOnClickListener {
+            startActivity(Intent(requireContext(), DonateBloodActivity::class.java))
+        }
+
+        binding.cardview5.setOnClickListener {
+            startActivity(Intent(requireContext(), SearchActivity::class.java))
+        }
+
+        binding.cardview6.setOnClickListener {
+            startActivity(Intent(requireContext(), ProfileActivity::class.java))
+        }
+        binding.tvSeeAll.setOnClickListener {
+            startActivity(Intent(requireContext(), CriticalPatientsListActivity::class.java))
+        }
+    }
+
+    private fun fetchCriticalPatients() {
+        db.collection("requests")
+            .whereEqualTo("critical", true)
+            .limit(1)
+            .get()
+            .addOnSuccessListener { documents ->
+                criticalPatients.clear()
+                for (document in documents) {
+                    val request = document.toObject(Request::class.java)
+                    val criticalPatient = CriticalPatient(
+                        patientName = request.patientName,
+                        age = request.age,
+                        bloodType = request.bloodType,
+                        requiredUnit = request.requiredUnit,
+                        dateRequired = request.dateRequired,
+                        hospital = request.hospital,
+                        location = request.location,
+                        bloodFor = request.bloodFor,
+                        userId = request.userId,
+                        recipientId = request.recipientId,
+                        status = request.status,
+                        critical = request.critical // This will now work
+                    )
+                    criticalPatients.add(criticalPatient)
+                }
+                criticalPatientAdapter.notifyDataSetChanged()
+                displayPatientCount(criticalPatients.size)
+            }
+            .addOnFailureListener { e ->
+                Log.w("HomeFragment", "Error fetching critical patients", e)
+            }
+    }
+
+    private fun displayPatientCount(count: Int) {
+        binding.emergencyPatientsLabel.text = "Emergency Patients: $count"
     }
 }
