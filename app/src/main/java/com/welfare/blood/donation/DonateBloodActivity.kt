@@ -5,9 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -40,56 +37,12 @@ class DonateBloodActivity : AppCompatActivity() {
             Log.w("DonateBloodActivity", "Error initializing Firestore", e)
         }
 
-        // Set up blood type spinner
-        ArrayAdapter.createFromResource(
-            this,
-            R.array.blood_groups,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            binding.bloodTypeEditText.adapter = adapter
-        }
-
-        // Set up location spinner
-        ArrayAdapter.createFromResource(
-            this,
-            R.array.pakistan_cities,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            binding.locationEditText.adapter = adapter
-        }
-
-        // Set default selections
-        setDefaultSelection(binding.bloodTypeEditText, "Select blood Type")
-        setDefaultSelection(binding.locationEditText, "Select City")
-
         binding.donateButton.setOnClickListener {
             saveDonationData()
         }
 
         binding.edDate.setOnClickListener {
             showDatePickerDialogForLastDonationDate()
-        }
-    }
-
-    private fun setDefaultSelection(spinner: Spinner, defaultValue: String) {
-        val adapter = spinner.adapter
-        for (i in 0 until adapter.count) {
-            if (adapter.getItem(i).toString() == defaultValue) {
-                spinner.setSelection(i)
-                break
-            }
-        }
-
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                // handle selection
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {
-                // handle no selection
-            }
         }
     }
 
@@ -152,7 +105,6 @@ class DonateBloodActivity : AppCompatActivity() {
                 }
         } else {
             Log.w("DonateBloodActivity", "Please fill all fields")
-            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
         }
     }
 }

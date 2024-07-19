@@ -75,5 +75,5 @@ class ReceivedRequestsFragment : Fragment() {
         private fun displayRequestCount(count: Int) {
             binding.receivedRequestCount.text = "Requests Received: $count"
         }
-    }//convert into activity
+    }
 

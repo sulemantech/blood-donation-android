@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.welfare.blood.donation.SentSuccessfullActivity
 import com.welfare.blood.donation.databinding.ActivityCreateRequestBinding
 import java.text.SimpleDateFormat
 import java.util.*
@@ -19,6 +20,7 @@ class CreateRequestActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCreateRequestBinding
     private lateinit var db: FirebaseFirestore
     private lateinit var selectedDonationDate: String
+    private var isCritical: Boolean = false // Added for critical checkbox state
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +31,11 @@ class CreateRequestActivity : AppCompatActivity() {
 
         binding.backArrow.setOnClickListener {
             onBackPressed()
+        }
+
+        // Initialize critical checkbox
+        binding.critical.setOnCheckedChangeListener { _, isChecked ->
+            isCritical = isChecked
         }
 
         val bloodForMyself = intent.getStringExtra("bloodFor") ?: ""
@@ -129,10 +136,10 @@ class CreateRequestActivity : AppCompatActivity() {
             return false
         }
 
-//        if (location.isEmpty()) {
-//            binding.location.error = "Location is required"
-//            return false
-//        }
+        //        if (location.isEmpty()) {
+        //            binding.location.error = "Location is required"
+        //            return false
+        //        }
 
         return true
     }
@@ -157,6 +164,9 @@ class CreateRequestActivity : AppCompatActivity() {
         val selectedId = binding.bloodForMyselfGroup.checkedRadioButtonId
         val bloodFor = findViewById<RadioButton>(selectedId).text.toString()
 
+        // Get critical status
+        val isCritical = binding.critical.isChecked
+
         val request = hashMapOf(
             "patientName" to binding.patientName.text.toString().trim(),
             "age" to binding.age.text.toString().trim().toInt(),
@@ -166,7 +176,8 @@ class CreateRequestActivity : AppCompatActivity() {
             "location" to binding.location.selectedItem.toString().trim(),
             "bloodFor" to bloodFor,
             "userId" to currentUser.uid,
-            "status" to "pending"
+            "status" to "pending",
+            "critical" to isCritical // Add critical status to the request
         )
 
         db.collection("requests")

@@ -9,6 +9,11 @@
         android:title="Inbox"
         android:icon="@drawable/ic_vector_email"/>
     <item
+        android:id="@+id/activity"
+        android:title="Activity"
+        android:icon="@drawable/ic_activity"/>
+
+    <item
         android:id="@+id/notification"
         android:title="Notification"
         android:icon="@drawable/vector_notification"/>

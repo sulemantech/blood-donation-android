@@ -3,35 +3,46 @@ package com.welfare.blood.donation
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.welfare.blood.donation.databinding.ActivityReceivedRequestBinding
+import com.welfare.blood.donation.databinding.FragmentReceivedRequestsBinding
 import com.welfare.blood.donation.models.Request
 
-class ReceivedRequestsActivity : AppCompatActivity() {
+class ReceivedRequestsFragment : Fragment() {
 
-    private lateinit var binding: ActivityReceivedRequestBinding
+    private var _binding: FragmentReceivedRequestsBinding? = null
+    private val binding get() = _binding!!
+
     private lateinit var db: FirebaseFirestore
     private lateinit var requestList: MutableList<Request>
     private lateinit var adapter: RequestAdapter
     private lateinit var auth: FirebaseAuth
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityReceivedRequestBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentReceivedRequestsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         db = FirebaseFirestore.getInstance()
         auth = FirebaseAuth.getInstance()
 
-        binding.backArrow.setOnClickListener {
-            onBackPressed()
-        }
+//        binding.backArrow.setOnClickListener {
+//            activity?.onBackPressed()
+//        }
 
-        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.layoutManager = LinearLayoutManager(context)
         requestList = mutableListOf()
         adapter = RequestAdapter(requestList)
         binding.recyclerView.adapter = adapter
@@ -45,7 +56,7 @@ class ReceivedRequestsActivity : AppCompatActivity() {
     private fun fetchRequests() {
         val currentUser = auth.currentUser
         if (currentUser == null) {
-            Log.w("ReceivedRequestsActivity", "User not logged in")
+            Log.w("ReceivedRequestsFragment", "User not logged in")
             return
         }
 
@@ -63,7 +74,7 @@ class ReceivedRequestsActivity : AppCompatActivity() {
                 displayRequestCount(requestList.size)
             }
             .addOnFailureListener { e ->
-                Log.w("ReceivedRequestsActivity", "Error fetching requests", e)
+                Log.w("ReceivedRequestsFragment", "Error fetching requests", e)
             }
     }
 
@@ -82,7 +93,7 @@ class ReceivedRequestsActivity : AppCompatActivity() {
                     val location = document.getString("location") ?: ""
                     val email = document.getString("email") ?: ""
 
-                    val intent = Intent(this, CreateRequestActivity::class.java).apply {
+                    val intent = Intent(context, CreateRequestActivity::class.java).apply {
                         putExtra("bloodFor", "Myself")
                         putExtra("name", name)
                         putExtra("phone", phone)
@@ -92,11 +103,16 @@ class ReceivedRequestsActivity : AppCompatActivity() {
                     }
                     startActivity(intent)
                 } else {
-                    Toast.makeText(this, "User data not found", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "User data not found", Toast.LENGTH_SHORT).show()
                 }
             }
             .addOnFailureListener { e ->
-                Toast.makeText(this, "Failed to fetch user data", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Failed to fetch user data", Toast.LENGTH_SHORT).show()
             }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

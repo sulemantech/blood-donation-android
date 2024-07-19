@@ -1,6 +1,6 @@
 package com.welfare.blood.donation.models
 
-data class Request(
+data class CriticalPatient(
     val patientName: String = "",
     val age: Int = 0,
     val bloodType: String = "",
