@@ -45,31 +45,27 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardview" />
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="155dp"
-            app:layout_constraintTop_toBottomOf="@id/home1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:cardCornerRadius="12dp"
-            android:layout_marginEnd="25dp"
-            app:cardUseCompatPadding="true"
-            app:cardElevation="6dp"
-            android:elevation="8dp"
-            android:id="@+id/cardview6"
-            android:layout_marginStart="25dp">
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="190dp"
+                android:layout_height="150dp"
+                app:layout_constraintTop_toBottomOf="@+id/home1"
                 android:src="@drawable/top_image"
-                android:scaleType="centerCrop" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+             />
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="150sp"
                 android:src="@drawable/bg_profile"
+                android:id="@+id/cardview6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginEnd="25sp"
+                android:layout_marginStart="25sp"
+                app:layout_constraintTop_toBottomOf="@+id/home1"
                 android:scaleType="centerCrop" />
-        </androidx.cardview.widget.CardView>
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -83,28 +79,25 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardview6" />
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="115dp"
-            android:layout_marginTop="3dp"
-            app:layout_constraintTop_toBottomOf="@id/home"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:cardCornerRadius="8dp"
-            android:layout_marginEnd="25dp"
-            app:cardUseCompatPadding="true"
-            android:id="@+id/cardview5"
-            android:layout_marginStart="25dp">
+
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:id="@+id/cardview5"
+                app:layout_constraintTop_toBottomOf="@id/home"
                 android:src="@drawable/bg_cardview" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:id="@+id/linear"
+                app:layout_constraintTop_toBottomOf="@id/home"
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp">
 
@@ -161,20 +154,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="13sp"
+                android:id="@+id/blood_req"
                 android:text="Blood Requests"
                 android:layout_gravity="center"
-                android:layout_marginTop="30dp"
-                android:layout_marginStart="60dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="70dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/linear"
                 android:textColor="@color/black" />
             <TextView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:fontFamily="@font/inter_bold"
                 android:textSize="15sp"
-                android:layout_marginStart="319dp"
+                android:layout_marginEnd="25dp"
                 android:background="@drawable/next_ic"
-                android:layout_marginTop="69dp" />
-        </androidx.cardview.widget.CardView>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/linear"
+                android:layout_marginTop="15sp" />
+
 
         <TextView
             android:id="@+id/emergencyPatientsLabel"
@@ -182,11 +180,11 @@
             android:layout_height="wrap_content"
             android:text="Emergency Patients"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="60dp"
             android:textSize="15sp"
             android:textColor="@color/maron"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cardview5"/>
+            app:layout_constraintTop_toBottomOf="@id/linear"/>
 
         <TextView
             android:id="@+id/tvSeeAll"
@@ -196,9 +194,9 @@
             android:textColor="@color/maron"
             android:textStyle="bold"
             android:layout_marginEnd="25dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="60dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cardview5"
+            app:layout_constraintTop_toBottomOf="@id/linear"
              />
             <!-- RecyclerView for emergency patients -->
             <androidx.recyclerview.widget.RecyclerView
