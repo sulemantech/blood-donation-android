@@ -1,32 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp">
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:cardCornerRadius="5dp"
+        android:id="@+id/cardview"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/top_header"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="24dp"
+            android:drawableLeft="@drawable/back"
+            android:layout_marginStart="20dp"
+            android:textSize="25dp"
+            android:id="@+id/back_arrow"
+            android:drawableTint="@color/white"
+            android:gravity="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Blood Requests"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:fontFamily="@font/inter_bold"
+            android:layout_gravity="center"/>
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/receivedRequestCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Requests Received: 0"
-        android:textSize="16sp"
-        android:textColor="#000000"
-        android:layout_marginTop="15dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginBottom="16dp"/>
+        android:textSize="18sp"
+        android:layout_margin="18dp"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/cardview"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:backgroundTint="@color/maron"
-        android:text="Create Request"
-        android:id="@+id/create_request"
-        android:textAllCaps="false"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="5dp"
+        tools:listitem="@layout/history_recyclerview"
+        app:layout_constraintTop_toBottomOf="@id/receivedRequestCount"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <Button
+        android:id="@+id/createRequest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create Request"
+        android:textAllCaps="false"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
-        android:layout_below="@id/receivedRequestCount"/>
-</RelativeLayout>
+        android:backgroundTint="@color/maron"
+        app:layout_constraintTop_toBottomOf="@+id/cardview"
+        app:layout_constraintStart_toEndOf="@+id/receivedRequestCount"
+        app:layout_constraintEnd_toEndOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

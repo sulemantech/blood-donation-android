@@ -24,6 +24,10 @@ class CriticalPatientsListActivity : AppCompatActivity() {
 
         db = FirebaseFirestore.getInstance()
 
+        binding.backArrow.setOnClickListener {
+            onBackPressed()
+        }
+
         // Setup RecyclerView
         binding.criticalPatientRecyclerview.layoutManager = LinearLayoutManager(this)
         criticalPatientAdapter = CriticalPatientAdapter(criticalPatients)

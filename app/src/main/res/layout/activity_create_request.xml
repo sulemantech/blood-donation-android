@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/home_screen_4"
+    android:background="@color/bd_pink"
     tools:context=".CreateRequestActivity">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -24,7 +24,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/reqest_text"
             android:layout_marginTop="40dp"
-            android:layout_marginStart="25dp" />
+            android:layout_marginStart="20dp" />
 
         <TextView
             android:id="@+id/reqest_text"
@@ -91,6 +91,7 @@
             android:textColor="@color/black1"
             app:layout_constraintTop_toBottomOf="@+id/blood_for_myself_group"
             android:layout_marginTop="10dp"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="25dp" />
 
@@ -98,7 +99,6 @@
             android:id="@+id/patient_name"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:background="@drawable/ed_border"
             android:hint="Enter Name"
             android:paddingStart="15dp"
             android:paddingEnd="20dp"
@@ -106,8 +106,8 @@
             android:layout_marginTop="5dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp" />
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp" />
   <TextView
             android:id="@+id/text_age"
             android:layout_width="wrap_content"
@@ -118,6 +118,7 @@
             android:textColor="@color/black1"
             app:layout_constraintTop_toBottomOf="@+id/patient_name"
             android:layout_marginTop="10dp"
+      android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="25dp" />
 
@@ -125,7 +126,6 @@
             android:id="@+id/age"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:background="@drawable/ed_border"
             android:hint="Enter Age"
             android:paddingStart="15dp"
             android:inputType="number"
@@ -134,8 +134,8 @@
             android:layout_marginTop="5dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp" />
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp" />
 
 
 
@@ -157,9 +157,8 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginTop="5dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            android:background="@drawable/spinner_border"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:paddingStart="15dp"
             android:paddingEnd="20dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -174,6 +173,7 @@
             android:text="@string/required_unit"
             android:fontFamily="@font/inter_bold"
             android:textSize="15sp"
+            android:visibility="gone"
             android:textColor="@color/black1"
             app:layout_constraintTop_toBottomOf="@+id/bloodType"
             android:layout_marginTop="10dp"
@@ -184,7 +184,6 @@
             android:id="@+id/required_unit"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:background="@drawable/ed_border"
             app:layout_constraintTop_toBottomOf="@+id/text_required_unit"
             android:layout_marginTop="5dp"
             android:paddingStart="15dp"
@@ -193,8 +192,8 @@
             android:hint="Enter Required Unit"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"/>
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"/>
 
         <TextView
             android:id="@+id/required_date"
@@ -203,6 +202,7 @@
             android:text="@string/required_date"
             android:fontFamily="@font/inter_bold"
             android:textSize="15sp"
+            android:visibility="gone"
             android:textColor="@color/black1"
             app:layout_constraintTop_toBottomOf="@+id/required_unit"
             android:layout_marginTop="10dp"
@@ -213,7 +213,6 @@
             android:id="@+id/ed_date_required"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:background="@drawable/ed_border"
             android:hint="@string/dd_mm_yyyy"
             android:paddingStart="15dp"
             android:inputType="none"
@@ -224,8 +223,8 @@
             android:layout_marginTop="5dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp" />
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp" />
 
 
 
@@ -246,7 +245,6 @@
             android:id="@+id/location"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:background="@drawable/ed_border"
             android:hint="Enter Location"
             android:paddingStart="15dp"
             android:paddingEnd="20dp"
@@ -255,8 +253,8 @@
             android:entries="@array/pakistan_cities"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp" />
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp" />
 
 
         <CheckBox
@@ -284,8 +282,8 @@
             android:layout_marginTop="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp" />
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp" />
 
         <ProgressBar
             android:id="@+id/progress_bar"
