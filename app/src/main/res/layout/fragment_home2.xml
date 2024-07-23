@@ -60,15 +60,15 @@
             android:layout_marginStart="25dp">
 
             <ImageView
-                android:layout_width="215dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/top_image"
-                android:layout_gravity="center" />
+                android:scaleType="centerCrop" />
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/bg_profile"
-                android:scaleType="fitXY" />
+                android:scaleType="centerCrop" />
         </androidx.cardview.widget.CardView>
 
         <TextView
@@ -94,15 +94,13 @@
             android:layout_marginEnd="25dp"
             app:cardUseCompatPadding="true"
             android:id="@+id/cardview5"
-            android:layout_marginStart="25dp"
-            >
+            android:layout_marginStart="25dp">
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="118dp"
-                android:textColor="@color/gray"
-                android:scaleType="fitXY"
-                android:src="@drawable/bg_cardview"/>
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/bg_cardview" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -114,49 +112,42 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="5dp"
-
                     android:src="@drawable/ic_a_plus" />
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="1dp"
                     android:layout_marginTop="5dp"
-
                     android:src="@drawable/ic_a_minus" />
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="1dp"
                     android:layout_marginTop="5dp"
-
                     android:src="@drawable/ic_b_plus" />
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="1dp"
                     android:layout_marginTop="5dp"
-
                     android:src="@drawable/ic_b_minus" />
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="1dp"
                     android:layout_marginTop="5dp"
-
                     android:src="@drawable/ic_ab_plus" />
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="1dp"
                     android:layout_marginTop="5dp"
-
                     android:src="@drawable/ic_ab_minus" />
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="1dp"
                     android:layout_marginTop="5dp"
-
                     android:src="@drawable/ic_o_plus" />
                 <ImageView
                     android:layout_width="40dp"
@@ -164,7 +155,6 @@
                     android:layout_marginStart="1dp"
                     android:layout_marginTop="5dp"
                     android:src="@drawable/ic_o_minus" />
-
             </LinearLayout>
 
             <TextView
@@ -183,9 +173,7 @@
                 android:textSize="15sp"
                 android:layout_marginStart="319dp"
                 android:background="@drawable/next_ic"
-                android:layout_marginTop="69dp"
-              />
-
+                android:layout_marginTop="69dp" />
         </androidx.cardview.widget.CardView>
 
         <TextView
