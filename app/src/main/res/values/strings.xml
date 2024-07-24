@@ -70,6 +70,7 @@
     <string name="tt_sed_do_eiusmod_tempor_incididunt_ut_labore_et_dolore_magna_aliqua_ut_enim_ad_minim_veniam_quis_nostrud_exercitation_ullamco_laboris_nisi_ut_aliquip_ex_ea_commodo_consequat_duis_aute_irure_dolor_in_reprehenderit_in_voluptate_velit_esse_cillum_dolore_eu_fugiat_nulla_pariatur_excepteur_sint_occaecat_cupidatat_non_proident_sunt_in_culpa_qui_officia_deserunt_mollit_anim_id_est_laborum">tt, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
 
     <string-array name="blood_groups">
+        <item>Select Blood Group</item>
         <item>A+</item>
         <item>A-</item>
         <item>B+</item>
@@ -88,6 +89,7 @@
     </string-array>
 
     <string-array name="pakistan_cities">
+        <item>Select City</item>
         <item>Abbottabad</item>
         <item>Attock</item>
         <item>Bahawalpur</item>

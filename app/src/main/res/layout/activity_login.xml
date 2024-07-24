@@ -30,6 +30,7 @@
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="22sp"
+            android:fontFamily="@font/opensanshebrew_regular"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/img" />
@@ -117,6 +118,7 @@
             android:layout_marginTop="12dp"
             android:text="Forget Password?"
             android:textSize="15sp"
+            android:fontFamily="@font/inter_light"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ed_password" />
 
@@ -126,7 +128,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="26dp"
             android:layout_marginTop="12dp"
-            android:fontFamily="@font/inter_bold"
+            android:fontFamily="@font/opensanshebrew_regular"
             android:text="Reset"
             android:textColor="@color/black1"
             android:textSize="15sp"
@@ -157,6 +159,7 @@
             android:layout_marginTop="10dp"
             android:text="Don't Have Account?"
             android:textSize="15sp"
+            android:fontFamily="@font/inter_light"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_login" />
 
@@ -165,12 +168,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:fontFamily="@font/inter_bold"
+            android:fontFamily="@font/opensanshebrew_regular"
             android:text="Sign Up"
             android:textColor="@color/black1"
             android:textSize="15sp"
             android:gravity="left"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="10sp"
             app:layout_constraintStart_toEndOf="@id/have_account"
             app:layout_constraintTop_toBottomOf="@id/btn_login" />
 

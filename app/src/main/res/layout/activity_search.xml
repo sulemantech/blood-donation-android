@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:text="Select Blood Group"
             android:textColor="@color/white"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:fontFamily="@font/inter_bold"
             android:layout_gravity="center"/>
     </androidx.cardview.widget.CardView>
@@ -69,8 +69,8 @@
         android:weightSum="4">
 
         <androidx.cardview.widget.CardView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:background="@color/white"
             app:cardCornerRadius="15dp"
             android:elevation="10dp"
@@ -86,8 +86,8 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:background="@color/white"
             app:cardCornerRadius="15dp"
             android:layout_marginStart="10dp"
@@ -97,7 +97,7 @@
             android:id="@+id/btnAMinus"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginStart="5dp"
+            android:layout_gravity="center"
             android:background="@drawable/ic_a_minus"
             />
         </androidx.cardview.widget.CardView>

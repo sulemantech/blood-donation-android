@@ -133,8 +133,11 @@ class RegisterActivity : AppCompatActivity() {
                                             Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show()
 
                                             // Pass "Myself" option to CreateRequestActivity
-                                            val intent = Intent(this, HomeActivity::class.java).apply {
+                                            val intent = Intent(this, CreateRequestActivity::class.java).apply {
                                                 putExtra("bloodFor", "Myself")
+                                                putExtra("name", name)
+                                                putExtra("bloodGroup", bloodGroup)
+                                                putExtra("location", location)
                                             }
                                             startActivity(intent)
                                             finish()
@@ -162,6 +165,7 @@ class RegisterActivity : AppCompatActivity() {
         private const val TAG = "RegisterActivity"
     }
 }
+
 
 
 
