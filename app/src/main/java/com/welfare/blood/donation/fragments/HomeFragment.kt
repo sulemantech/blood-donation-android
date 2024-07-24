@@ -1,7 +1,13 @@
 package com.welfare.blood.donation.fragments
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.TextPaint
+import android.text.style.CharacterStyle
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -55,13 +61,14 @@ class HomeFragment : Fragment() {
                 .addOnSuccessListener { document ->
                     if (document != null) {
                         val userName = document.getString("name")
-                        tvWelcomeMessage.text = "Welcome, $userName"
+                        val welcomeText = "Welcome, $userName"
+                        tvWelcomeMessage.text = createSpannableText(welcomeText)
                     } else {
-                        tvWelcomeMessage.text = "Welcome"
+                        tvWelcomeMessage.text = createSpannableText("Welcome")
                     }
                 }
                 .addOnFailureListener {
-                    tvWelcomeMessage.text = "Welcome"
+                    tvWelcomeMessage.text = createSpannableText("Welcome")
                 }
         }
 
@@ -72,19 +79,19 @@ class HomeFragment : Fragment() {
 
         fetchCriticalPatients()
 
-        binding.cardview1.setOnClickListener {
+        binding.frameLayoutOne.setOnClickListener {
             startActivity(Intent(requireContext(), CreateRequestActivity::class.java))
         }
 
-        binding.cardview2.setOnClickListener {
+        binding.frameLayoutTwo.setOnClickListener {
             startActivity(Intent(requireContext(), SearchActivity::class.java))
         }
 
-        binding.cardview3.setOnClickListener {
+        binding.frameLayoutThree.setOnClickListener {
             startActivity(Intent(requireContext(), BloodbankActivity::class.java))
         }
 
-        binding.cardview4.setOnClickListener {
+        binding.frameLayoutFour.setOnClickListener {
             startActivity(Intent(requireContext(), DonateBloodActivity::class.java))
         }
 
@@ -98,6 +105,27 @@ class HomeFragment : Fragment() {
         binding.tvSeeAll.setOnClickListener {
             startActivity(Intent(requireContext(), CriticalPatientsListActivity::class.java))
         }
+    }
+
+    // Function to create SpannableString with outer stroke effect
+    private fun createSpannableText(text: String): SpannableString {
+        val spannableString = SpannableString(text)
+
+        // Apply stroke (background) color
+        spannableString.setSpan(
+            ForegroundColorSpan(Color.WHITE), // Stroke color
+            0, text.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        // Apply text color over the stroke
+        spannableString.setSpan(
+            ForegroundColorSpan(Color.parseColor("#B20B1F")),
+            0, text.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        return spannableString
     }
 
     private fun fetchCriticalPatients() {
