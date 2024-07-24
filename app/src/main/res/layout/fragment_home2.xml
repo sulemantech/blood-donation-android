@@ -51,12 +51,13 @@
                 android:layout_height="130dp"
                 app:layout_constraintTop_toBottomOf="@+id/home1"
                 android:src="@drawable/top_image"
+                android:layout_marginTop="25dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
              />
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="130sp"
+                android:layout_height="160sp"
                 android:src="@drawable/bg_profile"
                 android:id="@+id/cardview6"
                 android:layout_marginTop="10dp"
@@ -84,7 +85,7 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="103dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -158,8 +159,8 @@
                 android:id="@+id/blood_req"
                 android:text="Blood Requests"
                 android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="70dp"
+                android:layout_marginTop="17dp"
+                android:layout_marginEnd="80dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/linear"
                 android:textColor="@color/black" />
@@ -168,11 +169,11 @@
                 android:layout_height="30dp"
                 android:fontFamily="@font/inter_bold"
                 android:textSize="15sp"
-                android:layout_marginEnd="25dp"
+                android:layout_marginEnd="29dp"
                 android:background="@drawable/next_ic"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/linear"
-                android:layout_marginTop="15sp" />
+                android:layout_marginTop="11sp" />
 
 
         <TextView
@@ -192,7 +193,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="See All"
-            android:textColor="@color/maron"
+            android:textColor="@color/black"
             android:textStyle="bold"
             android:layout_marginEnd="25dp"
             android:layout_marginTop="60dp"
@@ -209,7 +210,6 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="5dp"
                 android:background="@color/white"
-                tools:listitem="@layout/critical_patient_item"
                 app:layout_constraintTop_toBottomOf="@+id/emergencyPatientsLabel"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -259,7 +259,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="0dp"
             android:layout_height="160dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="25dp"
             app:layout_constraintTop_toBottomOf="@id/critical_patient_recyclerview"
             app:cardCornerRadius="8dp"
             android:layout_marginEnd="8dp"

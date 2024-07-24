@@ -43,7 +43,30 @@ class CriticalPatientsListActivity : AppCompatActivity() {
             .addOnSuccessListener { documents ->
                 criticalPatients.clear()
                 for (document in documents) {
-                    val request = document.toObject(Request::class.java)
+                    val requiredUnitField = document.get("requiredUnit")
+                    Log.d("FirestoreDataType", "requiredUnit type: ${requiredUnitField?.javaClass?.name}")
+
+                    val requiredUnit = when (requiredUnitField) {
+                        is Number -> requiredUnitField.toInt()
+                        is String -> requiredUnitField.toIntOrNull() ?: 0
+                        else -> 0
+                    }
+
+                    val request = Request(
+                        patientName = document.getString("patientName") ?: "",
+                        age = document.getLong("age")?.toInt() ?: 0,
+                        bloodType = document.getString("bloodType") ?: "",
+                        requiredUnit = requiredUnit,
+                        dateRequired = document.getString("dateRequired") ?: "",
+                        hospital = document.getString("hospital") ?: "",
+                        location = document.getString("location") ?: "",
+                        bloodFor = document.getString("bloodFor") ?: "",
+                        userId = document.getString("userId") ?: "",
+                        recipientId = document.getString("recipientId") ?: "",
+                        status = document.getString("status") ?: "",
+                        critical = document.getBoolean("critical") ?: false
+                    )
+
                     val criticalPatient = CriticalPatient(
                         patientName = request.patientName,
                         age = request.age,
@@ -59,7 +82,6 @@ class CriticalPatientsListActivity : AppCompatActivity() {
                         critical = request.critical
                     )
                     criticalPatients.add(criticalPatient)
-
                 }
                 criticalPatientAdapter.notifyDataSetChanged()
                 displayPatientCount(criticalPatients.size)
@@ -68,6 +90,7 @@ class CriticalPatientsListActivity : AppCompatActivity() {
                 Log.w("CriticalPatientsListActivity", "Error fetching critical patients", e)
             }
     }
+
     private fun displayPatientCount(count: Int) {
         binding.receivedRequestCount.text = "Critical Patients: $count"
     }

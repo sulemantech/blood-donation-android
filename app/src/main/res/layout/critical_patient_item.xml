@@ -5,16 +5,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp"
     app:cardElevation="6dp"
-    app:cardCornerRadius="10dp"
+    app:cardCornerRadius="11dp"
     android:layout_margin="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="140dp">
+        android:layout_height="115dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="140dp"
+        android:layout_height="115dp"
         android:padding="16dp">
 
         <TextView
@@ -46,7 +46,7 @@
             android:layout_marginEnd="5dp"
             android:layout_alignParentEnd="true"
             android:text="A-"
-            android:textColor="#000000"/>
+            android:textColor="@color/colorPrimary1"/>
 
         <TextView
             android:id="@+id/tvRequiredUnit"
@@ -83,7 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/dateRequired"
             android:textSize="14sp"
-            android:text="abcc"
+            android:text="islamabad"
             android:textColor="#000000"/>
 
         <TextView
@@ -102,7 +102,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/contactInfo"
 
-            android:text="2"
+            android:text="A- (A Negative) 2 Units blood"
             android:textSize="12sp"
             android:layout_marginTop="5dp"
             android:textColor="#000000"/>
@@ -115,7 +115,6 @@
         android:background="@drawable/donate_now"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="100dp"
         android:layout_marginStart="275dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>

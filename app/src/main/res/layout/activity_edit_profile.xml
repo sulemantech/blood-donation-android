@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/group"
     android:padding="16dp">
 
     <LinearLayout
@@ -15,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:layout_gravity="center"
+            app:tint="@color/maron"
             android:contentDescription="Profile Image"
             android:src="@drawable/baseline_person_outline_24" />
 
@@ -25,94 +27,82 @@
             android:layout_marginTop="10dp"
             android:hint="Name"
             android:paddingStart="10dp"
-            android:background="@drawable/ed_border"
+            android:backgroundTint="@color/maron"
             android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/edEmail"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:hint="Email"
             android:paddingStart="10dp"
-            android:background="@drawable/ed_border"
+            android:backgroundTint="@color/maron"
             android:inputType="textEmailAddress" />
 
         <EditText
             android:id="@+id/edPhone"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:hint="Phone"
             android:paddingStart="10dp"
-            android:background="@drawable/ed_border"
+android:backgroundTint="@color/maron"
             android:inputType="phone" />
 
         <EditText
             android:id="@+id/edDateBirth"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:hint="Date of Birth"
             android:paddingStart="10dp"
-            android:background="@drawable/ed_border"
             android:inputType="date"
+            android:backgroundTint="@color/maron"
             android:focusable="false" />
-        <TextView
-            android:id="@+id/edBirthday2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text=" Select Gender"
-            android:layout_marginTop="5dp"
-
-            />
 
         <Spinner
             android:id="@+id/spinnerGender"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="8dp"
-            android:background="@drawable/spinner_border"
             android:entries="@array/gender_array"/>
-
-
-        <TextView
-            android:id="@+id/edBirthday"
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text=" Select Blood Group"
-            android:layout_marginTop="5dp"
+            android:layout_height="1dp"
+            android:background="@color/maron" />
 
-             />
 
         <Spinner
             android:id="@+id/spinnerBloodGroup"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/spinner_border"
+            android:layout_marginTop="4dp"
             android:entries="@array/blood_groups" />
-
-        <TextView
-            android:id="@+id/edCity"
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="City"
-            android:paddingStart="10dp"
-            android:layout_marginTop="5dp"
-
+            android:layout_height="1dp"
+            app:layout_constraintTop_toBottomOf="@+id/bloodType"
+            android:background="@color/maron"
             />
+
+
 
         <Spinner
             android:id="@+id/edLocation"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:hint="City"
             android:paddingStart="10dp"
             android:entries="@array/pakistan_cities"
-            android:background="@drawable/spinner_border"
             android:inputType="text" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:layout_constraintTop_toBottomOf="@+id/bloodType"
+            android:background="@color/maron" />
+
 
         <EditText
             android:id="@+id/edLastdonationdate"
@@ -122,14 +112,15 @@
             android:hint="Last Donation Date"
             android:inputType="date"
             android:paddingStart="10dp"
-            android:background="@drawable/ed_border"
+            android:backgroundTint="@color/maron"
             android:focusable="false" />
 
         <CheckBox
             android:id="@+id/noYes"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:layout_gravity="center"
             android:text="I am a donor" />
 
         <TextView
@@ -142,7 +133,9 @@
             android:textColor="@color/white"
             android:background="@drawable/buttons"
             android:backgroundTint="@color/maron"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:text="Save" />
 
         <ProgressBar
