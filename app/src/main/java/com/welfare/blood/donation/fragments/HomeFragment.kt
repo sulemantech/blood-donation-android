@@ -73,7 +73,7 @@ class HomeFragment : Fragment() {
         fetchCriticalPatients()
 
         binding.cardview1.setOnClickListener {
-            startActivity(Intent(requireContext(), CreateRequestActivity::class.java))
+            startActivity(Intent(requireContext(), BothHistoryActivity::class.java))
         }
 
         binding.cardview2.setOnClickListener {
