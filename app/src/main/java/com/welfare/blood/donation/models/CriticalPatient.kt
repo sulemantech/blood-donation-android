@@ -12,5 +12,5 @@ data class CriticalPatient(
     val userId: String = "", // Sender ID
     val recipientId: String = "", // Recipient ID
     var status: String = "pending", // Default status is pending
-    val critical: Boolean = false // Add this line
+    val critical: Boolean = false
 )

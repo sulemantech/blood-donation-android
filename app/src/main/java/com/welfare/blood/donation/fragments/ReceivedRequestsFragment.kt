@@ -62,6 +62,14 @@ class ReceivedRequestsFragment : Fragment() {
             .addOnSuccessListener { documents ->
                 requestList.clear()
                 for (document in documents) {
+                    val data = document.data
+
+                    // Convert requiredUnit to Int if it is stored as a String
+                    val requiredUnit = data["requiredUnit"]
+                    if (requiredUnit is String) {
+                        data["requiredUnit"] = requiredUnit.toIntOrNull() ?: 0
+                    }
+
                     val request = document.toObject(Request::class.java)
                     requestList.add(request)
                 }
@@ -72,8 +80,8 @@ class ReceivedRequestsFragment : Fragment() {
                 Log.w("ReceivedRequestsFragment", "Error fetching requests", e)
             }
     }
-        private fun displayRequestCount(count: Int) {
-            binding.receivedRequestCount.text = "Requests Received: $count"
-        }
-    }
 
+    private fun displayRequestCount(count: Int) {
+        binding.receivedRequestCount.text = "Requests Received: $count"
+    }
+}

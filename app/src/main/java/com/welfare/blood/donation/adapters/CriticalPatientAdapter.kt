@@ -30,8 +30,26 @@ class CriticalPatientAdapter(private val patients: List<CriticalPatient>) :
             binding.condition.text = patient.status // Assuming `status` is used to describe the condition
             binding.contactInfo.text = patient.location // Or another appropriate field
             binding.hospital.text = patient.hospital
-            binding.requiredUnit.text = "${patient.requiredUnit} Units"
+
+            // Display blood group with units in desired format
+            val bloodTypeFull = getBloodTypeFull(patient.bloodType)
+            binding.requiredUnit.text = "${patient.bloodType} ($bloodTypeFull) ${patient.requiredUnit} Units Blood"
+
             binding.dateRequired.text = patient.dateRequired
+        }
+
+        private fun getBloodTypeFull(bloodType: String): String {
+            return when (bloodType) {
+                "A+" -> "A Positive"
+                "A-" -> "A Negative"
+                "B+" -> "B Positive"
+                "B-" -> "B Negative"
+                "AB+" -> "AB Positive"
+                "AB-" -> "AB Negative"
+                "O+" -> "O Positive"
+                "O-" -> "O Negative"
+                else -> "Unknown"
+            }
         }
     }
 }

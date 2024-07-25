@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.welfare.blood.donation.SentSuccessfullActivity
 import com.welfare.blood.donation.databinding.ActivityCreateRequestBinding
 import java.text.SimpleDateFormat
 import java.util.*
@@ -20,7 +19,7 @@ class CreateRequestActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCreateRequestBinding
     private lateinit var db: FirebaseFirestore
     private lateinit var selectedDonationDate: String
-    private var isCritical: Boolean = false // Added for critical checkbox state
+    private var isCritical: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +32,6 @@ class CreateRequestActivity : AppCompatActivity() {
             onBackPressed()
         }
 
-        // Initialize critical checkbox
         binding.critical.setOnCheckedChangeListener { _, isChecked ->
             isCritical = isChecked
         }
@@ -45,10 +43,9 @@ class CreateRequestActivity : AppCompatActivity() {
         }
 
         binding.bloodForMyselfGroup.setOnCheckedChangeListener { _, checkedId ->
-            if (checkedId == R.id.radio_for_myself) {
-                fillFormFields()
-            } else if (checkedId == R.id.radio_for_others) {
-                clearFormFields()
+            when (checkedId) {
+                R.id.radio_for_myself -> fillFormFields()
+                R.id.radio_for_others -> clearFormFields()
             }
         }
 
@@ -60,20 +57,24 @@ class CreateRequestActivity : AppCompatActivity() {
         }
 
         binding.edDateRequired.setOnClickListener {
-            showDatePickerDialogForLastDonationDate()
+            showDatePickerDialog()
         }
     }
 
     private fun fillFormFields() {
-        binding.patientName.setText(intent.getStringExtra("name"))
-        // binding.phone.setText(intent.getStringExtra("phone"))
-        binding.bloodType.setSelection(getBloodTypeIndex(intent.getStringExtra("bloodGroup")!!))
-        setLocationSpinner(intent.getStringExtra("location")!!)
+        intent.getStringExtra("name")?.let {
+            binding.patientName.setText(it)
+        }
+        intent.getStringExtra("bloodGroup")?.let {
+            binding.bloodType.setSelection(getBloodTypeIndex(it))
+        }
+        intent.getStringExtra("location")?.let {
+            setLocationSpinner(it)
+        }
     }
 
     private fun clearFormFields() {
         binding.patientName.setText("")
-        // binding.phone.setText("")
         binding.bloodType.setSelection(0)
         binding.location.setSelection(0)
     }
@@ -91,19 +92,18 @@ class CreateRequestActivity : AppCompatActivity() {
         }
     }
 
-    private fun showDatePickerDialogForLastDonationDate() {
+    private fun showDatePickerDialog() {
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-        val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
+        DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
             val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             calendar.set(selectedYear, selectedMonth, selectedDay)
             selectedDonationDate = sdf.format(calendar.time)
             binding.edDateRequired.setText(selectedDonationDate)
-        }, year, month, day)
-        datePickerDialog.show()
+        }, year, month, day).show()
     }
 
     private fun validateInputs(): Boolean {
@@ -136,11 +136,6 @@ class CreateRequestActivity : AppCompatActivity() {
             return false
         }
 
-        //        if (location.isEmpty()) {
-        //            binding.location.error = "Location is required"
-        //            return false
-        //        }
-
         return true
     }
 
@@ -164,9 +159,6 @@ class CreateRequestActivity : AppCompatActivity() {
         val selectedId = binding.bloodForMyselfGroup.checkedRadioButtonId
         val bloodFor = findViewById<RadioButton>(selectedId).text.toString()
 
-        // Get critical status
-        val isCritical = binding.critical.isChecked
-
         val request = hashMapOf(
             "patientName" to binding.patientName.text.toString().trim(),
             "age" to binding.age.text.toString().trim().toInt(),
@@ -177,7 +169,7 @@ class CreateRequestActivity : AppCompatActivity() {
             "bloodFor" to bloodFor,
             "userId" to currentUser.uid,
             "status" to "pending",
-            "critical" to isCritical // Add critical status to the request
+            "critical" to isCritical
         )
 
         db.collection("requests")
