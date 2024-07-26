@@ -1,8 +1,10 @@
 package com.welfare.blood.donation.adapters
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.welfare.blood.donation.CriticalPatientsListActivity
 import com.welfare.blood.donation.databinding.CriticalPatientItemBinding
 import com.welfare.blood.donation.models.CriticalPatient
 
@@ -31,11 +33,18 @@ class CriticalPatientAdapter(private val patients: List<CriticalPatient>) :
             binding.contactInfo.text = patient.location // Or another appropriate field
             binding.hospital.text = patient.hospital
 
-            // Display blood group with units in desired format
             val bloodTypeFull = getBloodTypeFull(patient.bloodType)
             binding.requiredUnit.text = "${patient.bloodType} ($bloodTypeFull) ${patient.requiredUnit} Units Blood"
 
             binding.dateRequired.text = patient.dateRequired
+
+            binding.donateNow.setOnClickListener {
+                val context = binding.root.context
+                val intent = Intent(context, CriticalPatientsListActivity::class.java)
+                // Pass any necessary data to the DonateBloodActivity
+              //  intent.putExtra("patientId", patient.id) // Assuming each patient has a unique ID
+                context.startActivity(intent)
+            }
         }
 
         private fun getBloodTypeFull(bloodType: String): String {

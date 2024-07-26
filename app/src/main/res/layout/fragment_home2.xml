@@ -36,316 +36,370 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Profile"
-            android:textColor="@color/maron"
-            android:textSize="15sp"
             android:id="@+id/home1"
-            android:fontFamily="@font/inter_bold"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cardview" />
+            app:layout_constraintTop_toBottomOf="@id/cardview"
+            android:textAppearance="@style/home_screen_heading"/>
 
 
-            <ImageView
-                android:layout_width="190dp"
-                android:layout_height="130dp"
-                app:layout_constraintTop_toBottomOf="@+id/home1"
-                android:src="@drawable/top_image"
-                android:layout_marginTop="25dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-             />
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="160sp"
-                android:src="@drawable/bg_profile"
-                android:id="@+id/cardview6"
-                android:layout_marginTop="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginEnd="25sp"
-                android:layout_marginStart="25sp"
-                app:layout_constraintTop_toBottomOf="@+id/home1"
-                android:scaleType="centerCrop" />
+        <ImageView
+            android:layout_width="190dp"
+            android:layout_height="140dp"
+            app:layout_constraintTop_toBottomOf="@+id/home1"
+            android:src="@drawable/top_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="150sp"
+            android:src="@drawable/background_top_msg"
+            android:id="@+id/cardview6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginEnd="30sp"
+            android:layout_marginStart="30sp"
+            app:layout_constraintTop_toBottomOf="@+id/home1"
+            android:scaleType="centerCrop" />
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Are You Looking For Blood?"
-            android:textColor="@color/maron"
-            android:textSize="15sp"
             android:id="@+id/home"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="30dp"
+            android:textAppearance="@style/home_screen_heading"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardview6" />
 
 
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:id="@+id/cardview5"
+            app:layout_constraintTop_toBottomOf="@id/home"
+            android:src="@drawable/background_blood_icons" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/linear"
+            app:layout_constraintTop_toBottomOf="@id/home"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="103dp"
-                android:scaleType="centerCrop"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginStart="25dp"
-                android:layout_marginEnd="25dp"
-                android:id="@+id/cardview5"
-                app:layout_constraintTop_toBottomOf="@id/home"
-                android:src="@drawable/bg_cardview" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:id="@+id/linear"
-                app:layout_constraintTop_toBottomOf="@id/home"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp">
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/ic_a_plus" />
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/ic_a_minus" />
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/ic_b_plus" />
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/ic_b_minus" />
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/ic_ab_plus" />
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/ic_ab_minus" />
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/ic_o_plus" />
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/ic_o_minus" />
+        </LinearLayout>
 
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="5dp"
-                    android:src="@drawable/ic_a_plus" />
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="1dp"
-                    android:layout_marginTop="5dp"
-                    android:src="@drawable/ic_a_minus" />
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="1dp"
-                    android:layout_marginTop="5dp"
-                    android:src="@drawable/ic_b_plus" />
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="1dp"
-                    android:layout_marginTop="5dp"
-                    android:src="@drawable/ic_b_minus" />
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="1dp"
-                    android:layout_marginTop="5dp"
-                    android:src="@drawable/ic_ab_plus" />
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="1dp"
-                    android:layout_marginTop="5dp"
-                    android:src="@drawable/ic_ab_minus" />
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="1dp"
-                    android:layout_marginTop="5dp"
-                    android:src="@drawable/ic_o_plus" />
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="1dp"
-                    android:layout_marginTop="5dp"
-                    android:src="@drawable/ic_o_minus" />
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="13sp"
-                android:id="@+id/blood_req"
-                android:text="Blood Requests"
-                android:layout_gravity="center"
-                android:layout_marginTop="17dp"
-                android:layout_marginEnd="80dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/linear"
-                android:textColor="@color/black" />
-            <TextView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:fontFamily="@font/inter_bold"
-                android:textSize="15sp"
-                android:layout_marginEnd="29dp"
-                android:background="@drawable/next_ic"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/linear"
-                android:layout_marginTop="11sp" />
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:id="@+id/blood_req"
+            android:text="Blood Requests"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="85dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/linear"
+            android:textAppearance="@style/create_request"/>
 
         <TextView
             android:id="@+id/emergencyPatientsLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Emergency Patients"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="60dp"
-            android:textSize="15sp"
-            android:textColor="@color/maron"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="0dp"
+            android:textAppearance="@style/home_screen_heading"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/linear"/>
+            app:layout_constraintTop_toBottomOf="@id/cardview5"/>
 
         <TextView
             android:id="@+id/tvSeeAll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="See All"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:layout_marginEnd="25dp"
-            android:layout_marginTop="60dp"
+            android:textAppearance="@style/see_all"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="0dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/linear"
-             />
-            <!-- RecyclerView for emergency patients -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/critical_patient_recyclerview"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:layout_marginEnd="25dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/white"
-                app:layout_constraintTop_toBottomOf="@+id/emergencyPatientsLabel"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/cardview5"
+            />
+        <!-- RecyclerView for emergency patients -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/critical_patient_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/emergencyPatientsLabel"
+            />
 
         <TextView
+            android:id="@+id/are_you_looking_for_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Are You Looking For?"
-            android:textColor="@color/maron"
-            android:textSize="15sp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="0dp"
             app:layout_constraintStart_toStartOf="parent"
+            android:textAppearance="@style/home_screen_heading"
             app:layout_constraintTop_toBottomOf="@id/critical_patient_recyclerview" />
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="160dp"
-            android:layout_marginTop="25dp"
-            app:layout_constraintTop_toBottomOf="@id/critical_patient_recyclerview"
-            app:cardCornerRadius="8dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="8dp"
-            app:cardUseCompatPadding="true"
-            app:cardElevation="6dp"
-            android:id="@+id/cardview1"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/first_two_card_views"
+            android:orientation="horizontal"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/cardview2">
-
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/ic_blood_request"
-                android:layout_marginStart="55dp"
-                android:layout_marginTop="15dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Blood Requests"
-                android:textSize="15sp"
-                android:layout_gravity="center"
-                android:layout_marginTop="35dp" />
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="160dp"
-            android:layout_marginTop="25dp"
-            app:layout_constraintTop_toBottomOf="@id/critical_patient_recyclerview"
-            app:cardCornerRadius="8dp"
-            android:layout_marginEnd="8dp"
-            app:cardUseCompatPadding="true"
-            app:cardElevation="6dp"
-            android:id="@+id/cardview2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/cardview1">
+            app:layout_constraintTop_toBottomOf="@id/are_you_looking_for_text">
 
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/ic_donate_blood"
-                android:layout_marginStart="55dp"
-                android:layout_marginTop="15dp" />
+            <FrameLayout
+                android:layout_width="160dp"
+                android:layout_height="140dp"
+                android:id="@+id/frame_layout_one"
+                android:background="@drawable/background_home_screen_four_items"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Blood Donors"
-                android:textSize="15sp"
-                android:layout_gravity="center"
-                android:layout_marginTop="35dp" />
+                <!-- ConstraintLayout for centering content -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
 
-        </androidx.cardview.widget.CardView>
+                    <ImageView
+                        android:id="@+id/img_create_request"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:src="@drawable/ic_blood_request"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintVertical_bias="0.5"/>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="160dp"
-            app:layout_constraintTop_toBottomOf="@id/cardview1"
-            app:cardCornerRadius="8dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="8dp"
-            app:cardUseCompatPadding="true"
-            app:cardElevation="6dp"
-            android:id="@+id/cardview3"
-            app:layout_constraintBottom_toBottomOf="parent"
+                    <TextView
+                        android:id="@+id/txt_create_request"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Create Requests"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginTop="11dp"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        android:textAppearance="@style/items_headings"
+                        app:layout_constraintTop_toBottomOf="@id/img_create_request"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="160dp"
+                android:layout_height="140dp"
+                android:id="@+id/frame_layout_two"
+                android:background="@drawable/background_home_screen_four_items"
+                android:layout_marginLeft="30dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <!-- ConstraintLayout for centering content -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
+
+                    <ImageView
+                        android:id="@+id/img_blood_donors"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:src="@drawable/ic_donate_blood"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintVertical_bias="0.5"/>
+
+                    <TextView
+                        android:id="@+id/txt_blood_donors"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Blood Donors"
+                        app:layout_constraintTop_toBottomOf="@id/img_blood_donors"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        android:layout_marginTop="11dp"
+                        android:textAppearance="@style/items_headings"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </FrameLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/last_two_card_views"
+            android:orientation="horizontal"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="18dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/cardview4">
-
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="55dp"
-                android:src="@drawable/ic_blood_bank"
-                android:layout_marginTop="15dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Blood Banks"
-                android:textSize="15sp"
-                android:layout_gravity="center"
-                android:layout_marginTop="35dp" />
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="160dp"
-            app:layout_constraintTop_toBottomOf="@id/cardview2"
-            app:cardCornerRadius="8dp"
-            android:layout_marginEnd="8dp"
-            app:cardUseCompatPadding="true"
-            app:cardElevation="6dp"
-            android:id="@+id/cardview4"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/cardview3">
+            app:layout_constraintTop_toBottomOf="@id/first_two_card_views">
 
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="55dp"
-                android:src="@drawable/ic_blood_donor"
-                android:layout_marginTop="15dp" />
+            <FrameLayout
+                android:layout_width="160dp"
+                android:layout_height="140dp"
+                android:id="@+id/frame_layout_three"
+                android:background="@drawable/background_home_screen_four_items"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Donate Blood"
-                android:textSize="15sp"
-                android:layout_gravity="center"
-                android:layout_marginTop="35dp" />
+                <!-- ConstraintLayout for centering content -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
 
-        </androidx.cardview.widget.CardView>
+                    <ImageView
+                        android:id="@+id/img_blood_donor"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:src="@drawable/ic_blood_donor"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintVertical_bias="0.5"/>
+
+                    <TextView
+                        android:id="@+id/txt_blood_donor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Donate Blood"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginTop="11dp"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        android:textAppearance="@style/items_headings"
+                        app:layout_constraintTop_toBottomOf="@id/img_blood_donor"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="160dp"
+                android:layout_height="140dp"
+                android:id="@+id/frame_layout_four"
+                android:background="@drawable/background_home_screen_four_items"
+                android:layout_marginLeft="30dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <!-- ConstraintLayout for centering content -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
+
+                    <ImageView
+                        android:id="@+id/img_blood_banks"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:src="@drawable/ic_blood_bank"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintVertical_bias="0.5"/>
+
+                    <TextView
+                        android:id="@+id/txt_blood_banks"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Blood Banks"
+                        app:layout_constraintTop_toBottomOf="@id/img_blood_banks"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        android:layout_marginTop="11dp"
+                        android:textAppearance="@style/items_headings"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </FrameLayout>
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
