@@ -1,55 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="16dp"
-    app:cardElevation="6dp"
-    app:cardCornerRadius="5dp"
-    android:layout_margin="5dp">
-
-    <RelativeLayout
+    android:layout_marginBottom="7dp">
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:background="@drawable/test"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/donorName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Donor Name"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:textColor="#000000"/>
+        <!-- RelativeLayout with patient details -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="12dp">
 
-    <TextView
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/ll_middle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="13dp"
+            android:layout_weight="2"
+            android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/llpatientName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/donorName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="Sara Zaid"
+                android:textAppearance="@style/patient_name" />
+
+            <TextView
+                android:id="@+id/condition2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_marginStart="26dp"
+                android:text="Critical"
+                android:textAppearance="@style/patient_condition" />
+
+            <TextView
+                android:id="@+id/condition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="26dp"
+                android:visibility="gone"
+                android:background="@drawable/waiting_status"
+                android:gravity="center_horizontal|center_vertical"
+                android:textAlignment="center"
+                android:textAppearance="@style/patient_blood_status" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/requestDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/donorName"
+            android:text="19/03/2024 03:55 PM"
+            android:textSize="12sp"
+            android:layout_marginTop="5dp"
+            android:textColor="#000000"/>
+
+
+        <TextView
         android:id="@+id/location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/donorName"
+        android:layout_below="@id/requestDate"
         android:text="Islamabad"
-        android:textSize="14sp"
+        android:textSize="12sp"
         android:textColor="#000000"/>
 
     <TextView
-        android:id="@+id/bloodGroup"
+        android:id="@+id/requiredUnit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/location"
         android:text="Blood Group"
-        android:textSize="14sp"
+        android:textSize="12sp"
         android:textColor="#000000"/>
 
     <TextView
-        android:id="@+id/statusTextView"
+        android:id="@+id/statusTextView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:background="@drawable/dark_bg"
         android:padding="4dp"
+        android:visibility="gone"
         android:gravity="center"
         android:text="Status"
         android:textColor="#FFFFFF"/>
+
 
     <TextView
         android:id="@+id/bloodType"
@@ -58,19 +118,47 @@
         android:layout_below="@id/bloodGroup"
         android:layout_alignParentEnd="true"
         android:text="A-ive"
+        android:visibility="gone"
         android:textSize="14sp"
         android:textColor="#000000"/>
 
-    <TextView
-        android:id="@+id/requestDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/bloodType"
-        android:text="19/03/2024 03:55 PM"
-        android:textSize="12sp"
-        android:layout_marginTop="5dp"
-        android:layout_alignParentEnd="true"
-        android:textColor="#000000"/>
-    </RelativeLayout>
 
-</androidx.cardview.widget.CardView>
+        </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/ll_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_marginEnd="10dp"
+                        android:id="@+id/image_blood_group"
+                        android:layout_marginBottom="20dp"
+                        android:src="@drawable/ic_a_plus"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/button_donate_now"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginEnd="4dp"
+                        android:id="@+id/statusTextView"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

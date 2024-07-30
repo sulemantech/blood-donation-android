@@ -10,6 +10,7 @@
         android:layout_height="80dp"
         app:cardCornerRadius="5dp"
         android:id="@+id/cardview"
+        android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -49,8 +50,57 @@
         android:text="Requests Received: 0"
         android:textSize="18sp"
         android:layout_margin="18dp"
-        android:textColor="@color/black"
+        android:textColor="@color/maron"
+        android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/cardview"
+        app:layout_constraintStart_toStartOf="parent" />
+    <RadioGroup
+        android:id="@+id/blood_for_myself_group"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/receivedRequestCount1"
+        android:layout_marginTop="2dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <RadioButton
+            android:id="@+id/radio_for_myself"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:text="All"
+            android:fontFamily="@font/inter_bold"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/radio_for_others"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:text="Waiting"
+            android:fontFamily="@font/inter_bold"
+            android:checked="false" />
+        <RadioButton
+            android:id="@+id/radio_for_others2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:text="Completed"
+            android:fontFamily="@font/inter_bold"
+            android:checked="false" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/receivedRequestCount1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Request Status"
+        android:textSize="18sp"
+        android:layout_margin="18dp"
+        android:textColor="@color/maron"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/receivedRequestCount"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -60,7 +110,7 @@
         android:layout_marginTop="15dp"
         android:layout_marginStart="5dp"
         tools:listitem="@layout/history_recyclerview"
-        app:layout_constraintTop_toBottomOf="@id/receivedRequestCount"
+        app:layout_constraintTop_toBottomOf="@id/blood_for_myself_group"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
@@ -71,6 +121,7 @@
         android:layout_height="wrap_content"
         android:text="Create Request"
         android:textAllCaps="false"
+        android:visibility="gone"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:backgroundTint="@color/maron"

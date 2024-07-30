@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/bg_grey"
     android:orientation="vertical"
     tools:context=".SearchResultActivity">
     <androidx.cardview.widget.CardView

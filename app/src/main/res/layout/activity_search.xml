@@ -65,11 +65,21 @@
         android:layout_marginStart="10dp"
         android:id="@+id/view"
         android:layout_marginEnd="10dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Group Blood"
+        app:layout_constraintTop_toBottomOf="@+id/view"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"/>
 
 
             <ImageView
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:scaleType="fitXY"
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="27dp"
@@ -79,21 +89,33 @@
                 android:background="@drawable/search_cardview"/>
             <TextView
                 android:id="@+id/btnAPlus"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:gravity="center"
                 android:layout_marginStart="40dp"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="30dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view"
                 android:background="@drawable/ic_a" />
+            <TextView
+                android:id="@+id/text_APlus"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="A+"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginStart="45dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img1" />
     <ImageView
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:scaleType="fitXY"
-        android:id="@+id/img2"
+                 android:id="@+id/img2"
                 android:layout_marginTop="20dp"
-                android:layout_marginEnd="110dp"
+                android:layout_marginEnd="100dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/img1"
                 app:layout_constraintStart_toStartOf="parent"
@@ -101,23 +123,36 @@
                 android:background="@drawable/search_cardview"/>
             <TextView
                 android:id="@+id/btnAMinus"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:gravity="center"
-                android:layout_marginTop="28dp"
-                android:layout_marginEnd="110dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="95dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/img1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view"
                 android:background="@drawable/ic_a_plus" />
 
+    <TextView
+        android:id="@+id/text_AMinus"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="A-"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginStart="133dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img2" />
+
     <ImageView
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:scaleType="fitXY"
         android:layout_marginTop="20dp"
-        android:layout_marginStart="100dp"
+        android:layout_marginStart="90dp"
         android:id="@+id/img3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/img2"
@@ -126,84 +161,212 @@
         android:background="@drawable/search_cardview"/>
     <TextView
         android:id="@+id/btnBPlus"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:gravity="center"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/img1"
         app:layout_constraintTop_toBottomOf="@+id/view"
         android:background="@drawable/ic_b_plus" />
 
+    <TextView
+        android:id="@+id/text_BPlus"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="B+"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginStart="228dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img3" />
+
 
     <ImageView
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:scaleType="fitXY"
         android:layout_marginTop="20dp"
+        android:id="@+id/img4"
+        android:layout_marginEnd="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/img3"
         app:layout_constraintTop_toBottomOf="@+id/view"
         android:background="@drawable/search_cardview"/>
     <TextView
         android:id="@+id/btnBMinus"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:gravity="center"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="30dp"
         android:layout_marginStart="170dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/img1"
         app:layout_constraintTop_toBottomOf="@+id/view"
         android:background="@drawable/ic_b_minus" />
-
-
-
-
-
-
-
-
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/text_BMinus"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/linear2"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/linear"
         android:gravity="center"
-        android:weightSum="4">
+        android:text="B-"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginStart="318dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img3" />
 
-        <TextView
-            android:id="@+id/btnABPlus"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/ab_plus"
-          />
-        <TextView
-            android:id="@+id/btnABMinus"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="5dp"
-            android:background="@drawable/ab_minus" />
-        <TextView
-            android:id="@+id/btnOPlus"
-            android:layout_width="50dp"
-            android:layout_marginStart="5dp"
-            android:layout_height="50dp"
-            android:background="@drawable/o_plus"/>
-        <TextView
-            android:id="@+id/btnOMinus"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="5dp"
-            android:background="@drawable/o_minus" />
-    </LinearLayout>
+
+    <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:scaleType="fitXY"
+                android:layout_marginTop="40dp"
+                android:layout_marginStart="27dp"
+                android:id="@+id/img5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img1"
+                android:background="@drawable/search_cardview"/>
+            <TextView
+                android:id="@+id/btnABPlus"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="50dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img1"
+                android:background="@drawable/ic_ab_plus" />
+    <TextView
+        android:id="@+id/text_ABPlus"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="AB+"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginStart="45dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img5" />
+
+    <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:scaleType="fitXY"
+        android:id="@+id/img6"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="100dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/img1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img2"
+                android:background="@drawable/search_cardview"/>
+            <TextView
+                android:id="@+id/btnABMinus"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="95dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/img1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img2"
+                android:background="@drawable/ic_ab_minus" />
+    <TextView
+        android:id="@+id/text_ABMinus"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="AB-"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginStart="133dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img6" />
+
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:scaleType="fitXY"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="90dp"
+        android:id="@+id/img7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/img2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img2"
+        android:background="@drawable/search_cardview"/>
+    <TextView
+        android:id="@+id/btnOPlus"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/img1"
+        app:layout_constraintTop_toBottomOf="@+id/img3"
+        android:background="@drawable/ic_o_plus" />
+
+    <TextView
+        android:id="@+id/text_OPlus"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="O+"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginStart="228dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img7" />
+
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:scaleType="fitXY"
+        android:id="@+id/img8"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/img3"
+        app:layout_constraintTop_toBottomOf="@+id/img3"
+        android:background="@drawable/search_cardview"/>
+    <TextView
+        android:id="@+id/btnOMinus"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="173sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/img1"
+        app:layout_constraintTop_toBottomOf="@+id/img4"
+        android:background="@drawable/ic_o_minus" />
+
+    <TextView
+        android:id="@+id/text_OMinus"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="O-"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginStart="318dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img8" />
+
+
 
     <TextView
         android:id="@+id/tvSelectedGroup"
@@ -214,11 +377,23 @@
         android:textStyle="bold"
         android:layout_gravity="center"
         android:textColor="@color/maron"
-        app:layout_constraintTop_toBottomOf="@+id/linear2"
-        android:layout_marginTop="35dp"
+        app:layout_constraintTop_toBottomOf="@+id/img7"
+        android:layout_marginTop="40sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
      />
+    <EditText
+        android:id="@+id/spinner_bloodunit"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"
+        android:visibility="gone"
+        android:hint="Blood Unit Needed"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/tvSelectedGroup" />
 
     <TextView
         android:id="@+id/btnSearch"
@@ -226,7 +401,7 @@
         android:layout_height="55dp"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/save_password_button__2_"
         android:gravity="center"
         android:textAllCaps="false"
@@ -234,5 +409,5 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvSelectedGroup" />
+        app:layout_constraintTop_toBottomOf="@id/spinner_bloodunit" />
 </androidx.constraintlayout.widget.ConstraintLayout>

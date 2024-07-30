@@ -80,7 +80,7 @@ class HomeFragment : Fragment() {
         fetchCriticalPatients()
 
         binding.frameLayoutOne.setOnClickListener {
-            startActivity(Intent(requireContext(), CreateRequestActivity::class.java))
+            startActivity(Intent(requireContext(), BothHistoryActivity::class.java))
         }
 
         binding.frameLayoutTwo.setOnClickListener {

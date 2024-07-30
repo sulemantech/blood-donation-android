@@ -1,5 +1,6 @@
 package com.welfare.blood.donation
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayoutMediator
@@ -19,14 +20,18 @@ class BothHistoryActivity : AppCompatActivity() {
         binding.backArrow.setOnClickListener {
             onBackPressed()
         }
+        binding.cardview5.setOnClickListener{
+            val intent = Intent(this, CreateRequestActivity::class.java)
+            startActivity(intent)
+        }
 
         val adapter = ViewPagerAdapter(this)
         binding.viewPager.adapter = adapter
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = when (position) {
-                0 -> "My Requests"
-                1 -> "My Donations"
+                0 -> ""
+                1 -> ""
                 else -> null
             }
         }.attach()

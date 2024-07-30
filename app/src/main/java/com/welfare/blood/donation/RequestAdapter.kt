@@ -27,10 +27,44 @@ class RequestAdapter(private val requestList: List<Request>) :
         fun bind(request: Request) {
             binding.donorName.text = request.patientName
             binding.location.text = request.location
-            binding.bloodGroup.text = request.bloodType
-            binding.statusTextView.text = "${request.status}"
+          //  binding.bloodGroup.text = request.bloodType
+            val bloodTypeFull = getBloodTypeFull(request.bloodType)
+            binding.requiredUnit.text = "${request.bloodType} ($bloodTypeFull) ${request.requiredUnit} Units Blood"
+
+            binding.imageBloodGroup.setImageResource(getBloodGroupImage(request.bloodType))
+
+            //    binding.statusTextView.text = "${request.status}"
             binding.bloodType.text = request.bloodType
             binding.requestDate.text = request.dateRequired
         }
     }
+    private fun getBloodGroupImage(bloodType: String): Int {
+        return when (bloodType) {
+            "A+" -> R.drawable.ic_a
+            "A-" -> R.drawable.ic_a_plus
+            "B+" -> R.drawable.ic_b_plus
+            "B-" -> R.drawable.ic_b_minus
+            "AB+" -> R.drawable.ic_ab_plus
+            "AB-" -> R.drawable.ic_ab_minus
+            "O+" -> R.drawable.ic_o_plus
+            "O-" -> R.drawable.ic_o_minus
+            else -> R.drawable.blood_droplet // Add a default image if necessary
+
+        }
+    }
+
+    private fun getBloodTypeFull(bloodType: String): String {
+        return when (bloodType) {
+            "A+" -> "A Positive"
+            "A-" -> "A Negative"
+            "B+" -> "B Positive"
+            "B-" -> "B Negative"
+            "AB+" -> "AB Positive"
+            "AB-" -> "AB Negative"
+            "O+" -> "O Positive"
+            "O-" -> "O Negative"
+            else -> "Unknown"
+        }
+    }
+
 }

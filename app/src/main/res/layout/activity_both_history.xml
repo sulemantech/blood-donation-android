@@ -35,22 +35,64 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="My Activity"
+            android:text="Blood Requests"
             android:textColor="@color/white"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:fontFamily="@font/inter_bold"
             android:layout_gravity="center"/>
     </androidx.cardview.widget.CardView>
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="105dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/cardview5"
+        android:layout_below="@id/cardview"
+        app:layout_constraintTop_toBottomOf="@id/cardview"
+        android:src="@drawable/background_blood_icons" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="105dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="85dp"
+        android:gravity="center"
+        android:text="@string/connect_with_generous_donors_who_are_ready_to_support_your_cause_and_make_a_positivev_impact"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:id="@+id/blood_req"
+        android:text="Create Requests"
+        android:layout_gravity="right"
+        android:textColor="@color/maron"
+        android:layout_marginTop="160dp"
+        android:layout_marginStart="225dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textAppearance="@style/create_request"/>
+
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         app:tabMode="fixed"
-        app:tabIndicatorColor="@color/maron"
-        android:layout_marginTop="5dp"
-        app:tabTextColor="@color/maron"
-        android:layout_below="@+id/cardview"
+        app:tabIndicatorColor="@color/white"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/tab_bg"
+        android:layout_marginEnd="30dp"
+        android:layout_marginStart="30dp"
+        app:tabTextColor="@color/white"
+        android:layout_below="@+id/cardview5"
         app:tabGravity="fill"/>
 
     <androidx.viewpager2.widget.ViewPager2

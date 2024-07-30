@@ -20,6 +20,12 @@ class UserAdapter(
             binding.tvAddress.text = user.location
             binding.tvBloodGroup.text = user.bloodGroup
 
+            // Set the blood group image
+            binding.imageBloodGroup.setImageResource(getBloodGroupImageResource(user.bloodGroup))
+
+            // Set the required unit text
+            binding.requiredUnit.text = "${user.bloodGroup} (${getBloodGroupFullName(user.bloodGroup)})"
+
             binding.btnViewDetail.setOnClickListener {
                 showUserDetailsDialog(user)
             }
@@ -46,22 +52,7 @@ class UserAdapter(
         @SuppressLint("SuspiciousIndentation")
         private fun showRequestConfirmationDialog(user: User) {
             val intent = Intent(context, CreateRequestActivity::class.java)
-//            val dialog = AlertDialog.Builder(context)
-//                .setTitle("Send Request")
-//                .setMessage("Send a request to ${user.name}?")
-//                .setPositiveButton("Send") { dialog, _ ->
-//                    // Handle request sending logic here
-//                    dialog.dismiss()
-//                    // Add your logic here to handle the request sending action
-//                    // For example, you can initiate a network call to send a request to the user
-//                    // or perform any other action based on your application's requirements.
-//                }
-//                .setNegativeButton("Cancel") { dialog, _ ->
-//                    dialog.dismiss()
-//                }
-//                .create()
-//            dialog.show()
-                context.startActivity(intent)
+            context.startActivity(intent)
         }
     }
 
@@ -79,5 +70,33 @@ class UserAdapter(
     fun updateData(newUsers: List<User>) {
         userList = newUsers
         notifyDataSetChanged()
+    }
+
+    private fun getBloodGroupImageResource(bloodGroup: String): Int {
+        return when (bloodGroup) {
+            "A+" -> R.drawable.ic_a
+            "A-" -> R.drawable.ic_a_plus
+            "B+" -> R.drawable.ic_b_plus
+            "B-" -> R.drawable.ic_b_minus
+            "AB+" -> R.drawable.ic_ab_plus
+            "AB-" -> R.drawable.ic_ab_minus
+            "O+" -> R.drawable.ic_o_plus
+            "O-" -> R.drawable.ic_o_minus
+            else -> R.drawable.blood_droplet // Add a default image if necessary
+        }
+    }
+
+    private fun getBloodGroupFullName(bloodGroup: String): String {
+        return when (bloodGroup) {
+            "A+" -> "A Positive"
+            "A-" -> "A Negative"
+            "B+" -> "B Positive"
+            "B-" -> "B Negative"
+            "AB+" -> "AB Positive"
+            "AB-" -> "AB Negative"
+            "O+" -> "O Positive"
+            "O-" -> "O Negative"
+            else -> "Unknown"
+        }
     }
 }

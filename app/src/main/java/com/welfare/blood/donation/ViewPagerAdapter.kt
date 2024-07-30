@@ -16,7 +16,7 @@ class ViewPagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapte
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> RequestHistoryFragment()
-            1 -> DonationHistoryFragment()
+            1 -> ReceivedRequestsFragment()
           //  2 -> ReceivedRequestsFragment() // Add this line
             else -> Fragment()
         }

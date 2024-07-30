@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.welfare.blood.donation.CreateRequestActivity
 import com.welfare.blood.donation.RequestAdapter
 import com.welfare.blood.donation.databinding.FragmentReceivedRequestsBinding
@@ -52,7 +53,7 @@ class ReceivedRequestsFragment : Fragment() {
     private fun fetchRequests() {
         val currentUser = auth.currentUser
         if (currentUser == null) {
-            Log.w("ReceivedRequestsFragment", "User not logged in")
+            Log.w("RequestHistoryFragment", "User not logged in")
             return
         }
 
@@ -62,22 +63,15 @@ class ReceivedRequestsFragment : Fragment() {
             .addOnSuccessListener { documents ->
                 requestList.clear()
                 for (document in documents) {
-                    val data = document.data
-
-                    // Convert requiredUnit to Int if it is stored as a String
-                    val requiredUnit = data["requiredUnit"]
-                    if (requiredUnit is String) {
-                        data["requiredUnit"] = requiredUnit.toIntOrNull() ?: 0
-                    }
-
                     val request = document.toObject(Request::class.java)
                     requestList.add(request)
                 }
                 adapter.notifyDataSetChanged()
                 displayRequestCount(requestList.size)
+
             }
             .addOnFailureListener { e ->
-                Log.w("ReceivedRequestsFragment", "Error fetching requests", e)
+                Log.w("RequestHistoryFragment", "Error fetching requests", e)
             }
     }
 
