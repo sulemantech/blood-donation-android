@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:text="All"
-            android:fontFamily="@font/inter_bold"
+            android:fontFamily="@font/open_sans_hebrew"
             android:checked="true" />
 
         <RadioButton
@@ -79,7 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:text="Waiting"
-            android:fontFamily="@font/inter_bold"
+            android:fontFamily="@font/open_sans_hebrew"
             android:checked="false" />
         <RadioButton
             android:id="@+id/radio_for_others2"
@@ -87,7 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:text="Completed"
-            android:fontFamily="@font/inter_bold"
+            android:fontFamily="@font/open_sans_hebrew"
             android:checked="false" />
     </RadioGroup>
 

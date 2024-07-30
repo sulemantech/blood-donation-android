@@ -6,11 +6,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.DatePicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.welfare.blood.donation.databinding.ActivityRegisterBinding
@@ -42,29 +40,10 @@ class RegisterActivity : AppCompatActivity() {
             registerUser()
         }
 
-//        binding.edDateBirth.setOnClickListener {
-//            showDatePickerDialogForDateOfBirth()
-//        }
-
         binding.edLastdonationdate.setOnClickListener {
             showDatePickerDialogForLastDonationDate()
         }
     }
-
-//    private fun showDatePickerDialogForDateOfBirth() {
-//        val calendar = Calendar.getInstance()
-//        val year = calendar.get(Calendar.YEAR)
-//        val month = calendar.get(Calendar.MONTH)
-//        val day = calendar.get(Calendar.DAY_OF_MONTH)
-//
-//        val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
-//            val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-//            calendar.set(selectedYear, selectedMonth, selectedDay)
-//            selectedDateOfBirth = sdf.format(calendar.time)
-//            binding.edDateBirth.setText(selectedDateOfBirth)
-//        }, year, month, day)
-//        datePickerDialog.show()
-//    }
 
     private fun showDatePickerDialogForLastDonationDate() {
         val calendar = Calendar.getInstance()
@@ -95,16 +74,13 @@ class RegisterActivity : AppCompatActivity() {
             return
         }
 
-        // Check if user already exists with the provided email
         auth.fetchSignInMethodsForEmail(email)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val signInMethods = task.result?.signInMethods ?: emptyList()
                     if (signInMethods.isNotEmpty()) {
-                        // User already exists
                         Toast.makeText(this, "User with this email already exists", Toast.LENGTH_SHORT).show()
                     } else {
-                        // User does not exist, proceed with registration
                         binding.progressBar.visibility = View.VISIBLE
                         progressDialog.show()
 
@@ -132,7 +108,6 @@ class RegisterActivity : AppCompatActivity() {
                                             binding.progressBar.visibility = View.GONE
                                             Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show()
 
-                                            // Pass "Myself" option to CreateRequestActivity
                                             val intent = Intent(this, CreateRequestActivity::class.java).apply {
                                                 putExtra("bloodFor", "Myself")
                                                 putExtra("name", name)
@@ -165,7 +140,6 @@ class RegisterActivity : AppCompatActivity() {
         private const val TAG = "RegisterActivity"
     }
 }
-
 
 
 
