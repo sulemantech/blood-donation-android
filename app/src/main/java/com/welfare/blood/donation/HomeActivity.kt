@@ -31,10 +31,10 @@ class HomeActivity : AppCompatActivity() {
                     loadFragment(HomeFragment())
                     true
                 }
-                R.id.inbox -> {
-                    loadFragment(InboxFragment())
-                    true
-                }
+//                R.id.inbox -> {
+//                    loadFragment(InboxFragment())
+//                    true
+//                }
                 R.id.activity -> {
                     loadFragment(ReceivedRequestsFragment())
                     true

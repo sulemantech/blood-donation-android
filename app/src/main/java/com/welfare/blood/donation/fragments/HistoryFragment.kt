@@ -34,17 +34,17 @@ class HistoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val cardView1 = binding.cardview1
-        val cardView2 = binding.cardview2
-        val cardView3 = binding.cardview3
-        val cardView4 = binding.cardview4
+        val cardView1 = binding.frameLayoutOne
+        val cardView2 = binding.frameLayoutTwo
+        val cardView3 = binding.frameLayoutThree
+        val cardView4 = binding.frameLayoutFour
 
         cardView1.setOnClickListener {
             val intent = Intent(requireContext(), ProfileActivity::class.java)
             startActivity(intent)
         }
 
-        cardView2.setOnClickListener {
+        cardView4.setOnClickListener {
             val intent = Intent(requireContext(), BloodbankActivity::class.java)
             startActivity(intent)
         }
@@ -53,7 +53,7 @@ class HistoryFragment : Fragment() {
             val intent = Intent(requireContext(), FAQActivity::class.java)
             startActivity(intent)
         }
-        cardView4.setOnClickListener {
+        cardView2.setOnClickListener {
             shareGoogleStore(requireContext())
         }
 

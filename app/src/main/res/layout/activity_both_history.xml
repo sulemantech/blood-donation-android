@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/menu_bg"
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.cardview.widget.CardView
@@ -64,8 +65,8 @@
         android:text="Connect with generous donors who are ready to support your cause and make a positive impact!"
         android:layout_gravity="right"
         android:layout_marginTop="110dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginEnd="35dp"
+        android:layout_marginStart="43dp"
+        android:layout_marginEnd="40dp"
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"/>
     <TextView
@@ -77,7 +78,7 @@
         android:layout_gravity="right"
         android:textColor="@color/maron"
         android:layout_marginTop="160dp"
-        android:layout_marginStart="225dp"
+        android:layout_marginStart="222dp"
         app:layout_constraintEnd_toEndOf="parent"
         android:textAppearance="@style/create_request"/>
 

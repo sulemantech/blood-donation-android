@@ -195,6 +195,26 @@
     </string>
     <string name="please_let_us_know_if_you_need_the_blood_for_yourself_or_for_any_relatives">Please let us know if you need the blood for yourself or for any relatives.</string>
     <string name="connect_with_generous_donors_who_are_ready_to_support_your_cause_and_make_a_positivev_impact">Connect with generous donors who are ready to support \n    your cause and make a positivev impact!</string>
+    <string name="a_blood_bank_is_a_facility_that_collects_stores_processes_and_distributes_blood_and_its_components_to_hospitals_and_medical_centers_it_ensures_a_safe_and_adequate_supply_of_blood_for_patients_in_need_of_transfusions">A blood bank is a facility that collects, stores, processes, and distributes blood and its components to hospitals and medical centers. It ensures a safe and adequate supply of blood for patients in need of transfusions.</string>
+    <string name="benefits_of_blood_banks">
+        <font color="#0000000">Benefits of</font> <font color="#9C1405">Blood Banks?</font>
+        </string>
+    <string name="life_saving_resource_provides_essential_blood_for_surgeries_emergencies_and_chronic_illnesses">
+        <font color="#9C1405">Life-saving Resource:</font> <font color="#0000000">Provides essential blood for surgeries, emergencies, and chronic illnesses</font>
+    </string>
+    <string name="improved_health_outcomes_enhances_patient_recovery_and_survival_rates_through_timely_blood_transfusions">
+        <font color="#9C1405">Improved Health Outcomes:</font> <font color="#0000000">Enhances patient recovery and survival rates through timely blood transfusions.</font>
+
+    </string>
+    <string name="community_support_encourages_community_participation_and_volunteerism_fostering_a_sense_of_solidarity">
+    <font color="#9C1405">Community Support:</font> <font color="#0000000">Encourages community participation and volunteerism, fostering a sense of solidarity.</font>
+    </string>
+    <string name="quality_assurance_ensures_the_safety_and_quality_of_blood_through_rigorous_testing_and_processing">
+            <font color="#9C1405">Quality Assurance:</font> <font color="#0000000">Ensures the safety and quality of blood through rigorous testing and processing.</font>
+    </string>
+    <string name="readiness_for_emergencies_maintains_a_ready_supply_of_blood_for_disaster_response_and_critical_situations">
+                   <font color="#9C1405"> Readiness for Emergencies:</font> <font color="#0000000">Maintains a ready supply of blood for disaster response and critical situations</font>
+    </string>
 
 
 </resources>

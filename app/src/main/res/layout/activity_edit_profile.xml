@@ -18,14 +18,31 @@
             android:layout_gravity="center"
             app:tint="@color/maron"
             android:contentDescription="Profile Image"
-            android:src="@drawable/baseline_person_outline_24" />
+            android:src="@drawable/top_image" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit Profile"
+            android:layout_gravity="center"
+            android:fontFamily="@font/open_sans_hebrew"
+            android:textStyle="bold"
+            android:textSize="22dp"
+            android:textColor="@color/black"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please  edit the information and click on save"
+            android:layout_gravity="center"
+            android:fontFamily="@font/open_sans_hebrew"
+            android:textSize="14dp"
+            android:textColor="@color/black"/>
 
         <EditText
             android:id="@+id/edName"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
-            android:hint="Name"
+            android:hint="Full Name"
             android:paddingStart="10dp"
             android:backgroundTint="@color/maron"
             android:inputType="textPersonName" />
@@ -35,7 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="4dp"
-            android:hint="Email"
+            android:hint="Email Address"
             android:paddingStart="10dp"
             android:backgroundTint="@color/maron"
             android:inputType="textEmailAddress" />
@@ -121,7 +138,7 @@ android:backgroundTint="@color/maron"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_gravity="center"
-            android:text="I am a donor" />
+            android:text="Ready To Donate Blood" />
 
         <TextView
             android:id="@+id/btnSave"
@@ -131,12 +148,11 @@ android:backgroundTint="@color/maron"
             android:gravity="center"
             android:textSize="20dp"
             android:textColor="@color/white"
-            android:background="@drawable/buttons"
-            android:backgroundTint="@color/maron"
+            android:background="@drawable/update_button"
             android:layout_gravity="center"
+            android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:text="Save" />
+            android:layout_marginEnd="20dp" />
 
         <ProgressBar
             android:layout_width="match_parent"
