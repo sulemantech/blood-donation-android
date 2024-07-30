@@ -39,12 +39,12 @@ class CreateRequestActivity : AppCompatActivity() {
         val bloodForMyself = intent.getStringExtra("bloodFor") ?: ""
         if (bloodForMyself == "Myself") {
             binding.radioForMyself.isChecked = true
-            fillFormFields()
+            fetchAndFillUserDetails()
         }
 
         binding.bloodForMyselfGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
-                R.id.radio_for_myself -> fillFormFields()
+                R.id.radio_for_myself -> fetchAndFillUserDetails()
                 R.id.radio_for_others -> clearFormFields()
             }
         }
@@ -61,15 +61,27 @@ class CreateRequestActivity : AppCompatActivity() {
         }
     }
 
-    private fun fillFormFields() {
-        intent.getStringExtra("name")?.let {
-            binding.patientName.setText(it)
-        }
-        intent.getStringExtra("bloodGroup")?.let {
-            binding.bloodType.setSelection(getBloodTypeIndex(it))
-        }
-        intent.getStringExtra("location")?.let {
-            setLocationSpinner(it)
+    private fun fetchAndFillUserDetails() {
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        if (currentUser != null) {
+            val userId = currentUser.uid
+            db.collection("users").document(userId).get()
+                .addOnSuccessListener { document ->
+                    if (document != null) {
+                        val name = document.getString("name") ?: ""
+                        val bloodGroup = document.getString("bloodGroup") ?: ""
+                        val location = document.getString("location") ?: ""
+
+                        binding.patientName.setText(name)
+                        binding.bloodType.setSelection(getBloodTypeIndex(bloodGroup))
+                        setLocationSpinner(location)
+                    } else {
+                        Log.d("CreateRequestActivity", "No such document")
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.d("CreateRequestActivity", "get failed with ", exception)
+                }
         }
     }
 
