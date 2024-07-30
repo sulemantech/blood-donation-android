@@ -30,8 +30,8 @@ class BothHistoryActivity : AppCompatActivity() {
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = when (position) {
-                0 -> ""
-                1 -> ""
+                0 -> "My Requests"
+                1 -> "Others Request"
                 else -> null
             }
         }.attach()

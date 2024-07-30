@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import com.welfare.blood.donation.CreateRequestActivity
 import com.welfare.blood.donation.RequestAdapter
 import com.welfare.blood.donation.databinding.FragmentReceivedRequestsBinding
@@ -53,25 +52,50 @@ class ReceivedRequestsFragment : Fragment() {
     private fun fetchRequests() {
         val currentUser = auth.currentUser
         if (currentUser == null) {
-            Log.w("RequestHistoryFragment", "User not logged in")
+            Log.w("ReceivedRequestsFragment", "User not logged in")
             return
         }
 
         db.collection("requests")
-            .whereEqualTo("userId", currentUser.uid)
+            .whereNotEqualTo("userId", currentUser.uid)
             .get()
             .addOnSuccessListener { documents ->
                 requestList.clear()
                 for (document in documents) {
-                    val request = document.toObject(Request::class.java)
-                    requestList.add(request)
+                    try {
+                        val requiredUnitField = document.get("requiredUnit")
+                        Log.d("FirestoreDataType", "requiredUnit type: ${requiredUnitField?.javaClass?.name}")
+
+                        val requiredUnit = when (requiredUnitField) {
+                            is Number -> requiredUnitField.toInt()
+                            is String -> requiredUnitField.toIntOrNull() ?: 0
+                            else -> 0
+                        }
+
+                        val request = Request(
+                            patientName = document.getString("patientName") ?: "",
+                            age = document.getLong("age")?.toInt() ?: 0,
+                            bloodType = document.getString("bloodType") ?: "",
+                            requiredUnit = requiredUnit,
+                            dateRequired = document.getString("dateRequired") ?: "",
+                            hospital = document.getString("hospital") ?: "",
+                            location = document.getString("location") ?: "",
+                            bloodFor = document.getString("bloodFor") ?: "",
+                            userId = document.getString("userId") ?: "",
+                            recipientId = document.getString("recipientId") ?: "",
+                            status = document.getString("status") ?: "",
+                            critical = document.getBoolean("critical") ?: false
+                        )
+                        requestList.add(request)
+                    } catch (e: Exception) {
+                        Log.e("ReceivedRequestsFragment", "Error parsing request document", e)
+                    }
                 }
                 adapter.notifyDataSetChanged()
                 displayRequestCount(requestList.size)
-
             }
             .addOnFailureListener { e ->
-                Log.w("RequestHistoryFragment", "Error fetching requests", e)
+                Log.w("ReceivedRequestsFragment", "Error fetching requests", e)
             }
     }
 

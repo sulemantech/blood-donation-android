@@ -55,18 +55,19 @@
         app:layout_constraintTop_toBottomOf="@id/cardview"
         android:src="@drawable/background_blood_icons" />
 
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="45dp"
-        android:layout_marginTop="105dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="85dp"
-        android:gravity="center"
-        android:text="@string/connect_with_generous_donors_who_are_ready_to_support_your_cause_and_make_a_positivev_impact"
         android:textSize="13sp"
-        app:layout_constraintEnd_toEndOf="parent" />
-
+        android:id="@+id/blood_req1"
+        android:text="Connect with generous donors who are ready to support your cause and make a positive impact!"
+        android:layout_gravity="right"
+        android:layout_marginTop="110dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -87,12 +88,12 @@
         android:layout_height="50dp"
         app:tabMode="fixed"
         app:tabIndicatorColor="@color/white"
+        app:tabBackground="@drawable/tab_background"
+        app:tabTextColor="@color/white"
         android:layout_marginTop="10dp"
-        android:background="@drawable/tab_bg"
         android:layout_marginEnd="30dp"
         android:layout_marginStart="30dp"
-        app:tabTextColor="@color/white"
-        android:layout_below="@+id/cardview5"
+        android:layout_below="@id/cardview5"
         app:tabGravity="fill"/>
 
     <androidx.viewpager2.widget.ViewPager2
