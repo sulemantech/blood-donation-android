@@ -11,16 +11,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.welfare.blood.donation.CreateRequestActivity
-import com.welfare.blood.donation.RequestAdapter
+import com.welfare.blood.donation.adapters.ReceivedRequestAdapter
 import com.welfare.blood.donation.databinding.FragmentReceivedRequestsBinding
-import com.welfare.blood.donation.models.Request
+import com.welfare.blood.donation.models.ReceivedRequest
 
 class ReceivedRequestsFragment : Fragment() {
 
     private lateinit var binding: FragmentReceivedRequestsBinding
     private lateinit var db: FirebaseFirestore
-    private lateinit var requestList: MutableList<Request>
-    private lateinit var adapter: RequestAdapter
+    private lateinit var requestList: MutableList<ReceivedRequest>
+    private lateinit var adapter: ReceivedRequestAdapter
     private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
@@ -39,7 +39,7 @@ class ReceivedRequestsFragment : Fragment() {
 
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         requestList = mutableListOf()
-        adapter = RequestAdapter(requestList)
+        adapter = ReceivedRequestAdapter(requestList) // Initialize the adapter
         binding.recyclerView.adapter = adapter
 
         fetchRequests()
@@ -72,7 +72,7 @@ class ReceivedRequestsFragment : Fragment() {
                             else -> 0
                         }
 
-                        val request = Request(
+                        val receivedRequest = ReceivedRequest(
                             patientName = document.getString("patientName") ?: "",
                             age = document.getLong("age")?.toInt() ?: 0,
                             bloodType = document.getString("bloodType") ?: "",
@@ -83,10 +83,10 @@ class ReceivedRequestsFragment : Fragment() {
                             bloodFor = document.getString("bloodFor") ?: "",
                             userId = document.getString("userId") ?: "",
                             recipientId = document.getString("recipientId") ?: "",
-                            status = document.getString("status") ?: "",
+                            status = document.getString("status") ?: "pending",
                             critical = document.getBoolean("critical") ?: false
                         )
-                        requestList.add(request)
+                        requestList.add(receivedRequest)
                     } catch (e: Exception) {
                         Log.e("ReceivedRequestsFragment", "Error parsing request document", e)
                     }
@@ -100,6 +100,6 @@ class ReceivedRequestsFragment : Fragment() {
     }
 
     private fun displayRequestCount(count: Int) {
-        binding.receivedRequestCount.text = "Requests Received: $count"
+        binding.receivedRequestCount.text = "Total Requests: $count"
     }
 }

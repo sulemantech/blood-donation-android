@@ -20,6 +20,10 @@
         <item name="android:statusBarColor">@color/dark_maron</item>
         <item name="android:windowLightStatusBar">false</item>
     </style>
+    <style name="ThemeD" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@color/reddd</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
 
     <style name="ThemeC" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:statusBarColor">@color/dark</item>

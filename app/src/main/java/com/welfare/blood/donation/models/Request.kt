@@ -1,16 +1,18 @@
 package com.welfare.blood.donation.models
 
 data class Request(
-    val patientName: String = "",
-    val age: Int = 0,
-    val bloodType: String = "",
-    val requiredUnit: Int = 0,
-    val dateRequired: String = "",
-    val hospital: String = "",
-    val location: String = "",
-    val bloodFor: String = "",
-    val userId: String = "", // Sender ID
-    val recipientId: String = "", // Recipient ID
-    var status: String = "pending", // Default status is pending
-    val critical: Boolean = false // Add this line
+    var id: String = "",
+    var patientName: String = "",
+    var age: Int = 0,
+    var bloodType: String = "",
+    var requiredUnit: Int = 0,
+    var dateRequired: String = "",
+    var hospital: String = "",
+    var location: String = "",
+    var bloodFor: String = "",
+    var userId: String = "",
+    var recipientId: String = "",
+    var status: String = "pending",
+    var critical: Boolean = false,
+    var isDeleted: Boolean = false // Added field
 )

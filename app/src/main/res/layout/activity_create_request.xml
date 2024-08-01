@@ -67,6 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
                 android:text="Myself"
+                android:buttonTint="@color/maron"
                 android:fontFamily="@font/inter_bold"
                 android:checked="true" />
 
@@ -76,6 +77,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
                 android:text="Family / Friends"
+                android:buttonTint="@color/maron"
                 android:fontFamily="@font/inter_bold"
                 android:checked="false" />
         </RadioGroup>
@@ -224,7 +226,7 @@
             android:id="@+id/ed_date_required"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:hint="@string/dd_mm_yyyy"
+            android:hint="Required Date"
             android:paddingStart="15dp"
             android:inputType="none"
             android:focusable="false"

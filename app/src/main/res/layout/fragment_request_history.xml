@@ -47,7 +47,7 @@
         android:id="@+id/receivedRequestCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Requests Received: 0"
+        android:text="Total Received: 0"
         android:textSize="14sp"
         android:layout_margin="18dp"
         android:textColor="@color/maron"
@@ -70,6 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:text="All"
+            android:buttonTint="@color/maron"
             android:fontFamily="@font/open_sans_hebrew"
             android:checked="true" />
 
@@ -79,6 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:text="Waiting"
+            android:buttonTint="@color/maron"
             android:fontFamily="@font/open_sans_hebrew"
             android:checked="false" />
         <RadioButton
@@ -87,6 +89,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:text="Completed"
+            android:buttonTint="@color/maron"
             android:fontFamily="@font/open_sans_hebrew"
             android:checked="false" />
     </RadioGroup>
@@ -97,6 +100,7 @@
         android:layout_height="wrap_content"
         android:text="Select Request Status"
         android:textSize="14sp"
+        android:textStyle="bold"
         android:layout_margin="18dp"
         android:textColor="@color/maron"
         android:fontFamily="@font/open_sans_hebrew"

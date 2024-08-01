@@ -121,7 +121,7 @@
         <activity
             android:name=".SplashActivity"
             android:exported="true"
-            android:theme="@style/ThemeA"
+            android:theme="@style/ThemeD"
             tools:ignore="ExtraText">
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
             <intent-filter>
@@ -131,5 +131,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>

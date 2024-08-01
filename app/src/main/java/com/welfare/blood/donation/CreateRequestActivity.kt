@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.welfare.blood.donation.databinding.ActivityCreateRequestBinding
+import com.welfare.blood.donation.models.Request
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -20,6 +21,7 @@ class CreateRequestActivity : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
     private lateinit var selectedDonationDate: String
     private var isCritical: Boolean = false
+    private var requestId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,15 +38,13 @@ class CreateRequestActivity : AppCompatActivity() {
             isCritical = isChecked
         }
 
-        val bloodForMyself = intent.getStringExtra("bloodFor") ?: ""
-        if (bloodForMyself == "Myself") {
-            binding.radioForMyself.isChecked = true
-            fetchAndFillUserDetails()
-        }
+        // Check the "Myself" radio button and fill fields if checked
+        binding.radioForMyself.isChecked = true
+        fillFormFields()
 
         binding.bloodForMyselfGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
-                R.id.radio_for_myself -> fetchAndFillUserDetails()
+                R.id.radio_for_myself -> fillFormFields()
                 R.id.radio_for_others -> clearFormFields()
             }
         }
@@ -52,16 +52,26 @@ class CreateRequestActivity : AppCompatActivity() {
         binding.sendRequest.setOnClickListener {
             if (validateInputs()) {
                 showProgressBar()
-                sendRequest()
+                if (requestId != null) {
+                    updateRequest()
+                } else {
+                    sendRequest()
+                }
             }
         }
 
         binding.edDateRequired.setOnClickListener {
             showDatePickerDialog()
         }
+
+        // Check if it's an edit request
+        requestId = intent.getStringExtra("REQUEST_ID")
+        if (requestId != null) {
+            loadRequestData(requestId!!)
+        }
     }
 
-    private fun fetchAndFillUserDetails() {
+    private fun fillFormFields() {
         val currentUser = FirebaseAuth.getInstance().currentUser
         if (currentUser != null) {
             val userId = currentUser.uid
@@ -177,31 +187,93 @@ class CreateRequestActivity : AppCompatActivity() {
             "bloodType" to binding.bloodType.selectedItem.toString().trim(),
             "requiredUnit" to binding.requiredUnit.text.toString().trim().toInt(),
             "dateRequired" to binding.edDateRequired.text.toString().trim(),
+            "hospital" to binding.hospital.text.toString().trim(),
             "location" to binding.location.selectedItem.toString().trim(),
             "bloodFor" to bloodFor,
             "userId" to currentUser.uid,
+            "recipientId" to currentUser.uid,
             "status" to "pending",
             "critical" to isCritical
         )
 
         db.collection("requests")
             .add(request)
-            .addOnSuccessListener { documentReference ->
-                Log.d("CreateRequestActivity", "DocumentSnapshot added with ID: ${documentReference.id}")
-                Toast.makeText(this, "Create Request Successfully", Toast.LENGTH_SHORT).show()
+            .addOnSuccessListener {
                 hideProgressBar()
-                navigateToOtherActivity()
+                Toast.makeText(this, "Request sent successfully", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
             }
             .addOnFailureListener { e ->
-                Log.w("CreateRequestActivity", "Error adding document", e)
-                Toast.makeText(this, "Error creating request", Toast.LENGTH_SHORT).show()
                 hideProgressBar()
+                Log.w("CreateRequestActivity", "Error adding request", e)
+                Toast.makeText(this, "Error sending request", Toast.LENGTH_SHORT).show()
             }
     }
 
-    private fun navigateToOtherActivity() {
-        val intent = Intent(this, SentSuccessfullActivity::class.java)
-        startActivity(intent)
-        finish()
+    private fun loadRequestData(requestId: String) {
+        db.collection("requests").document(requestId).get()
+            .addOnSuccessListener { document ->
+                if (document != null) {
+                    val request = document.toObject(Request::class.java)
+                    if (request != null) {
+                        binding.patientName.setText(request.patientName)
+                        binding.age.setText(request.age.toString())
+                        binding.bloodType.setSelection(getBloodTypeIndex(request.bloodType))
+                        binding.requiredUnit.setText(request.requiredUnit.toString())
+                        binding.edDateRequired.setText(request.dateRequired)
+                        binding.hospital.setText(request.hospital)
+                        setLocationSpinner(request.location)
+                        binding.critical.isChecked = request.critical
+                        isCritical = request.critical
+                    }
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.w("CreateRequestActivity", "Error loading request data", e)
+                Toast.makeText(this, "Error loading request data", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun updateRequest() {
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        if (currentUser == null) {
+            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val selectedId = binding.bloodForMyselfGroup.checkedRadioButtonId
+        val bloodFor = findViewById<RadioButton>(selectedId).text.toString()
+
+        val updatedRequest = mapOf(
+            "patientName" to binding.patientName.text.toString().trim(),
+            "age" to binding.age.text.toString().trim().toInt(),
+            "bloodType" to binding.bloodType.selectedItem.toString().trim(),
+            "requiredUnit" to binding.requiredUnit.text.toString().trim().toInt(),
+            "dateRequired" to binding.edDateRequired.text.toString().trim(),
+            "hospital" to binding.hospital.text.toString().trim(),
+            "location" to binding.location.selectedItem.toString().trim(),
+            "bloodFor" to bloodFor,
+            "userId" to currentUser.uid,
+            "recipientId" to currentUser.uid,
+            "status" to "pending",
+            "critical" to isCritical
+        )
+
+        requestId?.let {
+            db.collection("requests").document(it)
+                .update(updatedRequest)
+                .addOnSuccessListener {
+                    hideProgressBar()
+                    Toast.makeText(this, "Request updated successfully", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, HomeActivity::class.java))
+                    finish()
+                }
+                .addOnFailureListener { e ->
+                    hideProgressBar()
+                    Log.w("CreateRequestActivity", "Error updating request", e)
+                    Toast.makeText(this, "Error updating request", Toast.LENGTH_SHORT).show()
+                }
+        }
     }
 }

@@ -1,19 +1,18 @@
-package com.welfare.blood.donation
+package com.welfare.blood.donation.adapters
 
+import com.welfare.blood.donation.R
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.welfare.blood.donation.databinding.HistoryRecyclerviewBinding
-import com.welfare.blood.donation.models.Request
+import com.welfare.blood.donation.databinding.ReceivedRequestRecyclerviewBinding
+import com.welfare.blood.donation.models.ReceivedRequest
 
-class RequestAdapter(
-    private val requestList: List<Request>,
-    private val onEditClick: (Request) -> Unit,
-    private val onDeleteClick: (Request) -> Unit
-) : RecyclerView.Adapter<RequestAdapter.RequestViewHolder>() {
+class ReceivedRequestAdapter(
+    private val requestList: List<ReceivedRequest>,
+) : RecyclerView.Adapter<ReceivedRequestAdapter.RequestViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RequestViewHolder {
-        val binding = HistoryRecyclerviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ReceivedRequestRecyclerviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return RequestViewHolder(binding)
     }
 
@@ -25,9 +24,9 @@ class RequestAdapter(
         return requestList.size
     }
 
-    inner class RequestViewHolder(private val binding: HistoryRecyclerviewBinding) :
+    inner class RequestViewHolder(private val binding: ReceivedRequestRecyclerviewBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(request: Request) {
+        fun bind(request: ReceivedRequest) {
             binding.donorName.text = request.patientName
             binding.location.text = request.location
             val bloodTypeFull = getBloodTypeFull(request.bloodType)
@@ -35,28 +34,20 @@ class RequestAdapter(
             binding.imageBloodGroup.setImageResource(getBloodGroupImage(request.bloodType))
             binding.bloodType.text = request.bloodType
             binding.requestDate.text = request.dateRequired
-
-            // Set up the edit and delete button click listeners
-            binding.edit.setOnClickListener {
-                onEditClick(request)
-            }
-            binding.delete.setOnClickListener {
-                onDeleteClick(request)
-            }
         }
     }
 
     private fun getBloodGroupImage(bloodType: String): Int {
         return when (bloodType) {
             "A+" -> R.drawable.ic_a
-            "A-" -> R.drawable.ic_a_plus
+            "A-" -> R.drawable.ic_a_minus
             "B+" -> R.drawable.ic_b_plus
             "B-" -> R.drawable.ic_b_minus
             "AB+" -> R.drawable.ic_ab_plus
             "AB-" -> R.drawable.ic_ab_minus
             "O+" -> R.drawable.ic_o_plus
             "O-" -> R.drawable.ic_o_minus
-            else -> R.drawable.blood_droplet // Add a default image if necessary
+            else -> R.drawable.blood_droplet // Default image
         }
     }
 

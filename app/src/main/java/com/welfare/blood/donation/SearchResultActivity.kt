@@ -2,6 +2,7 @@ package com.welfare.blood.donation
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -42,6 +43,10 @@ class SearchResultActivity : AppCompatActivity() {
     }
 
     private fun fetchUsers(searchId: String) {
+        // Show the ProgressBar while data is being fetched
+        binding.progressBar.visibility = View.VISIBLE
+        binding.recyclerView.visibility = View.GONE
+
         db.collection("searches").document(searchId).get()
             .addOnSuccessListener { document ->
                 val bloodGroup = document.getString("bloodGroup")
@@ -63,15 +68,18 @@ class SearchResultActivity : AppCompatActivity() {
                         .addOnFailureListener { e ->
                             Log.e(TAG, "Error fetching users", e)
                             Toast.makeText(this, "Error fetching users: ${e.message}", Toast.LENGTH_SHORT).show()
+                            binding.progressBar.visibility = View.GONE
                         }
                 } else {
                     Toast.makeText(this, "Invalid search data", Toast.LENGTH_SHORT).show()
                     Log.e(TAG, "Invalid search data: bloodGroup=$bloodGroup, location=$location") // Changed from city to location
+                    binding.progressBar.visibility = View.GONE
                 }
             }
             .addOnFailureListener { e ->
                 Log.e(TAG, "Error fetching search document", e)
                 Toast.makeText(this, "Error fetching search document: ${e.message}", Toast.LENGTH_SHORT).show()
+                binding.progressBar.visibility = View.GONE
             }
     }
 
@@ -84,6 +92,9 @@ class SearchResultActivity : AppCompatActivity() {
             Log.d(TAG, "No users found matching criteria")
             Toast.makeText(this, "No users found matching criteria", Toast.LENGTH_SHORT).show()
         }
+        // Hide the ProgressBar when data is fetched
+        binding.progressBar.visibility = View.GONE
+        binding.recyclerView.visibility = View.VISIBLE
     }
 
     companion object {

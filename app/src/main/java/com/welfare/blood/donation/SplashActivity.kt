@@ -18,10 +18,10 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        imageView = findViewById(R.id.load_image)
+     //   imageView = findViewById(R.id.load_image)
 
-        val animationDrawable = imageView.drawable as AnimationDrawable
-        animationDrawable.start()
+//        val animationDrawable = imageView.drawable as AnimationDrawable
+//        animationDrawable.start()
 
         val handler = Handler(Looper.getMainLooper())
         handler.postDelayed({
