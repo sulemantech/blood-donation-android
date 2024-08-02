@@ -14,6 +14,8 @@ import com.welfare.blood.donation.CreateRequestActivity
 import com.welfare.blood.donation.adapters.ReceivedRequestAdapter
 import com.welfare.blood.donation.databinding.FragmentReceivedRequestsBinding
 import com.welfare.blood.donation.models.ReceivedRequest
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class ReceivedRequestsFragment : Fragment() {
 
@@ -50,6 +52,8 @@ class ReceivedRequestsFragment : Fragment() {
     }
 
     private fun fetchRequests() {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
         val currentUser = auth.currentUser
         if (currentUser == null) {
             Log.w("ReceivedRequestsFragment", "User not logged in")
@@ -91,6 +95,9 @@ class ReceivedRequestsFragment : Fragment() {
                         Log.e("ReceivedRequestsFragment", "Error parsing request document", e)
                     }
                 }
+                requestList.sortByDescending {
+                    dateFormat.parse(it.dateRequired)
+                }
                 adapter.notifyDataSetChanged()
                 displayRequestCount(requestList.size)
             }
@@ -102,4 +109,4 @@ class ReceivedRequestsFragment : Fragment() {
     private fun displayRequestCount(count: Int) {
         binding.receivedRequestCount.text = "Total Requests: $count"
     }
-}
+}//i want add textview for critical if user check critical checkbox than i want both critical and non critical request fetched

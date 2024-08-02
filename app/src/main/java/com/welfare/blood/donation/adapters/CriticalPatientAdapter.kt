@@ -2,12 +2,13 @@ package com.welfare.blood.donation.adapters
 
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.welfare.blood.donation.CriticalPatientsListActivity
 import com.welfare.blood.donation.databinding.CriticalPatientItemBinding
 import com.welfare.blood.donation.models.CriticalPatient
-import com.welfare.blood.donation.R // Add this import for accessing resources
+import com.welfare.blood.donation.R
 
 class CriticalPatientAdapter(private val patients: List<CriticalPatient>) :
     RecyclerView.Adapter<CriticalPatientAdapter.CriticalPatientViewHolder>() {
@@ -30,41 +31,40 @@ class CriticalPatientAdapter(private val patients: List<CriticalPatient>) :
         fun bind(patient: CriticalPatient) {
             binding.patientName.text = patient.patientName
             binding.bloodGroup.text = patient.bloodType
-            binding.condition.text = patient.status // Assuming `status` is used to describe the condition
-            binding.contactInfo.text = patient.location // Or another appropriate field
+            binding.condition.text = patient.status
+            binding.contactInfo.text = patient.location
             binding.hospital.text = patient.hospital
 
-            // Display blood group with units in desired format
             val bloodTypeFull = getBloodTypeFull(patient.bloodType)
             binding.requiredUnit.text = "${patient.bloodType} ($bloodTypeFull) ${patient.requiredUnit} Units Blood"
-
             binding.dateRequired.text = patient.dateRequired
-
-            // Set the image for the blood group
             binding.imageBloodGroup.setImageResource(getBloodGroupImage(patient.bloodType))
 
-            // Set click listener for the "Donate Now" button
+            // Set visibility of the critical status
+            if (patient.critical) {
+                binding.criticalStatus.visibility = View.VISIBLE
+            } else {
+                binding.criticalStatus.visibility = View.GONE
+            }
+
             binding.donateNow.setOnClickListener {
                 val context = binding.root.context
                 val intent = Intent(context, CriticalPatientsListActivity::class.java)
-                // Pass any necessary data to the DonateBloodActivity
-               // intent.putExtra("patientId", patient.id) // Assuming each patient has a unique ID
                 context.startActivity(intent)
             }
         }
 
         private fun getBloodGroupImage(bloodType: String): Int {
             return when (bloodType) {
-                "A+" -> R.drawable.ic_a
-                "A-" -> R.drawable.ic_a_plus
+                "A+" -> R.drawable.ic_a_plus
+                "A-" -> R.drawable.ic_a_minus
                 "B+" -> R.drawable.ic_b_plus
                 "B-" -> R.drawable.ic_b_minus
                 "AB+" -> R.drawable.ic_ab_plus
                 "AB-" -> R.drawable.ic_ab_minus
                 "O+" -> R.drawable.ic_o_plus
                 "O-" -> R.drawable.ic_o_minus
-                else -> R.drawable.blood_droplet // Add a default image if necessary
-
+                else -> R.drawable.blood_droplet
             }
         }
 

@@ -169,6 +169,17 @@
             android:textAppearance="@style/home_screen_heading"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardview5"/>
+        <TextView
+            android:id="@+id/tvCriticalStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Critical Patients"
+            android:layout_marginStart="190dp"
+            android:layout_marginTop="0dp"
+            android:visibility="gone"
+            android:textAppearance="@style/home_screen_heading"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardview5"/>
 
         <TextView
             android:id="@+id/tvSeeAll"

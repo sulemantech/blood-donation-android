@@ -2,6 +2,7 @@ package com.welfare.blood.donation.adapters
 
 import com.welfare.blood.donation.R
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.welfare.blood.donation.databinding.ReceivedRequestRecyclerviewBinding
@@ -34,6 +35,7 @@ class ReceivedRequestAdapter(
             binding.imageBloodGroup.setImageResource(getBloodGroupImage(request.bloodType))
             binding.bloodType.text = request.bloodType
             binding.requestDate.text = request.dateRequired
+            binding.criticalText.visibility = if (request.critical) View.VISIBLE else View.GONE
         }
     }
 
@@ -65,3 +67,4 @@ class ReceivedRequestAdapter(
         }
     }
 }
+

@@ -31,7 +31,7 @@ class CreateRequestActivity : AppCompatActivity() {
         db = FirebaseFirestore.getInstance()
 
         binding.backArrow.setOnClickListener {
-            onBackPressed()
+            navigateToHome()
         }
 
         binding.critical.setOnCheckedChangeListener { _, isChecked ->
@@ -201,7 +201,7 @@ class CreateRequestActivity : AppCompatActivity() {
             .addOnSuccessListener {
                 hideProgressBar()
                 Toast.makeText(this, "Request sent successfully", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, MainActivity::class.java))
+                startActivity(Intent(this, SentSuccessfullActivity::class.java))
                 finish()
             }
             .addOnFailureListener { e ->
@@ -275,5 +275,14 @@ class CreateRequestActivity : AppCompatActivity() {
                     Toast.makeText(this, "Error updating request", Toast.LENGTH_SHORT).show()
                 }
         }
+    }
+
+    override fun onBackPressed() {
+        navigateToHome()
+    }
+
+    private fun navigateToHome() {
+        startActivity(Intent(this, HomeActivity::class.java))
+        finish()
     }
 }

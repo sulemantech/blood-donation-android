@@ -13,12 +13,15 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.EmailAuthProvider
+import com.google.firebase.firestore.FirebaseFirestore
 import com.welfare.blood.donation.*
 import com.welfare.blood.donation.databinding.FragmentHistoryBinding
 
 class HistoryFragment : Fragment() {
 
     private val auth = FirebaseAuth.getInstance()
+    private val db = FirebaseFirestore.getInstance()
 
     private var _binding: FragmentHistoryBinding? = null
     private val binding get() = _binding!!
@@ -82,6 +85,10 @@ class HistoryFragment : Fragment() {
                 }
                 R.id.nav_logout -> {
                     showLogoutDialog(requireContext())
+                    true
+                }
+                R.id.nav_delete_profile -> {
+                    promptForPassword()
                     true
                 }
                 else -> false
@@ -168,6 +175,68 @@ class HistoryFragment : Fragment() {
         }
 
         alertDialog.show()
+    }
+
+    private fun promptForPassword() {
+        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_password_input, null)
+        val passwordEditText = dialogView.findViewById<EditText>(R.id.editTextPassword)
+
+        val alertDialog = AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+            .setTitle("Re-authenticate")
+            .setPositiveButton("Confirm") { _, _ ->
+                val password = passwordEditText.text.toString().trim()
+                if (password.isNotEmpty()) {
+                    performProfileDeletionWithPassword(password)
+                } else {
+                    showToast("Please enter your password.")
+                }
+            }
+            .setNegativeButton("Cancel", null)
+            .create()
+
+        alertDialog.show()
+    }
+
+    private fun performProfileDeletionWithPassword(password: String) {
+        val user = auth.currentUser
+        user?.let {
+            val credential = EmailAuthProvider.getCredential(it.email!!, password)
+
+            // Re-authenticate the user
+            it.reauthenticate(credential).addOnCompleteListener { reauthTask ->
+                if (reauthTask.isSuccessful) {
+                    performProfileDeletion()
+                } else {
+                    showToast("Re-authentication failed. Please try again.")
+                }
+            }
+        }
+    }
+
+    private fun performProfileDeletion() {
+        val user = auth.currentUser
+        user?.let {
+            it.delete().addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    // Optionally, delete user data from Firestore if necessary
+                    db.collection("users").document(it.uid).delete().addOnCompleteListener { firestoreTask ->
+                        if (firestoreTask.isSuccessful) {
+                            // Navigate to login screen
+                            val intent = Intent(requireContext(), LoginActivity::class.java)
+                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            startActivity(intent)
+                            requireActivity().finish() // Optional: Finish the current activity
+                            showToast("Profile deleted successfully")
+                        } else {
+                            showToast("Failed to delete user data: ${firestoreTask.exception?.message}")
+                        }
+                    }
+                } else {
+                    showToast("Failed to delete profile: ${task.exception?.message}")
+                }
+            }
+        }
     }
 
     private fun performLogout() {

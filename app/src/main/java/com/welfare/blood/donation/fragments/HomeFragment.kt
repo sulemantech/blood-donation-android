@@ -5,8 +5,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
-import android.text.TextPaint
-import android.text.style.CharacterStyle
 import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.welfare.blood.donation.BloodbankActivity
 import com.welfare.blood.donation.BothHistoryActivity
 import com.welfare.blood.donation.CreateRequestActivity
@@ -129,40 +128,46 @@ class HomeFragment : Fragment() {
     }
 
     private fun fetchCriticalPatients() {
+        val currentUserId = FirebaseAuth.getInstance().currentUser?.uid
+
         db.collection("requests")
             .whereEqualTo("critical", true)
+            .whereNotEqualTo("userId", currentUserId)
+            .orderBy("dateRequired", Query.Direction.DESCENDING)
             .limit(1)
-            .get()
-            .addOnSuccessListener { documents ->
-                criticalPatients.clear()
-                for (document in documents) {
-                    val request = document.toObject(Request::class.java)
-                    val criticalPatient = CriticalPatient(
-                        patientName = request.patientName,
-                        age = request.age,
-                        bloodType = request.bloodType,
-                        requiredUnit = request.requiredUnit,
-                        dateRequired = request.dateRequired,
-                        hospital = request.hospital,
-                        location = request.location,
-                        bloodFor = request.bloodFor,
-                        userId = request.userId,
-                        recipientId = request.recipientId,
-                        status = request.status,
-                        critical = request.critical // This will now work
-                    )
-                    criticalPatients.add(criticalPatient)
+            .addSnapshotListener { snapshots, e ->
+                if (e != null) {
+                    Log.w("HomeFragment", "Error fetching critical patients", e)
+                    return@addSnapshotListener
                 }
-                criticalPatientAdapter.notifyDataSetChanged()
-                displayPatientCount(criticalPatients.size)
-            }
-            .addOnFailureListener { e ->
-                Log.w("HomeFragment", "Error fetching critical patients", e)
+
+                if (snapshots != null) {
+                    criticalPatients.clear()
+                    for (document in snapshots) {
+                        val request = document.toObject(Request::class.java)
+                        val criticalPatient = CriticalPatient(
+                            patientName = request.patientName,
+                            age = request.age,
+                            bloodType = request.bloodType,
+                            requiredUnit = request.requiredUnit,
+                            dateRequired = request.dateRequired,
+                            hospital = request.hospital,
+                            location = request.location,
+                            bloodFor = request.bloodFor,
+                            userId = request.userId,
+                            recipientId = request.recipientId,
+                            status = request.status,
+                            critical = request.critical
+                        )
+                        criticalPatients.add(criticalPatient)
+                    }
+                    criticalPatientAdapter.notifyDataSetChanged()
+                    displayPatientCount(criticalPatients.size)
+                }
             }
     }
 
     private fun displayPatientCount(count: Int) {
         binding.emergencyPatientsLabel.text = "Emergency Patients: $count"
     }
-
 }

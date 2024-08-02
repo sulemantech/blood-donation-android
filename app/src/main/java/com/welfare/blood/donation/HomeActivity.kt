@@ -61,11 +61,12 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         val currentFragment = supportFragmentManager.findFragmentById(R.id.container)
-        if (currentFragment !is HomeFragment) {
+        if (currentFragment is HomeFragment) {
+            finish()
+        } else {
+
             loadFragment(HomeFragment())
             bottomNavigationView.selectedItemId = R.id.home
-        } else {
-            super.onBackPressed()
         }
     }
 }

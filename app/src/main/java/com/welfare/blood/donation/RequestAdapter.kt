@@ -1,6 +1,7 @@
 package com.welfare.blood.donation
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.welfare.blood.donation.databinding.HistoryRecyclerviewBinding
@@ -35,6 +36,9 @@ class RequestAdapter(
             binding.imageBloodGroup.setImageResource(getBloodGroupImage(request.bloodType))
             binding.bloodType.text = request.bloodType
             binding.requestDate.text = request.dateRequired
+
+            // Display critical indicator if the request is marked as critical
+            binding.criticalIndicator.visibility = if (request.critical) View.VISIBLE else View.GONE
 
             // Set up the edit and delete button click listeners
             binding.edit.setOnClickListener {

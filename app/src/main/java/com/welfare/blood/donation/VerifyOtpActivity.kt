@@ -46,14 +46,22 @@ class VerifyOtpActivity : AppCompatActivity() {
                     Toast.makeText(this, "Phone verified successfully!", Toast.LENGTH_SHORT).show()
                     navigateToMainActivity()
                 } else {
-                    Log.w("OtpVerificationActivity", "Sign in with credential failed", task.exception)
-                    Toast.makeText(this, "Verification failed. Please try again.", Toast.LENGTH_SHORT).show()
+                    Log.w(
+                        "OtpVerificationActivity",
+                        "Sign in with credential failed",
+                        task.exception
+                    )
+                    Toast.makeText(
+                        this,
+                        "Verification failed. Please try again.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
     }
 
     private fun navigateToMainActivity() {
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, HomeActivity::class.java)
         startActivity(intent)
         finish()
     }

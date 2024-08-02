@@ -28,6 +28,12 @@
             android:title="Rate our App"
             android:icon="@drawable/star"
             android:textColor="@color/menu_item_color"/>
+        <item
+            android:id="@+id/nav_delete_profile"
+            android:title="Delete Profile"
+            android:iconTint="@color/menu_item_color"
+            android:icon="@drawable/baseline_delete_24"
+            android:textColor="@color/menu_item_color"/>
     </group>
     <item
         android:title="Privacy"

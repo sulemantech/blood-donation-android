@@ -44,7 +44,7 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/receivedRequestCount"
+        android:id="@+id/emergencyPatientsLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Critical Patients: 0"
@@ -61,7 +61,7 @@
         android:layout_marginTop="15dp"
         android:layout_marginStart="5dp"
         tools:listitem="@layout/critical_patient_item"
-        app:layout_constraintTop_toBottomOf="@id/receivedRequestCount"
+        app:layout_constraintTop_toBottomOf="@id/emergencyPatientsLabel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />

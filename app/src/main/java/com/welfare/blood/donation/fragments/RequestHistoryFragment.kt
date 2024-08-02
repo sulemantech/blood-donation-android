@@ -15,6 +15,10 @@ import com.welfare.blood.donation.CreateRequestActivity
 import com.welfare.blood.donation.RequestAdapter
 import com.welfare.blood.donation.databinding.FragmentRequestHistoryBinding
 import com.welfare.blood.donation.models.Request
+import java.text.SimpleDateFormat
+import java.util.Locale
+import android.content.DialogInterface
+import androidx.appcompat.app.AlertDialog
 
 class RequestHistoryFragment : Fragment() {
 
@@ -47,6 +51,8 @@ class RequestHistoryFragment : Fragment() {
     }
 
     private fun fetchRequests() {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
         val currentUser = auth.currentUser
         if (currentUser == null) {
             Log.w("RequestHistoryFragment", "User not logged in")
@@ -60,8 +66,17 @@ class RequestHistoryFragment : Fragment() {
                 requestList.clear()
                 for (document in documents) {
                     val request = document.toObject(Request::class.java).apply { id = document.id }
+                    // Check if `isDeleted` is present, if not, assume false
+                    if (document.contains("isDeleted") && document.getBoolean("isDeleted") == true) {
+                        continue // Skip this request if it is marked as deleted
+                    }
                     requestList.add(request)
                 }
+
+                requestList.sortByDescending {
+                    dateFormat.parse(it.dateRequired)
+                }
+
                 adapter.notifyDataSetChanged()
                 displayRequestCount(requestList.size)
             }
@@ -81,11 +96,35 @@ class RequestHistoryFragment : Fragment() {
     }
 
     private fun onDeleteClick(request: Request) {
+        showDeleteConfirmationDialog(request)
+    }
+
+    private fun showDeleteConfirmationDialog(request: Request) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Delete Request")
+        builder.setMessage("Are you sure you want to delete this request?")
+
+        builder.setPositiveButton("Delete") { dialog: DialogInterface, _: Int ->
+            deleteRequest(request) // Proceed with delete
+        }
+
+        builder.setNegativeButton("Cancel") { dialog: DialogInterface, _: Int ->
+            dialog.dismiss() // Close the dialog
+        }
+
+        val alertDialog = builder.create()
+        alertDialog.show()
+    }
+
+    private fun deleteRequest(request: Request) {
         db.collection("requests").document(request.id)
             .update("isDeleted", true) // Mark as deleted
             .addOnSuccessListener {
                 Toast.makeText(requireContext(), "Request deleted successfully", Toast.LENGTH_SHORT).show()
-                fetchRequests() // Refresh the list
+                // Remove the request from the local list immediately
+                requestList.removeAll { it.id == request.id }
+                adapter.notifyDataSetChanged() // Notify adapter of changes
+                displayRequestCount(requestList.size) // Update request count
             }
             .addOnFailureListener { e ->
                 Log.w("RequestHistoryFragment", "Error deleting request", e)
