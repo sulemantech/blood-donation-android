@@ -77,6 +77,7 @@ class ReceivedRequestsFragment : Fragment() {
                         }
 
                         val receivedRequest = ReceivedRequest(
+                            id = document.id, // Set the document ID
                             patientName = document.getString("patientName") ?: "",
                             age = document.getLong("age")?.toInt() ?: 0,
                             bloodType = document.getString("bloodType") ?: "",
@@ -109,4 +110,4 @@ class ReceivedRequestsFragment : Fragment() {
     private fun displayRequestCount(count: Int) {
         binding.receivedRequestCount.text = "Total Requests: $count"
     }
-}//i want add textview for critical if user check critical checkbox than i want both critical and non critical request fetched
+}

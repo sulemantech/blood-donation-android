@@ -10,7 +10,8 @@ import com.welfare.blood.donation.models.Request
 class RequestAdapter(
     private val requestList: List<Request>,
     private val onEditClick: (Request) -> Unit,
-    private val onDeleteClick: (Request) -> Unit
+    private val onDeleteClick: (Request) -> Unit,
+    private val onShowDonorsClick: (Request) -> Unit
 ) : RecyclerView.Adapter<RequestAdapter.RequestViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RequestViewHolder {
@@ -46,6 +47,9 @@ class RequestAdapter(
             }
             binding.delete.setOnClickListener {
                 onDeleteClick(request)
+            }
+            binding.showDonors.setOnClickListener {
+                onShowDonorsClick(request)
             }
         }
     }

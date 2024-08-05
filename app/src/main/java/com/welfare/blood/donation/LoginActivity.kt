@@ -116,7 +116,7 @@ class LoginActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "LoginActivity"
     }
-}//i want to authentication with google and facebook
+}
 
 
 //        binding.forgotPassword.setOnClickListener {

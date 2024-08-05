@@ -137,10 +137,18 @@ class EditProfileActivity : AppCompatActivity() {
 
         val datePickerDialog = DatePickerDialog(this, { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDay: Int ->
             val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-            calendar.set(selectedYear, selectedMonth, selectedDay)
-            selectedDateOfBirth = sdf.format(calendar.time)
+            val selectedDate = Calendar.getInstance()
+            selectedDate.set(selectedYear, selectedMonth, selectedDay)
+            selectedDateOfBirth = sdf.format(selectedDate.time)
             binding.edDateBirth.setText(selectedDateOfBirth)
         }, year, month, day)
+
+        val oneYearAgo = Calendar.getInstance()
+        oneYearAgo.add(Calendar.YEAR, -1)
+        datePickerDialog.datePicker.minDate = oneYearAgo.timeInMillis
+
+        datePickerDialog.datePicker.maxDate = calendar.timeInMillis
+
         datePickerDialog.show()
     }
 
@@ -150,12 +158,18 @@ class EditProfileActivity : AppCompatActivity() {
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-        val datePickerDialog = DatePickerDialog(this, { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDay: Int ->
+        // Create a new instance of DatePickerDialog
+        val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
             val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             calendar.set(selectedYear, selectedMonth, selectedDay)
             selectedLastDonationDate = sdf.format(calendar.time)
             binding.edLastdonationdate.setText(selectedLastDonationDate)
         }, year, month, day)
+
+        // Set the minimum date to today's date
+        datePickerDialog.datePicker.minDate = calendar.timeInMillis
+
+        // Show the DatePickerDialog
         datePickerDialog.show()
     }
 

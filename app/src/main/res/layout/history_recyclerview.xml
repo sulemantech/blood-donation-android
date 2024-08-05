@@ -142,6 +142,14 @@
 
 
         </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Show Donors"
+                    android:textSize="10dp"
+                    android:id="@+id/showDonors"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="10dp"/>
                 <LinearLayout
                     android:id="@+id/ll_right"
                     android:layout_width="wrap_content"
@@ -149,6 +157,7 @@
                     android:layout_gravity="bottom"
                     android:layout_weight="1"
                     android:gravity="right"
+                    android:layout_marginStart="8dp"
                     android:orientation="vertical">
 
                     <ImageView
@@ -167,7 +176,7 @@
                         android:background="@drawable/button_donate_now"
                         android:layout_marginEnd="6dp"
                         android:layout_marginTop="5dp"
-                        android:id="@+id/statusTextView"
+                        android:id="@+id/showDonors1"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />
 

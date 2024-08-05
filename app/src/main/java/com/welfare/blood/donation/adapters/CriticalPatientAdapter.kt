@@ -48,9 +48,6 @@ class CriticalPatientAdapter(private val patients: List<CriticalPatient>) :
             }
 
             binding.donateNow.setOnClickListener {
-                val context = binding.root.context
-                val intent = Intent(context, CriticalPatientsListActivity::class.java)
-                context.startActivity(intent)
             }
         }
 

@@ -120,12 +120,19 @@ class CreateRequestActivity : AppCompatActivity() {
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-        DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
+        // Create a new instance of DatePickerDialog
+        val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
             val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             calendar.set(selectedYear, selectedMonth, selectedDay)
             selectedDonationDate = sdf.format(calendar.time)
             binding.edDateRequired.setText(selectedDonationDate)
-        }, year, month, day).show()
+        }, year, month, day)
+
+        // Set the minimum date to today's date
+        datePickerDialog.datePicker.minDate = calendar.timeInMillis
+
+        // Show the DatePickerDialog
+        datePickerDialog.show()
     }
 
     private fun validateInputs(): Boolean {

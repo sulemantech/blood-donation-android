@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import com.google.firebase.messaging.FirebaseMessaging
 import com.welfare.blood.donation.databinding.ActivityRegisterBinding
 import java.text.SimpleDateFormat
 import java.util.*
@@ -91,37 +92,47 @@ class RegisterActivity : AppCompatActivity() {
                                 if (task.isSuccessful) {
                                     val userID = auth.currentUser!!.uid
 
-                                    val user = hashMapOf(
-                                        "userID" to userID,
-                                        "name" to name,
-                                        "email" to email,
-                                        "phone" to phone,
-                                        "bloodGroup" to bloodGroup,
-                                        "location" to location,
-                                        "isDonor" to wantsToDonate,
-                                        "lastLoginAt" to null
-                                    )
+                                    // Get FCM token
+                                    FirebaseMessaging.getInstance().token.addOnCompleteListener { tokenTask ->
+                                        if (tokenTask.isSuccessful) {
+                                            val token = tokenTask.result
 
-                                    db.collection("users").document(userID).set(user, SetOptions.merge())
-                                        .addOnSuccessListener {
-                                            Log.d(TAG, "DocumentSnapshot successfully written!")
-                                            binding.progressBar.visibility = View.GONE
-                                            Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show()
+                                            val user = hashMapOf(
+                                                "userID" to userID,
+                                                "name" to name,
+                                                "email" to email,
+                                                "phone" to phone,
+                                                "bloodGroup" to bloodGroup,
+                                                "location" to location,
+                                                "isDonor" to wantsToDonate,
+                                                "fcmToken" to token,
+                                                "lastLoginAt" to null
+                                            )
 
-                                            val intent = Intent(this, CreateRequestActivity::class.java).apply {
-                                                putExtra("bloodFor", "Myself")
-                                                putExtra("name", name)
-                                                putExtra("bloodGroup", bloodGroup)
-                                                putExtra("location", location)
-                                            }
-                                            startActivity(intent)
-                                            finish()
+                                            db.collection("users").document(userID).set(user, SetOptions.merge())
+                                                .addOnSuccessListener {
+                                                    Log.d(TAG, "DocumentSnapshot successfully written!")
+                                                    binding.progressBar.visibility = View.GONE
+                                                    Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show()
+
+                                                    val intent = Intent(this, CreateRequestActivity::class.java).apply {
+                                                        putExtra("bloodFor", "Myself")
+                                                        putExtra("name", name)
+                                                        putExtra("bloodGroup", bloodGroup)
+                                                        putExtra("location", location)
+                                                    }
+                                                    startActivity(intent)
+                                                    finish()
+                                                }
+                                                .addOnFailureListener { e ->
+                                                    Log.w(TAG, "Error writing document", e)
+                                                    binding.progressBar.visibility = View.GONE
+                                                    Toast.makeText(this, "Registration Failed", Toast.LENGTH_SHORT).show()
+                                                }
+                                        } else {
+                                            Log.w(TAG, "Fetching FCM Token failed", tokenTask.exception)
                                         }
-                                        .addOnFailureListener { e ->
-                                            Log.w(TAG, "Error writing document", e)
-                                            binding.progressBar.visibility = View.GONE
-                                            Toast.makeText(this, "Registration Failed", Toast.LENGTH_SHORT).show()
-                                        }
+                                    }
                                 } else {
                                     Log.w(TAG, "createUserWithEmailAndPassword:failure", task.exception)
                                     binding.progressBar.visibility = View.GONE

@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.welfare.blood.donation.AllDonorsActivity
 import com.welfare.blood.donation.CreateRequestActivity
 import com.welfare.blood.donation.RequestAdapter
 import com.welfare.blood.donation.databinding.FragmentRequestHistoryBinding
@@ -44,7 +45,7 @@ class RequestHistoryFragment : Fragment() {
 
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         requestList = mutableListOf()
-        adapter = RequestAdapter(requestList, ::onEditClick, ::onDeleteClick)
+        adapter = RequestAdapter(requestList, ::onEditClick, ::onDeleteClick, ::onShowDonorsClick)
         binding.recyclerView.adapter = adapter
 
         fetchRequests()
@@ -99,6 +100,10 @@ class RequestHistoryFragment : Fragment() {
         showDeleteConfirmationDialog(request)
     }
 
+    private fun onShowDonorsClick(request: Request) {
+        showAllDonors(request.id)
+    }
+
     private fun showDeleteConfirmationDialog(request: Request) {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Delete Request")
@@ -114,6 +119,12 @@ class RequestHistoryFragment : Fragment() {
 
         val alertDialog = builder.create()
         alertDialog.show()
+    }
+
+    private fun showAllDonors(requestId: String) {
+        val intent = Intent(requireContext(), AllDonorsActivity::class.java)
+        intent.putExtra("REQUEST_ID", requestId)
+        startActivity(intent)
     }
 
     private fun deleteRequest(request: Request) {

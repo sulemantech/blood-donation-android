@@ -133,7 +133,7 @@
         android:id="@+id/ed_date"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:hint="Required Date"
+        android:hint="Donation Date"
         android:paddingStart="15dp"
         android:paddingEnd="20dp"
         android:inputType="none"

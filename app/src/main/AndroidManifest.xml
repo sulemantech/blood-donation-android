@@ -21,6 +21,9 @@
         android:theme="@style/Theme.BloodDonation"
         tools:targetApi="31">
         <activity
+            android:name=".AllDonorsActivity"
+            android:exported="false" />
+        <activity
             android:name=".CriticalPatientsListActivity"
             android:exported="false" />
         <activity
@@ -131,4 +134,5 @@
             </intent-filter>
         </activity>
     </application>
+
 </manifest>
