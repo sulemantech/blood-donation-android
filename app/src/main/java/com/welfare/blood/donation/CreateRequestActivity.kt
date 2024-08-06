@@ -273,7 +273,7 @@ class CreateRequestActivity : AppCompatActivity() {
                 .addOnSuccessListener {
                     hideProgressBar()
                     Toast.makeText(this, "Request updated successfully", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this, HomeActivity::class.java))
+                    startActivity(Intent(this, BothHistoryActivity::class.java))
                     finish()
                 }
                 .addOnFailureListener { e ->

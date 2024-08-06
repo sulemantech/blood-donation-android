@@ -8,7 +8,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="110dp"
         app:cardCornerRadius="5dp"
         android:id="@+id/cardview"
         app:layout_constraintTop_toTopOf="parent"
@@ -16,17 +16,17 @@
         app:layout_constraintEnd_toEndOf="parent">
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="110dp"
             android:scaleType="fitXY"
             android:src="@drawable/top_header"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="37dp"
             android:drawableLeft="@drawable/back"
             android:layout_marginStart="20dp"
             android:textSize="25dp"

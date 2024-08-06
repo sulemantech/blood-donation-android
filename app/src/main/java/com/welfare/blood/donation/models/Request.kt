@@ -14,5 +14,6 @@ data class Request(
     var recipientId: String = "",
     var status: String = "pending",
     var critical: Boolean = false,
+    var donors: List<String> = emptyList(),
     var isDeleted: Boolean = false // Added field
 )

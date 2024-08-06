@@ -36,13 +36,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Blood Donors"
+            android:text="Donors"
             android:textColor="@color/white"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:fontFamily="@font/inter_bold"
             android:layout_gravity="center"/>
     </androidx.cardview.widget.CardView>
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

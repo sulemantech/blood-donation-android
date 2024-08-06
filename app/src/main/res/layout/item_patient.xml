@@ -4,10 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="7dp">
+    android:layout_marginBottom="5dp">
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="110dp"
         android:background="@drawable/test"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -56,6 +56,7 @@
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:layout_marginStart="26dp"
                 android:text="Critical"
+                android:visibility="gone"
                 android:textAppearance="@style/patient_condition" />
 
             <TextView
@@ -106,7 +107,17 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/contactInfo"
             android:layout_marginTop="1dp"
+                android:visibility="gone"
             android:text="A+(A Positive)"
+            android:textAppearance="@style/hospital_name"
+            />
+            <TextView
+            android:id="@+id/phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/contactInfo"
+            android:layout_marginTop="1dp"
+            android:text="phone"
             android:textAppearance="@style/hospital_name"
             />
 
@@ -176,22 +187,62 @@
                     android:id="@+id/btnViewDetail"
                     android:layout_marginEnd="10dp"
                     android:textSize="10sp"
+                    android:visibility="gone"
                     android:textColor="@color/black"/>
                 <ImageView
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginStart="360dp"
                     android:id="@+id/image_blood_group"
                     android:layout_marginBottom="20dp"
                     android:src="@drawable/ic_a_plus"
                     android:layout_gravity="right"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:layout_marginStart="275dp"
+                android:layout_below="@+id/ll_right"
+                android:orientation="horizontal">
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/btn_critical_patient"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/phonefram"
                     android:layout_marginBottom="8dp"
-                    android:id="@+id/btnSendRequest"
+                    android:id="@+id/phone_call"
+                    android:text="Send Request"
+                    android:gravity="center"
+                    android:layout_marginEnd="10dp"
+                    android:layout_gravity="right"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <TextView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/chat"
+                    android:layout_marginBottom="8dp"
+                    android:id="@+id/chat"
+                    android:text="Send Request"
+                    android:gravity="center"
+                    android:layout_marginEnd="10dp"
+                    android:layout_gravity="right"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <TextView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/sharefram"
+                    android:layout_marginBottom="5dp"
+                    android:id="@+id/share"
                     android:text="Send Request"
                     android:gravity="center"
                     android:layout_gravity="right"
@@ -200,8 +251,7 @@
                     app:layout_constraintEnd_toEndOf="parent" />
 
             </LinearLayout>
-
         </RelativeLayout>
     </FrameLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

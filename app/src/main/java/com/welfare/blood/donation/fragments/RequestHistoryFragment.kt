@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.welfare.blood.donation.AllDonorsActivity
 import com.welfare.blood.donation.CreateRequestActivity
 import com.welfare.blood.donation.RequestAdapter
 import com.welfare.blood.donation.databinding.FragmentRequestHistoryBinding
@@ -20,6 +19,7 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 import android.content.DialogInterface
 import androidx.appcompat.app.AlertDialog
+import com.welfare.blood.donation.AllDonorsActivity
 
 class RequestHistoryFragment : Fragment() {
 
@@ -45,7 +45,7 @@ class RequestHistoryFragment : Fragment() {
 
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         requestList = mutableListOf()
-        adapter = RequestAdapter(requestList, ::onEditClick, ::onDeleteClick, ::onShowDonorsClick)
+        adapter = RequestAdapter(requestList, ::onEditClick, ::onDeleteClick, ::showAllDonors)
         binding.recyclerView.adapter = adapter
 
         fetchRequests()
@@ -67,9 +67,9 @@ class RequestHistoryFragment : Fragment() {
                 requestList.clear()
                 for (document in documents) {
                     val request = document.toObject(Request::class.java).apply { id = document.id }
-                    // Check if `isDeleted` is present, if not, assume false
+
                     if (document.contains("isDeleted") && document.getBoolean("isDeleted") == true) {
-                        continue // Skip this request if it is marked as deleted
+                        continue
                     }
                     requestList.add(request)
                 }
@@ -98,10 +98,6 @@ class RequestHistoryFragment : Fragment() {
 
     private fun onDeleteClick(request: Request) {
         showDeleteConfirmationDialog(request)
-    }
-
-    private fun onShowDonorsClick(request: Request) {
-        showAllDonors(request.id)
     }
 
     private fun showDeleteConfirmationDialog(request: Request) {

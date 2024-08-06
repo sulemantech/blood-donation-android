@@ -15,6 +15,7 @@
             android:layout_height="80dp"
             app:cardCornerRadius="5dp"
             android:id="@+id/cardview"
+            android:visibility="gone"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">

@@ -19,6 +19,7 @@ class UserAdapter(
             binding.tvName.text = user.name
             binding.tvAddress.text = user.location
             binding.tvBloodGroup.text = user.bloodGroup
+            binding.phone.text =user.phone
 
             // Set the blood group image
             binding.imageBloodGroup.setImageResource(getBloodGroupImageResource(user.bloodGroup))
@@ -30,10 +31,10 @@ class UserAdapter(
                 showUserDetailsDialog(user)
             }
 
-            binding.btnSendRequest.setOnClickListener {
-                // Handle send request action
-                showRequestConfirmationDialog(user)
-            }
+//            binding.btnSendRequest.setOnClickListener {
+//                // Handle send request action
+//                showRequestConfirmationDialog(user)
+//            }
         }
 
         private fun showUserDetailsDialog(user: User) {
@@ -99,4 +100,4 @@ class UserAdapter(
             else -> "Unknown"
         }
     }
-}
+}//i want to add phone instead of bloog group

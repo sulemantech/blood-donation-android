@@ -183,40 +183,40 @@ class EditProfileActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == IMAGE_PICK_CODE && resultCode == RESULT_OK && data != null && data.data != null) {
             val imageUri = data.data
-            uploadImageToFirebase(imageUri)
+            //uploadImageToFirebase(imageUri)
         }
     }
 
-    private fun uploadImageToFirebase(imageUri: Uri?) {
-        if (imageUri == null) return
-
-        val user = auth.currentUser ?: return
-        val userId = user.uid
-
-        binding.progressBar.visibility = View.VISIBLE
-
-        val fileRef = storageRef.child("profile_images/$userId")
-
-        val uploadTask = fileRef.putFile(imageUri)
-        uploadTask.continueWithTask { task ->
-            if (!task.isSuccessful) {
-                task.exception?.let {
-                    throw it
-                }
-            }
-            fileRef.downloadUrl
-        }.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val downloadUri = task.result
-                userProfileImageUrl = downloadUri.toString()
-                saveUserProfile()
-            } else {
-                // Handle failures
-                Toast.makeText(this, "Failed to upload image", Toast.LENGTH_SHORT).show()
-                binding.progressBar.visibility = View.GONE
-            }
-        }
-    }
+//    private fun uploadImageToFirebase(imageUri: Uri?) {
+//        if (imageUri == null) return
+//
+//        val user = auth.currentUser ?: return
+//        val userId = user.uid
+//
+//        binding.progressBar.visibility = View.VISIBLE
+//
+//        val fileRef = storageRef.child("profile_images/$userId")
+//
+//        val uploadTask = fileRef.putFile(imageUri)
+//        uploadTask.continueWithTask { task ->
+//            if (!task.isSuccessful) {
+//                task.exception?.let {
+//                    throw it
+//                }
+//            }
+//            fileRef.downloadUrl
+//        }.addOnCompleteListener { task ->
+//            if (task.isSuccessful) {
+//                val downloadUri = task.result
+//                userProfileImageUrl = downloadUri.toString()
+//                saveUserProfile()
+//            } else {
+//                // Handle failures
+//                Toast.makeText(this, "Failed to upload image", Toast.LENGTH_SHORT).show()
+//                binding.progressBar.visibility = View.GONE
+//            }
+//        }
+//    }
 
     private fun saveUserProfile() {
         val user = auth.currentUser ?: return

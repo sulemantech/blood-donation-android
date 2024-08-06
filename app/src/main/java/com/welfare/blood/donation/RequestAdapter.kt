@@ -6,12 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.welfare.blood.donation.databinding.HistoryRecyclerviewBinding
 import com.welfare.blood.donation.models.Request
+import kotlin.reflect.KFunction1
 
 class RequestAdapter(
     private val requestList: List<Request>,
     private val onEditClick: (Request) -> Unit,
     private val onDeleteClick: (Request) -> Unit,
-    private val onShowDonorsClick: (Request) -> Unit
+    private val onShowDonorsClick: KFunction1<String, Unit>
 ) : RecyclerView.Adapter<RequestAdapter.RequestViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RequestViewHolder {
@@ -42,6 +43,9 @@ class RequestAdapter(
             binding.criticalIndicator.visibility = if (request.critical) View.VISIBLE else View.GONE
 
             // Set up the edit and delete button click listeners
+            val donorCount = request.donors?.size ?: 0
+            binding.showDonors.text = "Donors: $donorCount"
+
             binding.edit.setOnClickListener {
                 onEditClick(request)
             }
@@ -49,7 +53,7 @@ class RequestAdapter(
                 onDeleteClick(request)
             }
             binding.showDonors.setOnClickListener {
-                onShowDonorsClick(request)
+                onShowDonorsClick(request.id)
             }
         }
     }

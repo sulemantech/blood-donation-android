@@ -78,10 +78,10 @@
                             android:id="@+id/condition"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="26dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="20dp"
                             android:background="@drawable/waiting_status"
-                            android:gravity="center_horizontal|center_vertical"
+                            android:gravity="center"
                             android:textAlignment="center"
                             android:textAppearance="@style/patient_blood_status" />
                     </LinearLayout>

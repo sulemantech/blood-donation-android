@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">BloodDonation</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -215,6 +215,12 @@
     <string name="readiness_for_emergencies_maintains_a_ready_supply_of_blood_for_disaster_response_and_critical_situations">
                    <font color="#9C1405"> Readiness for Emergencies:</font> <font color="#0000000">Maintains a ready supply of blood for disaster response and critical situations</font>
     </string>
+
+
+        <string name="title_home_screen" tools:ignore="DuplicateDefinition">Home</string>
+        <string name="title_activity">Activity</string>
+        <string name="title_notification">Notification</string>
+        <string name="title_history">History</string>
 
 
 </resources>

@@ -20,7 +20,13 @@
         android:textSize="14sp"/>
 
     <TextView
-        android:id="@+id/bloodType"
+        android:id="@+id/donorBloodGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Blood Type"
+        android:textSize="14sp"/>
+    <TextView
+        android:id="@+id/donorPhone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Blood Type"
