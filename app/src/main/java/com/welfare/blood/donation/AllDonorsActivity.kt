@@ -5,52 +5,53 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.FirebaseFirestore
-import com.welfare.blood.donation.adapters.DonorsAdapter
+import com.welfare.blood.donation.adapters.DonorAdapter
 import com.welfare.blood.donation.databinding.ActivityAllDonorsBinding
-import com.welfare.blood.donation.models.Donors
+import com.welfare.blood.donation.models.Request
 
 class AllDonorsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAllDonorsBinding
     private lateinit var db: FirebaseFirestore
-    private lateinit var adapter: DonorsAdapter
+    private lateinit var donorAdapter: DonorAdapter
+    private val donorRequestList = mutableListOf<Request>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAllDonorsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.backArrow.setOnClickListener {
+            onBackPressed()
+        }
+
         db = FirebaseFirestore.getInstance()
 
+        // Initialize RecyclerView and Adapter
+        binding.donorRecyclerView.layoutManager = LinearLayoutManager(this)
+        donorAdapter = DonorAdapter(donorRequestList)
+        binding.donorRecyclerView.adapter = donorAdapter
+
         val requestId = intent.getStringExtra("REQUEST_ID")
+        Log.d("AllDonorsActivity", "REQUEST_ID: $requestId")
+
         if (requestId != null) {
-            fetchDonors(requestId)
+            fetchDonorRequestDetails(requestId)
         } else {
             Log.e("AllDonorsActivity", "No request ID found in intent")
         }
-
-        setupRecyclerView()
     }
 
-    private fun setupRecyclerView() {
-        binding.donorsRecyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = DonorsAdapter(emptyList())
-        binding.donorsRecyclerView.adapter = adapter
-    }
-
-    private fun fetchDonors(requestId: String) {
+    private fun fetchDonorRequestDetails(requestId: String) {
         db.collection("requests").document(requestId)
             .get()
             .addOnSuccessListener { document ->
                 if (document != null && document.exists()) {
                     val donorIds = document.get("donors") as? List<String> ?: emptyList()
-                    if (donorIds.isNotEmpty()) {
-                        fetchDonorDetails(donorIds)
-                    } else {
-                        Log.e("AllDonorsActivity", "No donors found for this request")
-                    }
+                    Log.d("AllDonorsActivity", "Donor IDs: $donorIds")
+                    fetchRequestsByDonorIds(donorIds)
                 } else {
-                    Log.e("AllDonorsActivity", "No such document")
+                    Log.e("AllDonorsActivity", "No such document in 'requests' collection")
                 }
             }
             .addOnFailureListener { e ->
@@ -58,26 +59,31 @@ class AllDonorsActivity : AppCompatActivity() {
             }
     }
 
-    private fun fetchDonorDetails(donorIds: List<String>) {
-        db.collection("users")
-            .whereIn("userId", donorIds)
-            .get()
-            .addOnSuccessListener { documents ->
-                val donors = mutableListOf<Donors>()
-                for (document in documents) {
-                    val donor = document.toObject(Donors::class.java)
-                    donors.add(donor)
+    private fun fetchRequestsByDonorIds(donorIds: List<String>) {
+        if (donorIds.isNotEmpty()) {
+            db.collection("requests")
+                .whereIn("userId", donorIds)
+                .get()
+                .addOnSuccessListener { documents ->
+                    donorRequestList.clear()
+                    for (document in documents) {
+                        val request = document.toObject(Request::class.java)
+                        Log.d("AllDonorsActivity", "Fetched Request: $request")
+                        donorRequestList.add(request)
+                    }
+                    donorAdapter.notifyDataSetChanged()
+                    displayDonorCount(donorRequestList.size)
                 }
-                displayDonors(donors)
-            }
-            .addOnFailureListener { e ->
-                Log.e("AllDonorsActivity", "Error fetching donor details", e)
-            }
+                .addOnFailureListener { e ->
+                    Log.e("AllDonorsActivity", "Error fetching requests", e)
+                }
+        } else {
+            Log.e("AllDonorsActivity", "No donors found in request")
+        }
     }
 
-    private fun displayDonors(donors: List<Donors>) {
-        adapter = DonorsAdapter(donors)
-        binding.donorsRecyclerView.adapter = adapter
-        binding.donorListCount.text = "Donors: ${donors.size}"
+    private fun displayDonorCount(count: Int) {
+        binding.donorListCount.text = "Donors: $count"
+        Log.d("AllDonorsActivity", "Donor Count: $count")
     }
 }

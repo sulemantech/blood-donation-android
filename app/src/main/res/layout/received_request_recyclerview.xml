@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="5dp">
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,10 +30,11 @@
                     android:id="@+id/ll_middle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:layout_marginStart="13dp"
                     android:layout_weight="2"
                     android:orientation="vertical">
+
+                    <!-- Patient details and request info -->
                     <LinearLayout
                         android:id="@+id/llpatientName"
                         android:layout_width="wrap_content"
@@ -80,7 +82,6 @@
                         android:layout_marginTop="4dp"
                         android:textColor="#000000"/>
 
-
                     <TextView
                         android:id="@+id/location"
                         android:layout_width="wrap_content"
@@ -111,7 +112,6 @@
                         android:text="Status"
                         android:textColor="#FFFFFF"/>
 
-
                     <TextView
                         android:id="@+id/bloodType"
                         android:layout_width="wrap_content"
@@ -123,9 +123,8 @@
                         android:textSize="14sp"
                         android:textColor="#000000"/>
 
-
-
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/ll_right"
                     android:layout_width="wrap_content"
@@ -146,21 +145,25 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageButton
+                        android:id="@+id/donateNow"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/button_donate_now"
                         android:layout_marginBottom="8dp"
                         android:layout_marginEnd="4dp"
-                        android:id="@+id/donateNow"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent" />
+                        android:background="@drawable/donate_now"
+                        android:text="Donate Now" />
 
+                    <ImageButton
+                        android:id="@+id/completed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginEnd="4dp"
+                        android:text="Completed"
+                        android:background="@drawable/completed"
+                        android:visibility="gone" />
                 </LinearLayout>
-
-
             </LinearLayout>
-
         </RelativeLayout>
     </FrameLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

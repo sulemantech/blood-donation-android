@@ -1,34 +1,264 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="8dp">
+    android:layout_marginBottom="5dp">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:background="@drawable/test"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/donorName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Donor Name"
-        android:textSize="16sp"/>
+        <!-- RelativeLayout with patient details -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="12dp">
 
-    <TextView
-        android:id="@+id/donorEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Donor Email"
-        android:textSize="14sp"/>
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/patient_icon"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/donorBloodGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Blood Type"
-        android:textSize="14sp"/>
-    <TextView
-        android:id="@+id/donorPhone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Blood Type"
-        android:textSize="14sp"/>
-</LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+
+                <LinearLayout
+                    android:id="@+id/ll_middle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginStart="43dp"
+                    android:layout_weight="2"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/llpatientName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/donorName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:text="Sara Zaid"
+                            android:textAppearance="@style/patient_name" />
+
+                        <TextView
+                            android:id="@+id/condition2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal|center_vertical"
+                            android:layout_marginStart="26dp"
+                            android:text="Critical"
+                            android:visibility="gone"
+                            android:textAppearance="@style/patient_condition" />
+
+                        <TextView
+                            android:id="@+id/condition"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="26dp"
+                            android:background="@drawable/waiting_status"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:textAlignment="center"
+                            android:visibility="gone"
+                            android:textAppearance="@style/patient_blood_status" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/donorLocation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/llpatientName"
+                        android:layout_marginTop="1dp"
+                        android:text="13 July 2024, 5:00 PM"
+                        android:textAppearance="@style/blood_request_date" />
+
+                    <TextView
+                        android:id="@+id/hospital"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/dateRequired"
+                        android:layout_marginTop="1dp"
+                        android:visibility="gone"
+                        android:text="Al-Khidmat Hospital"
+                        android:textAppearance="@style/hospital_name" />
+
+                    <TextView
+                        android:id="@+id/contactInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/dateRequired"
+                        android:layout_marginTop="1dp"
+                        android:text="Al-Khidmat Hospital"
+                        android:visibility="gone"
+                        android:textAppearance="@style/hospital_name" />
+
+                    <TextView
+                        android:id="@+id/donorPhone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/contactInfo"
+                        android:layout_marginTop="1dp"
+                        android:text="phone"
+                        android:textAppearance="@style/hospital_name"
+                        />
+                    <TextView
+                        android:id="@+id/donorBloodGroup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/contactInfo"
+                        android:layout_marginTop="1dp"
+                        android:text="A+(A Positive)"
+                        android:textStyle="bold"
+                        android:textAppearance="@style/hospital_name"
+                        />
+
+                    <LinearLayout
+                        android:id="@+id/llpatientBloodDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/contactInfo"
+                        android:layout_marginTop="1dp"
+                        android:visibility="gone"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/bloodGroup"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:text="A+"
+                            android:textAppearance="@style/blood_type" />
+
+                        <TextView
+                            android:id="@+id/tvBloodGroup"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="1dp"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:text="(A Positive)"
+                            android:textAppearance="@style/label_text" />
+
+                        <TextView
+                            android:id="@+id/requiredUnit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="1dp"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:text="1 Unit"
+                            android:textAppearance="@style/blood_group_unit_needed" />
+
+                        <TextView
+                            android:id="@+id/tvBloodUnit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="1dp"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:text="Blood"
+                            android:textAppearance="@style/label_text" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="View Detail"
+                    android:id="@+id/btnViewDetail"
+                    android:layout_marginEnd="10dp"
+                    android:textSize="10sp"
+                    android:visibility="gone"
+                    android:textColor="@color/black"/>
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="360dp"
+                    android:id="@+id/image_blood_group"
+                    android:layout_marginBottom="20dp"
+                    android:src="@drawable/ic_a_plus"
+                    android:layout_gravity="right"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:layout_marginStart="275dp"
+                android:layout_below="@+id/ll_right"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/phonefram"
+                    android:layout_marginBottom="8dp"
+                    android:id="@+id/phone_call"
+                    android:gravity="center"
+                    android:layout_marginEnd="10dp"
+                    android:layout_gravity="right"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <TextView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/chat"
+                    android:layout_marginBottom="8dp"
+                    android:id="@+id/chat"
+                    android:gravity="center"
+                    android:layout_marginEnd="10dp"
+                    android:layout_gravity="right"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <TextView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/sharefram"
+                    android:layout_marginBottom="5dp"
+                    android:id="@+id/share"
+                    android:gravity="center"
+                    android:layout_gravity="right"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </LinearLayout>
+        </RelativeLayout>
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

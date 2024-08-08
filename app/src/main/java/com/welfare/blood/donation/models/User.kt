@@ -1,10 +1,9 @@
 package com.welfare.blood.donation.models
 
-data class Donors(
+data class User(
     val userId: String = "",
     val name: String = "",
-    val bloodType: String = "",
-    val bloodGroup: String="",
+    val bloodGroup: String = "",
     val phone: String = "",
     val email: String = ""
 )

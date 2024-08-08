@@ -1,6 +1,5 @@
-package com.welfare.blood.donation.adapters
-
-import android.util.Log
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,6 +31,7 @@ class ReceivedRequestAdapter(
 
     inner class RequestViewHolder(private val binding: ReceivedRequestRecyclerviewBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
         fun bind(request: ReceivedRequest) {
             binding.donorName.text = request.patientName
             binding.location.text = request.location
@@ -42,35 +42,71 @@ class ReceivedRequestAdapter(
             binding.requestDate.text = request.dateRequired
             binding.criticalText.visibility = if (request.critical) View.VISIBLE else View.GONE
 
+            checkDonationStatus(request)
+
             binding.donateNow.setOnClickListener {
-                addDonor(request)
+                showConfirmationDialog(request)
             }
+        }
+
+        private fun checkDonationStatus(request: ReceivedRequest) {
+            val currentUser = FirebaseAuth.getInstance().currentUser
+            if (currentUser == null) {
+                return
+            }
+
+            val currentUserId = currentUser.uid
+            val db = FirebaseFirestore.getInstance()
+            val documentRef = db.collection("requests").document(request.id)
+
+            documentRef.get().addOnSuccessListener { document ->
+                val donors = document.get("donors") as? List<String> ?: emptyList()
+                if (donors.contains(currentUserId)) {
+                    binding.donateNow.visibility = View.GONE
+                    binding.completed.visibility = View.VISIBLE
+                } else {
+                    binding.donateNow.visibility = View.VISIBLE
+                    binding.completed.visibility = View.GONE
+                }
+            }
+        }
+
+        private fun showConfirmationDialog(request: ReceivedRequest) {
+            AlertDialog.Builder(binding.root.context)
+                .setTitle("Confirm Donation")
+                .setMessage("Do you want to donate?")
+                .setPositiveButton("Yes") { _, _ ->
+                    addDonor(request)
+                }
+                .setNegativeButton("Cancel", null)
+                .show()
         }
 
         private fun addDonor(request: ReceivedRequest) {
             val currentUser = FirebaseAuth.getInstance().currentUser
             if (currentUser == null) {
-                Log.w("ReceivedRequestAdapter", "User not logged in")
+                Toast.makeText(binding.root.context, "User not logged in", Toast.LENGTH_SHORT).show()
                 return
             }
 
+            val currentUserId = currentUser.uid
             val db = FirebaseFirestore.getInstance()
             val documentRef = db.collection("requests").document(request.id)
 
-            documentRef.update("donors", FieldValue.arrayUnion(currentUser.uid))
+            documentRef.update("donors", FieldValue.arrayUnion(currentUserId))
                 .addOnSuccessListener {
                     Toast.makeText(binding.root.context, "You have successfully donated", Toast.LENGTH_SHORT).show()
-                    Log.d("ReceivedRequestAdapter", "Donor added successfully")
+                    binding.donateNow.visibility = View.GONE
+                    binding.completed.visibility = View.VISIBLE
                 }
                 .addOnFailureListener { e ->
-                    Log.w("ReceivedRequestAdapter", "Error adding donor", e)
                     Toast.makeText(binding.root.context, "Failed to donate", Toast.LENGTH_SHORT).show()
                 }
         }
 
         private fun getBloodGroupImage(bloodType: String): Int {
             return when (bloodType) {
-                "A+" -> R.drawable.ic_a
+                "A+" -> R.drawable.ic_a_plus
                 "A-" -> R.drawable.ic_a_minus
                 "B+" -> R.drawable.ic_b_plus
                 "B-" -> R.drawable.ic_b_minus
@@ -78,7 +114,7 @@ class ReceivedRequestAdapter(
                 "AB-" -> R.drawable.ic_ab_minus
                 "O+" -> R.drawable.ic_o_plus
                 "O-" -> R.drawable.ic_o_minus
-                else -> R.drawable.blood_droplet // Default image
+                else -> R.drawable.drop
             }
         }
 

@@ -150,7 +150,7 @@ class RegisterActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "RegisterActivity"
     }
-}
+}//user is activity sy search ho k arhy hn
 
 
 

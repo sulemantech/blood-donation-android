@@ -6,13 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.welfare.blood.donation.databinding.HistoryRecyclerviewBinding
 import com.welfare.blood.donation.models.Request
-import kotlin.reflect.KFunction1
 
 class RequestAdapter(
     private val requestList: List<Request>,
     private val onEditClick: (Request) -> Unit,
     private val onDeleteClick: (Request) -> Unit,
-    private val onShowDonorsClick: KFunction1<String, Unit>
+    private val onShowDonorsClick: (String) -> Unit // Updated to match function signature
 ) : RecyclerView.Adapter<RequestAdapter.RequestViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RequestViewHolder {
@@ -30,6 +29,7 @@ class RequestAdapter(
 
     inner class RequestViewHolder(private val binding: HistoryRecyclerviewBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
         fun bind(request: Request) {
             binding.donorName.text = request.patientName
             binding.location.text = request.location
@@ -39,10 +39,8 @@ class RequestAdapter(
             binding.bloodType.text = request.bloodType
             binding.requestDate.text = request.dateRequired
 
-            // Display critical indicator if the request is marked as critical
             binding.criticalIndicator.visibility = if (request.critical) View.VISIBLE else View.GONE
 
-            // Set up the edit and delete button click listeners
             val donorCount = request.donors?.size ?: 0
             binding.showDonors.text = "Donors: $donorCount"
 

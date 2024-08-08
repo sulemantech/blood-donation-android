@@ -36,6 +36,7 @@ class HistoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        activity?.title = getString(R.string.title_history)
 
         val cardView1 = binding.frameLayoutOne
         val cardView2 = binding.frameLayoutTwo

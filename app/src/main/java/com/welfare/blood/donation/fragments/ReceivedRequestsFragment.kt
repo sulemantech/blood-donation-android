@@ -1,5 +1,6 @@
 package com.welfare.blood.donation.fragments
 
+import ReceivedRequestAdapter
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -11,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.welfare.blood.donation.CreateRequestActivity
-import com.welfare.blood.donation.adapters.ReceivedRequestAdapter
 import com.welfare.blood.donation.databinding.FragmentReceivedRequestsBinding
 import com.welfare.blood.donation.models.ReceivedRequest
 import java.text.SimpleDateFormat
@@ -41,7 +41,7 @@ class ReceivedRequestsFragment : Fragment() {
 
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         requestList = mutableListOf()
-        adapter = ReceivedRequestAdapter(requestList) // Initialize the adapter
+        adapter = ReceivedRequestAdapter(requestList)
         binding.recyclerView.adapter = adapter
 
         fetchRequests()
@@ -77,7 +77,7 @@ class ReceivedRequestsFragment : Fragment() {
                         }
 
                         val receivedRequest = ReceivedRequest(
-                            id = document.id, // Set the document ID
+                            id = document.id,
                             patientName = document.getString("patientName") ?: "",
                             age = document.getLong("age")?.toInt() ?: 0,
                             bloodType = document.getString("bloodType") ?: "",

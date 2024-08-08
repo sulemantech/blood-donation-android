@@ -69,8 +69,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/first_two_card_views"
-            android:layout_marginStart="35dp"
-            android:layout_marginEnd="35dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
             android:layout_marginTop="30dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -123,8 +123,8 @@
                 android:id="@+id/frame_layout_two"
                 android:background="@drawable/background_home_screen_four_items"
                 android:layout_marginLeft="30dp"
+                app:layout_constraintStart_toEndOf="@id/frame_layout_one"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <!-- ConstraintLayout for centering content -->
@@ -164,8 +164,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/last_two_card_views"
-            android:layout_marginStart="35dp"
-            android:layout_marginEnd="35dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
             android:layout_marginTop="18dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -218,8 +218,8 @@
                 android:id="@+id/frame_layout_four"
                 android:background="@drawable/background_home_screen_four_items"
                 android:layout_marginLeft="30dp"
+                app:layout_constraintStart_toEndOf="@id/frame_layout_three"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <!-- ConstraintLayout for centering content -->

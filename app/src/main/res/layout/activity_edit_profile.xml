@@ -17,6 +17,7 @@
             android:layout_height="120dp"
             android:layout_gravity="center"
             app:tint="@color/maron"
+            android:layout_marginTop="30dp"
             android:contentDescription="Profile Image"
             android:src="@drawable/top_image" />
         <TextView
@@ -43,9 +44,11 @@
             android:id="@+id/edName"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="13dp"
             android:hint="Full Name"
             android:paddingStart="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:drawableRight="@drawable/edit"
             android:backgroundTint="@color/maron"
             android:inputType="textPersonName" />
@@ -58,6 +61,9 @@
             android:hint="Email Address"
             android:paddingStart="10dp"
             android:paddingLeft="5dp"
+
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:drawableRight="@drawable/ic_vector_email"
             android:backgroundTint="@color/maron"
             android:inputType="textEmailAddress" />
@@ -68,6 +74,9 @@
             android:layout_height="50dp"
             android:layout_marginTop="4dp"
             android:hint="Phone"
+
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:drawableRight="@drawable/ic_vector_phone"
             android:paddingStart="10dp"
 android:backgroundTint="@color/maron"
@@ -82,6 +91,9 @@ android:backgroundTint="@color/maron"
             android:paddingStart="10dp"
             android:drawableRight="@drawable/ic_birthday"
             android:inputType="date"
+
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:backgroundTint="@color/maron"
             android:focusable="false" />
 
@@ -90,10 +102,16 @@ android:backgroundTint="@color/maron"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="7dp"
+
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:entries="@array/gender_array"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
+
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:background="@color/maron" />
 
 
@@ -101,11 +119,18 @@ android:backgroundTint="@color/maron"
             android:id="@+id/spinnerBloodGroup"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="3dp"
+
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:entries="@array/blood_groups" />
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
+
+            android:layout_marginTop="1dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             app:layout_constraintTop_toBottomOf="@+id/bloodType"
             android:background="@color/maron"
             />
@@ -118,12 +143,18 @@ android:backgroundTint="@color/maron"
             android:layout_height="50dp"
             android:layout_marginTop="4dp"
             android:hint="City"
+
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:paddingStart="10dp"
             android:entries="@array/pakistan_cities"
             android:inputType="text" />
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
+
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             app:layout_constraintTop_toBottomOf="@+id/bloodType"
             android:background="@color/maron" />
 
@@ -132,9 +163,13 @@ android:backgroundTint="@color/maron"
             android:id="@+id/edLastdonationdate"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="9dp"
+
             android:hint="Last Donation Date"
             android:inputType="date"
+
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:paddingStart="10dp"
             android:backgroundTint="@color/maron"
             android:focusable="false" />
@@ -158,8 +193,8 @@ android:backgroundTint="@color/maron"
             android:background="@drawable/update_button"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp" />
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp" />
 
         <ProgressBar
             android:layout_width="match_parent"

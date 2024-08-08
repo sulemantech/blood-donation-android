@@ -7,7 +7,7 @@
    >
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="124dp"
+        android:layout_height="129dp"
         android:background="@drawable/test"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -127,16 +127,18 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:layout_marginStart="5dp"
-                    android:background="@drawable/baseline_delete_24"
-                    android:id="@+id/delete"/>
-                <TextView
-                    android:layout_width="30dp"
+                    android:layout_width="25sp"
                     android:layout_height="30dp"
-                    android:background="@drawable/baseline_edit_note_24"
+                    android:layout_marginStart="5dp"
+                    android:background="@drawable/edit_request"
                     android:id="@+id/edit"/>
+
+                <TextView
+                    android:layout_width="25sp"
+                    android:layout_height="28dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/trash"
+                    android:id="@+id/delete"/>
 
             </LinearLayout>
 
@@ -173,9 +175,9 @@
                     <ImageButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/button_donate_now"
+                        android:background="@drawable/waiting"
                         android:layout_marginEnd="6dp"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="9dp"
                         android:id="@+id/showDonors1"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />

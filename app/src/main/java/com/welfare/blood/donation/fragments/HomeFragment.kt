@@ -22,6 +22,7 @@ import com.welfare.blood.donation.CreateRequestActivity
 import com.welfare.blood.donation.CriticalPatientsListActivity
 import com.welfare.blood.donation.DonateBloodActivity
 import com.welfare.blood.donation.ProfileActivity
+import com.welfare.blood.donation.R
 import com.welfare.blood.donation.SearchActivity
 import com.welfare.blood.donation.adapters.CriticalPatientAdapter
 import com.welfare.blood.donation.databinding.FragmentHome2Binding
@@ -47,6 +48,9 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Set the title for this fragment
+        activity?.title = getString(R.string.title_home)
 
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()

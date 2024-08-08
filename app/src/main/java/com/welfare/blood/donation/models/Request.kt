@@ -3,6 +3,7 @@ package com.welfare.blood.donation.models
 data class Request(
     var id: String = "",
     var patientName: String = "",
+    var phone: String = "",
     var age: Int = 0,
     var bloodType: String = "",
     var requiredUnit: Int = 0,
@@ -14,6 +15,6 @@ data class Request(
     var recipientId: String = "",
     var status: String = "pending",
     var critical: Boolean = false,
-    var donors: List<String> = emptyList(),
+    val donors: List<String>? = null,
     var isDeleted: Boolean = false // Added field
 )

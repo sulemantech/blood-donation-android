@@ -20,18 +20,28 @@
             android:layout_height="match_parent"
             android:paddingTop="12dp">
 
-    <LinearLayout
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/patient_icon"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="10dp">
-\
+        android:padding="5dp">
+
+
         <LinearLayout
         android:id="@+id/ll_middle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_marginStart="13dp"
+        android:layout_marginStart="43dp"
         android:layout_weight="2"
         android:orientation="vertical">
 
@@ -175,7 +185,7 @@
                 android:id="@+id/ll_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
+
                 android:layout_weight="1"
                 android:gravity="right"
                 android:orientation="vertical">
@@ -215,7 +225,6 @@
                     android:background="@drawable/phonefram"
                     android:layout_marginBottom="8dp"
                     android:id="@+id/phone_call"
-                    android:text="Send Request"
                     android:gravity="center"
                     android:layout_marginEnd="10dp"
                     android:layout_gravity="right"
@@ -229,7 +238,6 @@
                     android:background="@drawable/chat"
                     android:layout_marginBottom="8dp"
                     android:id="@+id/chat"
-                    android:text="Send Request"
                     android:gravity="center"
                     android:layout_marginEnd="10dp"
                     android:layout_gravity="right"
@@ -243,7 +251,6 @@
                     android:background="@drawable/sharefram"
                     android:layout_marginBottom="5dp"
                     android:id="@+id/share"
-                    android:text="Send Request"
                     android:gravity="center"
                     android:layout_gravity="right"
                     android:textColor="@color/white"

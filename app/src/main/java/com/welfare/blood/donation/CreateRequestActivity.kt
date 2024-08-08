@@ -141,6 +141,7 @@ class CreateRequestActivity : AppCompatActivity() {
         val bloodType = binding.bloodType.selectedItem.toString().trim()
         val requiredUnitStr = binding.requiredUnit.text.toString().trim()
         val dateRequired = binding.edDateRequired.text.toString().trim()
+        val phone = binding.edDateRequired.text.toString().trim()
         val location = binding.location.selectedItem.toString().trim()
 
         if (patientName.isEmpty()) {
@@ -162,6 +163,10 @@ class CreateRequestActivity : AppCompatActivity() {
 
         if (dateRequired.isEmpty()) {
             binding.edDateRequired.error = "Date required is required"
+            return false
+        }
+        if (phone.isEmpty()) {
+            binding.phone.error = "Phone Number is required"
             return false
         }
 
@@ -190,6 +195,7 @@ class CreateRequestActivity : AppCompatActivity() {
 
         val request = hashMapOf(
             "patientName" to binding.patientName.text.toString().trim(),
+            "phone" to binding.phone.text.toString().trim(),
             "age" to binding.age.text.toString().trim().toInt(),
             "bloodType" to binding.bloodType.selectedItem.toString().trim(),
             "requiredUnit" to binding.requiredUnit.text.toString().trim().toInt(),
@@ -225,6 +231,7 @@ class CreateRequestActivity : AppCompatActivity() {
                     val request = document.toObject(Request::class.java)
                     if (request != null) {
                         binding.patientName.setText(request.patientName)
+                        binding.phone.setText(request.phone)
                         binding.age.setText(request.age.toString())
                         binding.bloodType.setSelection(getBloodTypeIndex(request.bloodType))
                         binding.requiredUnit.setText(request.requiredUnit.toString())
@@ -254,6 +261,7 @@ class CreateRequestActivity : AppCompatActivity() {
 
         val updatedRequest = mapOf(
             "patientName" to binding.patientName.text.toString().trim(),
+            "phone" to binding.phone.text.toString().trim(),
             "age" to binding.age.text.toString().trim().toInt(),
             "bloodType" to binding.bloodType.selectedItem.toString().trim(),
             "requiredUnit" to binding.requiredUnit.text.toString().trim().toInt(),

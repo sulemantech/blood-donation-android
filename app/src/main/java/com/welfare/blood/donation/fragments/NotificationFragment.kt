@@ -36,6 +36,8 @@ class NotificationFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_notification, container, false)
+        activity?.title = getString(R.string.title_notification)
+
     }
 
     companion object {
