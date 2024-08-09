@@ -13,5 +13,6 @@ data class ReceivedRequest(
     val userId: String = "",
     val recipientId: String = "",
     var status: String = "pending",
-    val critical: Boolean = false
+    val critical: Boolean = false,
+    val donors: List<String>? = emptyList()
 )

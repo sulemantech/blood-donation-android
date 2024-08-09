@@ -9,7 +9,7 @@
     <ImageView
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/drop"
+        android:src="@drawable/top_image"
         android:id="@+id/img"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>

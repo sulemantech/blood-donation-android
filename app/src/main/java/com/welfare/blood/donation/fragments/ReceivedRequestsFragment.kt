@@ -1,6 +1,5 @@
 package com.welfare.blood.donation.fragments
 
-import ReceivedRequestAdapter
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -12,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.welfare.blood.donation.CreateRequestActivity
+import com.welfare.blood.donation.adapters.ReceivedRequestAdapter
 import com.welfare.blood.donation.databinding.FragmentReceivedRequestsBinding
 import com.welfare.blood.donation.models.ReceivedRequest
 import java.text.SimpleDateFormat
@@ -62,6 +62,7 @@ class ReceivedRequestsFragment : Fragment() {
 
         db.collection("requests")
             .whereNotEqualTo("userId", currentUser.uid)
+           // .whereEqualTo("isDeleted", false) // Exclude deleted requests
             .get()
             .addOnSuccessListener { documents ->
                 requestList.clear()
@@ -91,6 +92,10 @@ class ReceivedRequestsFragment : Fragment() {
                             status = document.getString("status") ?: "pending",
                             critical = document.getBoolean("critical") ?: false
                         )
+                        if (document.contains("isDeleted") && document.getBoolean("isDeleted") == true) {
+                            continue
+                        }
+
                         requestList.add(receivedRequest)
                     } catch (e: Exception) {
                         Log.e("ReceivedRequestsFragment", "Error parsing request document", e)

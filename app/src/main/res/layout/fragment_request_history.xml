@@ -54,6 +54,19 @@
         android:fontFamily="@font/open_sans_hebrew"
         app:layout_constraintTop_toBottomOf="@+id/cardview"
         app:layout_constraintStart_toStartOf="parent" />
+    <TextView
+        android:id="@+id/receivedRequestCount1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Request Status"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:layout_margin="18dp"
+        android:textColor="@color/maron"
+        android:fontFamily="@font/open_sans_hebrew"
+        app:layout_constraintTop_toBottomOf="@+id/receivedRequestCount"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <RadioGroup
         android:id="@+id/blood_for_myself_group"
         android:layout_width="0dp"
@@ -94,18 +107,6 @@
             android:checked="false" />
     </RadioGroup>
 
-    <TextView
-        android:id="@+id/receivedRequestCount1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Select Request Status"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:layout_margin="18dp"
-        android:textColor="@color/maron"
-        android:fontFamily="@font/open_sans_hebrew"
-        app:layout_constraintTop_toBottomOf="@+id/receivedRequestCount"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

@@ -9,10 +9,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.welfare.blood.donation.fragments.BothDonationFragment
 import com.welfare.blood.donation.fragments.HistoryFragment
 import com.welfare.blood.donation.fragments.HomeFragment
 import com.welfare.blood.donation.fragments.NotificationFragment
-import com.welfare.blood.donation.fragments.ReceivedRequestsFragment
 
 class HomeActivity : AppCompatActivity() {
 
@@ -51,7 +51,7 @@ class HomeActivity : AppCompatActivity() {
                 }
 
                 R.id.activity -> {
-                    loadFragment(ReceivedRequestsFragment(), getString(R.string.title_activity))
+                    loadFragment(BothDonationFragment(), getString(R.string.title_activity))
                     true
                 }
 

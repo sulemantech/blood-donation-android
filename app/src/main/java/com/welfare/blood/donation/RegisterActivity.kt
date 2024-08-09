@@ -150,7 +150,7 @@ class RegisterActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "RegisterActivity"
     }
-}//user is activity sy search ho k arhy hn
+}//user is activity sy search ho k arhy hn jo users wo other users hony chahiye current user search list me fetch na ho
 
 
 

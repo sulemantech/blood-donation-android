@@ -11,11 +11,11 @@ import com.welfare.blood.donation.databinding.ItemPatientBinding
 
 class UserAdapter(
     private val context: Context,
-    private var userList: List<User>
+    private var userList: List<Register>
 ) : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
     inner class UserViewHolder(private val binding: ItemPatientBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(user: User) {
+        fun bind(user: Register) {
             binding.tvName.text = user.name
             binding.tvAddress.text = user.location
             binding.tvBloodGroup.text = user.bloodGroup
@@ -37,7 +37,7 @@ class UserAdapter(
 //            }
         }
 
-        private fun showUserDetailsDialog(user: User) {
+        private fun showUserDetailsDialog(user: Register) {
             val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_patient_detail, null)
             val dialog = AlertDialog.Builder(context)
                 .setView(dialogView)
@@ -51,7 +51,7 @@ class UserAdapter(
         }
 
         @SuppressLint("SuspiciousIndentation")
-        private fun showRequestConfirmationDialog(user: User) {
+        private fun showRequestConfirmationDialog(user: Register) {
             val intent = Intent(context, CreateRequestActivity::class.java)
             context.startActivity(intent)
         }
@@ -68,7 +68,7 @@ class UserAdapter(
 
     override fun getItemCount(): Int = userList.size
 
-    fun updateData(newUsers: List<User>) {
+    fun updateData(newUsers: List<Register>) {
         userList = newUsers
         notifyDataSetChanged()
     }

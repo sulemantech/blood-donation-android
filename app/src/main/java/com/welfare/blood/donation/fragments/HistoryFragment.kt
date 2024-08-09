@@ -68,30 +68,42 @@ class HistoryFragment : Fragment() {
                     navigateToEditProfile()
                     true
                 }
+
                 R.id.nav_blood_bank -> {
                     navigateToBloodBankActivity(requireContext())
                     true
                 }
+
+                R.id.nav_policy -> {
+                    navigateToPrivacyPolicy(requireContext())
+                    true
+                }
+
                 R.id.nav_share -> {
                     shareGoogleStore(requireContext())
                     true
                 }
+
                 R.id.nav_rate_us -> {
                     showRateUsDialog(requireContext())
                     true
                 }
+
                 R.id.nav_feedback -> {
                     showFeedbackDialog(requireContext())
                     true
                 }
+
                 R.id.nav_logout -> {
                     showLogoutDialog(requireContext())
                     true
                 }
+
                 R.id.nav_delete_profile -> {
                     promptForPassword()
                     true
                 }
+
                 else -> false
             }.also {
                 binding.drawerLayout.closeDrawer(GravityCompat.START)
@@ -102,8 +114,14 @@ class HistoryFragment : Fragment() {
         binding.menuLine.setOnClickListener {
             if (!binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
                 binding.drawerLayout.openDrawer(GravityCompat.START)
+            } else {
+                binding.drawerLayout.closeDrawer(GravityCompat.START)
             }
         }
+    }
+
+    private fun navigateToPrivacyPolicy(requireContext: Context) {
+
     }
 
     private fun navigateToEditProfile() {

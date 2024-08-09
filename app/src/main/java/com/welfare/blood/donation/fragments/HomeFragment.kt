@@ -108,6 +108,13 @@ class HomeFragment : Fragment() {
         binding.tvSeeAll.setOnClickListener {
             startActivity(Intent(requireContext(), CriticalPatientsListActivity::class.java))
         }
+        binding.criticalPatientRecyclerview.setOnClickListener {
+            startActivity(Intent(requireContext(), CriticalPatientsListActivity::class.java))
+        }
+
+        binding.criticalPatientRecyclerview.setOnClickListener {
+            startActivity(Intent(requireContext(), CriticalPatientsListActivity::class.java))
+        }
     }
 
     // Function to create SpannableString with outer stroke effect
@@ -167,9 +174,16 @@ class HomeFragment : Fragment() {
                     }
                     criticalPatientAdapter.notifyDataSetChanged()
                     displayPatientCount(criticalPatients.size)
+                    showCriticalPatient(criticalPatients)
                 }
             }
     }
+
+    private fun showCriticalPatient(criticalPatients: MutableList<CriticalPatient>) {
+
+
+    }
+
 
     private fun displayPatientCount(count: Int) {
         binding.emergencyPatientsLabel.text = "Emergency Patients: $count"

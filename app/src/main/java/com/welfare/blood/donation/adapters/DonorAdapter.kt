@@ -6,20 +6,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.welfare.blood.donation.R
 import com.welfare.blood.donation.databinding.DonorsItemBinding
 import com.welfare.blood.donation.models.Request
+import com.welfare.blood.donation.models.User
 
-class DonorAdapter(private val donorRequestList: List<Request>) : RecyclerView.Adapter<DonorAdapter.DonorViewHolder>() {
+class DonorAdapter(private val donorsList: MutableList<User>) : RecyclerView.Adapter<DonorAdapter.DonorViewHolder>() {
 
     inner class DonorViewHolder(private val binding: DonorsItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(request: Request) {
-            binding.donorName.text = request.patientName
+        fun bind(user: User) {
+            binding.donorName.text = user.name
          //   binding.donorBloodGroup.text = request.bloodType
-            val bloodTypeFull = getBloodTypeFull(request.bloodType)
+            val bloodTypeFull = getBloodTypeFull(user.bloodGroup)
             binding.donorBloodGroup.text =
-                "${request.bloodType} ($bloodTypeFull) ${request.requiredUnit} Units Blood"
-            binding.imageBloodGroup.setImageResource(getBloodGroupImage(request.bloodType))
+                "${user.bloodGroup} ($bloodTypeFull) ${user.bloodGroup} Units Blood"
+            binding.imageBloodGroup.setImageResource(getBloodGroupImage(user.bloodGroup))
 
-            binding.donorLocation.text = request.location
+            binding.donorLocation.text = user.location
         }
     }
 
@@ -29,10 +30,10 @@ class DonorAdapter(private val donorRequestList: List<Request>) : RecyclerView.A
     }
 
     override fun onBindViewHolder(holder: DonorViewHolder, position: Int) {
-        holder.bind(donorRequestList[position])
+        holder.bind(donorsList[position])
     }
 
-    override fun getItemCount(): Int = donorRequestList.size
+    override fun getItemCount(): Int = donorsList.size
 
     private fun getBloodGroupImage(bloodType: String): Int {
         return when (bloodType) {

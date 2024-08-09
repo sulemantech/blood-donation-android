@@ -1,5 +1,8 @@
+package com.welfare.blood.donation.adapters
+
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -68,6 +71,8 @@ class ReceivedRequestAdapter(
                     binding.donateNow.visibility = View.VISIBLE
                     binding.completed.visibility = View.GONE
                 }
+            }.addOnFailureListener {
+                Log.e("ReceivedRequestAdapter", "Failed to check donation status", it)
             }
         }
 

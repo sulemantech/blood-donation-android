@@ -217,10 +217,10 @@
     </string>
 
 
-        <string name="title_home_screen" tools:ignore="DuplicateDefinition">Home</string>
-        <string name="title_activity">Activity</string>
-        <string name="title_notification">Notification</string>
-        <string name="title_history">History</string>
+    <string name="title_home_screen" tools:ignore="DuplicateDefinition">Home</string>
+    <string name="title_activity">My Activity</string>
+    <string name="title_notification">Notification</string>
+    <string name="title_history">History</string>
 
 
 </resources>

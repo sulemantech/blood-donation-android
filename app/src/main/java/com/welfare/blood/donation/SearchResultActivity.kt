@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 import com.welfare.blood.donation.databinding.ActivitySearchResultBinding
@@ -54,7 +55,11 @@ class SearchResultActivity : AppCompatActivity() {
 
                 if (location != null) {
                     Log.d(TAG, "Search criteria: bloodGroup=$bloodGroup, location=$location") // Changed from city to location
-                    var usersRef = db.collection("users").whereEqualTo("location", location.trim()) // Changed from city to location
+
+                    val currentUserID = FirebaseAuth.getInstance().currentUser?.uid
+
+                    var usersRef = db.collection("users")
+                        .whereEqualTo("location", location.trim()) // Changed from city to location
 
                     // Add bloodGroup filter if bloodGroup is not null
                     if (!bloodGroup.isNullOrEmpty()) {
@@ -63,7 +68,8 @@ class SearchResultActivity : AppCompatActivity() {
 
                     usersRef.get()
                         .addOnSuccessListener { result ->
-                            handleUserResult(result)
+                            // Handle the result and filter out the current user
+                            handleUserResult(result, currentUserID)
                         }
                         .addOnFailureListener { e ->
                             Log.e(TAG, "Error fetching users", e)
@@ -83,15 +89,18 @@ class SearchResultActivity : AppCompatActivity() {
             }
     }
 
-    private fun handleUserResult(result: QuerySnapshot) {
-        val users = result.toObjects(User::class.java)
-        if (users.isNotEmpty()) {
-            userAdapter.updateData(users)
-            Log.d(TAG, "Users found: ${users.size}")
+    private fun handleUserResult(result: QuerySnapshot, currentUserID: String?) {
+        val users = result.toObjects(Register::class.java)
+        val filteredUsers = users.filter { user -> user.userID != currentUserID }
+
+        if (filteredUsers.isNotEmpty()) {
+            userAdapter.updateData(filteredUsers)
+            Log.d(TAG, "Users found: ${filteredUsers.size}")
         } else {
             Log.d(TAG, "No users found matching criteria")
             Toast.makeText(this, "No users found matching criteria", Toast.LENGTH_SHORT).show()
         }
+
         // Hide the ProgressBar when data is fetched
         binding.progressBar.visibility = View.GONE
         binding.recyclerView.visibility = View.VISIBLE

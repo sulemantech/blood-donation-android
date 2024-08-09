@@ -2,12 +2,15 @@ package com.welfare.blood.donation
 
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.welfare.blood.donation.databinding.ActivityCreateRequestBinding
@@ -27,6 +30,17 @@ class CreateRequestActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCreateRequestBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
+            setWindowFlag(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, true)
+        }
+        if (Build.VERSION.SDK_INT >= 19) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        }
+        if (Build.VERSION.SDK_INT >= 21) {
+            setWindowFlag(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, false)
+            window.statusBarColor = ContextCompat.getColor(this, android.R.color.transparent)
+        }
 
         db = FirebaseFirestore.getInstance()
 
@@ -69,6 +83,17 @@ class CreateRequestActivity : AppCompatActivity() {
         if (requestId != null) {
             loadRequestData(requestId!!)
         }
+    }
+
+    private fun setWindowFlag(bits: Int, on: Boolean) {
+        val win = window
+        val winParams = win.attributes
+        if (on) {
+            winParams.flags = winParams.flags or bits
+        } else {
+            winParams.flags = winParams.flags and bits.inv()
+        }
+        win.attributes = winParams
     }
 
     private fun fillFormFields() {
@@ -141,7 +166,7 @@ class CreateRequestActivity : AppCompatActivity() {
         val bloodType = binding.bloodType.selectedItem.toString().trim()
         val requiredUnitStr = binding.requiredUnit.text.toString().trim()
         val dateRequired = binding.edDateRequired.text.toString().trim()
-        val phone = binding.edDateRequired.text.toString().trim()
+      //  val phone = binding.edDateRequired.text.toString().trim()
         val location = binding.location.selectedItem.toString().trim()
 
         if (patientName.isEmpty()) {
@@ -165,10 +190,10 @@ class CreateRequestActivity : AppCompatActivity() {
             binding.edDateRequired.error = "Date required is required"
             return false
         }
-        if (phone.isEmpty()) {
-            binding.phone.error = "Phone Number is required"
-            return false
-        }
+//        if (phone.isEmpty()) {
+//            binding.phone.error = "Phone Number is required"
+//            return false
+//        }
 
         return true
     }
@@ -195,7 +220,7 @@ class CreateRequestActivity : AppCompatActivity() {
 
         val request = hashMapOf(
             "patientName" to binding.patientName.text.toString().trim(),
-            "phone" to binding.phone.text.toString().trim(),
+          //  "phone" to binding.phone.text.toString().trim(),
             "age" to binding.age.text.toString().trim().toInt(),
             "bloodType" to binding.bloodType.selectedItem.toString().trim(),
             "requiredUnit" to binding.requiredUnit.text.toString().trim().toInt(),
@@ -231,7 +256,7 @@ class CreateRequestActivity : AppCompatActivity() {
                     val request = document.toObject(Request::class.java)
                     if (request != null) {
                         binding.patientName.setText(request.patientName)
-                        binding.phone.setText(request.phone)
+                     //   binding.phone.setText(request.phone)
                         binding.age.setText(request.age.toString())
                         binding.bloodType.setSelection(getBloodTypeIndex(request.bloodType))
                         binding.requiredUnit.setText(request.requiredUnit.toString())
@@ -261,7 +286,7 @@ class CreateRequestActivity : AppCompatActivity() {
 
         val updatedRequest = mapOf(
             "patientName" to binding.patientName.text.toString().trim(),
-            "phone" to binding.phone.text.toString().trim(),
+          //  "phone" to binding.phone.text.toString().trim(),
             "age" to binding.age.text.toString().trim().toInt(),
             "bloodType" to binding.bloodType.selectedItem.toString().trim(),
             "requiredUnit" to binding.requiredUnit.text.toString().trim().toInt(),

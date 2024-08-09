@@ -1,6 +1,6 @@
 package com.welfare.blood.donation
 
-data class User(
+data class Register(
     val userID: String = "",
     val name: String = "",
     val email: String = "",

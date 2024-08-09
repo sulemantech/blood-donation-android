@@ -47,6 +47,11 @@
             android:textColor="@color/menu_item_color"
             android:title="Feedback &amp; Suggestion"
             android:icon="@drawable/feedback"/>
+        <item
+            android:id="@+id/nav_policy"
+            android:textColor="@color/menu_item_color"
+            android:title="Privacy &amp; Policy"
+            android:icon="@drawable/feedback"/>
     </group>
     <item
         android:id="@+id/nav_logout"

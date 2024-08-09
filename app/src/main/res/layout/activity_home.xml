@@ -29,6 +29,21 @@
             android:layout_marginTop="10dp"
             android:fontFamily="@font/inter_bold"
             android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="42dp"
+            android:drawableLeft="@drawable/baseline_menu_24"
+            android:layout_marginStart="25dp"
+            android:textSize="25dp"
+            android:id="@+id/menu_line"
+            android:drawableTint="@color/white"
+            android:gravity="center" />
+
     </androidx.cardview.widget.CardView>
 
     <FrameLayout
