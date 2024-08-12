@@ -78,6 +78,7 @@
                 android:id="@+id/pbProfileCompletion"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="200dp"
+                android:progressTint="@color/maron"
                 android:backgroundTint="@color/maron"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tvEmail"
@@ -92,6 +93,8 @@
                 android:layout_below="@id/pbProfileCompletion"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="4dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
                 android:text="Profile Completion 85%"
                 android:textSize="14sp" />
         </RelativeLayout>
@@ -105,12 +108,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:text="Account Details"
                 android:textSize="16sp"
                 android:gravity="left"
                 android:paddingTop="10dp"
                 android:paddingStart="10dp"
-                android:background="@color/white"
+                android:background="@drawable/account_detail"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -123,7 +125,7 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_mobile"
+                    android:src="@drawable/mobile"
                      />
 
                 <TextView
@@ -145,7 +147,7 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/location"
+                    android:src="@drawable/ic_loc"
                     />
 
                 <TextView

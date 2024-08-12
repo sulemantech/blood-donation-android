@@ -10,30 +10,23 @@
         <item
             android:id="@+id/nav_edit_profile"
             android:title="Edit Profile"
-            android:iconTint="@color/maron"
-            android:textColor="@color/menu_item_color"
             android:icon="@drawable/ic_vector_person"/>
         <item
             android:id="@+id/nav_blood_bank"
             android:title="Blood Bank"
-            android:textColor="@color/menu_item_color"
-            android:icon="@drawable/ic_blood_drop"/>
+            android:icon="@drawable/blood"/>
         <item
             android:id="@+id/nav_share"
             android:title="Share with Friends"
-            android:textColor="@color/menu_item_color"
-            android:icon="@drawable/ic_share"/>
+            android:icon="@drawable/share"/>
         <item
             android:id="@+id/nav_rate_us"
             android:title="Rate our App"
-            android:icon="@drawable/star"
-            android:textColor="@color/menu_item_color"/>
+            android:icon="@drawable/ic_star"/>
         <item
             android:id="@+id/nav_delete_profile"
             android:title="Delete Profile"
-            android:iconTint="@color/menu_item_color"
-            android:icon="@drawable/baseline_delete_24"
-            android:textColor="@color/menu_item_color"/>
+            android:icon="@drawable/baseline_delete_24"/>
     </group>
     <item
         android:title="Privacy"
@@ -44,18 +37,15 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_feedback"
-            android:textColor="@color/menu_item_color"
             android:title="Feedback &amp; Suggestion"
             android:icon="@drawable/feedback"/>
         <item
             android:id="@+id/nav_policy"
-            android:textColor="@color/menu_item_color"
             android:title="Privacy &amp; Policy"
             android:icon="@drawable/feedback"/>
     </group>
     <item
         android:id="@+id/nav_logout"
         android:title="Logout"
-        android:textColor="@color/menu_item_color"
         android:icon="@drawable/ic_logout"/>
 </menu>

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.welfare.blood.donation.CreateRequestActivity
+import com.welfare.blood.donation.R
 import com.welfare.blood.donation.adapters.ReceivedRequestAdapter
 import com.welfare.blood.donation.databinding.FragmentReceivedRequestsBinding
 import com.welfare.blood.donation.models.ReceivedRequest
@@ -44,26 +45,37 @@ class ReceivedRequestsFragment : Fragment() {
         adapter = ReceivedRequestAdapter(requestList)
         binding.recyclerView.adapter = adapter
 
-        fetchRequests()
+        binding.bloodForMyselfGroup.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                R.id.radio_for_myself -> fetchRequests("all")
+                R.id.radio_for_others -> fetchRequests("pending")
+                R.id.radio_for_others2 -> fetchRequests("completed")
+            }
+        }
+
+        fetchRequests("all")
+
         binding.createRequest.setOnClickListener {
             val intent = Intent(requireContext(), CreateRequestActivity::class.java)
             startActivity(intent)
         }
     }
 
-    private fun fetchRequests() {
+    private fun fetchRequests(status: String) {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-
         val currentUser = auth.currentUser
         if (currentUser == null) {
             Log.w("ReceivedRequestsFragment", "User not logged in")
             return
         }
 
-        db.collection("requests")
-            .whereNotEqualTo("userId", currentUser.uid)
-           // .whereEqualTo("isDeleted", false) // Exclude deleted requests
-            .get()
+        var query = db.collection("requests").whereNotEqualTo("userId", currentUser.uid)
+
+        if (status != "all") {
+            query = query.whereEqualTo("status", status)
+        }
+
+        query.get()
             .addOnSuccessListener { documents ->
                 requestList.clear()
                 for (document in documents) {
@@ -92,6 +104,7 @@ class ReceivedRequestsFragment : Fragment() {
                             status = document.getString("status") ?: "pending",
                             critical = document.getBoolean("critical") ?: false
                         )
+
                         if (document.contains("isDeleted") && document.getBoolean("isDeleted") == true) {
                             continue
                         }

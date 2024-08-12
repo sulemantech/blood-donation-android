@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,6 +31,19 @@ class CriticalPatientsListActivity : AppCompatActivity() {
         binding = ActivityCriticalPatientsListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        configureStatusBar()
+
+        db = FirebaseFirestore.getInstance()
+
+        binding.backArrow.setOnClickListener {
+            onBackPressed()
+        }
+
+        setupRecyclerView()
+        fetchAllCriticalPatients()
+    }
+
+    private fun configureStatusBar() {
         if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
             setWindowFlag(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, true)
         }
@@ -40,19 +54,17 @@ class CriticalPatientsListActivity : AppCompatActivity() {
             setWindowFlag(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, false)
             window.statusBarColor = ContextCompat.getColor(this, android.R.color.transparent)
         }
+    }
 
-        db = FirebaseFirestore.getInstance()
-
-        binding.backArrow.setOnClickListener {
-            onBackPressed()
-        }
-
-        // Setup RecyclerView
+    private fun setupRecyclerView() {
         binding.criticalPatientRecyclerview.layoutManager = LinearLayoutManager(this)
-        criticalPatientAdapter = CriticalPatientAdapter(criticalPatients)
+        criticalPatientAdapter = CriticalPatientAdapter(criticalPatients, object : CriticalPatientAdapter.OnPatientClickListener {
+            override fun onPatientClick(patient: CriticalPatient) {
+                // Handle patient click
+                // Example: navigate to a detailed view
+            }
+        })
         binding.criticalPatientRecyclerview.adapter = criticalPatientAdapter
-
-        fetchAllCriticalPatients()
     }
 
     private fun setWindowFlag(bits: Int, on: Boolean) {
@@ -120,8 +132,12 @@ class CriticalPatientsListActivity : AppCompatActivity() {
                 }
 
                 // Sort the criticalPatients list by dateRequired in descending order
-                criticalPatients.sortByDescending {
-                    dateFormat.parse(it.dateRequired)
+                try {
+                    criticalPatients.sortByDescending {
+                        dateFormat.parse(it.dateRequired)
+                    }
+                } catch (e: Exception) {
+                    Log.e("CriticalPatientsListActivity", "Error parsing date", e)
                 }
 
                 criticalPatientAdapter.notifyDataSetChanged()
@@ -129,10 +145,16 @@ class CriticalPatientsListActivity : AppCompatActivity() {
             }
             .addOnFailureListener { e ->
                 Log.w("CriticalPatientsListActivity", "Error fetching critical patients", e)
+                displayError("Error fetching data. Please try again later.")
             }
     }
 
     private fun displayPatientCount(count: Int) {
         binding.emergencyPatientsLabel.text = "Critical Patients: $count"
+    }
+
+    private fun displayError(message: String) {
+        // Display an error message to the user, for example with a Toast
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 }

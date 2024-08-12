@@ -383,7 +383,7 @@
                         android:id="@+id/img_blood_banks"
                         android:layout_width="64dp"
                         android:layout_height="64dp"
-                        android:src="@drawable/ic_blood_bank"
+                        android:src="@drawable/bloddbank_neew"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

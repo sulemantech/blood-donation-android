@@ -49,7 +49,8 @@
             android:paddingStart="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:drawableRight="@drawable/edit"
+            android:drawableTint="@color/maron"
+            android:drawableRight="@drawable/ic_vector_person"
             android:backgroundTint="@color/maron"
             android:inputType="textPersonName" />
 
@@ -61,7 +62,6 @@
             android:hint="Email Address"
             android:paddingStart="10dp"
             android:paddingLeft="5dp"
-
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:drawableRight="@drawable/ic_vector_email"
@@ -74,12 +74,11 @@
             android:layout_height="50dp"
             android:layout_marginTop="4dp"
             android:hint="Phone"
-
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:drawableRight="@drawable/ic_vector_phone"
             android:paddingStart="10dp"
-android:backgroundTint="@color/maron"
+            android:backgroundTint="@color/maron"
             android:inputType="phone" />
 
         <EditText
@@ -91,10 +90,8 @@ android:backgroundTint="@color/maron"
             android:paddingStart="10dp"
             android:drawableRight="@drawable/ic_birthday"
             android:inputType="date"
-
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:backgroundTint="@color/maron"
             android:focusable="false" />
 
         <Spinner
@@ -102,14 +99,12 @@ android:backgroundTint="@color/maron"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="7dp"
-
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:entries="@array/gender_array"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:background="@color/maron" />
@@ -120,14 +115,12 @@ android:backgroundTint="@color/maron"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="3dp"
-
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:entries="@array/blood_groups" />
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-
             android:layout_marginTop="1dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
@@ -143,7 +136,6 @@ android:backgroundTint="@color/maron"
             android:layout_height="50dp"
             android:layout_marginTop="4dp"
             android:hint="City"
-
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:paddingStart="10dp"
@@ -152,7 +144,6 @@ android:backgroundTint="@color/maron"
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             app:layout_constraintTop_toBottomOf="@+id/bloodType"
@@ -164,10 +155,8 @@ android:backgroundTint="@color/maron"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="9dp"
-
             android:hint="Last Donation Date"
             android:inputType="date"
-
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:paddingStart="10dp"
@@ -180,6 +169,7 @@ android:backgroundTint="@color/maron"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_gravity="center"
+            android:backgroundTint="@color/maron"
             android:text="Ready To Donate Blood" />
 
         <TextView

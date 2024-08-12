@@ -10,8 +10,10 @@ import com.welfare.blood.donation.databinding.CriticalPatientItemBinding
 import com.welfare.blood.donation.models.CriticalPatient
 import com.welfare.blood.donation.R
 
-class CriticalPatientAdapter(private val patients: List<CriticalPatient>) :
-    RecyclerView.Adapter<CriticalPatientAdapter.CriticalPatientViewHolder>() {
+class CriticalPatientAdapter(
+    private val patients: List<CriticalPatient>,
+    private val listener: OnPatientClickListener? = null
+) : RecyclerView.Adapter<CriticalPatientAdapter.CriticalPatientViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CriticalPatientViewHolder {
         val binding = CriticalPatientItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -28,6 +30,7 @@ class CriticalPatientAdapter(private val patients: List<CriticalPatient>) :
 
     inner class CriticalPatientViewHolder(private val binding: CriticalPatientItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
         fun bind(patient: CriticalPatient) {
             binding.patientName.text = patient.patientName
             binding.bloodGroup.text = patient.bloodType
@@ -41,17 +44,11 @@ class CriticalPatientAdapter(private val patients: List<CriticalPatient>) :
             binding.imageBloodGroup.setImageResource(getBloodGroupImage(patient.bloodType))
 
             // Set visibility of the critical status
-            if (patient.critical) {
-                binding.criticalStatus.visibility = View.VISIBLE
-            } else {
-                binding.criticalStatus.visibility = View.GONE
-            }
+            binding.criticalStatus.visibility = if (patient.critical) View.VISIBLE else View.GONE
 
-            binding.click.setOnClickListener {
-//                val context=it.context
-//                val intent = Intent(context, CriticalPatientsListActivity::class.java)
-//              //  intent.putExtra("patientId", patient.id) // Pass any necessary data
-//                context.startActivity(intent)
+            // Handle item click event
+            binding.root.setOnClickListener {
+                listener?.onPatientClick(patient)
             }
         }
 
@@ -82,5 +79,9 @@ class CriticalPatientAdapter(private val patients: List<CriticalPatient>) :
                 else -> "Unknown"
             }
         }
+    }
+
+    interface OnPatientClickListener {
+        fun onPatientClick(patient: CriticalPatient)
     }
 }

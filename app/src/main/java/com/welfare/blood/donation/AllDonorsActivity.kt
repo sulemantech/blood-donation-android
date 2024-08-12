@@ -28,7 +28,6 @@ class AllDonorsActivity : AppCompatActivity() {
 
         db = FirebaseFirestore.getInstance()
 
-        // Initialize RecyclerView and Adapter
         binding.donorRecyclerView.layoutManager = LinearLayoutManager(this)
         donorAdapter = DonorAdapter(donorsList)
         binding.donorRecyclerView.adapter = donorAdapter
@@ -49,7 +48,6 @@ class AllDonorsActivity : AppCompatActivity() {
             .addOnSuccessListener { document ->
                 if (document != null && document.exists()) {
                     val donorIds = document.get("donors") as? List<String> ?: emptyList()
-                    // Displaying the Toast message
                   //  Toast.makeText(this@AllDonorsActivity, "Donor IDs: $donorIds", Toast.LENGTH_SHORT).show()
                     fetchRequestsByDonorIds(donorIds)
                 } else {

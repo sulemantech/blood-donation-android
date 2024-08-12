@@ -54,6 +54,7 @@
             android:layout_marginTop="24dp"
             android:paddingEnd="20dp"
             android:backgroundTint="@color/maron"
+            android:drawableTint="@color/maron"
             android:drawableRight="@drawable/ic_vector_person"
             app:layout_constraintTop_toBottomOf="@+id/blood_donation2"
             android:drawablePadding="8dp"/>

@@ -49,7 +49,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Set the title for this fragment
         activity?.title = getString(R.string.title_home)
 
         auth = FirebaseAuth.getInstance()
@@ -57,7 +56,6 @@ class HomeFragment : Fragment() {
 
         tvWelcomeMessage = binding.home1
 
-        // Fetch user details from Firestore
         val userID = auth.currentUser?.uid
         userID?.let { uid ->
             db.collection("users").document(uid).get()
@@ -75,7 +73,6 @@ class HomeFragment : Fragment() {
                 }
         }
 
-        // Setup RecyclerView
         binding.criticalPatientRecyclerview.layoutManager = LinearLayoutManager(requireContext())
         criticalPatientAdapter = CriticalPatientAdapter(criticalPatients)
         binding.criticalPatientRecyclerview.adapter = criticalPatientAdapter
@@ -111,24 +108,17 @@ class HomeFragment : Fragment() {
         binding.criticalPatientRecyclerview.setOnClickListener {
             startActivity(Intent(requireContext(), CriticalPatientsListActivity::class.java))
         }
-
-        binding.criticalPatientRecyclerview.setOnClickListener {
-            startActivity(Intent(requireContext(), CriticalPatientsListActivity::class.java))
-        }
     }
 
-    // Function to create SpannableString with outer stroke effect
     private fun createSpannableText(text: String): SpannableString {
         val spannableString = SpannableString(text)
 
-        // Apply stroke (background) color
         spannableString.setSpan(
-            ForegroundColorSpan(Color.WHITE), // Stroke color
+            ForegroundColorSpan(Color.WHITE),
             0, text.length,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
 
-        // Apply text color over the stroke
         spannableString.setSpan(
             ForegroundColorSpan(Color.parseColor("#B20B1F")),
             0, text.length,
@@ -178,13 +168,8 @@ class HomeFragment : Fragment() {
                 }
             }
     }
-
     private fun showCriticalPatient(criticalPatients: MutableList<CriticalPatient>) {
-
-
     }
-
-
     private fun displayPatientCount(count: Int) {
         binding.emergencyPatientsLabel.text = "Emergency Patients: $count"
     }
