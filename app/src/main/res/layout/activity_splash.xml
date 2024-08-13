@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,63 +10,85 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".SplashActivity"
     android:gravity="center"
-    android:background="@drawable/splash_screen_img"
+    android:background="@drawable/gradient_background"
     android:orientation="vertical"
     >
 
-    <LinearLayout
-        android:layout_gravity="center"
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:gravity="center">
-        <ImageView
-            android:id="@+id/load_image"
-            android:layout_weight="0"
-            android:layout_width="170dp"
-            android:layout_height="170dp"
-            android:src="@drawable/splash_animation"
-            app:tint="@color/maron" />
-    </LinearLayout>
     <TextView
-        android:layout_marginTop="15dp"
         android:textColor="@color/maron"
         android:textSize="38sp"
-        android:visibility="gone"
-        android:fontFamily="@font/inter_bold"
-        android:text="@string/app_name"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:background="@drawable/ayat"
+        android:layout_width="290sp"
+        android:layout_height="108sp"
+        android:layout_marginTop="50dp"
+        android:id="@+id/ayat"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
     <TextView
-        android:textSize="20sp"
-        android:text="Donate Blood, Save Life"
+        android:textSize="18sp"
+        android:text="And whoever saves a life, it is as though he has saved all of humanity."
         android:layout_width="wrap_content"
-        android:textColor="@color/maron"
-        android:visibility="gone"
-        android:fontFamily="@font/inter_bold"
-        android:layout_height="wrap_content" />
+        android:textColor="@color/white"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6sp"
+        android:gravity="center"
+        android:id="@+id/text_eng"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ayat"/>
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
+        android:layout_width="88sp"
+        android:layout_height="25sp"
+        android:layout_marginTop="2dp"
         android:layout_gravity="center"
-        android:visibility="gone"
-        android:text="Pipal Welfare Organization"
+        android:text="(Quran 5:32)"
+        android:gravity="center"
         android:textColor="@color/maron"
-        android:fontFamily="@font/inter_bold"
-        android:textSize="23sp" />
+        android:background="@drawable/ayat_btn"
+        app:layout_constraintTop_toBottomOf="@+id/text_eng"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
         android:id="@+id/textView2"
+        android:layout_width="250sp"
+        android:layout_height="186sp"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/white"
+        android:drawableTint="@color/white"
+        android:layout_marginTop="189sp"
+        android:background="@drawable/top_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+    <TextView
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:visibility="gone"
-        android:text="www.pipalwelfare.org"
-        android:textColor="@color/maron" />
+        android:textSize="20sp"
+        android:layout_marginTop="80sp"
+        android:textColor="@color/white"
+        android:text="Pipal Welfare Organization"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"/>
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="250sp"
+        android:layout_height="186sp"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/white"
+        android:drawableTint="@color/white"
+        android:layout_marginTop="189sp"
+        android:background="@drawable/top_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

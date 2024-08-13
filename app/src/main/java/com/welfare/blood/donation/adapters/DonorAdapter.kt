@@ -17,7 +17,7 @@ class DonorAdapter(private val donorsList: MutableList<User>) : RecyclerView.Ada
          //   binding.donorBloodGroup.text = request.bloodType
             val bloodTypeFull = getBloodTypeFull(user.bloodGroup)
             binding.donorBloodGroup.text =
-                "${user.bloodGroup} ($bloodTypeFull) ${user.bloodGroup} Units Blood"
+                "${user.bloodGroup} ($bloodTypeFull) ${user.bloodGroup}"
             binding.imageBloodGroup.setImageResource(getBloodGroupImage(user.bloodGroup))
             binding.donorPhone.text=user.phone
 

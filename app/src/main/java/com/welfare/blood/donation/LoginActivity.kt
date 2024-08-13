@@ -29,11 +29,10 @@ class LoginActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
 
-        // Check if user is already logged in
         val currentUser = auth.currentUser
         if (currentUser != null) {
             navigateToHome()
-            return // Exit onCreate if user is already logged in
+            return
         }
 
         binding.btnLogin.setOnClickListener {
@@ -58,7 +57,6 @@ class LoginActivity : AppCompatActivity() {
             Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show()
             return
         }
-
         binding.progressBar.visibility = View.VISIBLE
 
         auth.signInWithEmailAndPassword(email, password)
@@ -98,10 +96,8 @@ class LoginActivity : AppCompatActivity() {
 
     private fun togglePasswordVisibility() {
         if (isPasswordVisible) {
-            // Show password
             binding.edPassword.transformationMethod = HideReturnsTransformationMethod.getInstance()
         } else {
-            // Hide password
             binding.edPassword.transformationMethod = PasswordTransformationMethod.getInstance()
         }
         binding.edPassword.setSelection(binding.edPassword.text.length)
