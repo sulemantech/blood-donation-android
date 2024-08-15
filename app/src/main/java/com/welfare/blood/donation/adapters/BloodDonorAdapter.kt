@@ -38,12 +38,10 @@ class BloodDonorAdapter(private val mList: List<BloodDonorModel>) : RecyclerView
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val bloodDonor = mList[position]
 
-        // sets the image to the imageview from our itemHolder class
+
         holder.imageView.setImageResource(bloodDonor.getPic())
 
-        // sets the text to the textview from our itemHolder class
         //holder.textView.text = bloodDonor.getName()
-        //
         holder.textViewName.text = bloodDonor.getName()
         holder.textViewContact.text = bloodDonor.getContactNumber()
         holder.textViewBloodGroup.text = bloodDonor.getBloodType()
