@@ -1,16 +1,22 @@
 package com.welfare.blood.donation
 
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.util.Log
+import android.util.Patterns
 import android.view.View
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import com.google.rpc.context.AttributeContext.Auth
 import com.welfare.blood.donation.databinding.ActivityLoginBinding
 import java.util.*
 
@@ -47,6 +53,46 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+        binding.reset.setOnClickListener{
+            val builder = AlertDialog.Builder(this)
+            val view =layoutInflater.inflate(R.layout.forget_password,null)
+            val userEmail = view.findViewById<EditText>(R.id.editBox)
+
+            builder.setView(view)
+            val dialog = builder.create()
+
+            view.findViewById<Button>(R.id.reset).setOnClickListener{
+                compareEmail(userEmail)
+                dialog.dismiss()
+            }
+            view.findViewById<Button>(R.id.cancel).setOnClickListener{
+                dialog.dismiss()
+            }
+            if (dialog.window != null)
+                dialog.window!!.setBackgroundDrawable(ColorDrawable (0))
+            dialog.show()
+        }
+    }
+    private fun compareEmail(email: EditText) {
+        val emailText = email.text.toString().trim()
+
+        if (emailText.isEmpty()) {
+            Toast.makeText(this, "Please enter your email", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(emailText).matches()) {
+            Toast.makeText(this, "Please enter a valid email address", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        auth.sendPasswordResetEmail(emailText).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Toast.makeText(this, "Check your email for password reset instructions", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Error sending password reset email", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun loginUser() {
@@ -73,7 +119,7 @@ class LoginActivity : AppCompatActivity() {
                     db.collection("users").document(userID).set(updateData, SetOptions.merge())
                         .addOnSuccessListener {
                             binding.progressBar.visibility = View.GONE
-                            // Save login state in SharedPreferences
+
                             val sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
                             with(sharedPreferences.edit()) {
                                 putBoolean("isLoggedIn", true)
@@ -112,7 +158,7 @@ class LoginActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "LoginActivity"
     }
-}
+}//sendPasswordResetEmail check this error and solve
 
 
 //        binding.forgotPassword.setOnClickListener {

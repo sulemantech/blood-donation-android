@@ -35,12 +35,24 @@ class HomeActivity : AppCompatActivity() {
     private val auth = FirebaseAuth.getInstance()
     private val db = FirebaseFirestore.getInstance()
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding=ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val name = intent.getStringExtra("name")
+        val bloodGroup = intent.getStringExtra("bloodGroup")
+        val location = intent.getStringExtra("location")
+
+        if (name != null && bloodGroup != null && location != null) {
+            val intent = Intent(this, CreateRequestActivity::class.java).apply {
+                putExtra("bloodFor", "Myself")
+                putExtra("name", name)
+                putExtra("bloodGroup", bloodGroup)
+                putExtra("location", location)
+            }
+            startActivity(intent)
+        }
 
         binding.navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
@@ -145,33 +157,11 @@ class HomeActivity : AppCompatActivity() {
             }
         }
     }
-    private fun promptForPassword() {
-        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_password_input, null)
-        val passwordEditText = dialogView.findViewById<EditText>(R.id.editTextPassword)
-
-        val alertDialog = AlertDialog.Builder(this)
-            .setView(dialogView)
-            .setTitle("Re-authenticate")
-            .setPositiveButton("Confirm") { _, _ ->
-                val password = passwordEditText.text.toString().trim()
-                if (password.isNotEmpty()) {
-                    performProfileDeletionWithPassword(password)
-                } else {
-                    Toast.makeText(this, "Please enter your password.", Toast.LENGTH_SHORT).show()
-                }
-            }
-            .setNegativeButton("Cancel", null)
-            .create()
-
-        alertDialog.show()
-    }
-
     private fun performProfileDeletionWithPassword(password: String) {
         val user = auth.currentUser
         user?.let {
             val credential = EmailAuthProvider.getCredential(it.email!!, password)
 
-            // Re-authenticate the user
             it.reauthenticate(credential).addOnCompleteListener { reauthTask ->
                 if (reauthTask.isSuccessful) {
                     performProfileDeletion()
@@ -182,26 +172,28 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    private fun promptForPassword() {
+        performProfileDeletion()
+    }
+
     private fun performProfileDeletion() {
         val user = auth.currentUser
         user?.let {
-            it.delete().addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    // Optionally, delete user data from Firestore if necessary
+            it.delete().addOnCompleteListener { authTask ->
+                if (authTask.isSuccessful) {
                     db.collection("users").document(it.uid).delete().addOnCompleteListener { firestoreTask ->
                         if (firestoreTask.isSuccessful) {
-                            // Navigate to login screen
                             val intent = Intent(this, LoginActivity::class.java)
                             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                             startActivity(intent)
-                            finish() // Finish the current activity
+                            finish()
                             Toast.makeText(this, "Profile deleted successfully", Toast.LENGTH_SHORT).show()
                         } else {
                             Toast.makeText(this, "Failed to delete user data: ${firestoreTask.exception?.message}", Toast.LENGTH_SHORT).show()
                         }
                     }
                 } else {
-                    Toast.makeText(this, "Failed to delete profile: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Failed to delete profile: ${authTask.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -346,5 +338,4 @@ class HomeActivity : AppCompatActivity() {
             binding.menuLine.visibility = View.GONE
         }
     }
-
 }

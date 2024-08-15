@@ -10,44 +10,47 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
-
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
-        android:screenOrientation="portrait"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/blood_bank_icon_round"
         android:label="@string/app_name"
+        android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.BloodDonation"
         tools:targetApi="31">
         <activity
+            android:name=".BloodBankAllItemsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DataSafetyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TermConditionActivity"
+            android:exported="false" />
+        <activity
             android:name=".PrivacyPolicyActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".AllDonorsActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".CriticalPatientsListActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".EditProfileActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/noti"
-            />
+            android:resource="@drawable/noti" />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="default_channel" />
@@ -55,128 +58,109 @@
         <activity
             android:name=".FAQActivity"
             android:exported="false"
-            android:theme="@style/ThemeB"
             android:screenOrientation="portrait"
-            />
+            android:theme="@style/ThemeB" />
         <activity
             android:name=".ChatActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity android:name=".fragments.ReceivedRequestsFragment" />
         <activity
             android:name=".BothHistoryActivity"
             android:exported="false"
-            android:theme="@style/ThemeB"
             android:screenOrientation="portrait"
-            />
+            android:theme="@style/ThemeB" />
         <activity
             android:name=".SearchResultActivity"
             android:exported="false"
-            android:theme="@style/ThemeB"
             android:screenOrientation="portrait"
-            />
+            android:theme="@style/ThemeB" />
         <activity
             android:name=".SearchActivity"
             android:exported="false"
-            android:theme="@style/ThemeB"
             android:screenOrientation="portrait"
-            />
+            android:theme="@style/ThemeB" />
+
         <activity
             android:name=".BloodbankActivity"
             android:exported="false"
-            android:theme="@style/ThemeA"
             android:screenOrientation="portrait"
-            />
+            android:theme="@style/ThemeA" />
         <activity
             android:name=".HomeActivity"
             android:exported="false"
-            android:theme="@style/ThemeB"
             android:screenOrientation="portrait"
-            />
+            android:theme="@style/ThemeB" />
         <activity
             android:name=".ResetCredentialActivity"
             android:exported="false"
-            android:theme="@style/ThemeA"
             android:screenOrientation="portrait"
-            />
+            android:theme="@style/ThemeA" />
         <activity
             android:name=".VerifyOtpActivity"
             android:exported="false"
-            android:theme="@style/ThemeA"
             android:screenOrientation="portrait"
-            />
+            android:theme="@style/ThemeA" />
         <activity
             android:name=".ForgetPasswordActivity"
             android:exported="false"
-            android:theme="@style/ThemeA"
             android:screenOrientation="portrait"
-            />
+            android:theme="@style/ThemeA" />
         <activity
             android:name=".RegisterActivity"
             android:exported="false"
-            android:theme="@style/ThemeA"
             android:screenOrientation="portrait"
-            />
+            android:theme="@style/ThemeA" />
         <activity
             android:name=".onBoardingActivity"
             android:exported="false"
-            android:theme="@style/ThemeC"
             android:screenOrientation="portrait"
-            />
+            android:theme="@style/ThemeC" />
         <activity
             android:name=".SentSuccessfullActivity"
             android:exported="false"
-            android:theme="@style/ThemeA"
             android:screenOrientation="portrait"
-            />
+            android:theme="@style/ThemeA" />
         <activity
             android:name=".CreateRequestActivity"
             android:exported="false"
-            android:theme="@style/ThemeA"
             android:screenOrientation="portrait"
-            />
+            android:theme="@style/ThemeA" />
         <activity
             android:name=".DonateBloodActivity"
             android:exported="false"
-            android:theme="@style/ThemeA"
             android:screenOrientation="portrait"
-            />
+            android:theme="@style/ThemeA" />
         <activity
             android:name=".ProfileActivity"
             android:exported="false"
-            android:theme="@style/ThemeA"
             android:screenOrientation="portrait"
-            />
+            android:theme="@style/ThemeA" />
         <activity
             android:name=".PostActivity"
             android:exported="false"
-            android:theme="@style/ThemeA"
             android:screenOrientation="portrait"
-            />
+            android:theme="@style/ThemeA" />
         <activity
             android:name=".LoginActivity"
             android:exported="false"
-            android:theme="@style/ThemeA"
             android:screenOrientation="portrait"
-            />
+            android:theme="@style/ThemeA" />
         <activity
             android:name=".MainActivity"
             android:exported="false"
-            android:theme="@style/ThemeA"
             android:screenOrientation="portrait"
-            />
+            android:theme="@style/ThemeA" />
         <activity
             android:name=".BloodDonorActivity"
             android:exported="false"
-            android:theme="@style/ThemeA"
             android:screenOrientation="portrait"
-            />
+            android:theme="@style/ThemeA" />
         <activity
             android:name=".SplashActivity"
             android:exported="true"
-            android:theme="@style/ThemeD"
             android:screenOrientation="portrait"
+            android:theme="@style/ThemeD"
             tools:ignore="ExtraText">
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
             <intent-filter>
@@ -185,18 +169,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service
             android:name=".MyFirebaseMessagingService"
-            android:exported="true"
+            android:exported="false"
             android:enabled="true"
             android:directBootAware="true">
             <intent-filter>
-                <action
-                    android:name="com.google.firebase.MESSAGING_EVENT">
-                </action>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
-
+        <receiver android:name=".NotificationCancelReceiver" android:exported="true"/>
     </application>
 
 </manifest>

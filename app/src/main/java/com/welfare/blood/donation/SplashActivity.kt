@@ -40,7 +40,6 @@ class SplashActivity : AppCompatActivity() {
 
         val handler = Handler(Looper.getMainLooper())
         handler.postDelayed({
-            // Check login state
             val sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
             val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
 
@@ -55,7 +54,7 @@ class SplashActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
-        }, 2000) // Delay for 2 seconds
+        }, 2000)
     }
 
     private fun setWindowFlag(bits: Int, on: Boolean) {

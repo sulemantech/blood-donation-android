@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
+import com.welfare.blood.donation.adapters.BloodBankAdapter
 import com.welfare.blood.donation.databinding.ActivityBloodbankBinding
 import com.welfare.blood.donation.fragments.HistoryFragment
 
@@ -16,6 +17,16 @@ class BloodbankActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding=ActivityBloodbankBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val bloodBankItems = listOf("Blood Bank 1", "Blood Bank 2", "Blood Bank 3", "Blood Bank 4")
+        val adapter = BloodBankAdapter(bloodBankItems)
+        binding.bloodbankRecyclerview.adapter = adapter
+
+        binding.seeAllBanks.setOnClickListener {
+            val intent = Intent(this, BloodBankAllItemsActivity::class.java)
+            intent.putStringArrayListExtra("allItems", ArrayList(bloodBankItems))
+            startActivity(intent)
+        }
 
         if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
             setWindowFlag(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, true)

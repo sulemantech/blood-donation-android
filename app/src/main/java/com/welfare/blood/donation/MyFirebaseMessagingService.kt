@@ -2,63 +2,92 @@ package com.welfare.blood.donation
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.welfare.blood.donation.fragments.ReceivedRequestsFragment
 import java.util.Random
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
-        // TODO(developer): Handle FCM messages here.
-        // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
-       Toast.makeText(this,"new message",Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "New message received", Toast.LENGTH_SHORT).show()
 
-        // Check if message contains a data payload.
         if (remoteMessage.data.isNotEmpty()) {
-            Toast.makeText(this,"new message",Toast.LENGTH_SHORT).show()
+            val title = remoteMessage.data["title"]
+            val message = remoteMessage.data["message"]
+            val activity = remoteMessage.data["activity"]
+            val extraData = remoteMessage.data["extraData"]
 
-            // Check if data needs to be processed by long running job
-//            if (needsToBeScheduled()) {
-//                // For long-running tasks (10 seconds or more) use WorkManager.
-//                scheduleJob()
-//            } else {
-//                // Handle message within 10 seconds
-//                handleNow()
-//            }
+            saveNotificationLocally(title, message, activity, extraData)
+            showNotification(title, message, activity, extraData)
         }
 
-        // Check if message contains a notification payload.
         remoteMessage.notification?.let {
-            Toast.makeText(this,"new message",Toast.LENGTH_SHORT).show()
+            val title = it.title
+            val message = it.body
+
+            saveNotificationLocally(title, message, null, null)
+            showNotification(title, message, null, null)
         }
-
-        // Also if you intend on generating your own notifications as a result of a received FCM
-        // message, here is where that should be initiated. See sendNotification method below.
-    }
-
-    private fun handleNow() {
-        TODO("Not yet implemented")
-    }
-
-    private fun scheduleJob() {
-        TODO("Not yet implemented")
-    }
-
-    private fun needsToBeScheduled() {
-
     }
 
     override fun onNewToken(token: String) {
         super.onNewToken(token)
+
     }
 
-    private fun showNotification(title: String?, message: String?) {
+    private fun saveNotificationLocally(title: String?, message: String?, activity: String?, extraData: String?) {
+        val notification = NotificationEntity(
+            title = title,
+            message = message,
+            activity = activity,
+            extraData = extraData
+        )
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val db = AppDatabase.getDatabase(applicationContext)
+            db.notificationDao().insertNotification(notification)
+        }
+    }
+
+    private fun showNotification(title: String?, message: String?, activity: String?, extraData: String?) {
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val notificationID = Random().nextInt(3000)
+
+        val intent = if (activity != null) {
+            Intent(this, Class.forName(activity)).apply {
+                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                putExtra("extraData", extraData)
+            }
+        } else {
+            Intent(this, ReceivedRequestsFragment::class.java)
+        }
+
+        val openPendingIntent = PendingIntent.getActivity(
+            this,
+            notificationID,
+            intent,
+            PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val cancelIntent = Intent(this, NotificationCancelReceiver::class.java).apply {
+            putExtra("notification_id", notificationID)
+        }
+        val cancelPendingIntent = PendingIntent.getBroadcast(
+            this,
+            notificationID,
+            cancelIntent,
+            PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
+        )
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channelName = "FCM Notification"
@@ -66,12 +95,21 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             notificationManager.createNotificationChannel(channel)
         }
 
+        val sharedPreferences = getSharedPreferences("notification_prefs", Context.MODE_PRIVATE)
+        val notificationCount = sharedPreferences.getInt("notification_count", 0) + 1
+
         val notificationBuilder = NotificationCompat.Builder(this, "default")
             .setContentTitle(title)
             .setContentText(message)
             .setSmallIcon(R.drawable.noti)
             .setAutoCancel(true)
+            .setContentIntent(openPendingIntent)
+            .setNumber(notificationCount)  // Display the count on the notification
+            .addAction(R.drawable.baseline_open_in_full_24, "Open", openPendingIntent)
+            .addAction(R.drawable.baseline_cancel_24, "Cancel", cancelPendingIntent)
 
         notificationManager.notify(notificationID, notificationBuilder.build())
+
+        sharedPreferences.edit().putInt("notification_count", notificationCount).apply()
     }
 }

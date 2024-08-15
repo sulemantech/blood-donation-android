@@ -48,17 +48,11 @@
                 android:layout_gravity="center"/>
         </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Notification Fragment"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="300dp"
-            android:textSize="25dp"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/notificationRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

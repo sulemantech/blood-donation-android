@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".BloodbankActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -111,6 +117,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp"
+        android:id="@+id/linear_text"
         android:layout_marginEnd="30dp"
         android:layout_marginStart="30dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -190,4 +197,25 @@
         android:textColor="@color/black"/>
 
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/see_all_banks"
+            android:text="See All"
+            android:textSize="18dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_marginTop="10sp"
+            android:layout_marginEnd="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linear_text"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/see_all_banks"
+            android:padding="10sp"
+            tools:listitem="@layout/blood_bank_recyclerview"
+            android:id="@+id/bloodbank_recyclerview"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

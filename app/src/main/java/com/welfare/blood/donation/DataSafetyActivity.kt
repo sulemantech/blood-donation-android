@@ -6,15 +6,16 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
-import com.welfare.blood.donation.databinding.ActivityPrivacyPolicyBinding
+import com.welfare.blood.donation.databinding.ActivityCreateRequestBinding
+import com.welfare.blood.donation.databinding.ActivityDataSafetyBinding
 
-class PrivacyPolicyActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityPrivacyPolicyBinding
+class DataSafetyActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityDataSafetyBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding=ActivityPrivacyPolicyBinding.inflate(layoutInflater)
+        binding= ActivityDataSafetyBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         binding.backArrow.setOnClickListener {
             onBackPressed()
         }
@@ -30,7 +31,9 @@ class PrivacyPolicyActivity : AppCompatActivity() {
             setWindowFlag(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, false)
             window.statusBarColor = ContextCompat.getColor(this, android.R.color.transparent)
         }
+
     }
+
     private fun setWindowFlag(bits: Int, on: Boolean) {
         val win = window
         val winParams = win.attributes

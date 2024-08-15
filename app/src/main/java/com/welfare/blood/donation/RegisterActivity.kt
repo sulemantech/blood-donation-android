@@ -37,13 +37,25 @@ class RegisterActivity : AppCompatActivity() {
         progressDialog.setMessage("Registering...")
         progressDialog.setCancelable(false)
 
+
         binding.signUp.setOnClickListener {
-            registerUser()
+            if (binding.agree.isChecked) {
+                registerUser()
+            } else {
+                Toast.makeText(this, "Please agree to the Terms and Conditions", Toast.LENGTH_SHORT).show()
+            }
         }
 
         binding.edLastdonationdate.setOnClickListener {
             showDatePickerDialogForLastDonationDate()
         }
+        binding.term.setOnClickListener {
+            val intent = Intent(this, TermConditionActivity::class.java)
+            startActivity(intent)
+        }
+        binding.data.setOnClickListener {
+            val intent = Intent(this, PrivacyPolicyActivity::class.java)
+            startActivity(intent)        }
     }
 
     private fun showDatePickerDialogForLastDonationDate() {
@@ -92,7 +104,6 @@ class RegisterActivity : AppCompatActivity() {
                                 if (task.isSuccessful) {
                                     val userID = auth.currentUser!!.uid
 
-                                    // Get FCM token
                                     FirebaseMessaging.getInstance().token.addOnCompleteListener { tokenTask ->
                                         if (tokenTask.isSuccessful) {
                                             val token = tokenTask.result
@@ -106,7 +117,8 @@ class RegisterActivity : AppCompatActivity() {
                                                 "location" to location,
                                                 "isDonor" to wantsToDonate,
                                                 "fcmToken" to token,
-                                                "lastLoginAt" to null
+                                                "lastLoginAt" to null,
+                                                "registrationTimestamp" to com.google.firebase.firestore.FieldValue.serverTimestamp()
                                             )
 
                                             db.collection("users").document(userID).set(user, SetOptions.merge())
@@ -115,8 +127,7 @@ class RegisterActivity : AppCompatActivity() {
                                                     binding.progressBar.visibility = View.GONE
                                                     Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show()
 
-                                                    val intent = Intent(this, CreateRequestActivity::class.java).apply {
-                                                        putExtra("bloodFor", "Myself")
+                                                    val intent = Intent(this, HomeActivity::class.java).apply {
                                                         putExtra("name", name)
                                                         putExtra("bloodGroup", bloodGroup)
                                                         putExtra("location", location)
@@ -150,7 +161,7 @@ class RegisterActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "RegisterActivity"
     }
-}//user is activity sy search ho k arhy hn jo users wo other users hony chahiye current user search list me fetch na ho
+}
 
 
 

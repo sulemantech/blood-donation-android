@@ -288,6 +288,34 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ed_lastdonationdate" />
+        <CheckBox
+            android:id="@+id/agree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginStart="70dp"
+            android:backgroundTint="@color/maron"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/no_yes" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/agree"
+            app:layout_constraintTop_toBottomOf="@+id/no_yes"
+            android:layout_marginTop="5dp"
+            android:id="@+id/term"
+            android:text="@string/i_confirm_i_am_of_legal_age_and_agree_to_the_terms_and_data_privacy" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/term"
+            app:layout_constraintTop_toBottomOf="@+id/no_yes"
+            android:layout_marginTop="21dp"
+            android:layout_marginStart="270sp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/data"
+            android:text="@string/data_privacy"/>
 
         <TextView
             android:id="@+id/sign_up"
@@ -302,7 +330,7 @@
             android:layout_marginStart="25sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/no_yes" />
+            app:layout_constraintTop_toBottomOf="@+id/agree" />
 
         <ProgressBar
             android:id="@+id/progress_bar"
@@ -315,7 +343,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="16dp"
+            android:layout_height="26dp"
             android:background="@android:color/transparent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

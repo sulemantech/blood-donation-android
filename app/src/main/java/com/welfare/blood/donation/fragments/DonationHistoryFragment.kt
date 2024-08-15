@@ -136,4 +136,4 @@ class DonationHistoryFragment : Fragment() {
             Log.w("DonationHistoryFragment", "Donation ID is null or invalid")
         }
     }
-}//error in onDeleteClick
+}

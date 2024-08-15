@@ -103,7 +103,6 @@ class SearchResultActivity : AppCompatActivity() {
         binding.progressBar.visibility = View.GONE
         binding.recyclerView.visibility = View.VISIBLE
     }
-
     companion object {
         private const val TAG = "SearchResultActivity"
     }

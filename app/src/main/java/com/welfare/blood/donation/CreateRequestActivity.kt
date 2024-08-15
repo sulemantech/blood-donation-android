@@ -231,7 +231,8 @@ class CreateRequestActivity : AppCompatActivity() {
             "userId" to currentUser.uid,
             "recipientId" to currentUser.uid,
             "status" to "pending",
-            "critical" to isCritical
+            "critical" to isCritical,
+
         )
 
         db.collection("requests")

@@ -69,26 +69,13 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textSize="20sp"
+        android:gravity="center"
+        android:textSize="18sp"
         android:layout_marginTop="80sp"
         android:textColor="@color/white"
-        android:text="Pipal Welfare Organization"
+        android:text="@string/katlang_blood_donation_amp_thalassemia_center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"/>
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="250sp"
-        android:layout_height="186sp"
-        android:layout_gravity="center"
-        android:backgroundTint="@color/white"
-        android:drawableTint="@color/white"
-        android:layout_marginTop="189sp"
-        android:background="@drawable/top_image"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
