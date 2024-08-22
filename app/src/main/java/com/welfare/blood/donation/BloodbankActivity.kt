@@ -9,22 +9,33 @@ import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import com.welfare.blood.donation.adapters.BloodBankAdapter
 import com.welfare.blood.donation.databinding.ActivityBloodbankBinding
-import com.welfare.blood.donation.fragments.HistoryFragment
+import com.welfare.blood.donation.models.BloodBankItem
 
 class BloodbankActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBloodbankBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding=ActivityBloodbankBinding.inflate(layoutInflater)
+        binding = ActivityBloodbankBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val bloodBankItems = listOf("Blood Bank 1", "Blood Bank 2", "Blood Bank 3", "Blood Bank 4")
-        val adapter = BloodBankAdapter(bloodBankItems)
-        binding.bloodbankRecyclerview.adapter = adapter
+        // Sample data
+        val bloodBankItems = listOf(
+            BloodBankItem("Blood Bank 1", "123-456-7890", "Address 1"),
+            BloodBankItem("Blood Bank 2", "234-567-8901", "Address 2"),
+            BloodBankItem("Blood Bank 3", "345-678-9012", "Address 3"),
+            BloodBankItem("Blood Bank 4", "456-789-0123", "Address 4")
+        )
 
+        // Display only the first 2 items initially
+//        val initialItems = bloodBankItems.take(2)
+//        val adapter = BloodBankAdapter(initialItems)
+//        binding.bloodbankRecyclerview.adapter = adapter
+
+        // Pass all items to the next activity
         binding.seeAllBanks.setOnClickListener {
             val intent = Intent(this, BloodBankAllItemsActivity::class.java)
-            intent.putStringArrayListExtra("allItems", ArrayList(bloodBankItems))
+            intent.putParcelableArrayListExtra("allItems", ArrayList(bloodBankItems))
             startActivity(intent)
         }
 
@@ -42,7 +53,6 @@ class BloodbankActivity : AppCompatActivity() {
         binding.backArrow.setOnClickListener {
             onBackPressed()
         }
-
     }
 
     private fun setWindowFlag(bits: Int, on: Boolean) {

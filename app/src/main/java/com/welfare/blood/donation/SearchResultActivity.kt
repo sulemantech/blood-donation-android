@@ -35,57 +35,46 @@ class SearchResultActivity : AppCompatActivity() {
             adapter = userAdapter
         }
 
-        val searchId = intent.getStringExtra("searchId")
-        if (searchId != null) {
-            fetchUsers(searchId)
+        // Fetch the passed search criteria from Intent
+        val bloodGroup = intent.getStringExtra("bloodGroup")
+        val location = intent.getStringExtra("location")
+
+        if (bloodGroup != null && location != null) {
+            fetchUsers(bloodGroup, location)
         } else {
-            Log.e(TAG, "No searchId found in Intent extras")
-            Toast.makeText(this, "No searchId found", Toast.LENGTH_SHORT).show()
+            Log.e(TAG, "Search criteria not found in Intent extras")
+            Toast.makeText(this, "No search criteria found", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, SearchActivity::class.java)
+            startActivity(intent)
         }
     }
 
-    private fun fetchUsers(searchId: String) {
+    private fun fetchUsers(bloodGroup: String, location: String) {
         binding.progressBar.visibility = View.VISIBLE
         binding.recyclerView.visibility = View.GONE
 
-        db.collection("searches").document(searchId).get()
-            .addOnSuccessListener { document ->
-                val bloodGroup = document.getString("bloodGroup")
-                val location = document.getString("location")
+        Log.d(TAG, "Search criteria: bloodGroup=$bloodGroup, location=$location")
 
-                if (location != null) {
-                    Log.d(TAG, "Search criteria: bloodGroup=$bloodGroup, location=$location")
+        val currentUserID = FirebaseAuth.getInstance().currentUser?.uid
 
-                    val currentUserID = FirebaseAuth.getInstance().currentUser?.uid
+        var usersRef = db.collection("users")
+            .whereEqualTo("location", location.trim())
 
-                    var usersRef = db.collection("users")
-                        .whereEqualTo("location", location.trim())
+        if (bloodGroup.isNotEmpty()) {
+            usersRef = usersRef.whereEqualTo("bloodGroup", bloodGroup.trim())
+        }
 
-                    if (!bloodGroup.isNullOrEmpty()) {
-                        usersRef = usersRef.whereEqualTo("bloodGroup", bloodGroup.trim())
-                    }
-
-                    usersRef.get()
-                        .addOnSuccessListener { result ->
-                            handleUserResult(result, currentUserID)
-                        }
-                        .addOnFailureListener { e ->
-                            Log.e(TAG, "Error fetching users", e)
-                            Toast.makeText(this, "Error fetching users: ${e.message}", Toast.LENGTH_SHORT).show()
-                            binding.progressBar.visibility = View.GONE
-                        }
-                } else {
-                    Toast.makeText(this, "Invalid search data", Toast.LENGTH_SHORT).show()
-                    Log.e(TAG, "Invalid search data: bloodGroup=$bloodGroup, location=$location")
-                    binding.progressBar.visibility = View.GONE
-                }
+        usersRef.get()
+            .addOnSuccessListener { result ->
+                handleUserResult(result, currentUserID)
             }
             .addOnFailureListener { e ->
-                Log.e(TAG, "Error fetching search document", e)
-                Toast.makeText(this, "Error fetching search document: ${e.message}", Toast.LENGTH_SHORT).show()
+                Log.e(TAG, "Error fetching users", e)
+                Toast.makeText(this, "Error fetching users: ${e.message}", Toast.LENGTH_SHORT).show()
                 binding.progressBar.visibility = View.GONE
             }
     }
+
     private fun handleUserResult(result: QuerySnapshot, currentUserID: String?) {
         val users = result.toObjects(Register::class.java)
         val filteredUsers = users.filter { user -> user.userID != currentUserID }
@@ -103,6 +92,7 @@ class SearchResultActivity : AppCompatActivity() {
         binding.progressBar.visibility = View.GONE
         binding.recyclerView.visibility = View.VISIBLE
     }
+
     companion object {
         private const val TAG = "SearchResultActivity"
     }

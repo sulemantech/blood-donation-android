@@ -11,11 +11,12 @@ class RequestAdapter(
     private val requestList: List<Request>,
     private val onEditClick: (Request) -> Unit,
     private val onDeleteClick: (Request) -> Unit,
-    private val onShowDonorsClick: (String) -> Unit // Updated to match function signature
+    private val onShowDonorsClick: (String) -> Unit
 ) : RecyclerView.Adapter<RequestAdapter.RequestViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RequestViewHolder {
-        val binding = HistoryRecyclerviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = HistoryRecyclerviewBinding.inflate(LayoutInflater.
+        from(parent.context), parent, false)
         return RequestViewHolder(binding)
     }
 
@@ -66,7 +67,7 @@ class RequestAdapter(
             "AB-" -> R.drawable.ic_ab_minus
             "O+" -> R.drawable.ic_o_plus
             "O-" -> R.drawable.ic_o_minus
-            else -> R.drawable.blood_droplet // Add a default image if necessary
+            else -> R.drawable.blood_droplet
         }
     }
 

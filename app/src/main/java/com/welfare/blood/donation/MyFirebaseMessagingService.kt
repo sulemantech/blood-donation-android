@@ -28,6 +28,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             val extraData = remoteMessage.data["extraData"]
 
             saveNotificationLocally(title, message, activity, extraData)
+
             showNotification(title, message, activity, extraData)
         }
 
@@ -36,13 +37,13 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             val message = it.body
 
             saveNotificationLocally(title, message, null, null)
+
             showNotification(title, message, null, null)
         }
     }
 
     override fun onNewToken(token: String) {
         super.onNewToken(token)
-
     }
 
     private fun saveNotificationLocally(title: String?, message: String?, activity: String?, extraData: String?) {
@@ -74,7 +75,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
         val openPendingIntent = PendingIntent.getActivity(
             this,
-            notificationID,
+            0,
             intent,
             PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
         )
@@ -84,7 +85,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         }
         val cancelPendingIntent = PendingIntent.getBroadcast(
             this,
-            notificationID,
+            0,
             cancelIntent,
             PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
         )

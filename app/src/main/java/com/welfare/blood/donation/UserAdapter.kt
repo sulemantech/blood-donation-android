@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +21,24 @@ class UserAdapter(
             binding.tvAddress.text = user.location
             binding.tvBloodGroup.text = user.bloodGroup
             binding.phone.text =user.phone
+
+            binding.phoneCall.setOnClickListener {
+                val intent = Intent(Intent.ACTION_DIAL).apply {
+                    data = Uri.parse("tel:${user.phone}")
+                }
+                itemView.context.startActivity(intent)
+            }
+
+            binding.share.setOnClickListener {
+                val shareText = "Donor Name: ${user.name}\nBlood Group: ${user.bloodGroup}\nLocation: ${user.location}\nContact: ${user.phone}"
+                val intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, shareText)
+                    type = "text/plain"
+                }
+                val chooser = Intent.createChooser(intent, "Share via")
+                itemView.context.startActivity(chooser)
+            }
 
             // Set the blood group image
             binding.imageBloodGroup.setImageResource(getBloodGroupImageResource(user.bloodGroup))
@@ -100,4 +119,4 @@ class UserAdapter(
             else -> "Unknown"
         }
     }
-}//i want to add phone instead of bloog group
+}

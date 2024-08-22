@@ -10,15 +10,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.welfare.blood.donation.AddDonorsActivity
 import com.welfare.blood.donation.BloodbankActivity
 import com.welfare.blood.donation.BothHistoryActivity
-import com.welfare.blood.donation.CreateRequestActivity
 import com.welfare.blood.donation.CriticalPatientsListActivity
 import com.welfare.blood.donation.DonateBloodActivity
 import com.welfare.blood.donation.ProfileActivity
@@ -37,6 +38,7 @@ class HomeFragment : Fragment() {
     private lateinit var tvWelcomeMessage: TextView
     private lateinit var criticalPatientAdapter: CriticalPatientAdapter
     private val criticalPatients = mutableListOf<CriticalPatient>()
+    private lateinit var addDonorsButton: FrameLayout // Reference to the button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,24 +55,36 @@ class HomeFragment : Fragment() {
 
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
+        addDonorsButton = binding.btnFive
 
         tvWelcomeMessage = binding.home1
 
         val userID = auth.currentUser?.uid
         userID?.let { uid ->
-            db.collection("users").document(uid).get()
-                .addOnSuccessListener { document ->
-                    if (document != null) {
-                        val userName = document.getString("name")
-                        val welcomeText = "Welcome, $userName"
-                        tvWelcomeMessage.text = createSpannableText(welcomeText)
-                    } else {
-                        tvWelcomeMessage.text = createSpannableText("Welcome")
-                    }
+            db.collection("users").document(uid).addSnapshotListener { documentSnapshot, e ->
+                if (e != null) {
+                    Log.w(TAG, "Listen failed.", e)
+                    return@addSnapshotListener
                 }
-                .addOnFailureListener {
+
+                if (documentSnapshot != null && documentSnapshot.exists()) {
+                    val userName = documentSnapshot.getString("name")
+                    val userType = documentSnapshot.getString("userType") // Fetch userType
+                    val welcomeText = "Welcome, $userName"
+                    tvWelcomeMessage.text = createSpannableText(welcomeText)
+
+                    if (userType == "admin") {
+                        addDonorsButton.visibility = View.VISIBLE
+                        addDonorsButton.setOnClickListener {
+                            startActivity(Intent(requireContext(), AddDonorsActivity::class.java))
+                        }
+                    } else {
+                        addDonorsButton.visibility = View.GONE
+                    }
+                } else {
                     tvWelcomeMessage.text = createSpannableText("Welcome")
                 }
+            }
         }
 
         binding.criticalPatientRecyclerview.layoutManager = LinearLayoutManager(requireContext())
@@ -102,9 +116,11 @@ class HomeFragment : Fragment() {
         binding.cardview6.setOnClickListener {
             startActivity(Intent(requireContext(), ProfileActivity::class.java))
         }
+
         binding.tvSeeAll.setOnClickListener {
             startActivity(Intent(requireContext(), CriticalPatientsListActivity::class.java))
         }
+
         binding.criticalPatientRecyclerview.setOnClickListener {
             startActivity(Intent(requireContext(), CriticalPatientsListActivity::class.java))
         }
@@ -168,9 +184,17 @@ class HomeFragment : Fragment() {
                 }
             }
     }
+
     private fun showCriticalPatient(criticalPatients: MutableList<CriticalPatient>) {
+        // Implement as needed
     }
+
     private fun displayPatientCount(count: Int) {
         binding.emergencyPatientsLabel.text = "Emergency Patients: $count"
     }
-}
+
+    companion object {
+        private const val TAG = "HomeFragment"
+    }
+}//jab firebase me usertype admin ho jaye tab btnfive show hoga us ko click krny adddonoreactivity open hogi us activity me ek clickableimage hai usko click krny py register activity open honi chahiye or data add krny p bad wo data user collection me jana chahiye or udr ek field ha addedbyadmin wo ture ho jana chahiye
+

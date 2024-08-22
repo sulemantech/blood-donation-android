@@ -285,6 +285,7 @@
             android:layout_marginTop="30dp"
             android:text="Ready to Donate Blood?"
             android:backgroundTint="@color/maron"
+            android:buttonTint="@color/maron"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ed_lastdonationdate" />
@@ -295,6 +296,7 @@
             android:gravity="center"
             android:layout_marginStart="70dp"
             android:backgroundTint="@color/maron"
+            android:buttonTint="@color/maron"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/no_yes" />
 

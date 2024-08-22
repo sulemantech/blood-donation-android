@@ -125,13 +125,12 @@ class RequestHistoryFragment : Fragment() {
 
     private fun deleteRequest(request: Request) {
         db.collection("requests").document(request.id)
-            .update("isDeleted", true) // Mark as deleted
+            .update("isDeleted", true)
             .addOnSuccessListener {
                 Toast.makeText(requireContext(), "Request deleted successfully", Toast.LENGTH_SHORT).show()
-                // Remove the request from the local list immediately
                 requestList.removeAll { it.id == request.id }
-                adapter.notifyDataSetChanged() // Notify adapter of changes
-                displayRequestCount(requestList.size) // Update request count
+                adapter.notifyDataSetChanged()
+                displayRequestCount(requestList.size)
             }
             .addOnFailureListener { e ->
                 Log.w("RequestHistoryFragment", "Error deleting request", e)

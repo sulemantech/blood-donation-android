@@ -1,5 +1,6 @@
 package com.welfare.blood.donation
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Build
@@ -7,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.widget.DatePicker
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -24,6 +26,7 @@ class CreateRequestActivity : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
     private lateinit var selectedDonationDate: String
     private var isCritical: Boolean = false
+    private var notified: Boolean = false
     private var requestId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +55,6 @@ class CreateRequestActivity : AppCompatActivity() {
             isCritical = isChecked
         }
 
-        // Check the "Myself" radio button and fill fields if checked
         binding.radioForMyself.isChecked = true
         fillFormFields()
 
@@ -78,7 +80,6 @@ class CreateRequestActivity : AppCompatActivity() {
             showDatePickerDialog()
         }
 
-        // Check if it's an edit request
         requestId = intent.getStringExtra("REQUEST_ID")
         if (requestId != null) {
             loadRequestData(requestId!!)
@@ -145,19 +146,20 @@ class CreateRequestActivity : AppCompatActivity() {
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-        // Create a new instance of DatePickerDialog
-        val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
+        val datePicker = DatePicker(this)
+        datePicker.init(year, month, day) { _, selectedYear, selectedMonth, selectedDay ->
             val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             calendar.set(selectedYear, selectedMonth, selectedDay)
             selectedDonationDate = sdf.format(calendar.time)
             binding.edDateRequired.setText(selectedDonationDate)
-        }, year, month, day)
+        }
 
-        // Set the minimum date to today's date
-        datePickerDialog.datePicker.minDate = calendar.timeInMillis
+        val dialog = AlertDialog.Builder(this)
+            .setView(datePicker)
+            .setTitle("Select Date")
+            .create()
 
-        // Show the DatePickerDialog
-        datePickerDialog.show()
+        dialog.show()
     }
 
     private fun validateInputs(): Boolean {
@@ -232,6 +234,7 @@ class CreateRequestActivity : AppCompatActivity() {
             "recipientId" to currentUser.uid,
             "status" to "pending",
             "critical" to isCritical,
+            "notified" to notified
 
         )
 

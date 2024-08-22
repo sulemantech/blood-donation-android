@@ -57,7 +57,7 @@
 
                     <LinearLayout
                         android:id="@+id/llpatientName"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
@@ -86,6 +86,7 @@
                             android:layout_marginStart="20dp"
                             android:background="@drawable/waiting_status"
                             android:gravity="center"
+                            android:text="pending"
                             android:textAlignment="center"
                             android:textAppearance="@style/patient_blood_status" />
                     </LinearLayout>

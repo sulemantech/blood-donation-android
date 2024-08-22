@@ -98,11 +98,13 @@
         <item>Chakwal</item>
         <item>Chiniot</item>
         <item>Chishtian</item>
+        <item>Charsada</item>
         <item>Dera Ghazi Khan</item>
         <item>Dera Ismail Khan</item>
         <item>Faisalabad</item>
         <item>Gilgit</item>
         <item>Gujranwala</item>
+        <item>Ghari Kapora</item>
         <item>Gujrat</item>
         <item>Gwadar</item>
         <item>Hafizabad</item>
@@ -118,6 +120,7 @@
         <item>Khairpur</item>
         <item>Kohat</item>
         <item>Kohlu</item>
+        <item>Katlang</item>
         <item>Kotli</item>
         <item>Lahore</item>
         <item>Larkana</item>
@@ -136,6 +139,7 @@
         <item>Peshawar</item>
         <item>Quetta</item>
         <item>Rahim Yar Khan</item>
+        <item>Rustan</item>
         <item>Rawalpindi</item>
         <item>Sadiqabad</item>
         <item>Sahiwal</item>
@@ -146,8 +150,24 @@
         <item>Skardu</item>
         <item>Sukkur</item>
         <item>Swabi</item>
+        <item>Takhtbai</item>
         <item>Vehari</item>
         <item>Zhob</item>
+    </string-array>
+    <string-array name="pakistan_areas">
+        <item>Katlang</item>
+        <item>Charsada</item>
+        <item>Ghari Kapora</item>
+        <item>Islamabad</item>
+        <item>Lahore</item>
+        <item>Mardan</item>
+        <item>Peshawar</item>
+        <item>Rustan</item>
+        <item>Rawalpindi</item>
+        <item>Skardu</item>
+        <item>Sukkur</item>
+        <item>Swabi</item>
+        <item>Takhtbai</item>
     </string-array>
 
     <string name="title_activity_received_request">ReceivedRequestActivity</string>

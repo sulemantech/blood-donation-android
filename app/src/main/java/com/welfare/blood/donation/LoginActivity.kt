@@ -2,17 +2,20 @@ package com.welfare.blood.donation
 
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.util.Patterns
 import android.view.View
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
@@ -31,6 +34,17 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
+            setWindowFlag(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, true)
+        }
+        if (Build.VERSION.SDK_INT >= 19) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        }
+        if (Build.VERSION.SDK_INT >= 21) {
+            setWindowFlag(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, false)
+            window.statusBarColor = ContextCompat.getColor(this, android.R.color.transparent)
+        }
 
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
@@ -73,6 +87,18 @@ class LoginActivity : AppCompatActivity() {
             dialog.show()
         }
     }
+
+    private fun setWindowFlag(bits: Int, on: Boolean) {
+        val win = window
+        val winParams = win.attributes
+        if (on) {
+            winParams.flags = winParams.flags or bits
+        } else {
+            winParams.flags = winParams.flags and bits.inv()
+        }
+        win.attributes = winParams
+    }
+
     private fun compareEmail(email: EditText) {
         val emailText = email.text.toString().trim()
 
@@ -158,163 +184,4 @@ class LoginActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "LoginActivity"
     }
-}//sendPasswordResetEmail check this error and solve
-
-
-//        binding.forgotPassword.setOnClickListener {
-//            val builder = AlertDialog.Builder(this)
-//            val view = layoutInflater.inflate(R.layout.dialog_forgot, null)
-//            val userEmail = view.findViewById<EditText>(R.id.editBox)
-//
-//            builder.setView(view)
-//            val dialog = builder.create()
-//
-//            view.findViewById<Button>(R.id.btnReset).setOnClickListener {
-//                compareEmail(userEmail)
-//                dialog.dismiss()
-//            }
-//            view.findViewById<Button>(R.id.btnCancel).setOnClickListener {
-//                dialog.dismiss()
-//            }
-//            if (dialog.window != null){
-//                dialog.window!!.setBackgroundDrawable(ColorDrawable(0))
-//            }
-//            dialog.show()
-//        }
-
-
-
-    //Outside onCreate
-//    private fun compareEmail(email: EditText){
-//        if (email.text.toString().isEmpty()){
-//            return
-//        }
-//        if (!Patterns.EMAIL_ADDRESS.matcher(email.text.toString()).matches()){
-//            return
-//        }
-//        firebaseAuth.sendPasswordResetEmail(email.text.toString())
-//            .addOnCompleteListener { task ->
-//                if (task.isSuccessful) {
-//                    Toast.makeText(this, "Check your email", Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//    }
-//    override fun onStart() {
-//        super.onStart()
-//
-//        if (auth.currentUser != null) {
-//            val intent = Intent(this, HomeActivity::class.java)
-//            startActivity(intent)
-//        }
-//    }
-
-
-
-//import android.content.Context
-//import android.content.Intent
-//import android.os.Bundle
-//import android.text.method.HideReturnsTransformationMethod
-//import android.text.method.PasswordTransformationMethod
-//import android.util.Log
-//import android.widget.Toast
-//import androidx.appcompat.app.AppCompatActivity
-//import com.welfare.blood.donation.databinding.ActivityLoginBinding
-//import retrofit2.Call
-//import retrofit2.Callback
-//import retrofit2.Response
-//
-//class LoginActivity : AppCompatActivity() {
-//
-//    private lateinit var binding: ActivityLoginBinding
-//    private val apiService = RetrofitInstance.api
-//
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        binding = ActivityLoginBinding.inflate(layoutInflater)
-//        setContentView(binding.root)
-//
-//        // Navigate to RegisterActivity when the register TextView is clicked
-//        binding.register.setOnClickListener {
-//            val intent = Intent(this, RegisterActivity::class.java)
-//            startActivity(intent)
-//        }
-//
-//        // Navigate to ForgetPasswordActivity when the forget password TextView is clicked
-//        binding.forgetPassword.setOnClickListener {
-//            val intent = Intent(this, ForgetPasswordActivity::class.java)
-//            startActivity(intent)
-//        }
-//
-//        // Toggle password visibility when the checkbox is checked/unchecked
-//        binding.showPassword.setOnCheckedChangeListener { _, isChecked ->
-//            if (isChecked) {
-//                // Show password
-//                binding.edPassword.transformationMethod = HideReturnsTransformationMethod.getInstance()
-//            } else {
-//                // Hide password
-//                binding.edPassword.transformationMethod = PasswordTransformationMethod.getInstance()
-//            }
-//        }
-//
-//        // Handle login button click
-//        binding.btnLogin.setOnClickListener {
-//            val username = binding.name.text.toString()
-//            val password = binding.password.text.toString()
-//
-//            if (username.isNotEmpty() && password.isNotEmpty()) {
-//                // Call login method if username and password are not empty
-//                loginUser(username, password)
-//            } else {
-//                // Show a message if username or password is empty
-//                Toast.makeText(this, "Please enter username and password", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-//    }
-//
-//    // Method to login user
-//    private fun loginUser(username: String, password: String) {
-//        val loginRequest = ApiService.LoginRequest(name = username, password = password)
-//
-//        apiService.login(loginRequest).enqueue(object : Callback<ApiService.LoginResponse> {
-//            override fun onResponse(call: Call<ApiService.LoginResponse>, response: Response<ApiService.LoginResponse>) {
-//                if (response.isSuccessful) {
-//                    val loginResponse = response.body()
-//                    if (loginResponse != null && loginResponse.auth) {
-//                        // Show success message and save the token
-//                        Toast.makeText(this@LoginActivity, "Login Successful", Toast.LENGTH_SHORT).show()
-//                        saveToken(loginResponse.token)
-//                        navigateToMainActivity()
-//                    } else {
-//                        // Show error message for incorrect username or password
-//                        Toast.makeText(this@LoginActivity, "Incorrect username or password", Toast.LENGTH_SHORT).show()
-//                    }
-//                } else {
-//                    // Show server error message
-//                    val errorMessage = response.errorBody()?.string() ?: "Login Failed. Please try again later."
-//                    Toast.makeText(this@LoginActivity, errorMessage, Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<ApiService.LoginResponse>, t: Throwable) {
-//                // Show network error message
-//                Toast.makeText(this@LoginActivity, "Network Error. Please check your internet connection.", Toast.LENGTH_SHORT).show()
-//                Log.e("LoginActivity", "Login failed", t)
-//            }
-//        })
-//    }
-//
-//    // Method to save token in shared preferences
-//    private fun saveToken(token: String) {
-//        val sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
-//        val editor = sharedPreferences.edit()
-//        editor.putString("auth_token", token)
-//        editor.apply()
-//    }
-//
-//    // Method to navigate to MainActivity
-//    private fun navigateToMainActivity() {
-//        val intent = Intent(this, MainActivity::class.java)
-//        startActivity(intent)
-//        finish()
-//    }
-//}
+}

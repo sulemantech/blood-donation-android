@@ -215,10 +215,9 @@
         android:textSize="15sp"
         android:textStyle="bold"
         android:textColor="@color/black"
-        android:layout_marginStart="318dp"
+        android:layout_marginStart="320dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img3" />
-
 
     <ImageView
                 android:layout_width="80dp"

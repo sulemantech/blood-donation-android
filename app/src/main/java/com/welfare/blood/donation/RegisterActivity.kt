@@ -1,18 +1,21 @@
 package com.welfare.blood.donation
 
 import android.app.DatePickerDialog
-import android.app.ProgressDialog
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
-import com.google.firebase.messaging.FirebaseMessaging
 import com.welfare.blood.donation.databinding.ActivityRegisterBinding
+import com.welfare.blood.donation.models.CommunityDonors
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -21,41 +24,238 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
-    private lateinit var progressDialog: ProgressDialog
+
     private lateinit var selectedDateOfBirth: String
     private lateinit var selectedLastDonationDate: String
+    private var isAddedByAdmin: Boolean = false
+    private var userId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
+            setWindowFlag(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, true)
+        }
+        if (Build.VERSION.SDK_INT >= 19) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        }
+        if (Build.VERSION.SDK_INT >= 21) {
+            setWindowFlag(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, false)
+            window.statusBarColor = ContextCompat.getColor(this, android.R.color.transparent)
+        }
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
 
-        progressDialog = ProgressDialog(this)
-        progressDialog.setMessage("Registering...")
-        progressDialog.setCancelable(false)
+        userId = intent.getStringExtra("USER_ID")
+        isAddedByAdmin = intent.getBooleanExtra("isAddedByAdmin", false)
 
+        if (isAddedByAdmin) {
+            binding.bloodDonation.text = "Community Donor"
+            binding.bloodDonation2.text="Please enter your details for Community Donor"
+            binding.edPassword.visibility = View.GONE
+            binding.noYes.isChecked = true
+            binding.agree.isChecked = true
+        } else {
+            binding.bloodDonation.text = "Sign Up"
+            binding.bloodDonation2.text="Please enter your details to Sign up"
+
+        }
+
+        if (userId != null) {
+            loadRegisterData(userId!!)
+            binding.edPassword.visibility = View.GONE
+        }
+
+        binding.progressBar.visibility = View.GONE
 
         binding.signUp.setOnClickListener {
-            if (binding.agree.isChecked) {
-                registerUser()
+            if (binding.agree.isChecked && binding.noYes.isChecked) {
+                if (isAddedByAdmin) {
+                    upsertUserByAdmin()
+                } else {
+                    registerUser()
+                }
             } else {
-                Toast.makeText(this, "Please agree to the Terms and Conditions", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Please agree to the Terms and Conditions and confirm you are ready to donate", Toast.LENGTH_SHORT).show()
             }
         }
 
         binding.edLastdonationdate.setOnClickListener {
             showDatePickerDialogForLastDonationDate()
         }
+
         binding.term.setOnClickListener {
             val intent = Intent(this, TermConditionActivity::class.java)
             startActivity(intent)
         }
+
         binding.data.setOnClickListener {
             val intent = Intent(this, PrivacyPolicyActivity::class.java)
-            startActivity(intent)        }
+            startActivity(intent)
+        }
+    }
+
+    private fun setWindowFlag(bits: Int, on: Boolean) {
+        val win = window
+        val winParams = win.attributes
+        if (on) {
+            winParams.flags = winParams.flags or bits
+        } else {
+            winParams.flags = winParams.flags and bits.inv()
+        }
+        win.attributes = winParams
+    }
+
+    private fun loadRegisterData(userId: String) {
+        db.collection("users").document(userId).get()
+            .addOnSuccessListener { document ->
+                if (document != null) {
+                    val communityDonors = document.toObject(CommunityDonors::class.java)
+                    if (communityDonors != null) {
+                        binding.edName.setText(communityDonors.name)
+                        binding.edPhone.setText(communityDonors.phone)
+                        binding.edEmail.setText(communityDonors.email)
+
+                        setupSpinners()
+
+                        binding.spinnerBloodGroup.setSelection(getBloodTypeIndex(communityDonors.bloodGroup))
+                        binding.edLocation.setSelection(getLocationIndex(communityDonors.location))
+                    }
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.w("RegisterActivity", "Error loading request data", e)
+                Toast.makeText(this, "Error loading request data", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun setupSpinners() {
+        val bloodGroups = resources.getStringArray(R.array.blood_groups)
+        val bloodGroupAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, bloodGroups)
+        bloodGroupAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spinnerBloodGroup.adapter = bloodGroupAdapter
+    }
+
+    private fun getBloodTypeIndex(bloodType: String): Int {
+        val adapter = binding.spinnerBloodGroup.adapter
+        for (i in 0 until adapter.count) {
+            if (adapter.getItem(i).toString().equals(bloodType, ignoreCase = true)) {
+                return i
+            }
+        }
+        return -1
+    }
+
+    private fun getLocationIndex(location: String): Int {
+        val adapter = binding.edLocation.adapter
+        for (i in 0 until adapter.count) {
+            if (adapter.getItem(i).toString().equals(location, ignoreCase = true)) {
+                return i
+            }
+        }
+        return -1
+    }
+
+    private fun upsertUserByAdmin() {
+        val name = binding.edName.text.toString().trim()
+        val email = binding.edEmail.text.toString().trim()
+        val phone = binding.edPhone.text.toString().trim()
+        val bloodGroup = binding.spinnerBloodGroup.selectedItem.toString()
+        val wantsToDonate = binding.noYes.isChecked
+        val location = binding.edLocation.selectedItem.toString()
+        val userType = "user"
+
+        if (name.isEmpty() || email.isEmpty() || phone.isEmpty() || bloodGroup.isEmpty() || location.isEmpty()) {
+            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (userId != null) {
+            updateExistingUser(
+                email,
+                name,
+                phone,
+                bloodGroup,
+                location,
+                wantsToDonate,
+                userType
+            )
+        } else {
+            binding.progressBar.visibility = View.VISIBLE
+
+            val userID = db.collection("users").document().id
+
+            val user = hashMapOf(
+                "userID" to userID,
+                "name" to name,
+                "email" to email,
+                "phone" to phone,
+                "bloodGroup" to bloodGroup,
+                "location" to location,
+                "isDonor" to wantsToDonate,
+                "fcmToken" to null,
+                "lastLoginAt" to null,
+                "userType" to userType,
+                "addedByAdmin" to true,
+                "registrationTimestamp" to com.google.firebase.firestore.FieldValue.serverTimestamp()
+            )
+
+            db.collection("users").document(userID).set(user, SetOptions.merge())
+                .addOnSuccessListener {
+                    Log.d(TAG, "DocumentSnapshot successfully written!")
+                    binding.progressBar.visibility = View.GONE
+                    Toast.makeText(this, "New user Added", Toast.LENGTH_SHORT).show()
+
+                    val intent = Intent(this, HomeActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+                .addOnFailureListener { e ->
+                    Log.w(TAG, "Error writing document", e)
+                    binding.progressBar.visibility = View.GONE
+                    Toast.makeText(this, "Registration Failed", Toast.LENGTH_SHORT).show()
+                }
+        }
+    }
+
+    private fun updateExistingUser(
+        email: String,
+        name: String,
+        phone: String,
+        bloodGroup: String,
+        location: String,
+        wantsToDonate: Boolean,
+        userType: String
+    ) {
+        val userUpdates = hashMapOf(
+            "email" to email,
+            "name" to name,
+            "phone" to phone,
+            "bloodGroup" to bloodGroup,
+            "location" to location,
+            "isDonor" to wantsToDonate,
+            "userType" to userType,
+            "addedByAdmin" to true
+        )
+
+        db.collection("users").document(userId!!)
+            .set(userUpdates, SetOptions.merge())
+            .addOnSuccessListener {
+                Log.d(TAG, "User details successfully updated!")
+                binding.progressBar.visibility = View.GONE
+                Toast.makeText(this, "User details updated", Toast.LENGTH_SHORT).show()
+
+                val intent = Intent(this, AddDonorsActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error updating document", e)
+                binding.progressBar.visibility = View.GONE
+                Toast.makeText(this, "Update Failed", Toast.LENGTH_SHORT).show()
+            }
     }
 
     private fun showDatePickerDialogForLastDonationDate() {
@@ -64,12 +264,19 @@ class RegisterActivity : AppCompatActivity() {
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-        val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
-            val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-            calendar.set(selectedYear, selectedMonth, selectedDay)
-            selectedLastDonationDate = sdf.format(calendar.time)
-            binding.edLastdonationdate.setText(selectedLastDonationDate)
-        }, year, month, day)
+        val datePickerDialog = DatePickerDialog(
+            this,
+            { _, selectedYear, selectedMonth, selectedDay ->
+                calendar.set(selectedYear, selectedMonth, selectedDay)
+                val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.US)
+                selectedLastDonationDate = dateFormat.format(calendar.time)
+                binding.edLastdonationdate.setText(selectedLastDonationDate)
+            },
+            year,
+            month,
+            day
+        )
+
         datePickerDialog.show()
     }
 
@@ -78,7 +285,6 @@ class RegisterActivity : AppCompatActivity() {
         val email = binding.edEmail.text.toString().trim()
         val phone = binding.edPhone.text.toString().trim()
         val bloodGroup = binding.spinnerBloodGroup.selectedItem.toString()
-        val wantsToDonate = binding.noYes.isChecked
         val location = binding.edLocation.selectedItem.toString()
         val password = binding.edPassword.text.toString().trim()
 
@@ -87,73 +293,49 @@ class RegisterActivity : AppCompatActivity() {
             return
         }
 
-        auth.fetchSignInMethodsForEmail(email)
-            .addOnCompleteListener { task ->
+        binding.progressBar.visibility = View.VISIBLE
+
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    val signInMethods = task.result?.signInMethods ?: emptyList()
-                    if (signInMethods.isNotEmpty()) {
-                        Toast.makeText(this, "User with this email already exists", Toast.LENGTH_SHORT).show()
-                    } else {
-                        binding.progressBar.visibility = View.VISIBLE
-                        progressDialog.show()
+                    val userID = auth.currentUser?.uid
 
-                        auth.createUserWithEmailAndPassword(email, password)
-                            .addOnCompleteListener(this) { task ->
-                                progressDialog.dismiss()
+                    val user = hashMapOf(
+                        "userID" to userID,
+                        "name" to name,
+                        "email" to email,
+                        "phone" to phone,
+                        "bloodGroup" to bloodGroup,
+                        "location" to location,
+                        "isDonor" to binding.noYes.isChecked,
+                        "fcmToken" to null,
+                        "lastLoginAt" to null,
+                        "userType" to "user",
+                        "addedByAdmin" to false,
+                        "registrationTimestamp" to com.google.firebase.firestore.FieldValue.serverTimestamp()
+                    )
 
-                                if (task.isSuccessful) {
-                                    val userID = auth.currentUser!!.uid
+                    if (userID != null) {
+                        db.collection("users").document(userID).set(user, SetOptions.merge())
+                            .addOnSuccessListener {
+                                Log.d(TAG, "DocumentSnapshot successfully written!")
+                                binding.progressBar.visibility = View.GONE
+                                Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show()
 
-                                    FirebaseMessaging.getInstance().token.addOnCompleteListener { tokenTask ->
-                                        if (tokenTask.isSuccessful) {
-                                            val token = tokenTask.result
-
-                                            val user = hashMapOf(
-                                                "userID" to userID,
-                                                "name" to name,
-                                                "email" to email,
-                                                "phone" to phone,
-                                                "bloodGroup" to bloodGroup,
-                                                "location" to location,
-                                                "isDonor" to wantsToDonate,
-                                                "fcmToken" to token,
-                                                "lastLoginAt" to null,
-                                                "registrationTimestamp" to com.google.firebase.firestore.FieldValue.serverTimestamp()
-                                            )
-
-                                            db.collection("users").document(userID).set(user, SetOptions.merge())
-                                                .addOnSuccessListener {
-                                                    Log.d(TAG, "DocumentSnapshot successfully written!")
-                                                    binding.progressBar.visibility = View.GONE
-                                                    Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show()
-
-                                                    val intent = Intent(this, HomeActivity::class.java).apply {
-                                                        putExtra("name", name)
-                                                        putExtra("bloodGroup", bloodGroup)
-                                                        putExtra("location", location)
-                                                    }
-                                                    startActivity(intent)
-                                                    finish()
-                                                }
-                                                .addOnFailureListener { e ->
-                                                    Log.w(TAG, "Error writing document", e)
-                                                    binding.progressBar.visibility = View.GONE
-                                                    Toast.makeText(this, "Registration Failed", Toast.LENGTH_SHORT).show()
-                                                }
-                                        } else {
-                                            Log.w(TAG, "Fetching FCM Token failed", tokenTask.exception)
-                                        }
-                                    }
-                                } else {
-                                    Log.w(TAG, "createUserWithEmailAndPassword:failure", task.exception)
-                                    binding.progressBar.visibility = View.GONE
-                                    Toast.makeText(this, "Authentication Failed", Toast.LENGTH_SHORT).show()
-                                }
+                                val intent = Intent(this, HomeActivity::class.java)
+                                startActivity(intent)
+                                finish()
+                            }
+                            .addOnFailureListener { e ->
+                                Log.w(TAG, "Error writing document", e)
+                                binding.progressBar.visibility = View.GONE
+                                Toast.makeText(this, "Registration Failed", Toast.LENGTH_SHORT).show()
                             }
                     }
                 } else {
-                    Log.w(TAG, "fetchSignInMethodsForEmail:failure", task.exception)
-                    Toast.makeText(this, "Registration failed. Please try again later.", Toast.LENGTH_SHORT).show()
+                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
+                    binding.progressBar.visibility = View.GONE
+                    Toast.makeText(this, "Registration Failed", Toast.LENGTH_SHORT).show()
                 }
             }
     }
@@ -162,192 +344,3 @@ class RegisterActivity : AppCompatActivity() {
         private const val TAG = "RegisterActivity"
     }
 }
-
-
-
-//import android.content.Intent
-//import android.os.Bundle
-//import android.util.Patterns
-//import android.view.View
-//import android.widget.Toast
-//import androidx.appcompat.app.AppCompatActivity
-//import com.google.firebase.auth.FirebaseAuth
-//import com.google.firebase.auth.UserProfileChangeRequest
-//import com.welfare.blood.donation.databinding.ActivityRegisterBinding
-//
-//class RegisterActivity : AppCompatActivity() {
-//
-//    private lateinit var auth: FirebaseAuth
-//    private lateinit var binding: ActivityRegisterBinding
-//
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        binding = ActivityRegisterBinding.inflate(layoutInflater)
-//        setContentView(binding.root)
-//
-//        auth = FirebaseAuth.getInstance()
-//
-//        binding.signUp.setOnClickListener {
-//            registerUser()
-//        }
-//    }
-//
-//    private fun registerUser() {
-//        val nameStr = binding.edName.text.toString().trim()
-//        val phoneStr = binding.edPhone.text.toString().trim()
-//        val emailStr = binding.edEmail.text.toString().trim()
-//        val passwordStr = binding.edPassword.text.toString().trim()
-//        val dobStr = binding.edDateBirth.text.toString().trim()
-//        val bloodGroupStr = binding.spinnerBloodGroup.selectedItem.toString()
-//        val donateBloodStr = binding.noYes.isChecked
-//
-//        if (nameStr.isEmpty()) {
-//            binding.edName.error = "Name is required"
-//            binding.edName.requestFocus()
-//            return
-//        }
-//
-//        if (phoneStr.isEmpty()) {
-//            binding.edPhone.error = "Phone number is required"
-//            binding.edPhone.requestFocus()
-//            return
-//        }
-//
-//        if (emailStr.isEmpty()) {
-//            binding.edEmail.error = "Email is required"
-//            binding.edEmail.requestFocus()
-//            return
-//        }
-//
-//        if (!Patterns.EMAIL_ADDRESS.matcher(emailStr).matches()) {
-//            binding.edEmail.error = "Please provide valid email"
-//            binding.edEmail.requestFocus()
-//            return
-//        }
-//
-//        if (passwordStr.isEmpty()) {
-//            binding.edPassword.error = "Password is required"
-//            binding.edPassword.requestFocus()
-//            return
-//        }
-//
-//        if (passwordStr.length < 6) {
-//            binding.edPassword.error = "Minimum password length should be 6 characters!"
-//            binding.edPassword.requestFocus()
-//            return
-//        }
-//
-//        binding.progressBar.visibility = View.VISIBLE
-//
-//        auth.createUserWithEmailAndPassword(emailStr, passwordStr)
-//            .addOnCompleteListener { task ->
-//                if (task.isSuccessful) {
-//                    val user = auth.currentUser
-//                    val profileUpdates = UserProfileChangeRequest.Builder()
-//                        .setDisplayName(nameStr)
-//                        .build()
-//                    user?.updateProfile(profileUpdates)
-//                        ?.addOnCompleteListener { updateTask ->
-//                            if (updateTask.isSuccessful) {
-//                                Toast.makeText(this, "User registered successfully", Toast.LENGTH_LONG).show()
-//                                binding.progressBar.visibility = View.GONE
-//                                val intent = Intent(this,LoginActivity::class.java)
-//                                startActivity(intent)
-//                            } else {
-//                                Toast.makeText(this, "Registration failed: ${updateTask.exception?.message}", Toast.LENGTH_LONG).show()
-//                                binding.progressBar.visibility = View.GONE
-//                            }
-//                        }
-//                } else {
-//                    Toast.makeText(this, "Registration failed: ${task.exception?.message}", Toast.LENGTH_LONG).show()
-//                    binding.progressBar.visibility = View.GONE
-//                }
-//            }
-//    }
-//}
-
-//
-//        binding.signUp.setOnClickListener {
-//            val enteredUsername = binding.edName.text.toString()
-//            val enteredPassword = binding.edPassword.text.toString()
-//            val enteredEmail = binding.edEmail.text.toString()
-//            val enteredPhone = binding.edPhone.text.toString()
-//            val enteredDateBirth = binding.edDateBirth.text.toString()
-//            val donateBlood = binding.noYes.isChecked
-//
-//            //validations
-//            if (enteredUsername.isEmpty() || enteredPassword.isEmpty() || enteredEmail.isEmpty() || enteredPhone.isEmpty() || enteredDateBirth.isEmpty()) {
-//                Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
-//            } else if (enteredUsername.length < 6) {
-//                Toast.makeText(this, "Username must be at least 6 characters long", Toast.LENGTH_SHORT).show()
-//            } else if (enteredPassword.length < 8) {
-//                Toast.makeText(this, "Password must be at least 8 characters long", Toast.LENGTH_SHORT).show()
-//            } else if (!containsSpecialCharacter(enteredPassword)) {
-//                Toast.makeText(this, "Password must contain at least one special character", Toast.LENGTH_SHORT).show()
-//            } else if (!isValidEmail(enteredEmail)) {
-//                Toast.makeText(this, "Please enter a valid email address", Toast.LENGTH_SHORT).show()
-//            } else if (!isValidPhoneNumber(enteredPhone)) {
-//                Toast.makeText(this, "Please enter a valid phone number", Toast.LENGTH_SHORT).show()
-//            } else if (!isValidDateOfBirth(enteredDateBirth)) {
-//                Toast.makeText(this, "Please enter a valid date of birth (yyyy-MM-dd)", Toast.LENGTH_SHORT).show()
-//            } else {
-//                try {
-//                    val phoneNumber = enteredPhone.toLong()
-//                    registerUser(enteredUsername, phoneNumber, enteredEmail, enteredPassword, enteredDateBirth, "O+", donateBlood)
-//                } catch (e: NumberFormatException) {
-//                    Toast.makeText(this, "Invalid phone number", Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//        }
-//    }
-//
-//    private fun registerUser(name: String, phoneNumber: Long, email: String, password: String, dateOfBirth: String, bloodGroup: String, donateBlood: Boolean) {
-//        val registerRequest = RegisterRequest(
-//            name,
-//            phoneNumber,
-//            email,
-//            password,
-//            dateOfBirth,
-//            bloodGroup,
-//            donateBlood
-//        )
-//
-//        CoroutineScope(Dispatchers.IO).launch {
-//            try {
-//                val response = RetrofitInstance.api.registerUser(registerRequest)
-//                withContext(Dispatchers.Main) {
-//                    Toast.makeText(this@RegisterActivity, "Registration Successful: ${response.name}", Toast.LENGTH_LONG).show()
-//                    val intent = Intent(this@RegisterActivity, HomeActivity::class.java)
-//                    startActivity(intent)
-//                }
-//            } catch (e: Exception) {
-//                withContext(Dispatchers.Main) {
-//                    Toast.makeText(this@RegisterActivity, "Registration Failed: ${e.message}", Toast.LENGTH_LONG).show()
-//                }
-//            }
-//        }
-//    }
-//
-//    private fun isValidEmail(email: String): Boolean {
-//        val pattern = Pattern.compile("^\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}\$")
-//        val matcher = pattern.matcher(email)
-//        return matcher.matches()
-//    }
-//
-//    private fun isValidPhoneNumber(phone: String): Boolean {
-//        val pattern = Pattern.compile("^\\d{11}\$")
-//        val matcher = pattern.matcher(phone)
-//        return matcher.matches()
-//    }
-//
-//    private fun isValidDateOfBirth(dateOfBirth: String): Boolean {
-//        val pattern = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}\$")
-//        val matcher = pattern.matcher(dateOfBirth)
-//        return matcher.matches()
-//    }
-//
-//    private fun containsSpecialCharacter(text: String): Boolean {
-//        val pattern = Pattern.compile("[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]")
-//        val matcher = pattern.matcher(text)
-//        return matcher.find()
-

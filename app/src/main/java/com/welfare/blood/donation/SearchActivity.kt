@@ -10,21 +10,25 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.google.firebase.firestore.FirebaseFirestore
 import com.welfare.blood.donation.databinding.ActivitySearchBinding
 
 class SearchActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySearchBinding
-    private lateinit var db: FirebaseFirestore
     private var selectedBloodGroup: String? = null
-    private var selectedLocation: String? = null // Changed from selectedCity
+    private var selectedLocation: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Handle back arrow click
+        binding.backArrow.setOnClickListener {
+            navigateToHome()
+        }
+
+        // Handle immersive layout flags
         if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
             setWindowFlag(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, true)
         }
@@ -36,29 +40,15 @@ class SearchActivity : AppCompatActivity() {
             window.statusBarColor = ContextCompat.getColor(this, android.R.color.transparent)
         }
 
-        binding.backArrow.setOnClickListener {
-            onBackPressed()
-        }
-
-        db = FirebaseFirestore.getInstance()
-
-        binding.btnAPlus.setOnClickListener { setSelectedBloodGroup("A+") }
-        binding.btnAMinus.setOnClickListener { setSelectedBloodGroup("A-") }
-        binding.btnABPlus.setOnClickListener { setSelectedBloodGroup("AB+") }
-        binding.btnABMinus.setOnClickListener { setSelectedBloodGroup("AB-") }
-        binding.btnBPlus.setOnClickListener { setSelectedBloodGroup("B+") }
-        binding.btnBMinus.setOnClickListener { setSelectedBloodGroup("B-") }
-        binding.btnOPlus.setOnClickListener { setSelectedBloodGroup("O+") }
-        binding.btnOMinus.setOnClickListener { setSelectedBloodGroup("O-") }
-
-        val locations = resources.getStringArray(R.array.pakistan_cities) // Assuming your array resource is named pakistan_cities
+        // Setup the city spinner
+        val locations = resources.getStringArray(R.array.pakistan_cities)
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, locations)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerCity.adapter = adapter
 
         binding.spinnerCity.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                selectedLocation = locations[position] // Changed from selectedCity
+                selectedLocation = locations[position]
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -66,13 +56,50 @@ class SearchActivity : AppCompatActivity() {
             }
         }
 
+
+        binding.btnAPlus.setOnClickListener {
+            setSelectedBloodGroup("A+")
+        }
+        binding.btnAMinus.setOnClickListener {
+            setSelectedBloodGroup("A-")
+        }
+        binding.btnBPlus.setOnClickListener {
+            setSelectedBloodGroup("B+")
+        }
+        binding.btnBMinus.setOnClickListener {
+            setSelectedBloodGroup("B-")
+        }
+        binding.btnABPlus.setOnClickListener {
+            setSelectedBloodGroup("AB+")
+        }
+        binding.btnABMinus.setOnClickListener {
+            setSelectedBloodGroup("AB-")
+        }
+        binding.btnOPlus.setOnClickListener {
+            setSelectedBloodGroup("O+")
+        }
+        binding.btnOMinus.setOnClickListener {
+            setSelectedBloodGroup("O-")
+        }
+
+
         binding.btnSearch.setOnClickListener {
-            if (selectedBloodGroup.isNullOrEmpty() || selectedLocation.isNullOrEmpty()) { // Changed from selectedCity
-                Toast.makeText(this, "Please select a blood group and a location", Toast.LENGTH_SHORT).show() // Changed from city to location
+            if (selectedBloodGroup.isNullOrEmpty() || selectedLocation.isNullOrEmpty()) {
+                Toast.makeText(this, "Please select a blood group and a location", Toast.LENGTH_SHORT).show()
             } else {
-                saveSearchData(selectedBloodGroup!!, selectedLocation!!) // Changed from city to location
+                val intent = Intent(this, SearchResultActivity::class.java).apply {
+                    putExtra("bloodGroup", selectedBloodGroup)
+                    putExtra("location", selectedLocation)
+                }
+                startActivity(intent)
             }
         }
+    }
+
+    private fun navigateToHome() {
+        val intent = Intent(this, HomeActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     private fun setWindowFlag(bits: Int, on: Boolean) {
@@ -89,24 +116,5 @@ class SearchActivity : AppCompatActivity() {
     private fun setSelectedBloodGroup(bloodGroup: String) {
         selectedBloodGroup = bloodGroup
         binding.tvSelectedGroup.text = bloodGroup
-    }
-
-    private fun saveSearchData(bloodGroup: String, location: String) { // Changed from city to location
-        val searchData = hashMapOf(
-            "bloodGroup" to bloodGroup,
-            "location" to location // Changed from city to location
-        )
-
-        db.collection("searches")
-            .add(searchData)
-            .addOnSuccessListener { documentReference ->
-                val intent = Intent(this, SearchResultActivity::class.java)
-                intent.putExtra("searchId", documentReference.id)
-                startActivity(intent)
-                finish()
-            }
-            .addOnFailureListener { e ->
-                Toast.makeText(this, "Error saving search data", Toast.LENGTH_SHORT).show()
-            }
     }
 }

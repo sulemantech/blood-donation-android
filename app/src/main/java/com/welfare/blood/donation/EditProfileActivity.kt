@@ -125,27 +125,27 @@ class EditProfileActivity : AppCompatActivity() {
                 binding.edDateBirth.setText(document.getString("dateOfBirth"))
                 binding.edLastdonationdate.setText(document.getString("lastDonationDate"))
                 binding.noYes.isChecked = document.getBoolean("isDonor") == true
-                // Set spinner value for blood group
-                val bloodGroup = document.getString("bloodType")
+
+                val bloodGroup = document.getString("bloodGroup")
                 val bloodGroups = resources.getStringArray(R.array.blood_groups)
                 val index = bloodGroups.indexOf(bloodGroup)
                 binding.spinnerBloodGroup.setSelection(index)
-                // Set spinner value for location
+
                 val location = document.getString("location")
                 val locationArray = resources.getStringArray(R.array.pakistan_cities)
                 val locationIndex = locationArray.indexOf(location)
                 binding.edLocation.setSelection(locationIndex)
-                // Set spinner value for gender
+
                 val gender = document.getString("gender")
                 val genderArray = resources.getStringArray(R.array.gender_array)
                 val genderIndex = genderArray.indexOf(gender)
                 binding.spinnerGender.setSelection(genderIndex)
 
-                // Load profile image if exists
+
                 val imageUrl = document.getString("profileImageUrl")
                 if (!imageUrl.isNullOrEmpty()) {
                     userProfileImageUrl = imageUrl
-                    // Use Glide to load the image into ImageView
+
                     Glide.with(this)
                         .load(imageUrl)
                         .placeholder(R.drawable.baseline_person_outline_24)
@@ -185,7 +185,6 @@ class EditProfileActivity : AppCompatActivity() {
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-        // Create a new instance of DatePickerDialog
         val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
             val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             calendar.set(selectedYear, selectedMonth, selectedDay)
@@ -193,10 +192,8 @@ class EditProfileActivity : AppCompatActivity() {
             binding.edLastdonationdate.setText(selectedLastDonationDate)
         }, year, month, day)
 
-        // Set the minimum date to today's date
         datePickerDialog.datePicker.minDate = calendar.timeInMillis
 
-        // Show the DatePickerDialog
         datePickerDialog.show()
     }
 
@@ -271,7 +268,7 @@ class EditProfileActivity : AppCompatActivity() {
             "email" to email,
             "phone" to phone,
             "dateOfBirth" to dateOfBirth,
-            "bloodType" to bloodGroup,
+            "bloodGroup" to bloodGroup,
             //  "city" to city,
             "location" to location,
             "lastDonationDate" to lastDonationDate,

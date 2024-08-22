@@ -16,12 +16,15 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/blood_bank_icon_round"
+        android:icon="@mipmap/ic_launcher_round"
         android:label="@string/app_name"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.BloodDonation"
         tools:targetApi="31">
+        <activity
+            android:name=".AddDonorsActivity"
+            android:exported="false" />
         <activity
             android:name=".BloodBankAllItemsActivity"
             android:exported="false" />
@@ -80,7 +83,6 @@
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/ThemeB" />
-
         <activity
             android:name=".BloodbankActivity"
             android:exported="false"
@@ -172,14 +174,17 @@
 
         <service
             android:name=".MyFirebaseMessagingService"
-            android:exported="false"
+            android:directBootAware="true"
             android:enabled="true"
-            android:directBootAware="true">
+            android:exported="false">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <receiver android:name=".NotificationCancelReceiver" android:exported="true"/>
+
+        <receiver
+            android:name=".NotificationCancelReceiver"
+            android:exported="true" />
     </application>
 
 </manifest>
