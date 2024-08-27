@@ -63,7 +63,7 @@
         />
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="150sp"
+        android:layout_height="185sp"
         android:src="@drawable/background_top_msg"
         android:id="@+id/cardview6"
         app:layout_constraintEnd_toEndOf="parent"

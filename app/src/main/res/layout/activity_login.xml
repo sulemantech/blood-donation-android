@@ -59,6 +59,7 @@
             android:drawablePadding="8dp"
             android:drawableRight="@drawable/ic_vector_person"
             android:hint="Enter Email"
+            android:drawableTint="@color/maron"
             android:backgroundTint="@color/maron"
             android:padding="8dp"
             android:paddingStart="15dp"

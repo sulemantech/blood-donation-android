@@ -15,6 +15,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.Timestamp
+import java.util.Date
 import com.google.firebase.firestore.FirebaseFirestore
 import com.welfare.blood.donation.adapters.CommunityAdapter
 import com.welfare.blood.donation.databinding.ActivityAddDonorosBinding
@@ -35,7 +37,6 @@ class AddDonorsActivity : AppCompatActivity() {
         binding = ActivityAddDonorosBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Set up the status bar
         if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
             setWindowFlag(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, true)
         }
@@ -70,8 +71,7 @@ class AddDonorsActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>) {
-            }
+            override fun onNothingSelected(parent: AdapterView<*>) {}
         }
 
         db = FirebaseFirestore.getInstance()
@@ -101,8 +101,6 @@ class AddDonorsActivity : AppCompatActivity() {
     }
 
     private fun fetchDonorsAddedByAdmin() {
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-
         db.collection("users")
             .whereEqualTo("addedByAdmin", true)
             .whereEqualTo("userType", "user")
@@ -120,11 +118,17 @@ class AddDonorsActivity : AppCompatActivity() {
                             donorList.add(communityDonors)
                         }
                     }
-//                    donorList.sortByDescending {
-//                        dateFormat.parse(it.Tim)
-//                    }
-
                 }
+
+
+                donorList.sortByDescending { donor ->
+                    when (val timestamp = donor.registrationTimestamp) {
+                        is Timestamp -> timestamp.toDate()
+                      //  is Date -> timestamp
+                        else -> Date(0)
+                    }
+                }
+
                 communityAdapter.notifyDataSetChanged()
                 displayRequestCount(donorList.size)
             }

@@ -29,6 +29,16 @@ class UserAdapter(
                 itemView.context.startActivity(intent)
             }
 
+            binding.chat.setOnClickListener {
+                val phoneNumber = user.phone
+                val message = "Hello, this is a test message."
+
+                val intent = Intent(Intent.ACTION_VIEW).apply {
+                    data = Uri.parse("sms:$phoneNumber")
+                    putExtra("sms_body", message)
+                }
+                itemView.context.startActivity(intent)
+            }
             binding.share.setOnClickListener {
                 val shareText = "Donor Name: ${user.name}\nBlood Group: ${user.bloodGroup}\nLocation: ${user.location}\nContact: ${user.phone}"
                 val intent = Intent().apply {
@@ -40,10 +50,8 @@ class UserAdapter(
                 itemView.context.startActivity(chooser)
             }
 
-            // Set the blood group image
             binding.imageBloodGroup.setImageResource(getBloodGroupImageResource(user.bloodGroup))
 
-            // Set the required unit text
             binding.requiredUnit.text = "${user.bloodGroup} (${getBloodGroupFullName(user.bloodGroup)})"
 
             binding.btnViewDetail.setOnClickListener {

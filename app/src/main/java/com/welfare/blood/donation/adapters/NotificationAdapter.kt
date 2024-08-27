@@ -26,9 +26,9 @@ class NotificationAdapter(private val notifications: List<NotificationEntity>) :
     }
 
     class NotificationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val titleTextView = itemView.findViewById<TextView>(R.id.titleTextView)
-        private val messageTextView = itemView.findViewById<TextView>(R.id.messageTextView)
-        private val timestampTextView = itemView.findViewById<TextView>(R.id.timestampTextView)
+        private val titleTextView: TextView = itemView.findViewById(R.id.titleTextView)
+        private val messageTextView: TextView = itemView.findViewById(R.id.messageTextView)
+        private val timestampTextView: TextView = itemView.findViewById(R.id.timestampTextView)
 
         fun bind(notification: NotificationEntity) {
             titleTextView.text = notification.title

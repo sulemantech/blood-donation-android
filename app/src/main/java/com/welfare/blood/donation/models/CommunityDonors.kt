@@ -1,5 +1,8 @@
 package com.welfare.blood.donation.models
 
+import com.google.firebase.Timestamp
+import java.util.Date
+
 data class CommunityDonors(
     val userType: String = "",
     var userId: String = "",
@@ -9,4 +12,5 @@ data class CommunityDonors(
     val bloodGroup: String = "",
     val location: String = "",
     var isDeleted: Boolean = false,
+    val registrationTimestamp: Timestamp? = null
 )

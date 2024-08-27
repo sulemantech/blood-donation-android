@@ -48,7 +48,8 @@ class CriticalPatientsListActivity : AppCompatActivity() {
             setWindowFlag(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, true)
         }
         if (Build.VERSION.SDK_INT >= 19) {
-            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+            window.decorView.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         }
         if (Build.VERSION.SDK_INT >= 21) {
             setWindowFlag(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, false)
@@ -88,7 +89,7 @@ class CriticalPatientsListActivity : AppCompatActivity() {
                 criticalPatients.clear()
                 for (document in documents) {
                     val userId = document.getString("userId") ?: ""
-                    if (userId == currentUserId) continue // Skip current user's requests
+                    if (userId == currentUserId) continue
 
                     val requiredUnitField = document.get("requiredUnit")
                     Log.d("FirestoreDataType", "requiredUnit type: ${requiredUnitField?.javaClass?.name}")
@@ -131,7 +132,6 @@ class CriticalPatientsListActivity : AppCompatActivity() {
                     criticalPatients.add(criticalPatient)
                 }
 
-                // Sort the criticalPatients list by dateRequired in descending order
                 try {
                     criticalPatients.sortByDescending {
                         dateFormat.parse(it.dateRequired)
@@ -154,7 +154,6 @@ class CriticalPatientsListActivity : AppCompatActivity() {
     }
 
     private fun displayError(message: String) {
-        // Display an error message to the user, for example with a Toast
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 }

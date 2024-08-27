@@ -1,7 +1,7 @@
 package com.welfare.blood.donation.adapters
 
 import android.app.AlertDialog
-import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,11 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import com.welfare.blood.donation.CriticalPatientsListActivity
+import com.welfare.blood.donation.R
 import com.welfare.blood.donation.databinding.CriticalPatientItemBinding
 import com.welfare.blood.donation.models.CriticalPatient
-import com.welfare.blood.donation.R
-import com.welfare.blood.donation.models.ReceivedRequest
 
 class CriticalPatientAdapter(
     private val patients: List<CriticalPatient>,
@@ -39,27 +37,22 @@ class CriticalPatientAdapter(
 
         fun bind(patient: CriticalPatient) {
             binding.patientName.text = patient.patientName
-            binding.bloodGroup.text = patient.bloodType
             binding.condition.text = patient.status
             binding.contactInfo.text = patient.location
-            binding.hospital.text = patient.hospital
 
             val bloodTypeFull = getBloodTypeFull(patient.bloodType)
             binding.requiredUnit.text = "${patient.bloodType} ($bloodTypeFull) ${patient.requiredUnit} Units Blood"
             binding.dateRequired.text = patient.dateRequired
             binding.imageBloodGroup.setImageResource(getBloodGroupImage(patient.bloodType))
 
-            // Set visibility of the critical status
             binding.criticalStatus.visibility = if (patient.critical) View.VISIBLE else View.GONE
 
-            // Handle item click event
             binding.root.setOnClickListener {
                 listener?.onPatientClick(patient)
             }
             binding.donateNow.setOnClickListener {
                 showConfirmationDialog(patient)
             }
-
         }
 
         private fun showConfirmationDialog(patient: CriticalPatient) {
@@ -82,7 +75,15 @@ class CriticalPatientAdapter(
 
             val currentUserId = currentUser.uid
             val db = FirebaseFirestore.getInstance()
-            val documentRef = db.collection("requests").document(patient.id)
+
+            Log.d("CriticalPatientAdapter", "Document ID: ${patient.id}")
+
+            if (patient.id.isNullOrEmpty()) {
+                Toast.makeText(binding.root.context, "Invalid document ID", Toast.LENGTH_SHORT).show()
+                return
+            }
+
+            val documentRef = db.collection("requests").document(patient.id!!)
 
             documentRef.update("donors", FieldValue.arrayUnion(currentUserId))
                 .addOnSuccessListener {
@@ -91,6 +92,7 @@ class CriticalPatientAdapter(
                     binding.completed.visibility = View.VISIBLE
                 }
                 .addOnFailureListener { e ->
+                    Log.e("CriticalPatientAdapter", "Failed to update donors", e)
                     Toast.makeText(binding.root.context, "Failed to donate", Toast.LENGTH_SHORT).show()
                 }
         }
@@ -105,7 +107,7 @@ class CriticalPatientAdapter(
                 "AB-" -> R.drawable.ic_ab_minus
                 "O+" -> R.drawable.ic_o_plus
                 "O-" -> R.drawable.ic_o_minus
-                else -> R.drawable.blood_droplet
+                else -> R.drawable.drop
             }
         }
 

@@ -26,17 +26,16 @@ class BloodBankAdapter(private val items: List<String>) : RecyclerView.Adapter<B
                 itemView.context.startActivity(intent)
             }
 
-            binding.chat.setOnClickListener {
-                // Handle in-app chat or redirect to a chat service
-                // For example, if you have a chat activity, start it like this:
-                // val intent = Intent(itemView.context, ChatActivity::class.java)
-                // intent.putExtra("USER_ID", user.id)
-                // itemView.context.startActivity(intent)
+        binding.chat.setOnClickListener {
+            val phoneNumber = user.phone
+            val message = "Hello, this is a test message."
 
-                // For now, just showing a message
-                // Toast.makeText(itemView.context, "Chat with ${user.name}", Toast.LENGTH_SHORT).show()
+            val intent = Intent(Intent.ACTION_VIEW).apply {
+                data = Uri.parse("sms:$phoneNumber")
+                putExtra("sms_body", message)
             }
-
+            itemView.context.startActivity(intent)
+        }
             binding.share.setOnClickListener {
                 val shareText = "Donor Name: ${user.name}\nBlood Group: ${user.bloodGroup}\nLocation: ${user.location}\nContact: ${user.phone}"
                 val intent = Intent().apply {

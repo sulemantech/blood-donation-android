@@ -208,7 +208,7 @@ class RegisterActivity : AppCompatActivity() {
                     binding.progressBar.visibility = View.GONE
                     Toast.makeText(this, "New user Added", Toast.LENGTH_SHORT).show()
 
-                    val intent = Intent(this, HomeActivity::class.java)
+                    val intent = Intent(this, AddDonorsActivity::class.java)
                     startActivity(intent)
                     finish()
                 }

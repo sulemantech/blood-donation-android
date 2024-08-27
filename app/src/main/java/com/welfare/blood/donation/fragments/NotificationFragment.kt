@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.welfare.blood.donation.AppDatabase
+import com.welfare.blood.donation.NotificationEntity
 import com.welfare.blood.donation.R
 import com.welfare.blood.donation.adapters.NotificationAdapter
 import kotlinx.coroutines.CoroutineScope
@@ -19,6 +20,7 @@ class NotificationFragment : Fragment() {
 
     private lateinit var notificationRecyclerView: RecyclerView
     private lateinit var notificationAdapter: NotificationAdapter
+    private val notifications = mutableListOf<NotificationEntity>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,6 +30,8 @@ class NotificationFragment : Fragment() {
 
         notificationRecyclerView = view.findViewById(R.id.notificationRecyclerView)
         notificationRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        notificationAdapter = NotificationAdapter(notifications)
+        notificationRecyclerView.adapter = notificationAdapter
 
         loadNotifications()
 
@@ -37,11 +41,12 @@ class NotificationFragment : Fragment() {
     private fun loadNotifications() {
         CoroutineScope(Dispatchers.IO).launch {
             val db = AppDatabase.getDatabase(requireContext())
-            val notifications = db.notificationDao().getAllNotifications()
+            val notificationsFromDb = db.notificationDao().getAllNotifications()
 
             withContext(Dispatchers.Main) {
-                notificationAdapter = NotificationAdapter(notifications)
-                notificationRecyclerView.adapter = notificationAdapter
+                notifications.clear()
+                notifications.addAll(notificationsFromDb)
+                notificationAdapter.notifyDataSetChanged()
             }
         }
     }

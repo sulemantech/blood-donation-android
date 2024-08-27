@@ -59,13 +59,12 @@
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardview1"
-        />
+        app:layout_constraintTop_toBottomOf="@id/cardview1" />
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
-        android:layout_height="81dp"
-        app:itemIconTint="@color/colorPrimaryDark"
+        android:layout_height="75dp"
+        app:itemIconTint="@color/black"
         app:itemTextColor="@color/maron"
         android:background="@color/white"
         app:itemPaddingTop="25dp"

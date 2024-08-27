@@ -47,6 +47,16 @@ class CommunityAdapter(
                 }
                 itemView.context.startActivity(intent)
             }
+            binding.chat.setOnClickListener {
+                val phoneNumber = communityDonors.phone
+                val message = "Hello, this is a test message."
+
+                val intent = Intent(Intent.ACTION_VIEW).apply {
+                    data = Uri.parse("sms:$phoneNumber")
+                    putExtra("sms_body", message)
+                }
+                itemView.context.startActivity(intent)
+            }
 
             binding.share.setOnClickListener {
                 val shareText = "Donor Name: ${communityDonors.name}\nBlood Group: ${communityDonors.bloodGroup}\nLocation: ${communityDonors.location}\nContact: ${communityDonors.phone}"

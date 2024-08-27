@@ -158,6 +158,32 @@ class HomeActivity : AppCompatActivity() {
             }
         }
     }
+    private fun promptForPassword() {
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_password_input, null)
+        val passwordEditText = dialogView.findViewById<EditText>(R.id.editTextPassword)
+
+        val alertDialog = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .create()
+
+        dialogView.findViewById<Button>(R.id.btnCancel).setOnClickListener {
+            alertDialog.dismiss()
+        }
+
+        dialogView.findViewById<Button>(R.id.btnConfirm).setOnClickListener {
+            val password = passwordEditText.text.toString().trim()
+            if (password.isNotEmpty()) {
+                performProfileDeletionWithPassword(password)
+                alertDialog.dismiss()
+            } else {
+                Toast.makeText(this, "Please enter your password", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        alertDialog.setCancelable(false)
+        alertDialog.show()
+    }
+
     private fun performProfileDeletionWithPassword(password: String) {
         val user = auth.currentUser
         user?.let {
@@ -168,6 +194,7 @@ class HomeActivity : AppCompatActivity() {
                     performProfileDeletion()
                 } else {
                     Toast.makeText(this, "Re-authentication failed. Please try again.", Toast.LENGTH_SHORT).show()
+                    Log.e("ProfileDeletion", "Re-authentication failed", reauthTask.exception)
                 }
             }
         }
@@ -176,8 +203,10 @@ class HomeActivity : AppCompatActivity() {
     private fun performProfileDeletion() {
         val user = auth.currentUser
         user?.let {
+            // Delete user data from Firestore
             db.collection("users").document(it.uid).delete().addOnCompleteListener { firestoreTask ->
                 if (firestoreTask.isSuccessful) {
+                    // Delete user from Firebase Authentication
                     it.delete().addOnCompleteListener { authTask ->
                         if (authTask.isSuccessful) {
                             val intent = Intent(this, LoginActivity::class.java)
@@ -192,13 +221,10 @@ class HomeActivity : AppCompatActivity() {
                     }
                 } else {
                     Toast.makeText(this, "Failed to delete user data: ${firestoreTask.exception?.message}", Toast.LENGTH_SHORT).show()
+                    Log.e("ProfileDeletion", "Firestore deletion failed", firestoreTask.exception)
                 }
             }
         }
-    }
-
-    private fun promptForPassword() {
-        performProfileDeletion()
     }
 
     private fun showLogoutDialog(homeActivity: HomeActivity) {

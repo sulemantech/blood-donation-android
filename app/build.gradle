@@ -39,6 +39,20 @@ android {
     buildFeatures {
         viewBinding true
     }
+
+    buildTypes {
+        release {
+            // Production settings
+            applicationIdSuffix ".prod"
+            // Other release-specific configurations
+        }
+
+        debug {
+            // Development settings
+            applicationIdSuffix ".dev"
+            // Other debug-specific configurations
+        }
+    }
 }
 
 dependencies {
