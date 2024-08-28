@@ -1,6 +1,5 @@
 package com.welfare.blood.donation
 
-import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -28,20 +27,11 @@ class BloodbankActivity : AppCompatActivity() {
             BloodBankItem("Blood Bank 5", "567-890-1234", "Address 5"),
             BloodBankItem("Blood Bank 6", "678-901-2345", "Address 6"),
             BloodBankItem("Blood Bank 7", "789-012-3456", "Address 7"),
-            BloodBankItem("Blood Bank 8", "890-123-4567", "Address 8")
+          //  BloodBankItem("Blood Bank 8", "890-123-4567", "Address 8")
         )
 
-        val initialItems = bloodBankItems.take(2)
-        val adapter = BloodBankAdapter(initialItems)
-        binding.bloodbankRecyclerview.layoutManager = LinearLayoutManager(this)
-        binding.bloodbankRecyclerview.adapter = adapter
 
-        binding.seeAllBanks.setOnClickListener {
-            val intent = Intent(this, BloodBankAllItemsActivity::class.java)
-            intent.putParcelableArrayListExtra("allItems", ArrayList(bloodBankItems))
-            startActivity(intent)
-        }
-
+        setupRecyclerView(bloodBankItems)
         if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
             setWindowFlag(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, true)
         }
@@ -53,9 +43,16 @@ class BloodbankActivity : AppCompatActivity() {
             window.statusBarColor = ContextCompat.getColor(this, android.R.color.transparent)
         }
 
+        // Handle back button click
         binding.backArrow.setOnClickListener {
             onBackPressed()
         }
+    }
+
+    private fun setupRecyclerView(items: List<BloodBankItem>) {
+        val adapter = BloodBankAdapter(items)
+        binding.bloodbankRecyclerview.layoutManager = LinearLayoutManager(this)
+        binding.bloodbankRecyclerview.adapter = adapter
     }
 
     private fun setWindowFlag(bits: Int, on: Boolean) {

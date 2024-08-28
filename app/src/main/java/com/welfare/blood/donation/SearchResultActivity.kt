@@ -36,6 +36,7 @@ class SearchResultActivity : AppCompatActivity() {
             setWindowFlag(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, false)
             window.statusBarColor = ContextCompat.getColor(this, android.R.color.transparent)
         }
+
         binding.backArrow.setOnClickListener {
             onBackPressed()
         }
@@ -59,6 +60,7 @@ class SearchResultActivity : AppCompatActivity() {
             Toast.makeText(this, "No search criteria found", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, SearchActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
 
@@ -90,7 +92,7 @@ class SearchResultActivity : AppCompatActivity() {
 
         usersRef.get()
             .addOnSuccessListener { result ->
-                handleUserResult(result, currentUserID)
+                handleUserResult(result, currentUserID, bloodGroup, location)
             }
             .addOnFailureListener { e ->
                 Log.e(TAG, "Error fetching users", e)
@@ -99,7 +101,7 @@ class SearchResultActivity : AppCompatActivity() {
             }
     }
 
-    private fun handleUserResult(result: QuerySnapshot, currentUserID: String?) {
+    private fun handleUserResult(result: QuerySnapshot, currentUserID: String?, bloodGroup: String, location: String) {
         val users = result.toObjects(Register::class.java)
         val filteredUsers = users.filter { user -> user.userID != currentUserID }
 
@@ -109,7 +111,10 @@ class SearchResultActivity : AppCompatActivity() {
         } else {
             Log.d(TAG, "No users found matching criteria")
             Toast.makeText(this, "No users found matching criteria", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, SearchActivity::class.java)
+            val intent = Intent(this, SearchActivity::class.java).apply {
+                putExtra("bloodGroup", bloodGroup)
+                putExtra("location", location)
+            }
             startActivity(intent)
             finish()
         }

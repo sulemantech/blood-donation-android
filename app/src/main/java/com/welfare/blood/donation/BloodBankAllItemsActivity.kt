@@ -35,13 +35,8 @@ class BloodBankAllItemsActivity : AppCompatActivity() {
             window.statusBarColor = ContextCompat.getColor(this, android.R.color.transparent)
         }
 
-        val allItems: ArrayList<BloodBankItem>? = intent.getParcelableArrayListExtra("allItems")
+      //  val allItems: ArrayList<BloodBankItem>? = intent.getParcelableArrayListExtra("allItems")
 
-        if (allItems != null && allItems.isNotEmpty()) {
-            val adapter = BloodBankAdapter(allItems)
-            binding.recyclerViewAllItems.layoutManager = LinearLayoutManager(this)
-            binding.recyclerViewAllItems.adapter = adapter
-        }
     }
 
     private fun setWindowFlag(bits: Int, on: Boolean) {

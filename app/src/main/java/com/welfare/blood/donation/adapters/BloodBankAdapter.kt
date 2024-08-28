@@ -18,34 +18,12 @@ class BloodBankAdapter(private val items: List<BloodBankItem>) : RecyclerView.Ad
             binding.phone.text = item.phone
             binding.tvAddress.text = item.address
 
-            binding.phoneCall.setOnClickListener {
-                val intent = Intent(Intent.ACTION_DIAL).apply {
-                    data = Uri.parse("tel:${item.phone}")
-                }
-                itemView.context.startActivity(intent)
+            binding.phone.setOnClickListener {
+                val intent = Intent(Intent.ACTION_DIAL)
+                intent.data = Uri.parse("tel:${item.phone}")
+                it.context.startActivity(intent)
             }
 
-            binding.chat.setOnClickListener {
-                val phoneNumber = item.phone
-                val message = "Hello, this is a test message."
-
-                val intent = Intent(Intent.ACTION_VIEW).apply {
-                    data = Uri.parse("sms:$phoneNumber")
-                    putExtra("sms_body", message)
-                }
-                itemView.context.startActivity(intent)
-            }
-
-            binding.share.setOnClickListener {
-                val shareText = "Donor Name: ${item.name}\nLocation: ${item.address}\nContact: ${item.phone}"
-                val intent = Intent().apply {
-                    action = Intent.ACTION_SEND
-                    putExtra(Intent.EXTRA_TEXT, shareText)
-                    type = "text/plain"
-                }
-                val chooser = Intent.createChooser(intent, "Share via")
-                itemView.context.startActivity(chooser)
-            }
         }
     }
 

@@ -56,7 +56,6 @@ class SearchActivity : AppCompatActivity() {
             }
         }
 
-
         binding.btnAPlus.setOnClickListener {
             setSelectedBloodGroup("A+")
         }
@@ -82,7 +81,6 @@ class SearchActivity : AppCompatActivity() {
             setSelectedBloodGroup("O-")
         }
 
-
         binding.btnSearch.setOnClickListener {
             if (selectedBloodGroup.isNullOrEmpty() || selectedLocation.isNullOrEmpty()) {
                 Toast.makeText(this, "Please select a blood group and a location", Toast.LENGTH_SHORT).show()
@@ -92,6 +90,27 @@ class SearchActivity : AppCompatActivity() {
                     putExtra("location", selectedLocation)
                 }
                 startActivity(intent)
+                finish()
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        // Retrieve bloodGroup and location if returning from SearchResultActivity
+        val bloodGroup = intent.getStringExtra("bloodGroup")
+        val location = intent.getStringExtra("location")
+
+        if (!bloodGroup.isNullOrEmpty()) {
+            setSelectedBloodGroup(bloodGroup)
+        }
+
+        if (!location.isNullOrEmpty()) {
+            val locations = resources.getStringArray(R.array.pakistan_cities)
+            val locationIndex = locations.indexOf(location)
+            if (locationIndex >= 0) {
+                binding.spinnerCity.setSelection(locationIndex)
             }
         }
     }
