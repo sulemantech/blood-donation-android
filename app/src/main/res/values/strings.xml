@@ -250,8 +250,7 @@
     <string name="we_implement_security_measures_such_as_encryption_to_protect_your_data_access_to_personal_data_is_restricted_to_authorized_personnel_only">- We implement security measures such as encryption to protect your data.\n- Access to personal data is restricted to authorized personnel only.</string>
     <string name="agree_for_term_condition"><![CDATA[Agree For Term & Condition?I confirm I am of legal age and agree to the Terms and Data Privacy.]]></string>
     <string name="i_confirm_i_am_of_legal_age_and_agree_to_the_terms_and_data_privacy">
-        <font color="#000000"> I confirm I am of legal age and agree to the</font> <font color="#0589F3">Terms\n</font>  <font color="#000000"> and </font></string>
+        <font color="#000000"> I confirm I am of legal age and agree to the\n</font> <font color="#0589F3">Terms</font>  <font color="#000000"> and </font></string>
     <string name="data_privacy"><font color="#0589F3">Data Privacy</font></string>
-
 
 </resources>

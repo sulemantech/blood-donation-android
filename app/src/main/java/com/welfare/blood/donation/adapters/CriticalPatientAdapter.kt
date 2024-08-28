@@ -129,4 +129,4 @@ class CriticalPatientAdapter(
     interface OnPatientClickListener {
         fun onPatientClick(patient: CriticalPatient)
     }
-}
+}//main chahiti hun k jab donate now py click kren to ek dialog show jis me ho do you want to donate blood yes or no to yes krny py request send ho jaye us user ko

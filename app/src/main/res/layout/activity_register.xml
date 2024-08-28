@@ -280,13 +280,13 @@
         <CheckBox
             android:id="@+id/no_yes"
             android:layout_width="wrap_content"
-            android:layout_height="40sp"
+            android:layout_height="45sp"
             android:padding="11dp"
             android:layout_marginTop="30dp"
             android:text="Ready to Donate Blood?"
             android:backgroundTint="@color/maron"
             android:buttonTint="@color/maron"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ed_lastdonationdate" />
         <CheckBox
@@ -294,7 +294,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginStart="24sp"
+            android:layout_marginStart="13sp"
             android:backgroundTint="@color/maron"
             android:buttonTint="@color/maron"
             app:layout_constraintStart_toStartOf="parent"
@@ -313,8 +313,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toEndOf="@+id/term"
             app:layout_constraintTop_toBottomOf="@+id/no_yes"
-            android:layout_marginTop="21.5dp"
-            android:layout_marginStart="110sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="143sp"
             app:layout_constraintStart_toStartOf="parent"
             android:id="@+id/data"
             android:text="@string/data_privacy"/>

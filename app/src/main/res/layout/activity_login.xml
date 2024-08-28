@@ -108,6 +108,7 @@
             android:layout_marginStart="20dp"
             android:text="Show Password"
             android:checked="false"
+            android:buttonTint="@color/maron"
             android:fontFamily="@font/opensanshebrew_regular"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ed_password" />
@@ -120,6 +121,7 @@
             android:layout_marginTop="15dp"
             android:text="Forgot password?"
             android:textSize="15sp"
+            android:textColor="#0589F3"
             android:fontFamily="@font/opensanshebrew_regular"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ed_password" />

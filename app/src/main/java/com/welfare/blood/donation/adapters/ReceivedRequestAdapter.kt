@@ -100,7 +100,7 @@ class ReceivedRequestAdapter(
 
             documentRef.update("donors", FieldValue.arrayUnion(currentUserId))
                 .addOnSuccessListener {
-                    Toast.makeText(binding.root.context, "Requested", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(binding.root.context, "Donated", Toast.LENGTH_SHORT).show()
                     binding.donateNow.visibility = View.GONE
                     binding.completed.visibility = View.VISIBLE
                 }

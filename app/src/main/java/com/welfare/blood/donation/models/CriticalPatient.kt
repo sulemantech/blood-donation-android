@@ -10,8 +10,8 @@ data class CriticalPatient(
     val hospital: String = "",
     val location: String = "",
     val bloodFor: String = "",
-    val userId: String = "", // Sender ID
-    val recipientId: String = "", // Recipient ID
-    var status: String = "pending", // Default status is pending
+    val userId: String = "",
+    val recipientId: String = "",
+    var status: String = "pending",
     val critical: Boolean = false
 )
