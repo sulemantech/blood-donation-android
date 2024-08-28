@@ -6,38 +6,38 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.welfare.blood.donation.databinding.BloodBankRecyclerviewBinding
-import com.welfare.blood.donation.databinding.DonorsItemBinding
-import com.welfare.blood.donation.models.User
+import com.welfare.blood.donation.models.BloodBankItem
 
-class BloodBankAdapter(private val items: List<String>) : RecyclerView.Adapter<BloodBankAdapter.BloodBankViewHolder>() {
+class BloodBankAdapter(private val items: List<BloodBankItem>) : RecyclerView.Adapter<BloodBankAdapter.BloodBankViewHolder>() {
 
     inner class BloodBankViewHolder(val binding: BloodBankRecyclerviewBinding) :
-        RecyclerView.ViewHolder(binding.root){
+        RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(user: User) {
-            binding.tvName.text = user.name
-            binding.phone.text = user.phone
-            binding.tvAddress.text = user.location
+        fun bind(item: BloodBankItem) {
+            binding.tvName.text = item.name
+            binding.phone.text = item.phone
+            binding.tvAddress.text = item.address
 
             binding.phoneCall.setOnClickListener {
                 val intent = Intent(Intent.ACTION_DIAL).apply {
-                    data = Uri.parse("tel:${user.phone}")
+                    data = Uri.parse("tel:${item.phone}")
                 }
                 itemView.context.startActivity(intent)
             }
 
-        binding.chat.setOnClickListener {
-            val phoneNumber = user.phone
-            val message = "Hello, this is a test message."
+            binding.chat.setOnClickListener {
+                val phoneNumber = item.phone
+                val message = "Hello, this is a test message."
 
-            val intent = Intent(Intent.ACTION_VIEW).apply {
-                data = Uri.parse("sms:$phoneNumber")
-                putExtra("sms_body", message)
+                val intent = Intent(Intent.ACTION_VIEW).apply {
+                    data = Uri.parse("sms:$phoneNumber")
+                    putExtra("sms_body", message)
+                }
+                itemView.context.startActivity(intent)
             }
-            itemView.context.startActivity(intent)
-        }
+
             binding.share.setOnClickListener {
-                val shareText = "Donor Name: ${user.name}\nBlood Group: ${user.bloodGroup}\nLocation: ${user.location}\nContact: ${user.phone}"
+                val shareText = "Donor Name: ${item.name}\nLocation: ${item.address}\nContact: ${item.phone}"
                 val intent = Intent().apply {
                     action = Intent.ACTION_SEND
                     putExtra(Intent.EXTRA_TEXT, shareText)
@@ -55,12 +55,8 @@ class BloodBankAdapter(private val items: List<String>) : RecyclerView.Adapter<B
     }
 
     override fun onBindViewHolder(holder: BloodBankViewHolder, position: Int) {
-        holder.binding.tvName.text = items[position]
-        holder.binding.tvAddress.text = items[position]
-        holder.binding.tvBloodGroup.text = items[position]
+        holder.bind(items[position])
     }
 
-    override fun getItemCount():
-            Int = items.size.coerceAtMost(2)
-
+    override fun getItemCount(): Int = items.size
 }

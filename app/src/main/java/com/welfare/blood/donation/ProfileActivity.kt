@@ -86,13 +86,13 @@ class ProfileActivity : AppCompatActivity() {
                 if (!imageUrl.isNullOrEmpty()) {
                     Glide.with(this)
                         .load(imageUrl)
-                        .placeholder(R.drawable.ic_profil_menu)
-                        .error(R.drawable.ic_profil_menu)
+                        .placeholder(R.drawable.ic_user_profile)
+                        .error(R.drawable.ic_user_profile)
                         .into(binding.ivProfileImage)
 
                     binding.btnDeleteProfile.isEnabled = true // Enable delete button if image exists
                 } else {
-                    binding.ivProfileImage.setImageResource(R.drawable.ic_profil_menu)
+                    binding.ivProfileImage.setImageResource(R.drawable.ic_user_profile)
                     binding.btnDeleteProfile.isEnabled = false // Disable delete button if no image
                 }
             }

@@ -192,20 +192,24 @@ class HomeFragment : Fragment() {
         return try {
             val querySnapshot = db.collection("requests")
                 .whereEqualTo("critical", true)
-                .whereNotEqualTo("userId", currentUserId)
                 .get()
                 .await()
-            querySnapshot.size()
+
+            // Filter out requests where userId matches the currentUserId
+            val count = querySnapshot.documents.count {
+                it.getString("userId") != currentUserId
+            }
+            count
         } catch (e: Exception) {
             Log.w(TAG, "Error getting critical request count", e)
-
+            0
         }
     }
 
     private fun displayPatientCount() {
         lifecycleScope.launch {
             val count = getCriticalRequestCount()
-            binding.emergencyPatientsLabel.text = "Emergency Patients: $count"
+            binding.emergencyPatientsLabel.text = "Critical Patients: $count"
         }
     }
 

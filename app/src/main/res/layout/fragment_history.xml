@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/menu_bg">
+        android:background="@drawable/both_activity_background">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -96,7 +96,7 @@
                         android:id="@+id/img_create_request"
                         android:layout_width="64dp"
                         android:layout_height="64dp"
-                        android:src="@drawable/ic_profil_menu"
+                        android:src="@drawable/ic_user_profile"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

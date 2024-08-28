@@ -9,6 +9,12 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <!-- res/values/styles.xml -->
+    <style name="CustomSpinnerStyle" parent="Widget.AppCompat.Spinner">
+        <item name="android:textColor">@color/pinkk</item>
+        <item name="android:dropDownSelector">#ffffff</item>
+    </style>
+
     <!-- Theme for Activity A -->
     <style name="ThemeA" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:statusBarColor">@color/white</item>

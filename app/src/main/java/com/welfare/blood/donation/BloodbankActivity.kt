@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.welfare.blood.donation.adapters.BloodBankAdapter
 import com.welfare.blood.donation.databinding.ActivityBloodbankBinding
 import com.welfare.blood.donation.models.BloodBankItem
@@ -19,20 +20,22 @@ class BloodbankActivity : AppCompatActivity() {
         binding = ActivityBloodbankBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Sample data
         val bloodBankItems = listOf(
             BloodBankItem("Blood Bank 1", "123-456-7890", "Address 1"),
             BloodBankItem("Blood Bank 2", "234-567-8901", "Address 2"),
             BloodBankItem("Blood Bank 3", "345-678-9012", "Address 3"),
-            BloodBankItem("Blood Bank 4", "456-789-0123", "Address 4")
+            BloodBankItem("Blood Bank 4", "456-789-0123", "Address 4"),
+            BloodBankItem("Blood Bank 5", "567-890-1234", "Address 5"),
+            BloodBankItem("Blood Bank 6", "678-901-2345", "Address 6"),
+            BloodBankItem("Blood Bank 7", "789-012-3456", "Address 7"),
+            BloodBankItem("Blood Bank 8", "890-123-4567", "Address 8")
         )
 
-        // Display only the first 2 items initially
-//        val initialItems = bloodBankItems.take(2)
-//        val adapter = BloodBankAdapter(initialItems)
-//        binding.bloodbankRecyclerview.adapter = adapter
+        val initialItems = bloodBankItems.take(2)
+        val adapter = BloodBankAdapter(initialItems)
+        binding.bloodbankRecyclerview.layoutManager = LinearLayoutManager(this)
+        binding.bloodbankRecyclerview.adapter = adapter
 
-        // Pass all items to the next activity
         binding.seeAllBanks.setOnClickListener {
             val intent = Intent(this, BloodBankAllItemsActivity::class.java)
             intent.putParcelableArrayListExtra("allItems", ArrayList(bloodBankItems))

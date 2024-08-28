@@ -37,11 +37,10 @@ class BloodBankAllItemsActivity : AppCompatActivity() {
 
         val allItems: ArrayList<BloodBankItem>? = intent.getParcelableArrayListExtra("allItems")
 
-        // Handle the case where the list is null or empty
         if (allItems != null && allItems.isNotEmpty()) {
-        //    val adapter = BloodBankAdapter(allItems)
+            val adapter = BloodBankAdapter(allItems)
             binding.recyclerViewAllItems.layoutManager = LinearLayoutManager(this)
-          //  binding.recyclerViewAllItems.adapter = adapter
+            binding.recyclerViewAllItems.adapter = adapter
         }
     }
 
