@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
@@ -106,15 +107,19 @@ class DonationHistoryFragment : Fragment() {
         builder.setMessage("Are you sure you want to delete this donation?")
 
         builder.setPositiveButton("Delete") { dialog: DialogInterface, _: Int ->
-            deleteDonation(donation) // Proceed with delete
+            deleteDonation(donation)
         }
 
         builder.setNegativeButton("Cancel") { dialog: DialogInterface, _: Int ->
-            dialog.dismiss() // Close the dialog
+            dialog.dismiss()
         }
 
         val alertDialog = builder.create()
         alertDialog.show()
+
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(requireContext(), android.R.color.holo_red_dark))
+
+        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(requireContext(), android.R.color.holo_red_dark))
     }
 
     private fun deleteDonation(donation: Donation) {

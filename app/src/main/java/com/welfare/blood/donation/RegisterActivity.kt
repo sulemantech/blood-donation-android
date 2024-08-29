@@ -96,6 +96,22 @@ class RegisterActivity : AppCompatActivity() {
             val intent = Intent(this, PrivacyPolicyActivity::class.java)
             startActivity(intent)
         }
+
+        binding.spinnerBloodGroup.setOnTouchListener { _, _ ->
+            clearEditTextFocus()
+            false
+        }
+
+        binding.edLocation.setOnTouchListener { _, _ ->
+            clearEditTextFocus()
+            false
+        }
+    }
+    private  fun clearEditTextFocus(){
+        binding.edName.clearFocus()
+        binding.edPhone.clearFocus()
+        binding.edPassword.clearFocus()
+        binding.edEmail.clearFocus()
     }
 
     private fun setWindowFlag(bits: Int, on: Boolean) {
@@ -136,7 +152,10 @@ class RegisterActivity : AppCompatActivity() {
         val bloodGroups = resources.getStringArray(R.array.blood_groups)
         val bloodGroupAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, bloodGroups)
         bloodGroupAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        val adapter = ArrayAdapter(this, R.layout.spinner_item, R.id.spinner_item_text, bloodGroups)
         binding.spinnerBloodGroup.adapter = bloodGroupAdapter
+        binding.spinnerBloodGroup.adapter = adapter
+
     }
 
     private fun getBloodTypeIndex(bloodType: String): Int {

@@ -64,4 +64,15 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
+
+    <!-- Custom DatePickerDialog style -->
+    <style name="CustomDatePickerDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:datePickerDialogTheme">@style/CustomDatePicker</item>
+    </style>
+
+    <style name="CustomDatePicker" parent="android:Widget.Material.DatePicker">
+        <item name="android:headerBackground">#B20B1F</item>
+        <item name="android:datePickerMode">spinner</item>
+    </style>
+
 </resources>

@@ -139,7 +139,6 @@
             android:hint="City"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:paddingStart="10dp"
             android:entries="@array/pakistan_cities"
             android:inputType="text" />
         <View
@@ -170,7 +169,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_gravity="center"
+            android:checked="true"
             android:buttonTint="@color/maron"
+            android:backgroundTint="@color/maron"
             android:text="Ready To Donate Blood" />
 
         <TextView

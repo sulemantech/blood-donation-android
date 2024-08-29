@@ -90,10 +90,10 @@ class ProfileActivity : AppCompatActivity() {
                         .error(R.drawable.ic_user_profile)
                         .into(binding.ivProfileImage)
 
-                    binding.btnDeleteProfile.isEnabled = true // Enable delete button if image exists
+                    binding.btnDeleteProfile.isEnabled = true
                 } else {
                     binding.ivProfileImage.setImageResource(R.drawable.ic_user_profile)
-                    binding.btnDeleteProfile.isEnabled = false // Disable delete button if no image
+                    binding.btnDeleteProfile.isEnabled = false
                 }
             }
         }
@@ -101,7 +101,7 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun calculateProfileCompletion(document: DocumentSnapshot): Int {
         var completedFields = 0
-        val totalFields = 7 // Number of fields used to calculate profile completion
+        val totalFields = 6
 
         if (document["name"] != null) completedFields++
         if (document["email"] != null) completedFields++
@@ -109,7 +109,7 @@ class ProfileActivity : AppCompatActivity() {
         if (document["location"] != null) completedFields++
         if (document["gender"] != null) completedFields++
         if (document["dateOfBirth"] != null) completedFields++
-        if (document["bloodType"] != null) completedFields++
+      //  if (document["bloodType"] != null) completedFields++
 
         return (completedFields * 100) / totalFields
     }
@@ -128,7 +128,7 @@ class ProfileActivity : AppCompatActivity() {
             db.collection("users").document(userId).set(userMap, SetOptions.merge())
                 .addOnSuccessListener {
                     Toast.makeText(this, "Profile Image Deleted", Toast.LENGTH_SHORT).show()
-                    loadUserProfile() // Reload profile to update UI
+                    loadUserProfile()
                 }
                 .addOnFailureListener {
                     Toast.makeText(this, "Failed to delete profile image", Toast.LENGTH_SHORT).show()

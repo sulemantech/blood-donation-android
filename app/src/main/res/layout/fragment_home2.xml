@@ -53,17 +53,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             />
         <ImageView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="185sp"
-            android:src="@drawable/background_top_msg"
+            android:src="@drawable/profile_home_background"
             android:id="@+id/cardview6"
             android:layout_marginTop="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginEnd="25sp"
-            android:layout_marginStart="25sp"
+
             app:layout_constraintTop_toBottomOf="@+id/home1"
-            android:scaleType="centerCrop" />
+            android:scaleType="fitXY" />
 
 
         <TextView
@@ -78,7 +77,7 @@
             app:layout_constraintTop_toBottomOf="@id/cardview6" />
 
         <ImageView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="100dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -86,6 +85,7 @@
             android:layout_marginEnd="10dp"
             android:id="@+id/cardview5"
             android:layout_marginTop="5dp"
+            android:scaleType="fitXY"
             app:layout_constraintTop_toBottomOf="@id/home"
             android:src="@drawable/background_blood_icons" />
         <LinearLayout

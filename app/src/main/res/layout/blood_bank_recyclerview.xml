@@ -196,7 +196,6 @@
                 android:id="@+id/ll_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:layout_weight="1"
                 android:gravity="right"
                 android:orientation="vertical">
@@ -228,7 +227,7 @@
                 android:layout_weight="1"
                 android:gravity="left"
                 android:layout_marginTop="10sp"
-                android:layout_marginStart="277dp"
+                android:layout_marginStart="267dp"
                 android:layout_below="@+id/ll_right"
                 android:orientation="horizontal">
                 <TextView
@@ -238,7 +237,6 @@
                     android:layout_marginBottom="8dp"
                     android:id="@+id/chat"
                     android:gravity="center"
-                    android:layout_marginEnd="10dp"
                     android:layout_gravity="right"
                     android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -251,7 +249,7 @@
                     android:layout_marginBottom="8dp"
                     android:id="@+id/phone_call"
                     android:gravity="center"
-                    android:layout_marginEnd="10dp"
+
                     android:layout_gravity="right"
                     android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"

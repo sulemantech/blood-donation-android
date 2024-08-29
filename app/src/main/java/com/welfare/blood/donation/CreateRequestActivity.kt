@@ -55,6 +55,15 @@ class CreateRequestActivity : AppCompatActivity() {
             isCritical = isChecked
         }
 
+        binding.bloodType.setOnTouchListener { _, _ ->
+            clearEditTextFocus()
+            false
+        }
+
+        binding.location.setOnTouchListener { _, _ ->
+            clearEditTextFocus()
+            false
+        }
         binding.radioForMyself.isChecked = true
         fillFormFields()
 
@@ -84,6 +93,14 @@ class CreateRequestActivity : AppCompatActivity() {
         if (requestId != null) {
             loadRequestData(requestId!!)
         }
+    }
+
+    private  fun clearEditTextFocus(){
+        binding.name.clearFocus()
+        binding.age.clearFocus()
+        binding.requiredDate.clearFocus()
+        binding.requiredUnit.clearFocus()
+        binding.hospital.clearFocus()
     }
 
     private fun setWindowFlag(bits: Int, on: Boolean) {
@@ -146,17 +163,29 @@ class CreateRequestActivity : AppCompatActivity() {
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
+        // Create a DatePicker instance
         val datePicker = DatePicker(this)
-        datePicker.init(year, month, day) { _, selectedYear, selectedMonth, selectedDay ->
-            val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-            calendar.set(selectedYear, selectedMonth, selectedDay)
-            selectedDonationDate = sdf.format(calendar.time)
-            binding.edDateRequired.setText(selectedDonationDate)
-        }
+        datePicker.init(year, month, day, null)
 
+        // Create an AlertDialog with the DatePicker
         val dialog = AlertDialog.Builder(this)
             .setView(datePicker)
             .setTitle("Select Date")
+            .setPositiveButton("OK") { _, _ ->
+                // Get the selected date from the DatePicker
+                val selectedYear = datePicker.year
+                val selectedMonth = datePicker.month
+                val selectedDay = datePicker.dayOfMonth
+
+                // Format the selected date
+                val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                calendar.set(selectedYear, selectedMonth, selectedDay)
+                selectedDonationDate = sdf.format(calendar.time)
+
+                // Update the TextView with the selected date
+                binding.edDateRequired.setText(selectedDonationDate)
+            }
+            .setNegativeButton("Cancel", null) // Optional Cancel button
             .create()
 
         dialog.show()

@@ -44,12 +44,12 @@ class SplashActivity : AppCompatActivity() {
             val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
 
             if (isLoggedIn) {
-                // User is logged in, navigate to HomeActivity
+
                 val intent = Intent(this, HomeActivity::class.java)
                 startActivity(intent)
                 finish()
             } else {
-                // User is not logged in, navigate to LoginActivity
+
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
                 finish()

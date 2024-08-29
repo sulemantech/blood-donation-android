@@ -80,7 +80,6 @@ class EditProfileActivity : AppCompatActivity() {
             saveUserProfile()
         }
 
-        // Set up gender spinner
         val genderAdapter = ArrayAdapter.createFromResource(
             this,
             R.array.gender_array,
@@ -162,21 +161,34 @@ class EditProfileActivity : AppCompatActivity() {
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-        val datePickerDialog = DatePickerDialog(this, { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDay: Int ->
-            val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-            val selectedDate = Calendar.getInstance()
-            selectedDate.set(selectedYear, selectedMonth, selectedDay)
-            selectedDateOfBirth = sdf.format(selectedDate.time)
-            binding.edDateBirth.setText(selectedDateOfBirth)
-        }, year, month, day)
+        val datePickerDialog = DatePickerDialog(
+            this,
+            { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDay: Int ->
+                val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                val selectedDate = Calendar.getInstance()
+                selectedDate.set(selectedYear, selectedMonth, selectedDay)
+                selectedDateOfBirth = sdf.format(selectedDate.time)
+                binding.edDateBirth.setText(selectedDateOfBirth)
+            },
+            year,
+            month,
+            day
+        )
 
-        val oneYearAgo = Calendar.getInstance()
-        oneYearAgo.add(Calendar.YEAR, -1)
-        datePickerDialog.datePicker.minDate = oneYearAgo.timeInMillis
+        // Set the minimum date to 100 years ago
+        val hundredYearsAgo = Calendar.getInstance()
+        hundredYearsAgo.add(Calendar.YEAR, -100)
+        datePickerDialog.datePicker.minDate = hundredYearsAgo.timeInMillis
 
+        // Set the maximum date to today
         datePickerDialog.datePicker.maxDate = calendar.timeInMillis
 
+        // Show the date picker dialog
         datePickerDialog.show()
+
+        // Set custom button styles after showing the dialog
+        datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setText("OK")
+        datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setText("Cancel")
     }
 
     private fun showDatePickerDialogForLastDonationDate() {
@@ -185,16 +197,28 @@ class EditProfileActivity : AppCompatActivity() {
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-        val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
-            val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-            calendar.set(selectedYear, selectedMonth, selectedDay)
-            selectedLastDonationDate = sdf.format(calendar.time)
-            binding.edLastdonationdate.setText(selectedLastDonationDate)
-        }, year, month, day)
+        val datePickerDialog = DatePickerDialog(
+            this,
+            { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDay: Int ->
+                val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                calendar.set(selectedYear, selectedMonth, selectedDay)
+                selectedLastDonationDate = sdf.format(calendar.time)
+                binding.edLastdonationdate.setText(selectedLastDonationDate)
+            },
+            year,
+            month,
+            day
+        )
 
+        // Set the minimum date to today
         datePickerDialog.datePicker.minDate = calendar.timeInMillis
 
+        // Show the date picker dialog
         datePickerDialog.show()
+
+        // Set custom button styles after showing the dialog
+        datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setText("OK")
+        datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setText("Cancel")
     }
 
     private fun pickImageFromGallery() {

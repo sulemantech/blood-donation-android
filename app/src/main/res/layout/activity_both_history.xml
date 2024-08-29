@@ -118,7 +118,7 @@
         android:layout_gravity="right"
         android:textColor="@color/maron"
         android:layout_marginTop="180dp"
-        android:layout_marginStart="222dp"
+        android:layout_marginStart="202dp"
         app:layout_constraintEnd_toEndOf="parent"
         android:textAppearance="@style/create_request"/>
 

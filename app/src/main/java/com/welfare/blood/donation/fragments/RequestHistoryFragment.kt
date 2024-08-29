@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 import android.content.DialogInterface
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import com.welfare.blood.donation.AllDonorsActivity
 
 class RequestHistoryFragment : Fragment() {
@@ -106,15 +107,20 @@ class RequestHistoryFragment : Fragment() {
         builder.setMessage("Are you sure you want to delete this request?")
 
         builder.setPositiveButton("Delete") { dialog: DialogInterface, _: Int ->
-            deleteRequest(request) // Proceed with delete
+            deleteRequest(request)
         }
 
         builder.setNegativeButton("Cancel") { dialog: DialogInterface, _: Int ->
-            dialog.dismiss() // Close the dialog
+            dialog.dismiss()
         }
 
         val alertDialog = builder.create()
+
         alertDialog.show()
+
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(requireContext(), android.R.color.holo_red_dark))
+
+        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(requireContext(), android.R.color.holo_red_dark))
     }
 
     private fun showAllDonors(requestId: String) {
