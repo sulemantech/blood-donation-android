@@ -117,8 +117,8 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/contactInfo"
                         android:layout_marginTop="1dp"
-                        android:visibility="gone"
                         android:text="A+(A Positive)"
+                        android:textStyle="bold"
                         android:textAppearance="@style/hospital_name"
                         />
                     <TextView
@@ -128,6 +128,7 @@
                         android:layout_below="@id/contactInfo"
                         android:layout_marginTop="1dp"
                         android:text="phone"
+                        android:visibility="gone"
                         android:textAppearance="@style/hospital_name"
                         />
 

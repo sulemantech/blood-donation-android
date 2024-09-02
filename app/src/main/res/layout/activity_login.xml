@@ -121,7 +121,6 @@
             android:layout_marginTop="15dp"
             android:text="Forgot password?"
             android:textSize="15sp"
-            android:textColor="#0589F3"
             android:fontFamily="@font/opensanshebrew_regular"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ed_password" />
@@ -134,8 +133,8 @@
             android:layout_marginTop="15dp"
             android:fontFamily="@font/opensanshebrew_regular"
             android:text="Reset"
-            android:textColor="@color/black1"
             android:textSize="15sp"
+            android:textColor="#0589F3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ed_password" />
 
@@ -160,7 +159,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="100dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="18dp"
             android:text="Don't have account?"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -170,10 +169,10 @@
             android:id="@+id/register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="18dp"
             android:fontFamily="@font/opensanshebrew_regular"
             android:text="Sign Up"
-            android:textColor="@color/black1"
+            android:textColor="#0589F3"
             android:textSize="15sp"
             android:gravity="left"
             android:layout_marginStart="10sp"
@@ -185,6 +184,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
+            android:layout_marginTop="5sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/register" />

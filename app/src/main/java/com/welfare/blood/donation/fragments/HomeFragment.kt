@@ -41,15 +41,15 @@ class HomeFragment : Fragment() {
     private lateinit var tvWelcomeMessage: TextView
     private lateinit var criticalPatientAdapter: CriticalPatientAdapter
     private val criticalPatients = mutableListOf<CriticalPatient>()
-    private lateinit var addDonorsButton: FrameLayout // Reference to the button
-    private var currentUserId: String? = null // Store currentUserId
+    private lateinit var addDonorsButton: FrameLayout
+    private var currentUserId: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHome2Binding.inflate(inflater, container, false)
-        tvWelcomeMessage = binding.home1 // Initialize here
+        tvWelcomeMessage = binding.home1
         return binding.root
     }
 
@@ -95,7 +95,7 @@ class HomeFragment : Fragment() {
         criticalPatientAdapter = CriticalPatientAdapter(criticalPatients)
         binding.criticalPatientRecyclerview.adapter = criticalPatientAdapter
 
-        fetchCriticalPatients()
+      //  fetchCriticalPatients()
 
         binding.frameLayoutOne.setOnClickListener {
             startActivity(Intent(requireContext(), BothHistoryActivity::class.java))
@@ -195,7 +195,7 @@ class HomeFragment : Fragment() {
                 .get()
                 .await()
 
-            // Filter out requests where userId matches the currentUserId
+
             val count = querySnapshot.documents.count {
                 it.getString("userId") != currentUserId
             }
@@ -211,6 +211,11 @@ class HomeFragment : Fragment() {
             val count = getCriticalRequestCount()
             binding.emergencyPatientsLabel.text = "Critical Patients: $count"
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        fetchCriticalPatients()
     }
 
     companion object {

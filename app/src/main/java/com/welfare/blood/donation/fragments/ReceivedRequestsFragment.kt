@@ -48,7 +48,7 @@ class ReceivedRequestsFragment : Fragment() {
         binding.bloodForMyselfGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.radio_for_myself -> fetchRequests("all")
-                R.id.radio_for_others -> fetchRequests("pending")
+                R.id.radio_for_others -> fetchRequests("waiting")
                 R.id.radio_for_others2 -> fetchRequests("completed")
             }
         }

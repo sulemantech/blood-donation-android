@@ -203,10 +203,10 @@ class HomeActivity : AppCompatActivity() {
     private fun performProfileDeletion() {
         val user = auth.currentUser
         user?.let {
-            // Delete user data from Firestore
+
             db.collection("users").document(it.uid).delete().addOnCompleteListener { firestoreTask ->
                 if (firestoreTask.isSuccessful) {
-                    // Delete user from Firebase Authentication
+
                     it.delete().addOnCompleteListener { authTask ->
                         if (authTask.isSuccessful) {
                             val intent = Intent(this, LoginActivity::class.java)

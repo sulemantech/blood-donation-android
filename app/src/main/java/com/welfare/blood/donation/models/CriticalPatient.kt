@@ -3,7 +3,7 @@ package com.welfare.blood.donation.models
 data class CriticalPatient(
     val patientName: String = "",
     val age: Int = 0,
-    val id: String? = null,
+    var id: String? = null,
     val bloodType: String = "",
     val requiredUnit: Int = 0,
     val dateRequired: String = "",
@@ -13,5 +13,6 @@ data class CriticalPatient(
     val userId: String = "",
     val recipientId: String = "",
     var status: String = "pending",
-    val critical: Boolean = false
+    val critical: Boolean = false,
+    val donors: List<String> = emptyList()
 )

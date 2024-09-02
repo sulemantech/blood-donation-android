@@ -49,7 +49,7 @@ class SearchResultActivity : AppCompatActivity() {
             adapter = userAdapter
         }
 
-        // Fetch the passed search criteria from Intent
+
         val bloodGroup = intent.getStringExtra("bloodGroup")
         val location = intent.getStringExtra("location")
 

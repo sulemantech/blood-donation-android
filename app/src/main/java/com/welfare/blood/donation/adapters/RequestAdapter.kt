@@ -1,9 +1,10 @@
-package com.welfare.blood.donation
+package com.welfare.blood.donation.adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.welfare.blood.donation.R
 import com.welfare.blood.donation.databinding.HistoryRecyclerviewBinding
 import com.welfare.blood.donation.models.Request
 

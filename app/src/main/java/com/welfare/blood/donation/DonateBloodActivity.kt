@@ -78,7 +78,6 @@ class DonateBloodActivity : AppCompatActivity() {
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-        // Create a new instance of DatePickerDialog
         val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
             val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             calendar.set(selectedYear, selectedMonth, selectedDay)
@@ -86,10 +85,9 @@ class DonateBloodActivity : AppCompatActivity() {
             binding.edDate.setText(selectedDonationDate)
         }, year, month, day)
 
-        // Set the minimum date to today's date
         datePickerDialog.datePicker.minDate = calendar.timeInMillis
 
-        // Show the DatePickerDialog
+
         datePickerDialog.show()
     }
 

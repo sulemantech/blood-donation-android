@@ -5,7 +5,6 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -23,12 +22,11 @@ class SearchActivity : AppCompatActivity() {
         binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Handle back arrow click
         binding.backArrow.setOnClickListener {
             navigateToHome()
         }
 
-        // Handle immersive layout flags
+
         if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
             setWindowFlag(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, true)
         }
@@ -40,50 +38,29 @@ class SearchActivity : AppCompatActivity() {
             window.statusBarColor = ContextCompat.getColor(this, android.R.color.transparent)
         }
 
-        // Setup the city spinner
         val locations = resources.getStringArray(R.array.pakistan_cities)
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, locations)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.spinnerCity.adapter = adapter
+        val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, locations)
+        binding.autoCompleteCity.setAdapter(adapter)
 
-        binding.spinnerCity.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                selectedLocation = locations[position]
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                // Do nothing
-            }
+        binding.autoCompleteCity.setOnItemClickListener { parent, view, position, id ->
+            selectedLocation = parent.getItemAtPosition(position) as String
         }
 
-        binding.btnAPlus.setOnClickListener {
-            setSelectedBloodGroup("A+")
-        }
-        binding.btnAMinus.setOnClickListener {
-            setSelectedBloodGroup("A-")
-        }
-        binding.btnBPlus.setOnClickListener {
-            setSelectedBloodGroup("B+")
-        }
-        binding.btnBMinus.setOnClickListener {
-            setSelectedBloodGroup("B-")
-        }
-        binding.btnABPlus.setOnClickListener {
-            setSelectedBloodGroup("AB+")
-        }
-        binding.btnABMinus.setOnClickListener {
-            setSelectedBloodGroup("AB-")
-        }
-        binding.btnOPlus.setOnClickListener {
-            setSelectedBloodGroup("O+")
-        }
-        binding.btnOMinus.setOnClickListener {
-            setSelectedBloodGroup("O-")
-        }
+
+        binding.btnAPlus.setOnClickListener { setSelectedBloodGroup("A+") }
+        binding.btnAMinus.setOnClickListener { setSelectedBloodGroup("A-") }
+        binding.btnBPlus.setOnClickListener { setSelectedBloodGroup("B+") }
+        binding.btnBMinus.setOnClickListener { setSelectedBloodGroup("B-") }
+        binding.btnABPlus.setOnClickListener { setSelectedBloodGroup("AB+") }
+        binding.btnABMinus.setOnClickListener { setSelectedBloodGroup("AB-") }
+        binding.btnOPlus.setOnClickListener { setSelectedBloodGroup("O+") }
+        binding.btnOMinus.setOnClickListener { setSelectedBloodGroup("O-") }
 
         binding.btnSearch.setOnClickListener {
+            selectedLocation = binding.autoCompleteCity.text.toString()
+
             if (selectedBloodGroup.isNullOrEmpty() || selectedLocation.isNullOrEmpty()) {
-                Toast.makeText(this, "Please select a blood group and a location", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Please select a blood group and enter a location", Toast.LENGTH_SHORT).show()
             } else {
                 val intent = Intent(this, SearchResultActivity::class.java).apply {
                     putExtra("bloodGroup", selectedBloodGroup)
@@ -98,7 +75,6 @@ class SearchActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        // Retrieve bloodGroup and location if returning from SearchResultActivity
         val bloodGroup = intent.getStringExtra("bloodGroup")
         val location = intent.getStringExtra("location")
 
@@ -107,11 +83,7 @@ class SearchActivity : AppCompatActivity() {
         }
 
         if (!location.isNullOrEmpty()) {
-            val locations = resources.getStringArray(R.array.pakistan_cities)
-            val locationIndex = locations.indexOf(location)
-            if (locationIndex >= 0) {
-                binding.spinnerCity.setSelection(locationIndex)
-            }
+            binding.autoCompleteCity.setText(location)
         }
     }
 

@@ -38,11 +38,10 @@
             android:drawableTint="@color/white"
             android:gravity="center" />
 
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Privacy Policy "
+            android:text="Data Privacy"
             android:textColor="@color/white"
             android:textSize="22sp"
             android:layout_marginTop="10dp"

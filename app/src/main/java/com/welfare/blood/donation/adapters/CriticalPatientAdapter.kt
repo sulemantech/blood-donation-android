@@ -15,7 +15,7 @@ import com.welfare.blood.donation.databinding.CriticalPatientItemBinding
 import com.welfare.blood.donation.models.CriticalPatient
 
 class CriticalPatientAdapter(
-    private val patients: List<CriticalPatient>,
+    private val patients: MutableList<CriticalPatient>,
     private val listener: OnPatientClickListener? = null
 ) : RecyclerView.Adapter<CriticalPatientAdapter.CriticalPatientViewHolder>() {
 
@@ -30,6 +30,12 @@ class CriticalPatientAdapter(
 
     override fun getItemCount(): Int {
         return patients.size
+    }
+
+    fun updatePatients(newPatients: List<CriticalPatient>) {
+        patients.clear()
+        patients.addAll(newPatients)
+        notifyDataSetChanged()
     }
 
     inner class CriticalPatientViewHolder(private val binding: CriticalPatientItemBinding) :
@@ -50,6 +56,7 @@ class CriticalPatientAdapter(
             binding.root.setOnClickListener {
                 listener?.onPatientClick(patient)
             }
+
             binding.donateNow.setOnClickListener {
                 showConfirmationDialog(patient)
             }
@@ -58,11 +65,11 @@ class CriticalPatientAdapter(
         private fun showConfirmationDialog(patient: CriticalPatient) {
             AlertDialog.Builder(binding.root.context)
                 .setTitle("Confirm Donation")
-                .setMessage("Do you want to donate?")
+                .setMessage("Do you want to donate blood?")
                 .setPositiveButton("Yes") { _, _ ->
                     addDonor(patient)
                 }
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton("No", null)
                 .show()
         }
 
@@ -76,8 +83,6 @@ class CriticalPatientAdapter(
             val currentUserId = currentUser.uid
             val db = FirebaseFirestore.getInstance()
 
-            Log.d("CriticalPatientAdapter", "Document ID: ${patient.id}")
-
             if (patient.id.isNullOrEmpty()) {
                 Toast.makeText(binding.root.context, "Invalid document ID", Toast.LENGTH_SHORT).show()
                 return
@@ -87,20 +92,20 @@ class CriticalPatientAdapter(
 
             documentRef.update("donors", FieldValue.arrayUnion(currentUserId))
                 .addOnSuccessListener {
-                    Toast.makeText(binding.root.context, "Requested", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(binding.root.context, "Donation request sent", Toast.LENGTH_SHORT).show()
                     binding.donateNow.visibility = View.GONE
                     binding.completed.visibility = View.VISIBLE
                 }
                 .addOnFailureListener { e ->
                     Log.e("CriticalPatientAdapter", "Failed to update donors", e)
-                    Toast.makeText(binding.root.context, "Failed to donate", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(binding.root.context, "Failed to send request", Toast.LENGTH_SHORT).show()
                 }
         }
 
         private fun getBloodGroupImage(bloodType: String): Int {
             return when (bloodType) {
-                "A+" -> R.drawable.ic_a_plus
-                "A-" -> R.drawable.ic_a_minus
+                "A+" -> R.drawable.ic_a_minus
+                "A-" -> R.drawable.ic_a_plus
                 "B+" -> R.drawable.ic_b_plus
                 "B-" -> R.drawable.ic_b_minus
                 "AB+" -> R.drawable.ic_ab_plus
@@ -129,4 +134,4 @@ class CriticalPatientAdapter(
     interface OnPatientClickListener {
         fun onPatientClick(patient: CriticalPatient)
     }
-}//main chahiti hun k jab donate now py click kren to ek dialog show jis me ho do you want to donate blood yes or no to yes krny py request send ho jaye us user ko
+}

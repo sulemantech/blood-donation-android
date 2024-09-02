@@ -18,6 +18,7 @@ import com.welfare.blood.donation.databinding.ActivityRegisterBinding
 import com.welfare.blood.donation.models.CommunityDonors
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.regex.Pattern
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -178,6 +179,13 @@ class RegisterActivity : AppCompatActivity() {
         return -1
     }
 
+    private fun isValidEmail(email: String): Boolean {
+        val emailPattern = Pattern.compile(
+            "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+        )
+        return emailPattern.matcher(email).matches()
+    }
+
     private fun upsertUserByAdmin() {
         val name = binding.edName.text.toString().trim()
         val email = binding.edEmail.text.toString().trim()
@@ -187,6 +195,10 @@ class RegisterActivity : AppCompatActivity() {
         val location = binding.edLocation.selectedItem.toString()
         val userType = "user"
 
+        if (!isValidEmail(email)) {
+            Toast.makeText(this, "Please enter a valid email address", Toast.LENGTH_SHORT).show()
+            return
+        }
         if (name.isEmpty() || email.isEmpty() || phone.isEmpty() || bloodGroup.isEmpty() || location.isEmpty()) {
             Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
             return

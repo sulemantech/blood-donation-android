@@ -10,6 +10,7 @@ data class CommunityDonors(
     val phone: String = "",
     val email: String = "",
     val bloodGroup: String = "",
+    val requiredUnit: Int = 0,
     val location: String = "",
     var isDeleted: Boolean = false,
     val registrationTimestamp: Timestamp? = null

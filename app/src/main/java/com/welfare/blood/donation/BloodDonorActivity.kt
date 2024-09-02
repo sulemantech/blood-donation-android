@@ -12,11 +12,11 @@ class BloodDonorActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_blood_donors)
-        //
+
         recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         val bloodDonors: ArrayList<BloodDonorModel> = ArrayList()
 
-// Create dummy data for blood donors
+
         for (i in 1..100000) {
             val donor = BloodDonorModel(
                 pic = R.drawable.a_neg,
@@ -30,10 +30,10 @@ class BloodDonorActivity : AppCompatActivity() {
             bloodDonors.add(donor)
         }
 
-// Create the RecyclerView adapter and pass the bloodDonors list
+
         val adapter = BloodDonorAdapter(bloodDonors)
 
-// Set the adapter to your RecyclerView
+
         recyclerView.adapter = adapter
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager

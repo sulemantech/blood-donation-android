@@ -66,8 +66,8 @@ class DonorAdapter(private val donorsList: MutableList<User>) : RecyclerView.Ada
 
     private fun getBloodGroupImage(bloodType: String): Int {
         return when (bloodType) {
-            "A+" -> R.drawable.ic_a_plus
-            "A-" -> R.drawable.ic_a_minus
+            "A+" -> R.drawable.ic_a_minus
+            "A-" -> R.drawable.ic_a_plus
             "B+" -> R.drawable.ic_b_plus
             "B-" -> R.drawable.ic_b_minus
             "AB+" -> R.drawable.ic_ab_plus

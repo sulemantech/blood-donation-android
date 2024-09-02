@@ -33,6 +33,8 @@ class CommunityAdapter(
             binding.phone.text = communityDonors.phone
             binding.imageBloodGroup.setImageResource(getBloodGroupImage(communityDonors.bloodGroup))
             binding.tvAddress.text = communityDonors.location
+            val bloodTypeFull = getBloodTypeFull(communityDonors.bloodGroup)
+            binding.requiredUnit.text = "${communityDonors.bloodGroup} ($bloodTypeFull)"
 
             binding.edit.setOnClickListener {
                 onEditClick(communityDonors)
@@ -72,8 +74,8 @@ class CommunityAdapter(
 
         private fun getBloodGroupImage(bloodType: String): Int {
             return when (bloodType) {
-                "A+" -> R.drawable.ic_a_plus
-                "A-" -> R.drawable.ic_a_minus
+                "A+" -> R.drawable.ic_a_minus
+                "A-" -> R.drawable.ic_a_plus
                 "B+" -> R.drawable.ic_b_plus
                 "B-" -> R.drawable.ic_b_minus
                 "AB+" -> R.drawable.ic_ab_plus
@@ -83,5 +85,19 @@ class CommunityAdapter(
                 else -> R.drawable.blood_droplet
             }
         }
+        private fun getBloodTypeFull(bloodType: String): String {
+            return when (bloodType) {
+                "A+" -> "A Positive"
+                "A-" -> "A Negative"
+                "B+" -> "B Positive"
+                "B-" -> "B Negative"
+                "AB+" -> "AB Positive"
+                "AB-" -> "AB Negative"
+                "O+" -> "O Positive"
+                "O-" -> "O Negative"
+                else -> "Unknown"
+            }
+        }
+
     }
 }

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.firestore.FirebaseFirestore
+import com.welfare.blood.donation.adapters.ViewPagerAdapter
 import com.welfare.blood.donation.databinding.ActivityBothHistoryBinding
 
 class BothHistoryActivity : AppCompatActivity() {

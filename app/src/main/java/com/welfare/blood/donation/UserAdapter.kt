@@ -110,7 +110,7 @@ class UserAdapter(
             "AB-" -> R.drawable.ic_ab_minus
             "O+" -> R.drawable.ic_o_plus
             "O-" -> R.drawable.ic_o_minus
-            else -> R.drawable.blood_droplet // Add a default image if necessary
+            else -> R.drawable.blood_droplet
         }
     }
 

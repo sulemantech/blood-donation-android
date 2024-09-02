@@ -9,20 +9,19 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.Timestamp
-import java.util.Date
 import com.google.firebase.firestore.FirebaseFirestore
 import com.welfare.blood.donation.adapters.CommunityAdapter
 import com.welfare.blood.donation.databinding.ActivityAddDonorosBinding
 import com.welfare.blood.donation.models.CommunityDonors
-import java.text.SimpleDateFormat
-import java.util.Locale
+import java.util.Date
 
 class AddDonorsActivity : AppCompatActivity() {
 
@@ -52,30 +51,37 @@ class AddDonorsActivity : AppCompatActivity() {
             navigateToHome()
         }
 
-        val citySpinner: Spinner = binding.spinnerCity
+        val autoCompleteCity: AutoCompleteTextView = binding.autoCompleteCity
         val cities = resources.getStringArray(R.array.pakistan_cities)
-        val spinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, cities)
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        citySpinner.adapter = spinnerAdapter
+        val cityAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, cities)
+        autoCompleteCity.setAdapter(cityAdapter)
 
-        citySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        autoCompleteCity.setOnItemClickListener { parent, view, position, id ->
+            val selectedCity = parent.getItemAtPosition(position) as String
+            filterDonors(selectedCity, binding.spinnerBloodgroup.selectedItem as String)
+        }
+
+        autoCompleteCity.addTextChangedListener {
+            val typedCity = it.toString()
+            filterDonors(typedCity, binding.spinnerBloodgroup.selectedItem as String)
+        }
+
+        val bloodGroupSpinner: Spinner = binding.spinnerBloodgroup
+        val bloodGroups = resources.getStringArray(R.array.blood_groups)
+        val bloodGroupAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, bloodGroups)
+        bloodGroupAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        bloodGroupSpinner.adapter = bloodGroupAdapter
+
+        bloodGroupSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                val selectedCity = parent.getItemAtPosition(position) as String
-                if (selectedCity != "Select City") {
-                    filterDonorsByCity(selectedCity)
-                } else {
-                    donorList.clear()
-                    donorList.addAll(allDonors)
-                    communityAdapter.notifyDataSetChanged()
-                    displayRequestCount(donorList.size)
-                }
+                val selectedBloodGroup = parent.getItemAtPosition(position) as String
+                filterDonors(autoCompleteCity.text.toString(), selectedBloodGroup)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
 
         db = FirebaseFirestore.getInstance()
-
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         communityAdapter = CommunityAdapter(donorList, ::onEditClick, ::onDeleteClick)
         binding.recyclerView.adapter = communityAdapter
@@ -120,13 +126,8 @@ class AddDonorsActivity : AppCompatActivity() {
                     }
                 }
 
-
                 donorList.sortByDescending { donor ->
-                    when (val timestamp = donor.registrationTimestamp) {
-                        is Timestamp -> timestamp.toDate()
-                      //  is Date -> timestamp
-                        else -> Date(0)
-                    }
+                    donor.registrationTimestamp?.toDate() ?: Date(0)
                 }
 
                 communityAdapter.notifyDataSetChanged()
@@ -137,11 +138,11 @@ class AddDonorsActivity : AppCompatActivity() {
             }
     }
 
-    private fun filterDonorsByCity(city: String) {
+    private fun filterDonors(city: String, bloodGroup: String) {
         donorList.clear()
-        val filteredDonors = allDonors.filter { it.location == city }
-        if (filteredDonors.isEmpty()) {
-            Toast.makeText(this, "No users found from $city", Toast.LENGTH_SHORT).show()
+        val filteredDonors = allDonors.filter {
+            (city.isEmpty() || it.location.equals(city, ignoreCase = true)) &&
+                    (bloodGroup == "Select Blood Group" || it.bloodGroup == bloodGroup)
         }
         donorList.addAll(filteredDonors)
         communityAdapter.notifyDataSetChanged()

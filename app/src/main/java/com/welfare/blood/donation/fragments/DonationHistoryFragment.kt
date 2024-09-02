@@ -126,7 +126,7 @@ class DonationHistoryFragment : Fragment() {
         val donationId = donation.id
         if (donationId != null) {
             db.collection("donations").document(donationId)
-                .update("isDeleted", true) // Mark as deleted or delete it
+                .update("isDeleted", true)
                 .addOnSuccessListener {
                     Toast.makeText(requireContext(), "Donation deleted successfully", Toast.LENGTH_SHORT).show()
                     donationList.removeAll { it.id == donation.id }

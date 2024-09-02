@@ -49,7 +49,7 @@ class DonationAdapter(
 
         private fun getBloodGroupImage(bloodType: String): Int {
             return when (bloodType) {
-                "A+" -> R.drawable.ic_a
+                "A+" -> R.drawable.ic_a_minus
                 "A-" -> R.drawable.ic_a_plus
                 "B+" -> R.drawable.ic_b_plus
                 "B-" -> R.drawable.ic_b_minus
@@ -57,7 +57,7 @@ class DonationAdapter(
                 "AB-" -> R.drawable.ic_ab_minus
                 "O+" -> R.drawable.ic_o_plus
                 "O-" -> R.drawable.ic_o_minus
-                else -> R.drawable.blood_droplet // Add a default image if necessary
+                else -> R.drawable.blood_droplet
             }
         }
     }

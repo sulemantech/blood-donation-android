@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.welfare.blood.donation.CreateRequestActivity
-import com.welfare.blood.donation.RequestAdapter
 import com.welfare.blood.donation.databinding.FragmentRequestHistoryBinding
 import com.welfare.blood.donation.models.Request
 import java.text.SimpleDateFormat
@@ -21,6 +20,7 @@ import android.content.DialogInterface
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import com.welfare.blood.donation.AllDonorsActivity
+import com.welfare.blood.donation.adapters.RequestAdapter
 
 class RequestHistoryFragment : Fragment() {
 

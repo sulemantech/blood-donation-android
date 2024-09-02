@@ -21,6 +21,7 @@ import com.google.firebase.firestore.SetOptions
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.welfare.blood.donation.databinding.ActivityEditProfileBinding
+import com.welfare.blood.donation.fragments.HistoryFragment
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -175,18 +176,14 @@ class EditProfileActivity : AppCompatActivity() {
             day
         )
 
-        // Set the minimum date to 100 years ago
         val hundredYearsAgo = Calendar.getInstance()
         hundredYearsAgo.add(Calendar.YEAR, -100)
         datePickerDialog.datePicker.minDate = hundredYearsAgo.timeInMillis
 
-        // Set the maximum date to today
         datePickerDialog.datePicker.maxDate = calendar.timeInMillis
 
-        // Show the date picker dialog
         datePickerDialog.show()
 
-        // Set custom button styles after showing the dialog
         datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setText("OK")
         datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setText("Cancel")
     }
@@ -210,13 +207,10 @@ class EditProfileActivity : AppCompatActivity() {
             day
         )
 
-        // Set the minimum date to today
         datePickerDialog.datePicker.minDate = calendar.timeInMillis
 
-        // Show the date picker dialog
         datePickerDialog.show()
 
-        // Set custom button styles after showing the dialog
         datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setText("OK")
         datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setText("Cancel")
     }
@@ -307,6 +301,7 @@ class EditProfileActivity : AppCompatActivity() {
                 binding.progressBar.visibility = View.GONE
                 Toast.makeText(this, "Profile Updated", Toast.LENGTH_SHORT).show()
                 setResult(RESULT_OK)
+                navigateToHomeScreen()
                 finish()
             }
             .addOnFailureListener { e ->
@@ -315,4 +310,10 @@ class EditProfileActivity : AppCompatActivity() {
                 Toast.makeText(this, "Profile Update Failed", Toast.LENGTH_SHORT).show()
             }
     }
+
+    private fun navigateToHomeScreen() {
+        startActivity(Intent(this, HomeActivity::class.java))
+        finish()
+    }
+
 }

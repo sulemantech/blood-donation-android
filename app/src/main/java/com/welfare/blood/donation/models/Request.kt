@@ -16,6 +16,6 @@ data class Request(
     var status: String = "pending",
     var critical: Boolean = false,
     val donors: List<String>? = null,
-    var isDeleted: Boolean = false, // Added field
+    var isDeleted: Boolean = false,
     var notified: Boolean=false
 )

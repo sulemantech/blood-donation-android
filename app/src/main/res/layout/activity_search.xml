@@ -46,31 +46,25 @@
     </androidx.cardview.widget.CardView>
 
 
-    <Spinner
-        android:id="@+id/spinner_city"
+    <AutoCompleteTextView
+        android:id="@+id/autoCompleteCity"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="10dp"
+        android:hint="Search City"
+        android:backgroundTint="@color/maron"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:entries="@array/pakistan_cities"
         app:layout_constraintTop_toBottomOf="@+id/cardview" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_city"
-        android:background="@color/maron"
-        android:layout_marginStart="10dp"
-        android:id="@+id/view"
-        android:layout_marginEnd="10dp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Select Group Blood"
-        app:layout_constraintTop_toBottomOf="@+id/view"
+        app:layout_constraintTop_toBottomOf="@+id/autoCompleteCity"
         android:layout_marginStart="20dp"
         app:layout_constraintStart_toStartOf="parent"
         android:textColor="@color/black"
@@ -85,7 +79,7 @@
                 android:layout_marginStart="20dp"
                 android:id="@+id/img1"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view"
+                app:layout_constraintTop_toBottomOf="@+id/autoCompleteCity"
                 android:background="@drawable/search_cardview"/>
             <TextView
                 android:id="@+id/btnAPlus"
@@ -95,7 +89,7 @@
                 android:layout_marginStart="35dp"
                 android:layout_marginTop="30dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view"
+                app:layout_constraintTop_toBottomOf="@+id/autoCompleteCity"
                 android:background="@drawable/ic_a" />
             <TextView
                 android:id="@+id/text_APlus"
@@ -119,7 +113,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/img1"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view"
+                app:layout_constraintTop_toBottomOf="@+id/autoCompleteCity"
                 android:background="@drawable/search_cardview"/>
             <TextView
                 android:id="@+id/btnAMinus"
@@ -131,7 +125,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/img1"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view"
+                app:layout_constraintTop_toBottomOf="@+id/autoCompleteCity"
                 android:background="@drawable/ic_a_plus" />
 
     <TextView
@@ -157,7 +151,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/img2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view"
+        app:layout_constraintTop_toBottomOf="@+id/autoCompleteCity"
         android:background="@drawable/search_cardview"/>
     <TextView
         android:id="@+id/btnBPlus"
@@ -167,7 +161,7 @@
         android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/img1"
-        app:layout_constraintTop_toBottomOf="@+id/view"
+        app:layout_constraintTop_toBottomOf="@+id/autoCompleteCity"
         android:background="@drawable/ic_b_plus" />
 
     <TextView
@@ -193,7 +187,7 @@
         android:layout_marginEnd="10sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/img3"
-        app:layout_constraintTop_toBottomOf="@+id/view"
+        app:layout_constraintTop_toBottomOf="@+id/autoCompleteCity"
         android:background="@drawable/search_cardview"/>
     <TextView
         android:id="@+id/btnBMinus"
@@ -204,7 +198,7 @@
         android:layout_marginStart="185dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/img1"
-        app:layout_constraintTop_toBottomOf="@+id/view"
+        app:layout_constraintTop_toBottomOf="@+id/autoCompleteCity"
         android:background="@drawable/ic_b_minus" />
     <TextView
         android:id="@+id/text_BMinus"

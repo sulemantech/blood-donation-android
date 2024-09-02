@@ -13,7 +13,7 @@ import com.welfare.blood.donation.models.BloodDonorModel
 class BloodDonorAdapter(private val mList: List<BloodDonorModel>) : RecyclerView.Adapter<BloodDonorAdapter.ViewHolder>()   {
     private var bloodDonors = ArrayList<BloodDonorModel>()
     lateinit var context: Context
-    // Holds the views for adding it to image and text
+
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
         val imageView: ImageView = itemView.findViewById(R.id.imageView)
         //val textView: TextView = itemView.findViewById(R.id.textView)

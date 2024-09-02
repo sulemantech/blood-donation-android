@@ -46,13 +46,14 @@
             android:layout_height="50dp"
             android:layout_marginTop="13dp"
             android:hint="Full Name"
+            android:inputType="textCapSentences"
+
             android:paddingStart="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:drawableTint="@color/maron"
             android:drawableRight="@drawable/ic_vector_person"
-            android:backgroundTint="@color/maron"
-            android:inputType="textPersonName" />
+            android:backgroundTint="@color/maron" />
 
         <EditText
             android:id="@+id/edEmail"
@@ -62,11 +63,12 @@
             android:hint="Email Address"
             android:paddingStart="10dp"
             android:paddingLeft="5dp"
+            android:inputType="textCapSentences"
+
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:drawableRight="@drawable/ic_vector_email"
-            android:backgroundTint="@color/maron"
-            android:inputType="textEmailAddress" />
+            android:backgroundTint="@color/maron" />
 
         <EditText
             android:id="@+id/edPhone"

@@ -4,14 +4,17 @@ import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
+import android.text.SpannableString
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
+import android.text.style.UnderlineSpan
 import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -34,6 +37,19 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val mTextView = findViewById<TextView>(R.id.register)
+        val mTextView1 = findViewById<TextView>(R.id.reset)
+        val mString = "Sign Up"
+        val mString1 = "Reset"
+
+        val mSpannableString = SpannableString(mString)
+        val mSpannableString1 = SpannableString(mString1)
+
+        mSpannableString.setSpan(UnderlineSpan(), 0, mSpannableString.length, 0)
+        mSpannableString1.setSpan(UnderlineSpan(), 0, mSpannableString1.length, 0)
+        mTextView.text = mSpannableString
+        mTextView1.text = mSpannableString1
 
         if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
             setWindowFlag(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, true)

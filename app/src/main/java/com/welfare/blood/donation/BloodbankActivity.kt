@@ -20,14 +20,27 @@ class BloodbankActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val bloodBankItems = listOf(
-            BloodBankItem("Blood Bank 1", "123-456-7890", "Address 1"),
-            BloodBankItem("Blood Bank 2", "234-567-8901", "Address 2"),
-            BloodBankItem("Blood Bank 3", "345-678-9012", "Address 3"),
-            BloodBankItem("Blood Bank 4", "456-789-0123", "Address 4"),
-            BloodBankItem("Blood Bank 5", "567-890-1234", "Address 5"),
-            BloodBankItem("Blood Bank 6", "678-901-2345", "Address 6"),
-            BloodBankItem("Blood Bank 7", "789-012-3456", "Address 7"),
-          //  BloodBankItem("Blood Bank 8", "890-123-4567", "Address 8")
+            BloodBankItem("Khyber Medical University (KMU) Blood Transfusion Centre", "Khyber Medical University, Phase 5, Hayatabad, Peshawar, Khyber Pakhtunkhwa", "+92-91-9217703","http://www.kmu.edu.pk/"),
+            BloodBankItem("Lady Reading Hospital (LRH) Blood Bank", "Soekarno Square, Peshawar, Khyber Pakhtunkhwa", "+92-91-9211444","https://www.lrh.edu.pk/"),
+            BloodBankItem("Hayatabad Medical Complex (HMC) Blood Bank", "Phase 4, Hayatabad, Peshawar, Khyber Pakhtunkhwa", "+92-91-9217140-46","http://www.hmckp.gov.pk/"),
+            BloodBankItem("Fatimid Foundation Peshawar", "Hayatabad Phase-4, Street 10, House No. 61, Peshawar, Khyber Pakhtunkhwa", "+92-91-5821375","http://www.fatimid.org"),
+            BloodBankItem("Frontier Foundation Blood Transfusion Services", "House No. 21, Jamrud Road, Peshawar, Khyber Pakhtunkhwa", "+92-91-5855747","http://www.frontierfoundation.org/"),
+            BloodBankItem("Rehman Medical Institute (RMI) Blood Bank", "5-B/2, Phase-V, Hayatabad, Peshawar, Khyber Pakhtunkhwa", "+92-91-5838000","https://rmi.edu.pk/"),
+            BloodBankItem("Al-Khidmat Foundation Peshawar", "Office No. 62, Zargarabad, Kohat Road, Peshawar, Khyber Pakhtunkhwa", "+92-91-2260545","https://al-khidmatfoundation.org/"),
+            BloodBankItem("Thalassemia Welfare Society, Khyber Pakhtunkhwa", "Qazi Complex, Dabgari Gardens, Peshawar, Khyber Pakhtunkhwa", "+92-91-2215453",""),
+            BloodBankItem("Pakistan Red Crescent Society (PRCS)", "National Headquarters, H-8, Islamabad", "+92-51-9250404-06","https://www.prcs.org.pk"),
+            BloodBankItem("Fatimid Foundation", "393, Britto Road, Garden East, Karachi", "+92-21-32225202","http://www.fatimid.org"),
+            BloodBankItem("Fatimid Foundation Lahore", "91, Shadman-II, Lahore", "+92-42-37588435-37","http://www.fatimid.org"),
+            BloodBankItem("Fatimid Foundation Islamabad", "Sector G-9/1, Mauve Area, Islamabad", "+92-51-2256976","http://www.fatimid.org"),
+            BloodBankItem("Indus Hospital Blood Center", "Korangi Crossing, Karachi", "+92-21-35112709","https://indushospital.org.pk/"),
+            BloodBankItem("Hussaini Blood Bank", "ST-02 Block B, Dastagir, Federal B Area, Karachi", "+92-21-36363218","http://www.hussainibloodbank.org"),
+            BloodBankItem("Akhuwat Blood Bank", "19 Civic Centre, Township, Lahore", "+92-42-35111550","https://akhuwat.org.pk/"),
+            BloodBankItem("Liaquat National Hospital Blood Bank", "Stadium Road, Karachi", "+92-21-111456456","https://www.lnh.edu.pk/"),
+            BloodBankItem("Arif Memorial Hospital Blood Bank", "Mansoora, Lahore", "+92-42-35401620","http://www.amc.edu.pk/"),
+            BloodBankItem("Al-Mustafa Welfare Society", "Al-Mustafa Medical Centre, Gulshan-e-Iqbal, Karachi", "+92-21-34966078","https://almustafatrust.org/"),
+            BloodBankItem("Sundas Foundation", "654, Poonch Road, Samanabad, Lahore", "+92-42-37588683-4","http://www.sundas.org/"),
+            BloodBankItem("Safe Blood Transfusion Programme (SBTP)", "Office No. 3, Block C-1, Gulberg-III, Lahore", "+92-42-35884950","http://www.sbtp.gov.pk/"),
+
         )
 
 
@@ -43,7 +56,6 @@ class BloodbankActivity : AppCompatActivity() {
             window.statusBarColor = ContextCompat.getColor(this, android.R.color.transparent)
         }
 
-        // Handle back button click
         binding.backArrow.setOnClickListener {
             onBackPressed()
         }

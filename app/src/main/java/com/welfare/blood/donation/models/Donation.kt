@@ -8,6 +8,6 @@ data class Donation(
     var id: String? = null,
     var userId: String? = null,
     var status: String? = "pending",
-    var isDeleted: Boolean = false // Added field
+    var isDeleted: Boolean = false
 
 )

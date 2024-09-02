@@ -65,6 +65,7 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
+
     <!-- Custom DatePickerDialog style -->
     <style name="CustomDatePickerDialog" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:datePickerDialogTheme">@style/CustomDatePicker</item>
