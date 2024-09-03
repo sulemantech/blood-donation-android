@@ -15,7 +15,8 @@ data class Request(
     var recipientId: String = "",
     var status: String = "pending",
     var critical: Boolean = false,
-    val donors: List<String>? = null,
     var isDeleted: Boolean = false,
-    var notified: Boolean=false
+    var documentId: String="",
+    var notified: Boolean=false,
+    val donors: List<String> = emptyList()
 )

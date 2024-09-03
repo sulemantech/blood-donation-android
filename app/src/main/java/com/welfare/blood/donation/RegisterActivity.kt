@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
@@ -30,11 +31,17 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var selectedLastDonationDate: String
     private var isAddedByAdmin: Boolean = false
     private var userId: String? = null
+    private var isPasswordVisible = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.imgTogglePassword.setOnClickListener {
+            togglePasswordVisibility()
+        }
 
 
         if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
@@ -108,6 +115,25 @@ class RegisterActivity : AppCompatActivity() {
             false
         }
     }
+
+    private fun togglePasswordVisibility() {
+        if (isPasswordVisible) {
+            // Hide password
+            binding.edPassword.inputType =
+                InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+            binding.imgTogglePassword.setImageResource(R.drawable.ic_vector_eye) // Eye-off icon
+        } else {
+            // Show password
+            binding.edPassword.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+            binding.imgTogglePassword.setImageResource(R.drawable.baseline_remove_red_eye_24) // Eye icon
+        }
+
+        // Move cursor to the end of the text
+        binding.edPassword.setSelection(binding.edPassword.text?.length ?: 0)
+
+        isPasswordVisible = !isPasswordVisible
+    }
+
     private  fun clearEditTextFocus(){
         binding.edName.clearFocus()
         binding.edPhone.clearFocus()

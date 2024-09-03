@@ -13,6 +13,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.welfare.blood.donation.R
 import com.welfare.blood.donation.databinding.CriticalPatientItemBinding
 import com.welfare.blood.donation.models.CriticalPatient
+import com.welfare.blood.donation.models.ReceivedRequest
 
 class CriticalPatientAdapter(
     private val patients: MutableList<CriticalPatient>,
@@ -56,11 +57,40 @@ class CriticalPatientAdapter(
             binding.root.setOnClickListener {
                 listener?.onPatientClick(patient)
             }
+            checkDonationStatus(patient)
 
             binding.donateNow.setOnClickListener {
                 showConfirmationDialog(patient)
             }
+            binding.completed.setOnClickListener {
+                Toast.makeText(binding.root.context, "You have already sent a donation request.", Toast.LENGTH_SHORT).show()
+            }
         }
+
+        private fun checkDonationStatus(patient: CriticalPatient) {
+            val currentUser = FirebaseAuth.getInstance().currentUser
+            if (currentUser == null) {
+                return
+            }
+
+            val currentUserId = currentUser.uid
+            val db = FirebaseFirestore.getInstance()
+            val documentRef = db.collection("requests").document(patient.id)
+
+            documentRef.get().addOnSuccessListener { document ->
+                val donors = document.get("donors") as? List<String> ?: emptyList()
+                if (donors.contains(currentUserId)) {
+                    binding.donateNow.visibility = View.GONE
+                    binding.completed.visibility = View.VISIBLE
+                } else {
+                    binding.donateNow.visibility = View.VISIBLE
+                    binding.completed.visibility = View.GONE
+                }
+            }.addOnFailureListener {
+                Log.e("ReceivedRequestAdapter", "Failed to check donation status", it)
+            }
+        }
+
 
         private fun showConfirmationDialog(patient: CriticalPatient) {
             AlertDialog.Builder(binding.root.context)
@@ -83,12 +113,15 @@ class CriticalPatientAdapter(
             val currentUserId = currentUser.uid
             val db = FirebaseFirestore.getInstance()
 
-            if (patient.id.isNullOrEmpty()) {
+            val documentId = patient.id
+            Log.d("CriticalPatientAdapter", "Attempting to update document ID: $documentId")
+
+            if (documentId.isNullOrEmpty()) {
                 Toast.makeText(binding.root.context, "Invalid document ID", Toast.LENGTH_SHORT).show()
                 return
             }
 
-            val documentRef = db.collection("requests").document(patient.id!!)
+            val documentRef = db.collection("requests").document(documentId)
 
             documentRef.update("donors", FieldValue.arrayUnion(currentUserId))
                 .addOnSuccessListener {
@@ -97,7 +130,7 @@ class CriticalPatientAdapter(
                     binding.completed.visibility = View.VISIBLE
                 }
                 .addOnFailureListener { e ->
-                    Log.e("CriticalPatientAdapter", "Failed to update donors", e)
+                    Log.e("CriticalPatientAdapter", "Failed to update donors for document ID $documentId", e)
                     Toast.makeText(binding.root.context, "Failed to send request", Toast.LENGTH_SHORT).show()
                 }
         }

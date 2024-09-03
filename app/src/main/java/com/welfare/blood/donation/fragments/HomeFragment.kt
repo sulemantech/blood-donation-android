@@ -168,6 +168,7 @@ class HomeFragment : Fragment() {
                             val criticalPatient = CriticalPatient(
                                 patientName = request.patientName,
                                 age = request.age,
+                                id = document.id, // Ensure ID is being set correctly
                                 bloodType = request.bloodType,
                                 requiredUnit = request.requiredUnit,
                                 dateRequired = request.dateRequired,
