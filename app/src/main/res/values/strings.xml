@@ -7,8 +7,6 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="default_web_client_id1">623168470227-ft3172k1c3hdmtufnlabepl32jum964c.apps.googleusercontent.com</string>
-
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
@@ -266,4 +264,7 @@
     <string name="we_use_industry_standard_measures_to_protect_your_data_including_encryption_and_secure_servers_however_no_method_of_transmission_over_the_internet_is_100_secure">We use industry-standard measures to protect your data, including encryption and secure servers. However, no method of transmission over the internet is 100% secure.</string>
     <string name="this_privacy_policy_explains_how_we_collect_use_and_protect_your_information">This Privacy Policy explains how we collect, use, and protect your information:</string>
 
+    <string name="you_can_access_or_update_your_personal_information_through_your_profile_settings_you_can_also_request_deletion_of_your_account">
+        You can access or update your personal information through your profile settings. You can also request deletion of your account.
+    </string>
 </resources>

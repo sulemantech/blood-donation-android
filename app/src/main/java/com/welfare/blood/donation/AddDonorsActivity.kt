@@ -131,7 +131,7 @@ class AddDonorsActivity : AppCompatActivity() {
                 }
 
                 communityAdapter.notifyDataSetChanged()
-                displayRequestCount(donorList.size)
+                //displayRequestCount(donorList.size)
             }
             .addOnFailureListener { e ->
                 Toast.makeText(this, "Failed to fetch donors", Toast.LENGTH_SHORT).show()
@@ -146,12 +146,12 @@ class AddDonorsActivity : AppCompatActivity() {
         }
         donorList.addAll(filteredDonors)
         communityAdapter.notifyDataSetChanged()
-        displayRequestCount(donorList.size)
+      //  displayRequestCount(donorList.size)
     }
 
-    private fun displayRequestCount(count: Int) {
-        binding.users.text = "Total Requests: $count"
-    }
+//    private fun displayRequestCount(count: Int) {
+//        binding.users.text = "Total Requests: $count"
+//    }
 
     private fun onEditClick(communityDonors: CommunityDonors) {
         val intent = Intent(this, RegisterActivity::class.java)

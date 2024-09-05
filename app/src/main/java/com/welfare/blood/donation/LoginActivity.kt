@@ -49,7 +49,7 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupGoogleSignIn()
+      //  setupGoogleSignIn()
 
         val mTextView = findViewById<TextView>(R.id.register)
         val mTextView1 = findViewById<TextView>(R.id.reset)
@@ -117,7 +117,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.btnGoogleSignIn.setOnClickListener {
-            signInWithGoogle()
+          //  signInWithGoogle()
         }
     }
 
@@ -132,64 +132,64 @@ class LoginActivity : AppCompatActivity() {
         win.attributes = winParams
     }
 
-    private fun setupGoogleSignIn() {
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id1))
-            .requestEmail()
-            .build()
-
-        googleSignInClient = GoogleSignIn.getClient(this, gso)
-    }
-
-    private fun signInWithGoogle() {
-        val signInIntent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == RC_SIGN_IN) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            try {
-                val account = task.getResult(ApiException::class.java)
-                firebaseAuthWithGoogle(account)
-            } catch (e: ApiException) {
-                Log.w(TAG, "Google sign in failed", e)
-                Toast.makeText(this, "Google sign-in failed", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-    private fun firebaseAuthWithGoogle(account: GoogleSignInAccount?) {
-        val credential = GoogleAuthProvider.getCredential(account?.idToken, null)
-        auth.signInWithCredential(credential)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    Log.d(TAG, "signInWithCredential:success")
-                    Toast.makeText(this, "Google Sign-In Successful", Toast.LENGTH_SHORT).show()
-                    val userID = auth.currentUser!!.uid
-                    val lastLoginAt = Calendar.getInstance().time
-                    val updateData = hashMapOf("lastLoginAt" to lastLoginAt)
-                    db.collection("users").document(userID).set(updateData, SetOptions.merge())
-                        .addOnSuccessListener {
-                            val sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
-                            with(sharedPreferences.edit()) {
-                                putBoolean("isLoggedIn", true)
-                                apply()
-                            }
-                            navigateToHome()
-                        }
-                        .addOnFailureListener { e ->
-                            Log.w(TAG, "Error updating document", e)
-                            Toast.makeText(this, "Error updating login timestamp", Toast.LENGTH_SHORT).show()
-                        }
-                } else {
-                    Log.w(TAG, "signInWithCredential:failure", task.exception)
-                    Toast.makeText(this, "Authentication Failed", Toast.LENGTH_SHORT).show()
-                }
-            }
-    }
+//    private fun setupGoogleSignIn() {
+//        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//            .requestIdToken(getString(R.string.default_web_client_id))
+//            .requestEmail()
+//            .build()
+//
+//        googleSignInClient = GoogleSignIn.getClient(this, gso)
+//    }
+//
+//    private fun signInWithGoogle() {
+//        val signInIntent = googleSignInClient.signInIntent
+//        startActivityForResult(signInIntent, RC_SIGN_IN)
+//    }
+//
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//
+//        if (requestCode == RC_SIGN_IN) {
+//            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+//            try {
+//                val account = task.getResult(ApiException::class.java)
+//                firebaseAuthWithGoogle(account)
+//            } catch (e: ApiException) {
+//                Log.w(TAG, "Google sign in failed", e)
+//                Toast.makeText(this, "Google sign-in failed", Toast.LENGTH_SHORT).show()
+//            }
+//        }
+//    }
+//
+//    private fun firebaseAuthWithGoogle(account: GoogleSignInAccount?) {
+//        val credential = GoogleAuthProvider.getCredential(account?.idToken, null)
+//        auth.signInWithCredential(credential)
+//            .addOnCompleteListener(this) { task ->
+//                if (task.isSuccessful) {
+//                    Log.d(TAG, "signInWithCredential:success")
+//                    Toast.makeText(this, "Google Sign-In Successful", Toast.LENGTH_SHORT).show()
+//                    val userID = auth.currentUser!!.uid
+//                    val lastLoginAt = Calendar.getInstance().time
+//                    val updateData = hashMapOf("lastLoginAt" to lastLoginAt)
+//                    db.collection("users").document(userID).set(updateData, SetOptions.merge())
+//                        .addOnSuccessListener {
+//                            val sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
+//                            with(sharedPreferences.edit()) {
+//                                putBoolean("isLoggedIn", true)
+//                                apply()
+//                            }
+//                            navigateToHome()
+//                        }
+//                        .addOnFailureListener { e ->
+//                            Log.w(TAG, "Error updating document", e)
+//                            Toast.makeText(this, "Error updating login timestamp", Toast.LENGTH_SHORT).show()
+//                        }
+//                } else {
+//                    Log.w(TAG, "signInWithCredential:failure", task.exception)
+//                    Toast.makeText(this, "Authentication Failed", Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//    }
 
     private fun loginUser() {
         val email = binding.edUsername.text.toString().trim()
