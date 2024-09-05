@@ -14,12 +14,32 @@ android {
         applicationId "com.welfare.blood.donation"
         minSdk 24
         targetSdk 34
-        versionCode 1
-        versionName "1.0"
+        versionCode 6
+        versionName "1.1.5"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    applicationVariants.all { variant ->
+        // Define a custom task to rename the APK file
+        def versionCode = defaultConfig.versionCode
+        def versionName = defaultConfig.versionName
+
+        // Create a task to rename the APK
+        tasks.create(name: "rename${variant.name.capitalize()}Apk", type: Copy) {
+            dependsOn variant.outputs[0].outputFile
+            from variant.outputs[0].outputFile.parentFile
+            into variant.outputs[0].outputFile.parentFile
+            rename { fileName ->
+                def newFileName = "app-${versionName}-v${versionCode}.apk"
+                newFileName
+            }
+            // Ensure the task only runs for the release variant
+            onlyIf {
+                variant.buildType.name == "release"
+            }
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -43,7 +63,7 @@ android {
     buildTypes {
         release {
             // Production settings
-            applicationIdSuffix ".prod"
+            //applicationIdSuffix ".prod"
             // Other release-specific configurations
         }
 

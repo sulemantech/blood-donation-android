@@ -8,221 +8,230 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardview"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             app:cardCornerRadius="5dp"
-            android:id="@+id/cardview"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
+
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
-                android:src="@drawable/top_header"/>
+                android:src="@drawable/top_header" />
 
             <TextView
+                android:id="@+id/back_arrow"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/inter_bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="42dp"
                 android:drawableLeft="@drawable/back"
-                android:layout_marginStart="20dp"
-                android:textSize="25dp"
-                android:id="@+id/back_arrow"
                 android:drawableTint="@color/white"
-                android:gravity="center" />
+                android:fontFamily="@font/inter_bold"
+                android:gravity="center"
+                android:textSize="25dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Data Safety Information"
-                android:textColor="@color/white"
-                android:textSize="22sp"
+                android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/inter_bold"
-                android:layout_gravity="center"/>
+                android:text="Data Safety Information"
+                android:textColor="@color/white"
+                android:textSize="22sp" />
         </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20sp"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:id="@+id/text1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:text="@string/katlang_blood_donation_amp_thalassemia_center_application"
-            app:layout_constraintTop_toBottomOf="@+id/cardview" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12sp"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:id="@+id/text2"
-            android:layout_marginStart="20sp"
-            app:layout_constraintStart_toStartOf="parent"
-            android:text="Data Safety Information"
-            app:layout_constraintTop_toBottomOf="@+id/text1"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12sp"
-            android:textSize="15sp"
-            android:id="@+id/text14"
-            android:layout_marginStart="10sp"
-            android:layout_marginEnd="10dp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            android:text="1. Data Collection and Usage"
-            app:layout_constraintTop_toBottomOf="@+id/text2"/>
-
-        <TextView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2sp"
-            android:textSize="15sp"
-            android:id="@+id/text3"
-            android:layout_marginStart="10sp"
-            android:layout_marginEnd="10dp"
-            android:text="@string/we_collect_personal_information_name_email_contact_number_blood_group_city_to_provide_our_blood_donation_services_this_data_is_used_to_connect_users_with_blood_donation_requests_and_to_notify_them_of_relevant_opportunities"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text14"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12sp"
-            android:textSize="15sp"
-            android:id="@+id/text4"
-            android:layout_marginStart="10sp"
-            android:layout_marginEnd="10dp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            android:text="2. Data Sharing"
-            app:layout_constraintTop_toBottomOf="@+id/text3"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12sp"
-            android:textSize="15sp"
-            android:id="@+id/text5"
-            android:layout_marginStart="15sp"
-            android:layout_marginEnd="15sp"
-            android:text="@string/your_data_is_shared_only_with_authorized_personnel_and_other_users_for_the_purpose_of_blood_donation"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text4"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12sp"
-            android:textSize="15sp"
-            android:id="@+id/text6"
-            android:layout_marginStart="10sp"
-            android:layout_marginEnd="10dp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            android:text="3. Data Security"
-            app:layout_constraintTop_toBottomOf="@+id/text5"/>
+            android:padding="15sp"
+            app:layout_constraintTop_toBottomOf="@id/cardview">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12sp"
-            android:textSize="15sp"
-            android:id="@+id/text7"
-            android:layout_marginStart="10sp"
-            android:layout_marginEnd="10sp"
-            android:text="@string/we_implement_security_measures_such_as_encryption_to_protect_your_data_access_to_personal_data_is_restricted_to_authorized_personnel_only"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text6"/>
+            <TextView
+                android:id="@+id/text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:text="Katlang Blood Donation &amp; Thalassemia Center Application"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12sp"
-            android:textSize="15sp"
-            android:id="@+id/text8"
-            android:layout_marginStart="10sp"
-            android:layout_marginEnd="10dp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            android:text="4. User Rights"
-            app:layout_constraintTop_toBottomOf="@+id/text7"/>
+            <TextView
+                android:id="@+id/text2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12sp"
+                android:layout_marginStart="20sp"
+                android:text="Data Safety Information"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text1" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12sp"
-            android:textSize="15sp"
-            android:id="@+id/text9"
-            android:layout_marginStart="10sp"
-            android:layout_marginEnd="10sp"
-            android:text="@string/you_can_request_the_deletion_or_correction_of_your_personal_data_by_contacting_us_at_923451927809"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text8"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12sp"
-            android:textSize="15sp"
-            android:id="@+id/text10"
-            android:layout_marginStart="10sp"
-            android:layout_marginEnd="10dp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            android:text="5. Compliance"
-            app:layout_constraintTop_toBottomOf="@+id/text9"/>
+            <TextView
+                android:id="@+id/text14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="12sp"
+                android:layout_marginEnd="10dp"
+                android:text="1. Data Collection and Usage"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text2" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12sp"
-            android:textSize="15sp"
-            android:id="@+id/text11"
-            android:layout_marginStart="10sp"
-            android:layout_marginEnd="10sp"
-            android:text="@string/we_ensure_that_our_data_practices_comply_with_relevant_laws_including_gdpr"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text10"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12sp"
-            android:textSize="15sp"
-            android:id="@+id/text12"
-            android:layout_marginStart="10sp"
-            android:layout_marginEnd="10dp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            android:text="6. Contact Information"
-            app:layout_constraintTop_toBottomOf="@+id/text11"/>
+            <TextView
+                android:id="@+id/text3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="2sp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/we_collect_personal_information_name_email_contact_number_blood_group_city_to_provide_our_blood_donation_services_this_data_is_used_to_connect_users_with_blood_donation_requests_and_to_notify_them_of_relevant_opportunities"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text14" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12sp"
-            android:textSize="15sp"
-            android:id="@+id/text13"
-            android:layout_marginStart="10sp"
-            android:layout_marginEnd="10sp"
-            android:text="@string/for_any_questions_or_concerns_regarding_data_safety_please_contact_us_at_923451927809"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text12"/>
+            <TextView
+                android:id="@+id/text4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12sp"
+                android:layout_marginStart="10sp"
+                android:layout_marginEnd="10dp"
+                android:text="2. Data Sharing"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text3" />
 
+            <TextView
+                android:id="@+id/text5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15sp"
+                android:layout_marginTop="12sp"
+                android:layout_marginEnd="15sp"
+                android:text="- Your data is shared only with authorized personnel and other users for the purpose of blood donation."
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text4" />
 
+            <TextView
+                android:id="@+id/text6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12sp"
+                android:layout_marginStart="10sp"
+                android:layout_marginEnd="10dp"
+                android:text="3. Data Security"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text5" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            app:layout_constraintTop_toBottomOf="@+id/text13"
-            />
+            <TextView
+                android:id="@+id/text7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="12sp"
+                android:layout_marginEnd="10sp"
+                android:text="@string/we_implement_security_measures_such_as_encryption_to_protect_your_data_access_to_personal_data_is_restricted_to_authorized_personnel_only"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text6" />
+
+            <TextView
+                android:id="@+id/text8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12sp"
+                android:layout_marginStart="10sp"
+                android:layout_marginEnd="10dp"
+                android:text="4. User Rights"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text7" />
+
+            <TextView
+                android:id="@+id/text9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="12sp"
+                android:layout_marginEnd="10sp"
+                android:text="- You can request the deletion or correction of your personal data by contacting us at +923451927809."
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text8" />
+
+            <TextView
+                android:id="@+id/text10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12sp"
+                android:layout_marginStart="10sp"
+                android:layout_marginEnd="10dp"
+                android:text="5. Compliance"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text9" />
+
+            <TextView
+                android:id="@+id/text11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="12sp"
+                android:layout_marginEnd="10sp"
+                android:text="- We ensure that our data practices comply with relevant laws, including GDPR."
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text10" />
+
+            <TextView
+                android:id="@+id/text12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12sp"
+                android:layout_marginStart="10sp"
+                android:layout_marginEnd="10dp"
+                android:text="6. Contact Information"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text11" />
+
+            <TextView
+                android:id="@+id/text13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="12sp"
+                android:layout_marginEnd="10sp"
+                android:text="- For any inquiries regarding your data or rights, you can contact us at katlangbdcenter@gmail.com."
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text12" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </ScrollView>

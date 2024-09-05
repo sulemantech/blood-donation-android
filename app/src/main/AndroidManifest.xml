@@ -71,7 +71,6 @@
             android:name=".ChatActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
-        <activity android:name=".fragments.ReceivedRequestsFragment" />
         <activity
             android:name=".BothHistoryActivity"
             android:exported="false"
@@ -186,9 +185,7 @@
         <receiver
             android:name=".NotificationCancelReceiver"
             android:exported="true" />
-        <meta-data
-            android:name="com.google.android.gms.auth.api.signin.API_KEY"
-            android:value="@string/default_web_client_id"/>
+
     </application>
 
 </manifest>
