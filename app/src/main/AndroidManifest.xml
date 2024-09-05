@@ -67,7 +67,6 @@
             android:name=".ChatActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
-        <activity android:name=".fragments.ReceivedRequestsFragment" />
         <activity
             android:name=".BothHistoryActivity"
             android:exported="false"
