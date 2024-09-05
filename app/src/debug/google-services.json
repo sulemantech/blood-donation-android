@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "623168470227-3m5b85bg0lk7av4oj2nq7ajhii4j27fk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.welfare.blood.donation.dev",
+            "certificate_hash": "8013521a2bfc76e7af3da232f5e43d3f6ea9fbbe"
+          }
+        },
+        {
           "client_id": "623168470227-p0f2mvt9ebt64lno3h76he6slg4tn3sk.apps.googleusercontent.com",
           "client_type": 3
         }
