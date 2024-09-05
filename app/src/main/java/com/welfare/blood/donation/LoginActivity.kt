@@ -134,7 +134,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setupGoogleSignIn() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("623168470227-3m5b85bg0lk7av4oj2nq7ajhii4j27fk.apps.googleusercontent.com")
+            .requestIdToken("623168470227-ft3172k1c3hdmtufnlabepl32jum964c.apps.googleusercontent.com") // Use client_id from JSON
             .requestEmail()
             .build()
 

@@ -1,36 +1,26 @@
 {
   "project_info": {
-    "project_number": "623168470227",
-    "project_id": "lifeplusdev-fde65",
-    "storage_bucket": "lifeplusdev-fde65.appspot.com"
+    "project_number": "191950880326",
+    "project_id": "lifeplus-8592d",
+    "storage_bucket": "lifeplus-8592d.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:623168470227:android:7b16e00effca732f7f6826",
+        "mobilesdk_app_id": "1:191950880326:android:bcb22f4811f9830118d447",
         "android_client_info": {
-          "package_name": "com.welfare.blood.donation.dev"
+          "package_name": "com.welfare.blood.donation"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "623168470227-p0f2mvt9ebt64lno3h76he6slg4tn3sk.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDPQjuXVAKsBBGEVm7i60XIC_6J2eqLV3c"
+          "current_key": "AIzaSyBos809dvDXpNgnuOWmLJ0JnxEX-ehozfk"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "623168470227-p0f2mvt9ebt64lno3h76he6slg4tn3sk.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

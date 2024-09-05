@@ -188,11 +188,9 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
         <meta-data
-            android:name="com.google.firebase.auth.api.gms.core"
-            android:value="true" />
-
+            android:name="com.google.android.gms.client_id"
+            android:value="@string/server_client_id" />
     </application>
 
 </manifest>
