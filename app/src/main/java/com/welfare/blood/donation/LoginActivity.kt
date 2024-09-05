@@ -49,7 +49,7 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //setupGoogleSignIn()
+        setupGoogleSignIn()
 
         val mTextView = findViewById<TextView>(R.id.register)
         val mTextView1 = findViewById<TextView>(R.id.reset)
@@ -132,14 +132,14 @@ class LoginActivity : AppCompatActivity() {
         win.attributes = winParams
     }
 
-//    private fun setupGoogleSignIn() {
-//        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//            .requestIdToken(getString(R.string.default_web_client_id))
-//            .requestEmail()
-//            .build()
-//
-//        googleSignInClient = GoogleSignIn.getClient(this, gso)
-//    }
+    private fun setupGoogleSignIn() {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken("623168470227-3m5b85bg0lk7av4oj2nq7ajhii4j27fk.apps.googleusercontent.com")
+            .requestEmail()
+            .build()
+
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
+    }
 
     private fun signInWithGoogle() {
         val signInIntent = googleSignInClient.signInIntent
