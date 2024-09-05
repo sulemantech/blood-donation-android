@@ -19,24 +19,37 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.auth.api.signin.GoogleSignInResult
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
-import com.google.rpc.context.AttributeContext.Auth
 import com.welfare.blood.donation.databinding.ActivityLoginBinding
 import java.util.*
+import java.util.regex.Pattern
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
+    private lateinit var googleSignInClient: GoogleSignInClient
     private var isPasswordVisible = false
+    private val RC_SIGN_IN = 9001
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setupGoogleSignIn()
 
         val mTextView = findViewById<TextView>(R.id.register)
         val mTextView1 = findViewById<TextView>(R.id.reset)
@@ -85,22 +98,26 @@ class LoginActivity : AppCompatActivity() {
         }
         binding.reset.setOnClickListener{
             val builder = AlertDialog.Builder(this)
-            val view =layoutInflater.inflate(R.layout.forget_password,null)
+            val view = layoutInflater.inflate(R.layout.forget_password, null)
             val userEmail = view.findViewById<EditText>(R.id.editBox)
 
             builder.setView(view)
             val dialog = builder.create()
 
-            view.findViewById<Button>(R.id.reset).setOnClickListener{
+            view.findViewById<Button>(R.id.reset).setOnClickListener {
                 compareEmail(userEmail)
                 dialog.dismiss()
             }
-            view.findViewById<Button>(R.id.cancel).setOnClickListener{
+            view.findViewById<Button>(R.id.cancel).setOnClickListener {
                 dialog.dismiss()
             }
             if (dialog.window != null)
-                dialog.window!!.setBackgroundDrawable(ColorDrawable (0))
+                dialog.window!!.setBackgroundDrawable(ColorDrawable(0))
             dialog.show()
+        }
+
+        binding.btnGoogleSignIn.setOnClickListener {
+            signInWithGoogle()
         }
     }
 
@@ -115,31 +132,73 @@ class LoginActivity : AppCompatActivity() {
         win.attributes = winParams
     }
 
-    private fun compareEmail(email: EditText) {
-        val emailText = email.text.toString().trim()
+    private fun setupGoogleSignIn() {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id1))
+            .requestEmail()
+            .build()
 
-        if (emailText.isEmpty()) {
-            Toast.makeText(this, "Please enter your email", Toast.LENGTH_SHORT).show()
-            return
-        }
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
+    }
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(emailText).matches()) {
-            Toast.makeText(this, "Please enter a valid email address", Toast.LENGTH_SHORT).show()
-            return
-        }
+    private fun signInWithGoogle() {
+        val signInIntent = googleSignInClient.signInIntent
+        startActivityForResult(signInIntent, RC_SIGN_IN)
+    }
 
-        auth.sendPasswordResetEmail(emailText).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                Toast.makeText(this, "Check your email for password reset instructions", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, "Error sending password reset email", Toast.LENGTH_SHORT).show()
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == RC_SIGN_IN) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                val account = task.getResult(ApiException::class.java)
+                firebaseAuthWithGoogle(account)
+            } catch (e: ApiException) {
+                Log.w(TAG, "Google sign in failed", e)
+                Toast.makeText(this, "Google sign-in failed", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun firebaseAuthWithGoogle(account: GoogleSignInAccount?) {
+        val credential = GoogleAuthProvider.getCredential(account?.idToken, null)
+        auth.signInWithCredential(credential)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    Log.d(TAG, "signInWithCredential:success")
+                    Toast.makeText(this, "Google Sign-In Successful", Toast.LENGTH_SHORT).show()
+                    val userID = auth.currentUser!!.uid
+                    val lastLoginAt = Calendar.getInstance().time
+                    val updateData = hashMapOf("lastLoginAt" to lastLoginAt)
+                    db.collection("users").document(userID).set(updateData, SetOptions.merge())
+                        .addOnSuccessListener {
+                            val sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
+                            with(sharedPreferences.edit()) {
+                                putBoolean("isLoggedIn", true)
+                                apply()
+                            }
+                            navigateToHome()
+                        }
+                        .addOnFailureListener { e ->
+                            Log.w(TAG, "Error updating document", e)
+                            Toast.makeText(this, "Error updating login timestamp", Toast.LENGTH_SHORT).show()
+                        }
+                } else {
+                    Log.w(TAG, "signInWithCredential:failure", task.exception)
+                    Toast.makeText(this, "Authentication Failed", Toast.LENGTH_SHORT).show()
+                }
+            }
     }
 
     private fun loginUser() {
         val email = binding.edUsername.text.toString().trim()
         val password = binding.edPassword.text.toString().trim()
+
+        if (!isValidEmail(email)) {
+            Toast.makeText(this, "Please enter a valid email address", Toast.LENGTH_SHORT).show()
+            return
+        }
 
         if (email.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show()
@@ -160,8 +219,6 @@ class LoginActivity : AppCompatActivity() {
 
                     db.collection("users").document(userID).set(updateData, SetOptions.merge())
                         .addOnSuccessListener {
-                            binding.progressBar.visibility = View.GONE
-
                             val sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
                             with(sharedPreferences.edit()) {
                                 putBoolean("isLoggedIn", true)
@@ -171,15 +228,21 @@ class LoginActivity : AppCompatActivity() {
                         }
                         .addOnFailureListener { e ->
                             Log.w(TAG, "Error updating document", e)
-                            binding.progressBar.visibility = View.GONE
                             Toast.makeText(this, "Error updating login timestamp", Toast.LENGTH_SHORT).show()
                         }
                 } else {
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
-                    binding.progressBar.visibility = View.GONE
                     Toast.makeText(this, "Authentication Failed", Toast.LENGTH_SHORT).show()
                 }
+                binding.progressBar.visibility = View.GONE
             }
+    }
+
+    private fun isValidEmail(email: String): Boolean {
+        val emailPattern = Pattern.compile(
+            "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+        )
+        return emailPattern.matcher(email).matches()
     }
 
     private fun togglePasswordVisibility() {
@@ -195,6 +258,23 @@ class LoginActivity : AppCompatActivity() {
         val intent = Intent(this, HomeActivity::class.java)
         startActivity(intent)
         finish()
+    }
+
+    private fun compareEmail(userEmail: EditText) {
+        val email = userEmail.text.toString().trim()
+        if (email.isEmpty()) {
+            Toast.makeText(this, "Please enter email", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        auth.sendPasswordResetEmail(email)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(this, "Reset email sent", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, "Error sending reset email", Toast.LENGTH_SHORT).show()
+                }
+            }
     }
 
     companion object {

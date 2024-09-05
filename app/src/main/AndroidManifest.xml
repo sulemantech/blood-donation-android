@@ -24,16 +24,20 @@
         tools:targetApi="31">
         <activity
             android:name=".AddDonorsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".BloodBankAllItemsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".DataSafetyActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".TermConditionActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".PrivacyPolicyActivity"
             android:exported="false"
@@ -172,7 +176,6 @@
 
         <service
             android:name=".MyFirebaseMessagingService"
-            android:directBootAware="true"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
@@ -183,6 +186,9 @@
         <receiver
             android:name=".NotificationCancelReceiver"
             android:exported="true" />
+        <meta-data
+            android:name="com.google.android.gms.auth.api.signin.API_KEY"
+            android:value="@string/default_web_client_id"/>
     </application>
 
 </manifest>

@@ -89,6 +89,7 @@ class CriticalPatientsListActivity : AppCompatActivity() {
                     }
                 }
 
+                // Sort the patients list by dateRequired
                 try {
                     patients.sortByDescending {
                         SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(it.dateRequired)

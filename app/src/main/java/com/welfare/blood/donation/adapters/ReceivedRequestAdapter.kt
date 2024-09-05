@@ -50,6 +50,10 @@ class ReceivedRequestAdapter(
             binding.donateNow.setOnClickListener {
                 showConfirmationDialog(request)
             }
+            binding.completed.setOnClickListener {
+                Toast.makeText(binding.root.context, "You have already sent a donation request.", Toast.LENGTH_SHORT).show()
+            }
+
         }
 
         private fun checkDonationStatus(request: ReceivedRequest) {

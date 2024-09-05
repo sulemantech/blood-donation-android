@@ -7,6 +7,8 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+    <string name="default_web_client_id1">623168470227-p0f2mvt9ebt64lno3h76he6slg4tn3sk.apps.googleusercontent.com</string>
+
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
@@ -250,7 +252,18 @@
     <string name="we_implement_security_measures_such_as_encryption_to_protect_your_data_access_to_personal_data_is_restricted_to_authorized_personnel_only">- We implement security measures such as encryption to protect your data.\n- Access to personal data is restricted to authorized personnel only.</string>
     <string name="agree_for_term_condition"><![CDATA[Agree For Term & Condition?I confirm I am of legal age and agree to the Terms and Data Privacy.]]></string>
     <string name="i_confirm_i_am_of_legal_age_and_agree_to_the_terms_and_data_privacy">
-        <font color="#000000"> I confirm I am of legal age and agree\n  to the</font> <font color="#0589F3"> Terms</font>  <font color="#000000"> and </font></string>
+        <font color="#000000"> I confirm I am of legal age and agree \n  to the</font> <font color="#0589F3">Terms</font>  <font color="#000000"> and </font></string>
     <string name="data_privacy"><font color="#0589F3">Data Privacy</font></string>
+    <string name="for_any_questions_or_concerns_regarding_data_safety_please_contact_us_at_923451927809">For any questions or concerns regarding data safety, please contact us at +923451927809.</string>
+    <string name="we_ensure_that_our_data_practices_comply_with_relevant_laws_including_gdpr">- We ensure that our data practices comply with relevant laws, including GDPR.</string>
+    <string name="you_can_request_the_deletion_or_correction_of_your_personal_data_by_contacting_us_at_923451927809">- You can request the deletion or correction of your personal data by contacting us at +923451927809.</string>
+    <string name="your_data_is_shared_only_with_authorized_personnel_and_other_users_for_the_purpose_of_blood_donation">- Your data is shared only with authorized personnel and other users for the purpose of blood donation.</string>
+    <string name="katlang_blood_donation_amp_thalassemia_center_application"><![CDATA[Katlang Blood Donation & Thalassemia Center Application]]></string>
+    <string name="for_any_questions_or_concerns_please_contact_us_at_923451927809">For any questions or concerns, please contact us at +923451927809.</string>
+    <string name="we_may_update_this_policy_from_time_to_time_you_will_be_notified_of_any_significant_changes">We may update this policy from time to time. You will be notified of any significant changes.</string>
+    <string name="we_comply_with_applicable_data_protection_laws_including_gdpr_and_any_other_relevant_regulations">We comply with applicable data protection laws, including GDPR and any other relevant regulations.</string>
+    <string name="you_have_the_right_to_request_the_deletion_of_your_account_and_personal_data_at_any_time_by_contacting_us_at_92345192780">You have the right to request the deletion of your account and personal data at any time by contacting us at +92345192780</string>
+    <string name="we_use_industry_standard_measures_to_protect_your_data_including_encryption_and_secure_servers_however_no_method_of_transmission_over_the_internet_is_100_secure">We use industry-standard measures to protect your data, including encryption and secure servers. However, no method of transmission over the internet is 100% secure.</string>
+    <string name="this_privacy_policy_explains_how_we_collect_use_and_protect_your_information">This Privacy Policy explains how we collect, use, and protect your information:</string>
 
 </resources>

@@ -12,7 +12,12 @@
           "package_name": "com.welfare.blood.donation.dev"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "623168470227-p0f2mvt9ebt64lno3h76he6slg4tn3sk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDPQjuXVAKsBBGEVm7i60XIC_6J2eqLV3c"
@@ -20,7 +25,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "623168470227-p0f2mvt9ebt64lno3h76he6slg4tn3sk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

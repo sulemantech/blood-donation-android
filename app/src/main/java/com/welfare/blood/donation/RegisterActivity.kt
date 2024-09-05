@@ -118,17 +118,17 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun togglePasswordVisibility() {
         if (isPasswordVisible) {
-            // Hide password
+
             binding.edPassword.inputType =
                 InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-            binding.imgTogglePassword.setImageResource(R.drawable.ic_vector_eye) // Eye-off icon
+            binding.imgTogglePassword.setImageResource(R.drawable.ic_vector_eye)
         } else {
-            // Show password
+
             binding.edPassword.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-            binding.imgTogglePassword.setImageResource(R.drawable.baseline_remove_red_eye_24) // Eye icon
+            binding.imgTogglePassword.setImageResource(R.drawable.baseline_remove_red_eye_24)
         }
 
-        // Move cursor to the end of the text
+
         binding.edPassword.setSelection(binding.edPassword.text?.length ?: 0)
 
         isPasswordVisible = !isPasswordVisible

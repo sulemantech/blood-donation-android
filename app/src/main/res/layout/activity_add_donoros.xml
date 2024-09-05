@@ -91,6 +91,7 @@
             android:layout_marginStart="15sp"
            android:backgroundTint="@color/maron"
         android:hint="Search City"
+        android:fontFamily="@font/opensanshebrew_regular"
         android:textColorHint="@color/black"
         app:layout_constraintTop_toBottomOf="@id/cardview5"
             android:entries="@array/pakistan_areas"

@@ -49,13 +49,6 @@
             android:layout_gravity="center"/>
     </androidx.cardview.widget.CardView>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="15sp"
-            app:layout_constraintTop_toBottomOf="@+id/cardview"
-            >
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -87,7 +80,7 @@
         android:layout_marginStart="10sp"
         android:layout_marginEnd="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        android:text="This Privacy Policy explains how we collect, use, and protect your information:"
+        android:text="@string/this_privacy_policy_explains_how_we_collect_use_and_protect_your_information"
         app:layout_constraintTop_toBottomOf="@+id/text2"/>
     <TextView
         android:layout_width="wrap_content"
@@ -182,7 +175,7 @@
         android:id="@+id/text11"
         android:layout_marginStart="10sp"
         android:layout_marginEnd="10sp"
-        android:text="We use industry-standard measures to protect your data, including encryption and secure servers. However, no method of transmission over the internet is 100% secure."
+        android:text="@string/we_use_industry_standard_measures_to_protect_your_data_including_encryption_and_secure_servers_however_no_method_of_transmission_over_the_internet_is_100_secure"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text10"/>
  <TextView
@@ -206,7 +199,7 @@
         android:id="@+id/text13"
         android:layout_marginStart="10sp"
         android:layout_marginEnd="10sp"
-        android:text="You have the right to request the deletion of your account and personal data at any time by contacting us at +92345192780"
+        android:text="@string/you_have_the_right_to_request_the_deletion_of_your_account_and_personal_data_at_any_time_by_contacting_us_at_92345192780"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text12"/>
   <TextView
@@ -230,7 +223,7 @@
         android:id="@+id/text15"
         android:layout_marginStart="10sp"
         android:layout_marginEnd="10sp"
-        android:text="We comply with applicable data protection laws, including GDPR and any other relevant regulations."
+        android:text="@string/we_comply_with_applicable_data_protection_laws_including_gdpr_and_any_other_relevant_regulations"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text14"/>
  <TextView
@@ -254,7 +247,7 @@
         android:id="@+id/text17"
         android:layout_marginStart="10sp"
         android:layout_marginEnd="10sp"
-        android:text="We may update this policy from time to time. You will be notified of any significant changes."
+        android:text="@string/we_may_update_this_policy_from_time_to_time_you_will_be_notified_of_any_significant_changes"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text16"/>
  <TextView
@@ -278,7 +271,7 @@
         android:id="@+id/text19"
         android:layout_marginStart="10sp"
         android:layout_marginEnd="10sp"
-        android:text="For any questions or concerns, please contact us at +923451927809."
+        android:text="@string/for_any_questions_or_concerns_please_contact_us_at_923451927809"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text18"/>
 
@@ -291,6 +284,5 @@
             />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

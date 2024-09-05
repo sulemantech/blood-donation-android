@@ -49,12 +49,6 @@
                 android:layout_gravity="center"/>
         </androidx.cardview.widget.CardView>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="15sp"
-        app:layout_constraintTop_toBottomOf="@+id/cardview"
-        >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -64,8 +58,8 @@
             android:id="@+id/text1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:text="Katlang Blood Donation &amp; Thalassemia Center Application"
-            app:layout_constraintTop_toBottomOf="@+id/cardview"/>
+            android:text="@string/katlang_blood_donation_amp_thalassemia_center_application"
+            app:layout_constraintTop_toBottomOf="@+id/cardview" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -122,7 +116,7 @@
             android:id="@+id/text5"
             android:layout_marginStart="15sp"
             android:layout_marginEnd="15sp"
-            android:text="- Your data is shared only with authorized personnel and other users for the purpose of blood donation."
+            android:text="@string/your_data_is_shared_only_with_authorized_personnel_and_other_users_for_the_purpose_of_blood_donation"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text4"/>
         <TextView
@@ -171,7 +165,7 @@
             android:id="@+id/text9"
             android:layout_marginStart="10sp"
             android:layout_marginEnd="10sp"
-            android:text="- You can request the deletion or correction of your personal data by contacting us at +923451927809."
+            android:text="@string/you_can_request_the_deletion_or_correction_of_your_personal_data_by_contacting_us_at_923451927809"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text8"/>
         <TextView
@@ -195,7 +189,7 @@
             android:id="@+id/text11"
             android:layout_marginStart="10sp"
             android:layout_marginEnd="10sp"
-            android:text="- We ensure that our data practices comply with relevant laws, including GDPR."
+            android:text="@string/we_ensure_that_our_data_practices_comply_with_relevant_laws_including_gdpr"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text10"/>
         <TextView
@@ -219,7 +213,7 @@
             android:id="@+id/text13"
             android:layout_marginStart="10sp"
             android:layout_marginEnd="10sp"
-            android:text="For any questions or concerns regarding data safety, please contact us at +923451927809."
+            android:text="@string/for_any_questions_or_concerns_regarding_data_safety_please_contact_us_at_923451927809"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text12"/>
 
@@ -231,6 +225,4 @@
             app:layout_constraintTop_toBottomOf="@+id/text13"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
 </ScrollView>
