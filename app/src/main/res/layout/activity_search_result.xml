@@ -58,7 +58,8 @@
         android:orientation="horizontal"
         android:gravity="end"
         android:visibility="gone"
-        android:paddingTop="16dp">
+        android:paddingTop="16dp"
+        tools:ignore="MissingConstraints">
 
         <Button
             android:id="@+id/btnViewDetail"

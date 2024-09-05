@@ -275,14 +275,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text18"/>
 
-
-
         <View
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            app:layout_constraintTop_toBottomOf="@+id/text19"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/text19" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </ScrollView>

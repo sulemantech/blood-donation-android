@@ -115,18 +115,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/spinner_bloodgroup"/>
 
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="270dp"
-        android:layout_marginStart="10sp"
-        android:text="Total Users"
-        android:visibility="gone"
-        android:textColor="@color/maron"
-        android:textStyle="bold"
-        android:id="@+id/users"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
