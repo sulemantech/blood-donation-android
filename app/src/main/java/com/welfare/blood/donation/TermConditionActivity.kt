@@ -16,6 +16,7 @@ class TermConditionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding=ActivityTermConditionBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         binding.backArrow.setOnClickListener {
             onBackPressed()
         }

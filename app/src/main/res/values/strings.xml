@@ -269,6 +269,17 @@
     </string>
 
         <string name="server_client_id">623168470227-ft3172k1c3hdmtufnlabepl32jum964c.apps.googleusercontent.com</string>
-        <!-- Other strings -->
+    <string name="log_in">Log In</string>
+    <string name="show_password">Show Password</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="forgot_password1">Forgot password?</string>
+    <string name="don_t_have_account">Don\'t have account?</string>
+    <string name="reset_textview">Reset</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="community_donors">Community Donors</string>
+    <!-- Other strings -->
 
 </resources>
