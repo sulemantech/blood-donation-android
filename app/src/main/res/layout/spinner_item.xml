@@ -10,7 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="16sp"
+        android:text="spinner"
         android:fontFamily="@font/opensanshebrew_regular"
-    android:padding="8dp"
-    android:gravity="center_vertical"/>
+         android:padding="8dp"
+        android:textColor="@color/hint_text_color"
+        android:gravity="center_vertical"/>
 </LinearLayout>

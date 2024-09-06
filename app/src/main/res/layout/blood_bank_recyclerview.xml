@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="160dp"
+    android:layout_height="150dp"
     android:layout_marginBottom="5dp">
     <FrameLayout
         android:layout_width="match_parent"
@@ -49,9 +49,9 @@
                     android:id="@+id/ll_middle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="7dp"
                     android:layout_marginStart="73dp"
-                    android:layout_marginEnd="20sp"
+                    android:layout_marginEnd="25sp"
                     android:layout_weight="2"
                     android:orientation="vertical">
 
@@ -66,7 +66,7 @@
                             android:layout_gravity="left"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Khyber Medical University (KMU) Blood\nTransfusion Centre"
+                            android:text="Khyber Medical University (KMU)"
                             android:textAppearance="@style/patient_name" />
 
                         <TextView
@@ -98,7 +98,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/contactInfo"
                         android:layout_marginTop="1dp"
-                        android:text="Khyber Medical University, Phase 5, Hayatabad, Peshawar, Khyber Pakhtunkhwa"
+                        android:text="Khyber Medical University, Phase 5, "
                         android:textAppearance="@style/hospital_name"
                         />
 

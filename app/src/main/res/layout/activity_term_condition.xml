@@ -30,7 +30,7 @@
                 android:fontFamily="@font/inter_bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="42dp"
+                android:layout_marginTop="40dp"
                 android:drawableLeft="@drawable/back"
                 android:layout_marginStart="20dp"
                 android:textSize="25dp"

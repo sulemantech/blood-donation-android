@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.BloodDonation" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.BloodDonation" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
     </style>
 
@@ -9,29 +9,30 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <!-- res/values/styles.xml -->
+    <!-- Custom Spinner Style for Light Theme -->
     <style name="CustomSpinnerStyle" parent="Widget.AppCompat.Spinner">
         <item name="android:textColor">@color/pinkk</item>
-        <item name="android:dropDownSelector">#ffffff</item>
+        <item name="android:dropDownSelector">@color/white</item>
     </style>
 
     <!-- Theme for Activity A -->
-    <style name="ThemeA" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="ThemeA" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <!-- Theme for Activity B -->
-    <style name="ThemeB" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="ThemeB" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:statusBarColor">@color/dark_maron</item>
         <item name="android:windowLightStatusBar">false</item>
     </style>
-    <style name="ThemeD" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
+    <style name="ThemeD" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:statusBarColor">@color/reddd</item>
         <item name="android:windowLightStatusBar">false</item>
     </style>
 
-    <style name="ThemeC" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="ThemeC" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:statusBarColor">@color/dark</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
@@ -40,8 +41,9 @@
     <style name="Theme.BloodDonation.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.BloodDonation.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
     <!-- Base application theme. -->
-    <style name="Base.Theme.BloodDonation" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.BloodDonation" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>

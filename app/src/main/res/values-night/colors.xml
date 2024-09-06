@@ -2,4 +2,5 @@
 <resources>
 
     <color name="hint_text_color">#6E6969</color>
+    <color name="hint_text_color1">#FF000000</color>
 </resources>

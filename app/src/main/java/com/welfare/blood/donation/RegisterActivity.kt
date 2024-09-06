@@ -338,6 +338,7 @@ class RegisterActivity : AppCompatActivity() {
         datePickerDialog.show()
     }
 
+
     private fun registerUser() {
         val name = binding.edName.text.toString().trim()
         val email = binding.edEmail.text.toString().trim()
@@ -345,6 +346,15 @@ class RegisterActivity : AppCompatActivity() {
         val bloodGroup = binding.spinnerBloodGroup.selectedItem.toString()
         val location = binding.edLocation.selectedItem.toString()
         val password = binding.edPassword.text.toString().trim()
+
+        if (!isValidEmail(email)) {
+            Toast.makeText(this, "Please enter a valid email address", Toast.LENGTH_SHORT).show()
+            return
+        }
+        if (!isValidPhone(phone)) {
+            Toast.makeText(this, "Please enter a valid email address", Toast.LENGTH_SHORT).show()
+            return
+        }
 
         if (name.isEmpty() || email.isEmpty() || phone.isEmpty() || bloodGroup.isEmpty() || location.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
@@ -397,6 +407,13 @@ class RegisterActivity : AppCompatActivity() {
                 }
             }
     }
+
+    private fun isValidPhone(phone: String): Boolean {
+        val phoneRegex = Regex("^(?:\\+92|0)\\d{10}$")
+        val cleanedPhone = phone.replace(Regex("[\\s-]"), "")
+        return phoneRegex.matches(cleanedPhone)
+    }
+
 
     companion object {
         private const val TAG = "RegisterActivity"

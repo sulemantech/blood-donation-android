@@ -21,7 +21,7 @@
             android:src="@drawable/top_header"/>
         <TextView
             android:layout_width="60dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50sp"
             android:fontFamily="@font/inter_bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
