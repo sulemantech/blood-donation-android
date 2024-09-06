@@ -5,7 +5,6 @@ plugins {
     id("com.google.gms.google-services")
 
 }
-
 android {
     namespace 'com.welfare.blood.donation'
     compileSdk 34
@@ -16,8 +15,8 @@ android {
         targetSdk 34
         versionCode 6
         versionName "1.1.5"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
     }
 
     applicationVariants.all { variant ->
@@ -60,19 +59,40 @@ android {
         viewBinding true
     }
 
+    flavorDimensions "environment"
+
+    productFlavors {
+        dev {
+            dimension "environment"
+            applicationIdSuffix ".dev"
+            versionNameSuffix "-Dev"
+        }
+        live {
+            dimension "environment"
+            applicationId "com.welfare.blood.donation"
+        }
+    }
+
     buildTypes {
         release {
-            // Production settings
-            //applicationIdSuffix ".prod"
-            // Other release-specific configurations
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def apkName = "bloodDonation-v" + variant.versionCode + "-" + variant.versionName + ".apk"
+                    output.outputFileName = apkName
+                }
+            }
         }
 
         debug {
-            // Development settings
-            applicationIdSuffix ".dev"
-            // Other debug-specific configurations
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def apkName = "bloodDonation-v" + variant.versionCode + "-" + variant.versionName + ".apk"
+                    output.outputFileName = apkName
+                }
+            }
         }
     }
+
 }
 
 dependencies {
@@ -110,7 +130,5 @@ dependencies {
     implementation "androidx.room:room-ktx:2.5.2"
     kapt 'androidx.room:room-compiler:2.5.0'
     implementation 'me.leolin:ShortcutBadger:1.1.22@aar'
-
-
 
 }

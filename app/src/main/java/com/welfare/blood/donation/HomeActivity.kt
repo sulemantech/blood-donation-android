@@ -103,6 +103,19 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
+        // In your Activity or Fragment
+        if (BuildConfig.DEBUG) {
+            val versionName = BuildConfig.VERSION_NAME
+            val versionCode = BuildConfig.VERSION_CODE
+
+            // Display the version name and code in a TextView (for example)
+            val versionTextView = findViewById<TextView>(R.id.textMenu)
+            versionTextView.text = "Version: $versionName ($versionCode)"
+
+            // Or log it for debugging purposes
+            Log.d("AppVersion", "Version: $versionName ($versionCode)")
+        }
+
         binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
         binding.menuLine.setOnClickListener {
