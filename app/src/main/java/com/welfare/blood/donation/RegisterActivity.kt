@@ -352,7 +352,7 @@ class RegisterActivity : AppCompatActivity() {
             return
         }
         if (!isValidPhone(phone)) {
-            Toast.makeText(this, "Please enter a valid email address", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Please enter a valid contact number", Toast.LENGTH_SHORT).show()
             return
         }
 
