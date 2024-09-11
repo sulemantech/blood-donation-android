@@ -3,13 +3,16 @@ package com.welfare.blood.donation
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.util.Log
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.welfare.blood.donation.fragments.NotificationFragment
 import com.welfare.blood.donation.fragments.ReceivedRequestsFragment
 import java.util.Random
 import kotlinx.coroutines.CoroutineScope
@@ -19,31 +22,37 @@ import kotlinx.coroutines.launch
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
-        Toast.makeText(this, "New message received", Toast.LENGTH_SHORT).show()
-
+        Log.d(TAG, "Message data: ${remoteMessage.data}")
+        // Handle both data and notification messages
         if (remoteMessage.data.isNotEmpty()) {
             val title = remoteMessage.data["title"]
             val message = remoteMessage.data["message"]
             val activity = remoteMessage.data["activity"]
             val extraData = remoteMessage.data["extraData"]
 
+            Log.e("notification", "data notifications:$title$message")
+
+            // Save notification to local Room database
             saveNotificationLocally(title, message, activity, extraData)
 
+            // Display notification
             showNotification(title, message, activity, extraData)
         }
 
+
         remoteMessage.notification?.let {
+
+
             val title = it.title
             val message = it.body
 
+            Log.e("notification", "notifications:$title$message")
+            // Save notification to local Room database
             saveNotificationLocally(title, message, null, null)
 
+            // Display notification
             showNotification(title, message, null, null)
         }
-    }
-
-    override fun onNewToken(token: String) {
-        super.onNewToken(token)
     }
 
     private fun saveNotificationLocally(title: String?, message: String?, activity: String?, extraData: String?) {
@@ -55,40 +64,55 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         )
 
         CoroutineScope(Dispatchers.IO).launch {
-            val db = AppDatabase.getDatabase(applicationContext)
-            db.notificationDao().insertNotification(notification)
+            try {
+                val db = AppDatabase.getDatabase(applicationContext)
+                db.notificationDao().insert(notification)
+                Log.d("NotificationSave", "Notification saved: $notification")
+            } catch (e: Exception) {
+                Log.e("NotificationSaveError", "Failed to save notification", e)
+            }
         }
     }
 
     private fun showNotification(title: String?, message: String?, activity: String?, extraData: String?) {
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManager =
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val notificationID = Random().nextInt(3000)
 
-        val intent = if (activity != null) {
-            Intent(this, Class.forName(activity)).apply {
-                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                putExtra("extraData", extraData)
-            }
-        } else {
-            Intent(this, ReceivedRequestsFragment::class.java)
-        }
+        val intent=
+        Intent(this, NotificationFragment::class.java)
+//        val intent = try {
+//            if (activity != null) {
+//                // Ensure that the activity string is a fully qualified class name
+//                val clazz = Class.forName(activity)
+//                Intent(this, clazz).apply {
+//                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+//                    putExtra("extraData", extraData)
+//                }
+//            } else
+//            {
+//                Intent(this, NotificationFragment::class.java)
+//            }
+//        } catch (e: ClassNotFoundException) {
+//            // Handle the case where the class is not found
+//            Log.e("NotificationError", "Class not found for activity: $activity", e)
+//            Toast.makeText(this, "Error: Activity not found.", Toast.LENGTH_SHORT).show()
+//            Intent(this, NotificationFragment::class.java)
+//        }
 
         val openPendingIntent = PendingIntent.getActivity(
             this,
             0,
             intent,
-            PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
+             PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
         )
 
-        val cancelIntent = Intent(this, NotificationCancelReceiver::class.java).apply {
-            putExtra("notification_id", notificationID)
-        }
-        val cancelPendingIntent = PendingIntent.getBroadcast(
-            this,
-            0,
-            cancelIntent,
-            PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
-        )
+        val notificationBuilder = NotificationCompat.Builder(this, "default")
+            .setContentTitle(title)
+            .setContentText(message)
+            .setSmallIcon(R.drawable.splash)
+            .setAutoCancel(true)
+            .setContentIntent(openPendingIntent)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channelName = "FCM Notification"
@@ -96,21 +120,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             notificationManager.createNotificationChannel(channel)
         }
 
-        val sharedPreferences = getSharedPreferences("notification_prefs", Context.MODE_PRIVATE)
-        val notificationCount = sharedPreferences.getInt("notification_count", 0) + 1
-
-        val notificationBuilder = NotificationCompat.Builder(this, "default")
-            .setContentTitle(title)
-            .setContentText(message)
-            .setSmallIcon(R.drawable.noti)
-            .setAutoCancel(true)
-            .setContentIntent(openPendingIntent)
-            .setNumber(notificationCount)  // Display the count on the notification
-            .addAction(R.drawable.baseline_open_in_full_24, "Open", openPendingIntent)
-            .addAction(R.drawable.baseline_cancel_24, "Cancel", cancelPendingIntent)
-
         notificationManager.notify(notificationID, notificationBuilder.build())
-
-        sharedPreferences.edit().putInt("notification_count", notificationCount).apply()
     }
 }

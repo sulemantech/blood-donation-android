@@ -61,6 +61,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="15dp"
         android:layout_marginStart="5dp"
+        android:paddingBottom="62dp"
         tools:listitem="@layout/critical_patient_item"
         app:layout_constraintTop_toBottomOf="@id/emergencyPatientsLabel"
         app:layout_constraintStart_toStartOf="parent"

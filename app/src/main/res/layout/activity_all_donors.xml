@@ -57,5 +57,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/donors_item"
-        android:padding="6dp"/>
+        android:padding="6dp"
+        android:paddingBottom="62dp"
+        />
 </LinearLayout>

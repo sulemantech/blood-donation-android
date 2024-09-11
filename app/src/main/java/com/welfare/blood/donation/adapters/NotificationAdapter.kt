@@ -3,17 +3,21 @@ package com.welfare.blood.donation.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.welfare.blood.donation.NotificationEntity
 import com.welfare.blood.donation.R
+import com.welfare.blood.donation.databinding.ItemNotificationBinding
 
 class NotificationAdapter(private val notifications: List<NotificationEntity>) :
     RecyclerView.Adapter<NotificationAdapter.NotificationViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotificationViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_notification, parent, false)
-        return NotificationViewHolder(view)
+        val binding = ItemNotificationBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+        return NotificationViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: NotificationViewHolder, position: Int) {
@@ -21,19 +25,15 @@ class NotificationAdapter(private val notifications: List<NotificationEntity>) :
         holder.bind(notification)
     }
 
-    override fun getItemCount(): Int {
-        return notifications.size
-    }
+    override fun getItemCount() = notifications.size
 
-    class NotificationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val titleTextView: TextView = itemView.findViewById(R.id.titleTextView)
-        private val messageTextView: TextView = itemView.findViewById(R.id.messageTextView)
-        private val timestampTextView: TextView = itemView.findViewById(R.id.timestampTextView)
+    inner class NotificationViewHolder(private val binding: ItemNotificationBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(notification: NotificationEntity) {
-            titleTextView.text = notification.title
-            messageTextView.text = notification.message
-            timestampTextView.text = android.text.format.DateFormat.format("dd/MM/yyyy hh:mm:ss", notification.timestamp)
+            binding.tvTitle.text = notification.title
+            binding.tvMessage.text = notification.message
+            binding.tvTimestamp.text = android.text.format.DateFormat.format("dd/MM/yyyy hh:mm a", notification.timestamp)
         }
     }
 }

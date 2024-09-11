@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:623168470227:android:7b16e00effca732f7f6826",
         "android_client_info": {
-          "package_name": "com.welfare.blood.donation"
+          "package_name": "com.welfare.blood.donation.dev"
         }
       },
       "oauth_client": [

@@ -250,7 +250,7 @@
     <string name="we_implement_security_measures_such_as_encryption_to_protect_your_data_access_to_personal_data_is_restricted_to_authorized_personnel_only">- We implement security measures such as encryption to protect your data.\n- Access to personal data is restricted to authorized personnel only.</string>
     <string name="agree_for_term_condition"><![CDATA[Agree For Term & Condition?I confirm I am of legal age and agree to the Terms and Data Privacy.]]></string>
     <string name="i_confirm_i_am_of_legal_age_and_agree_to_the_terms_and_data_privacy">
-        <font color="#000000"> I confirm I am of legal age and agree \n  to the</font> <font color="#0589F3">Terms</font>  <font color="#000000"> and </font></string>
+        <font color="#000000"> I confirm I am of legal age and agree to the</font> <font color="#0589F3">Terms</font>  <font color="#000000">and </font></string>
     <string name="data_privacy"><font color="#0589F3">Data Privacy</font></string>
     <string name="for_any_questions_or_concerns_regarding_data_safety_please_contact_us_at_923451927809">For any questions or concerns regarding data safety, please contact us at +923451927809.</string>
     <string name="we_ensure_that_our_data_practices_comply_with_relevant_laws_including_gdpr">- We ensure that our data practices comply with relevant laws, including GDPR.</string>
@@ -280,6 +280,8 @@
     <string name="password">Password</string>
     <string name="email">Email</string>
     <string name="community_donors">Community Donors</string>
+    <string name="please_enter_your_details">Please enter your details</string>
+    <string name="term_and"><font color="#0589F3">Term</font><font color="#000000"> and</font></string>
     <!-- Other strings -->
 
 </resources>

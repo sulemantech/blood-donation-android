@@ -111,6 +111,7 @@
             android:layout_marginStart="20dp"
             android:text="@string/show_password"
             android:checked="false"
+            android:layout_marginTop="5sp"
             android:buttonTint="@color/maron"
             android:textColor="@color/hint_text_color1"
             android:fontFamily="@font/opensanshebrew_regular"
@@ -139,7 +140,7 @@
             android:fontFamily="@font/opensanshebrew_regular"
             android:text="@string/reset_textview"
             android:textSize="15sp"
-            android:textColor="#0589F3"
+            android:textColor="#082AE9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ed_password" />
 
@@ -178,7 +179,7 @@
             android:layout_marginTop="18dp"
             android:fontFamily="@font/opensanshebrew_regular"
             android:text="@string/sign_up"
-            android:textColor="#0589F3"
+            android:textColor="#082AE9"
             android:textSize="15sp"
             android:gravity="left"
             android:layout_marginStart="8sp"

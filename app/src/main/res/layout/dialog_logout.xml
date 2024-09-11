@@ -17,7 +17,7 @@
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Log Out?"
+        android:text="Logout?"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:textSize="20sp"
@@ -44,6 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cancel"
+            android:textAllCaps="false"
             android:textColor="@color/black"
             android:backgroundTint="@color/light_grey"
             android:layout_marginRight="10dp"/>
@@ -53,6 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Logout"
+            android:textAllCaps="false"
             android:textColor="@android:color/black"
             android:backgroundTint="@android:color/holo_red_dark"/>
     </LinearLayout>

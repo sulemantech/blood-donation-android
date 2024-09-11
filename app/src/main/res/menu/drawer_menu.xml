@@ -38,7 +38,7 @@
         <item
             android:id="@+id/nav_feedback"
             android:title="Feedback &amp; Suggestion"
-            android:icon="@drawable/feedback"/>
+            android:icon="@drawable/baseline_feed_24"/>
         <item
             android:id="@+id/nav_policy"
             android:title="Privacy &amp; Policy"

@@ -49,7 +49,6 @@
             android:layout_gravity="center"/>
     </androidx.cardview.widget.CardView>
 
-
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

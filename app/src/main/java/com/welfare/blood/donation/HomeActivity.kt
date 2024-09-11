@@ -1,7 +1,9 @@
 package com.welfare.blood.donation
 
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -55,6 +57,12 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val openFragment = intent.getStringExtra("openFragment")
+        if (openFragment == "NotificationFragment") {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.container, NotificationFragment())
+                .commit()
+        }
         binding.navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_edit_profile -> {
@@ -78,7 +86,7 @@ class HomeActivity : AppCompatActivity() {
                 }
 
                 R.id.nav_rate_us -> {
-                    showRateUsDialog(this)
+                    openPlaystore(this)
                     true
                 }
 
@@ -103,16 +111,13 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
-        // In your Activity or Fragment
         if (BuildConfig.DEBUG) {
             val versionName = BuildConfig.VERSION_NAME
             val versionCode = BuildConfig.VERSION_CODE
 
-            // Display the version name and code in a TextView (for example)
             val versionTextView = findViewById<TextView>(R.id.textMenu)
             versionTextView.text = "Version: $versionName ($versionCode)"
 
-            // Or log it for debugging purposes
             Log.d("AppVersion", "Version: $versionName ($versionCode)")
         }
 
@@ -171,6 +176,20 @@ class HomeActivity : AppCompatActivity() {
             }
         }
     }
+
+    fun openPlaystore(context: Context) {
+        val appPackageName = context.packageName
+        try {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$appPackageName"))
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            context.startActivity(intent)
+        } catch (e: ActivityNotFoundException) {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName"))
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            context.startActivity(intent)
+        }
+    }
+
     private fun promptForPassword() {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_password_input, null)
         val passwordEditText = dialogView.findViewById<EditText>(R.id.editTextPassword)

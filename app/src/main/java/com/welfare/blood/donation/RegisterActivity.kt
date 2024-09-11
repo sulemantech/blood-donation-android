@@ -2,19 +2,29 @@ package com.welfare.blood.donation
 
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.text.InputType
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
+import android.text.style.ForegroundColorSpan
+import android.text.style.UnderlineSpan
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.ArrayAdapter
+import android.widget.CheckBox
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import com.google.firebase.messaging.FirebaseMessaging
 import com.welfare.blood.donation.databinding.ActivityRegisterBinding
 import com.welfare.blood.donation.models.CommunityDonors
 import java.text.SimpleDateFormat
@@ -43,6 +53,56 @@ class RegisterActivity : AppCompatActivity() {
             togglePasswordVisibility()
         }
 
+        val checkBox = findViewById<CheckBox>(R.id.agree)
+        val termsText = "I confirm I am of legal age and agree \nto the  the Terms and Data Privacy"
+        val spannableString = SpannableString(termsText)
+
+        val termsStart = termsText.indexOf("Terms")
+        val termsEnd = termsStart + "Terms".length
+
+        val privacyStart = termsText.indexOf("Data Privacy")
+        val privacyEnd = privacyStart + "Data Privacy".length
+
+        val termsClickableSpan = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                val intent = Intent(this@RegisterActivity, TermConditionActivity::class.java)
+                startActivity(intent)
+            }
+        }
+
+        val privacyClickableSpan = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                val intent = Intent(this@RegisterActivity, PrivacyPolicyActivity::class.java)
+                startActivity(intent)
+            }
+        }
+
+        spannableString.setSpan(termsClickableSpan, termsStart, termsEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(privacyClickableSpan, privacyStart, privacyEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+        val termsColorSpan = ForegroundColorSpan(Color.BLUE)  // Set your desired color
+        val privacyColorSpan = ForegroundColorSpan(Color.BLUE)  // Set your desired color
+
+        spannableString.setSpan(termsColorSpan, termsStart, termsEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(privacyColorSpan, privacyStart, privacyEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+        checkBox?.text = spannableString
+        checkBox?.movementMethod = LinkMovementMethod.getInstance()
+
+
+        val mTextView = findViewById<TextView>(R.id.register)
+        val mString1 = "Sign In"
+        val mSpannableString = SpannableString(mString1)
+        mSpannableString.setSpan(UnderlineSpan(), 0, mSpannableString.length, 0)
+        mTextView.text = mSpannableString
+
+
+        binding.register.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
 
         if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
             setWindowFlag(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, true)
@@ -64,11 +124,14 @@ class RegisterActivity : AppCompatActivity() {
             binding.bloodDonation.text = "Community Donor"
             binding.bloodDonation2.text="Please enter your details for Community Donor"
             binding.edPassword.visibility = View.GONE
+            binding.imgTogglePassword.visibility =View.GONE
+            binding.haveAccount.visibility=View.GONE
+            binding.register.visibility=View.GONE
             binding.noYes.isChecked = true
             binding.agree.isChecked = true
         } else {
             binding.bloodDonation.text = "Sign Up"
-            binding.bloodDonation2.text="Please enter your details to Sign up"
+            binding.bloodDonation2.text="Please enter your details"
 
         }
 
@@ -368,36 +431,49 @@ class RegisterActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     val userID = auth.currentUser?.uid
 
-                    val user = hashMapOf(
-                        "userID" to userID,
-                        "name" to name,
-                        "email" to email,
-                        "phone" to phone,
-                        "bloodGroup" to bloodGroup,
-                        "location" to location,
-                        "isDonor" to binding.noYes.isChecked,
-                        "fcmToken" to null,
-                        "lastLoginAt" to null,
-                        "userType" to "user",
-                        "addedByAdmin" to false,
-                        "registrationTimestamp" to com.google.firebase.firestore.FieldValue.serverTimestamp()
-                    )
-
                     if (userID != null) {
-                        db.collection("users").document(userID).set(user, SetOptions.merge())
-                            .addOnSuccessListener {
-                                Log.d(TAG, "DocumentSnapshot successfully written!")
-                                binding.progressBar.visibility = View.GONE
-                                Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show()
+                        // Generate FCM Token
+                        FirebaseMessaging.getInstance().token
+                            .addOnCompleteListener { tokenTask ->
+                                if (tokenTask.isSuccessful) {
+                                    val fcmToken = tokenTask.result
 
-                                val intent = Intent(this, HomeActivity::class.java)
-                                startActivity(intent)
-                                finish()
-                            }
-                            .addOnFailureListener { e ->
-                                Log.w(TAG, "Error writing document", e)
-                                binding.progressBar.visibility = View.GONE
-                                Toast.makeText(this, "Registration Failed", Toast.LENGTH_SHORT).show()
+                                    val user = hashMapOf(
+                                        "userID" to userID,
+                                        "name" to name,
+                                        "email" to email,
+                                        "phone" to phone,
+                                        "bloodGroup" to bloodGroup,
+                                        "location" to location,
+                                        "isDonor" to binding.noYes.isChecked,
+                                        "fcmToken" to fcmToken, // Set the FCM token
+                                        "lastLoginAt" to null,
+                                        "userType" to "user",
+                                        "addedByAdmin" to false,
+                                        "registrationTimestamp" to com.google.firebase.firestore.FieldValue.serverTimestamp()
+                                    )
+
+                                    // Update Firestore with user details and FCM token
+                                    db.collection("users").document(userID).set(user, SetOptions.merge())
+                                        .addOnSuccessListener {
+                                            Log.d(TAG, "DocumentSnapshot successfully written!")
+                                            binding.progressBar.visibility = View.GONE
+                                            Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show()
+
+                                            val intent = Intent(this, HomeActivity::class.java)
+                                            startActivity(intent)
+                                            finish()
+                                        }
+                                        .addOnFailureListener { e ->
+                                            Log.w(TAG, "Error writing document", e)
+                                            binding.progressBar.visibility = View.GONE
+                                            Toast.makeText(this, "Registration Failed", Toast.LENGTH_SHORT).show()
+                                        }
+                                } else {
+                                    Log.w(TAG, "Fetching FCM token failed", tokenTask.exception)
+                                    binding.progressBar.visibility = View.GONE
+                                    Toast.makeText(this, "Registration Failed", Toast.LENGTH_SHORT).show()
+                                }
                             }
                     }
                 } else {

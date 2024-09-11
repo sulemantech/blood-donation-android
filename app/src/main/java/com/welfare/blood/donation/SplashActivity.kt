@@ -1,7 +1,9 @@
 package com.welfare.blood.donation
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.drawable.AnimationDrawable
 import android.os.Build
 import android.os.Bundle
@@ -10,7 +12,9 @@ import android.os.Looper
 import android.view.View
 import android.view.WindowManager
 import android.widget.ImageView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 
@@ -33,28 +37,17 @@ class SplashActivity : AppCompatActivity() {
             window.statusBarColor = ContextCompat.getColor(this, android.R.color.transparent)
         }
 
-     //   imageView = findViewById(R.id.load_image)
+        // imageView = findViewById(R.id.load_image)
 
-//        val animationDrawable = imageView.drawable as AnimationDrawable
-//        animationDrawable.start()
+        // val animationDrawable = imageView.drawable as AnimationDrawable
+        // animationDrawable.start()
 
-        val handler = Handler(Looper.getMainLooper())
-        handler.postDelayed({
-            val sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
-            val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
-
-            if (isLoggedIn) {
-
-                val intent = Intent(this, HomeActivity::class.java)
-                startActivity(intent)
-                finish()
-            } else {
-
-                val intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
-        }, 2000)
+        // Request notification permission after splash screen if needed
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requestNotificationPermission()
+        } else {
+            navigateToNextScreen()
+        }
     }
 
     private fun setWindowFlag(bits: Int, on: Boolean) {
@@ -66,5 +59,51 @@ class SplashActivity : AppCompatActivity() {
             winParams.flags = winParams.flags and bits.inv()
         }
         win.attributes = winParams
+    }
+
+    private fun requestNotificationPermission() {
+        val requestPermissionLauncher =
+            registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
+                if (isGranted) {
+                    // Permission granted, proceed with next screen
+                    navigateToNextScreen()
+                } else {
+                    // Permission denied, handle the situation or proceed
+                    navigateToNextScreen()
+                }
+            }
+
+        when {
+            ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED -> {
+                // Permission already granted
+                navigateToNextScreen()
+            }
+            ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.POST_NOTIFICATIONS) -> {
+                // Show rationale and request permission
+                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            }
+            else -> {
+                // Directly request for permission
+                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            }
+        }
+    }
+
+    private fun navigateToNextScreen() {
+        val handler = Handler(Looper.getMainLooper())
+        handler.postDelayed({
+            val sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+            val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
+
+            if (isLoggedIn) {
+                val intent = Intent(this, HomeActivity::class.java)
+                startActivity(intent)
+                finish()
+            } else {
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }, 2000)
     }
 }

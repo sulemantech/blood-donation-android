@@ -5,7 +5,6 @@ plugins {
     id("com.google.gms.google-services")
 
 }
-
 android {
     namespace 'com.welfare.blood.donation'
     compileSdk 34
@@ -18,34 +17,6 @@ android {
         versionName "1.1.6"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        def baseApkName = "BloodDonation"
-        def versionCode = defaultConfig.versionCode
-        def versionName = defaultConfig.versionName
-        def flavorName = "${baseApkName}-v${versionName}-${versionCode}"
-    }
-
-    buildTypes {
-        debug {
-            // Configuration for the debug build
-            versionNameSuffix "-debug"
-            applicationVariants.all { variant ->
-                variant.outputs.all {
-                    // Set APK name for debug build
-                    outputFileName = "${flavorName}-debug.apk"
-                }
-            }
-        }
-        release {
-            // Configuration for the release build
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            applicationVariants.all { variant ->
-                variant.outputs.all {
-                    // Set APK name for release build
-                    outputFileName = "${flavorName}-release.apk"
-                }
-            }
-        }
     }
 
     applicationVariants.all { variant ->
@@ -87,6 +58,41 @@ android {
     buildFeatures {
         viewBinding true
     }
+
+    flavorDimensions "environment"
+
+    productFlavors {
+        dev {
+            dimension "environment"
+            applicationIdSuffix ".dev"
+            versionNameSuffix "-Dev"
+        }
+        live {
+            dimension "environment"
+            applicationId "com.welfare.blood.donation"
+        }
+    }
+
+    buildTypes {
+        release {
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def apkName = "bloodDonation-v" + variant.versionCode + "-" + variant.versionName + ".apk"
+                    output.outputFileName = apkName
+                }
+            }
+        }
+
+        debug {
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def apkName = "bloodDonation-v" + variant.versionCode + "-" + variant.versionName + ".apk"
+                    output.outputFileName = apkName
+                }
+            }
+        }
+    }
+
 }
 
 dependencies {
