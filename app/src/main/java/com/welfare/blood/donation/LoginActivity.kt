@@ -43,6 +43,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var googleSignInClient: GoogleSignInClient
     private var isPasswordVisible = false
     private val RC_SIGN_IN = 9001
+    private var isLoginInProgress = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -191,7 +192,14 @@ class LoginActivity : AppCompatActivity() {
             }
     }
 
+
+
     private fun loginUser() {
+        if (isLoginInProgress) {
+            Toast.makeText(this, "Login in progress, please wait...", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         val email = binding.edUsername.text.toString().trim()
         val password = binding.edPassword.text.toString().trim()
 
@@ -204,10 +212,17 @@ class LoginActivity : AppCompatActivity() {
             Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show()
             return
         }
+
         binding.progressBar.visibility = View.VISIBLE
+        isLoginInProgress = true
+        binding.btnLogin.isEnabled = false
 
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
+                isLoginInProgress = false
+                binding.btnLogin.isEnabled = true
+                binding.progressBar.visibility = View.GONE
+
                 if (task.isSuccessful) {
                     Log.d(TAG, "signInWithEmail:success")
                     Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
@@ -234,7 +249,6 @@ class LoginActivity : AppCompatActivity() {
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
                     Toast.makeText(this, "Authentication Failed", Toast.LENGTH_SHORT).show()
                 }
-                binding.progressBar.visibility = View.GONE
             }
     }
 
