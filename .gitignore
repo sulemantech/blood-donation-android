@@ -8,6 +8,9 @@
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
+/app/live/release/
+/live/release/
+/release/
 .DS_Store
 /build
 /captures
