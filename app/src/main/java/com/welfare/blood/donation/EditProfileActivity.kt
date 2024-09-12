@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.welfare.blood.donation.databinding.ActivityEditProfileBinding
@@ -269,46 +270,59 @@ class EditProfileActivity : AppCompatActivity() {
         val phone = binding.edPhone.text.toString().trim()
         val dateOfBirth = binding.edDateBirth.text.toString().trim()
         val bloodGroup = binding.spinnerBloodGroup.selectedItem.toString()
-        //  val city = binding.edCity.text.toString().trim()
         val location = binding.edLocation.selectedItem.toString().trim()
         val lastDonationDate = binding.edLastdonationdate.text.toString().trim()
         val isDonor = binding.noYes.isChecked
 
-        if (name.isEmpty() || email.isEmpty() || phone.isEmpty() || dateOfBirth.isEmpty() || bloodGroup.isEmpty() || location.isEmpty() || location.isEmpty() || lastDonationDate.isEmpty() || selectedGender.isNullOrEmpty()) {
+        if (name.isEmpty() || email.isEmpty() || phone.isEmpty() || dateOfBirth.isEmpty() ||
+            bloodGroup.isEmpty() || location.isEmpty() || lastDonationDate.isEmpty() || selectedGender.isNullOrEmpty()) {
             Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
             return
         }
 
         binding.progressBar.visibility = View.VISIBLE
 
-        val userMap = hashMapOf(
-            "name" to name,
-            "email" to email,
-            "phone" to phone,
-            "dateOfBirth" to dateOfBirth,
-            "bloodGroup" to bloodGroup,
-            //  "city" to city,
-            "location" to location,
-            "lastDonationDate" to lastDonationDate,
-            "isDonor" to isDonor,
-            "gender" to selectedGender,
-            "profileImageUrl" to userProfileImageUrl
-        )
+        // Fetch the FCM token
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w(TAG, "Fetching FCM token failed", task.exception)
+                return@addOnCompleteListener
+            }
 
-        db.collection("users").document(userId).set(userMap, SetOptions.merge())
-            .addOnSuccessListener {
-                Log.d(TAG, "DocumentSnapshot successfully written!")
-                binding.progressBar.visibility = View.GONE
-                Toast.makeText(this, "Profile Updated", Toast.LENGTH_SHORT).show()
-                setResult(RESULT_OK)
-                navigateToHomeScreen()
-                finish()
-            }
-            .addOnFailureListener { e ->
-                Log.w(TAG, "Error writing document", e)
-                binding.progressBar.visibility = View.GONE
-                Toast.makeText(this, "Profile Update Failed", Toast.LENGTH_SHORT).show()
-            }
+            // Get new FCM registration token
+            val fcmToken = task.result
+
+            // Create user map
+            val userMap = hashMapOf(
+                "name" to name,
+                "email" to email,
+                "phone" to phone,
+                "dateOfBirth" to dateOfBirth,
+                "bloodGroup" to bloodGroup,
+                "location" to location,
+                "lastDonationDate" to lastDonationDate,
+                "isDonor" to isDonor,
+                "gender" to selectedGender,
+                "profileImageUrl" to userProfileImageUrl,
+                "fcmToken" to fcmToken // Add FCM token here
+            )
+
+            // Save the data to Firestore
+            db.collection("users").document(userId).set(userMap, SetOptions.merge())
+                .addOnSuccessListener {
+                    Log.d(TAG, "DocumentSnapshot successfully written!")
+                    binding.progressBar.visibility = View.GONE
+                    Toast.makeText(this, "Profile Updated", Toast.LENGTH_SHORT).show()
+                    setResult(RESULT_OK)
+                    navigateToHomeScreen()
+                    finish()
+                }
+                .addOnFailureListener { e ->
+                    Log.w(TAG, "Error writing document", e)
+                    binding.progressBar.visibility = View.GONE
+                    Toast.makeText(this, "Profile Update Failed", Toast.LENGTH_SHORT).show()
+                }
+        }
     }
 
     private fun navigateToHomeScreen() {

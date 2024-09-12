@@ -293,51 +293,66 @@ class RegisterActivity : AppCompatActivity() {
             return
         }
 
-        if (userId != null) {
-            updateExistingUser(
-                email,
-                name,
-                phone,
-                bloodGroup,
-                location,
-                wantsToDonate,
-                userType
-            )
-        } else {
-            binding.progressBar.visibility = View.VISIBLE
+        // Show progress bar
+        binding.progressBar.visibility = View.VISIBLE
 
-            val userID = db.collection("users").document().id
+        // Fetch the FCM token
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { tokenTask ->
+            if (tokenTask.isSuccessful) {
+                val fcmToken = tokenTask.result
 
-            val user = hashMapOf(
-                "userID" to userID,
-                "name" to name,
-                "email" to email,
-                "phone" to phone,
-                "bloodGroup" to bloodGroup,
-                "location" to location,
-                "isDonor" to wantsToDonate,
-                "fcmToken" to null,
-                "lastLoginAt" to null,
-                "userType" to userType,
-                "addedByAdmin" to true,
-                "registrationTimestamp" to com.google.firebase.firestore.FieldValue.serverTimestamp()
-            )
+                if (userId != null) {
+                    // Update existing user
+                    updateExistingUser(
+                        email,
+                        name,
+                        phone,
+                        bloodGroup,
+                        location,
+                        wantsToDonate,
+                        userType,
+                        fcmToken
+                    )
+                } else {
+                    // Add new user
+                    val userID = db.collection("users").document().id
 
-            db.collection("users").document(userID).set(user, SetOptions.merge())
-                .addOnSuccessListener {
-                    Log.d(TAG, "DocumentSnapshot successfully written!")
-                    binding.progressBar.visibility = View.GONE
-                    Toast.makeText(this, "New user Added", Toast.LENGTH_SHORT).show()
+                    val user = hashMapOf(
+                        "userID" to userID,
+                        "name" to name,
+                        "email" to email,
+                        "phone" to phone,
+                        "bloodGroup" to bloodGroup,
+                        "location" to location,
+                        "isDonor" to wantsToDonate,
+                        "fcmToken" to fcmToken, // Set the FCM token
+                        "lastLoginAt" to null,
+                        "userType" to userType,
+                        "addedByAdmin" to true,
+                        "registrationTimestamp" to com.google.firebase.firestore.FieldValue.serverTimestamp()
+                    )
 
-                    val intent = Intent(this, AddDonorsActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                    db.collection("users").document(userID).set(user, SetOptions.merge())
+                        .addOnSuccessListener {
+                            Log.d(TAG, "DocumentSnapshot successfully written!")
+                            binding.progressBar.visibility = View.GONE
+                            Toast.makeText(this, "New user Added", Toast.LENGTH_SHORT).show()
+
+                            val intent = Intent(this, AddDonorsActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        }
+                        .addOnFailureListener { e ->
+                            Log.w(TAG, "Error writing document", e)
+                            binding.progressBar.visibility = View.GONE
+                            Toast.makeText(this, "Registration Failed", Toast.LENGTH_SHORT).show()
+                        }
                 }
-                .addOnFailureListener { e ->
-                    Log.w(TAG, "Error writing document", e)
-                    binding.progressBar.visibility = View.GONE
-                    Toast.makeText(this, "Registration Failed", Toast.LENGTH_SHORT).show()
-                }
+            } else {
+                Log.w(TAG, "Fetching FCM token failed", tokenTask.exception)
+                binding.progressBar.visibility = View.GONE
+                Toast.makeText(this, "Registration Failed", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -348,7 +363,8 @@ class RegisterActivity : AppCompatActivity() {
         bloodGroup: String,
         location: String,
         wantsToDonate: Boolean,
-        userType: String
+        userType: String,
+        fcmToken: String?
     ) {
         val userUpdates = hashMapOf(
             "email" to email,
@@ -358,7 +374,8 @@ class RegisterActivity : AppCompatActivity() {
             "location" to location,
             "isDonor" to wantsToDonate,
             "userType" to userType,
-            "addedByAdmin" to true
+            "addedByAdmin" to true,
+            "fcmToken" to fcmToken
         )
 
         db.collection("users").document(userId!!)
@@ -378,6 +395,7 @@ class RegisterActivity : AppCompatActivity() {
                 Toast.makeText(this, "Update Failed", Toast.LENGTH_SHORT).show()
             }
     }
+
 
     private fun showDatePickerDialogForLastDonationDate() {
         val calendar = Calendar.getInstance()
