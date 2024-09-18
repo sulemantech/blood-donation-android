@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/group"
-    android:padding="16dp">
+    android:padding="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <ImageView
@@ -27,27 +27,24 @@
             android:layout_gravity="center"
             android:fontFamily="@font/open_sans_hebrew"
             android:textStyle="bold"
-            android:layout_marginTop="5dp"
             android:textSize="22dp"
             android:textColor="@color/black"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Please  edit the information and click on save"
+            android:text="Please  edit the information and click on update"
             android:layout_gravity="center"
             android:fontFamily="@font/open_sans_hebrew"
             android:textSize="14dp"
-            android:layout_marginTop="10dp"
             android:textColor="@color/black"/>
 
         <EditText
             android:id="@+id/edName"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="13dp"
+            android:layout_marginTop="10dp"
             android:hint="Full Name"
             android:inputType="textCapSentences"
-
             android:paddingStart="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
@@ -59,12 +56,10 @@
             android:id="@+id/edEmail"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="5dp"
             android:hint="Email Address"
             android:paddingStart="10dp"
             android:paddingLeft="5dp"
             android:inputType="textCapSentences"
-
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:drawableRight="@drawable/ic_vector_email"
@@ -74,7 +69,6 @@
             android:id="@+id/edPhone"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="4dp"
             android:hint="Phone"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
@@ -87,7 +81,6 @@
             android:id="@+id/edDateBirth"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="4dp"
             android:hint="Date of Birth"
             android:paddingStart="10dp"
             android:drawableRight="@drawable/ic_birthday"
@@ -101,10 +94,10 @@
             android:id="@+id/spinnerGender"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="7dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:entries="@array/gender_array"/>
+            android:entries="@array/gender_array"
+            android:spinnerMode="dropdown"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -112,51 +105,37 @@
             android:layout_marginEnd="20dp"
             android:background="@color/maron" />
 
-
-        <Spinner
+        <AutoCompleteTextView
             android:id="@+id/spinnerBloodGroup"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="3dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:entries="@array/blood_groups" />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="1dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/bloodType"
-            android:background="@color/maron"
-            />
+            android:hint="Blood Group"
+            android:paddingStart="10dp"
+            android:layout_marginTop="9sp"
+            android:backgroundTint="@color/maron"
+            android:inputType="textCapSentences"
+            android:entries="@array/blood_groups"
+            android:spinnerMode="dropdown"/>
 
-
-
-        <Spinner
+        <AutoCompleteTextView
             android:id="@+id/edLocation"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="4dp"
             android:hint="City"
+            android:inputType="textCapSentences"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
+            android:paddingStart="10dp"
+            android:backgroundTint="@color/maron"
             android:entries="@array/pakistan_cities"
-            android:inputType="text" />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/bloodType"
-            android:background="@color/maron" />
-
+            />
 
         <EditText
             android:id="@+id/edLastdonationdate"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="9dp"
             android:hint="Last Donation Date"
             android:inputType="date"
             android:layout_marginStart="20dp"
@@ -169,9 +148,7 @@
             android:id="@+id/noYes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_gravity="center"
-            android:checked="true"
             android:buttonTint="@color/maron"
             android:backgroundTint="@color/maron"
             android:text="Ready To Donate Blood" />
@@ -183,10 +160,11 @@
             android:textAllCaps="false"
             android:gravity="center"
             android:textSize="20dp"
+            android:paddingStart="10dp"
             android:textColor="@color/white"
             android:background="@drawable/update_button"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="25dp" />
 

@@ -20,7 +20,7 @@ class BloodbankActivity : AppCompatActivity() {
         setContentView(binding.root)
 //http://www.kmu.edu.pk/
         val bloodBankItems = listOf(
-            BloodBankItem("Khyber Medical University (KMU) Blood Transfusion Centre", "Khyber Medical University, Phase 5, Hayatabad, Peshawar, Khyber Pakhtunkhwa", "+92-91-9217703",""),
+          //  BloodBankItem("Khyber Medical University (KMU) Blood Transfusion Centre", "Khyber Medical University, Phase 5, Hayatabad, Peshawar", "+92-91-9217703",""),
             BloodBankItem("Lady Reading Hospital (LRH) Blood Bank", "Soekarno Square, Peshawar, Khyber Pakhtunkhwa", "+92-91-9211444","https://www.lrh.edu.pk/"),
             BloodBankItem("Hayatabad Medical Complex (HMC) Blood Bank", "Phase 4, Hayatabad, Peshawar, Khyber Pakhtunkhwa", "+92-91-9217140-46","http://www.hmckp.gov.pk/"),
             BloodBankItem("Fatimid Foundation Peshawar", "Hayatabad Phase-4, Street 10, House No. 61, Peshawar, Khyber Pakhtunkhwa", "+92-91-5821375","http://www.fatimid.org"),

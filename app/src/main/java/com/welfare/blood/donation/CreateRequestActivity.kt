@@ -5,9 +5,13 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.DatePicker
 import android.widget.RadioButton
 import android.widget.Toast
@@ -17,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.welfare.blood.donation.databinding.ActivityCreateRequestBinding
 import com.welfare.blood.donation.models.Request
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -52,6 +57,7 @@ class CreateRequestActivity : AppCompatActivity() {
         }
 
         binding.critical.setOnCheckedChangeListener { _, isChecked ->
+            Log.d("CreateRequestActivity", "Critical status changed: $isChecked")
             isCritical = isChecked
         }
 
@@ -94,6 +100,7 @@ class CreateRequestActivity : AppCompatActivity() {
             loadRequestData(requestId!!)
         }
     }
+
 
     private  fun clearEditTextFocus(){
         binding.name.clearFocus()
@@ -159,33 +166,42 @@ class CreateRequestActivity : AppCompatActivity() {
 
     private fun showDatePickerDialog() {
         val calendar = Calendar.getInstance()
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
+        val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
 
-
-        val datePicker = DatePicker(this)
-        datePicker.init(year, month, day, null)
-
-        val dialog = AlertDialog.Builder(this)
-            .setView(datePicker)
-            .setTitle("Select Date")
-            .setPositiveButton("OK") { _, _ ->
-
-                val selectedYear = datePicker.year
-                val selectedMonth = datePicker.month
-                val selectedDay = datePicker.dayOfMonth
-
-                val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                calendar.set(selectedYear, selectedMonth, selectedDay)
-                selectedDonationDate = sdf.format(calendar.time)
-
-                binding.edDateRequired.setText(selectedDonationDate)
+        // Set the initial date to the previously selected date, if available
+        if (::selectedDonationDate.isInitialized) {
+            try {
+                val date = sdf.parse(selectedDonationDate)
+                date?.let {
+                    calendar.time = it
+                }
+            } catch (e: ParseException) {
+                e.printStackTrace()
             }
-            .setNegativeButton("Cancel", null)
-            .create()
+        } else {
+            // Default to the current date if no previous date is set
+            calendar.timeInMillis = System.currentTimeMillis()
+        }
 
-        dialog.show()
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+        val month = calendar.get(Calendar.MONTH)
+        val year = calendar.get(Calendar.YEAR)
+
+        val datePickerDialog = DatePickerDialog(
+            this,
+            { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDay: Int ->
+                // Update the calendar with the new selected date
+                calendar.set(selectedYear, selectedMonth, selectedDay)
+                // Format the selected date and update the EditText
+                selectedDonationDate = sdf.format(calendar.time)
+                binding.edDateRequired.setText(selectedDonationDate)
+            },
+            year,
+            month,
+            day
+        )
+
+        datePickerDialog.show()
     }
 
     private fun validateInputs(): Boolean {
@@ -243,12 +259,13 @@ class CreateRequestActivity : AppCompatActivity() {
             return
         }
 
+        Log.d("CreateRequestActivity", "Critical status before sending request: $isCritical")
+
         val selectedId = binding.bloodForMyselfGroup.checkedRadioButtonId
         val bloodFor = findViewById<RadioButton>(selectedId).text.toString()
 
         val request = hashMapOf(
             "patientName" to binding.patientName.text.toString().trim(),
-          //  "phone" to binding.phone.text.toString().trim(),
             "age" to binding.age.text.toString().trim().toInt(),
             "bloodType" to binding.bloodType.selectedItem.toString().trim(),
             "requiredUnit" to binding.requiredUnit.text.toString().trim().toInt(),
@@ -262,6 +279,7 @@ class CreateRequestActivity : AppCompatActivity() {
             "critical" to isCritical,
             "notified" to notified,
         )
+
         db.collection("requests")
             .add(request)
             .addOnSuccessListener {
@@ -277,31 +295,6 @@ class CreateRequestActivity : AppCompatActivity() {
             }
     }
 
-    private fun loadRequestData(requestId: String) {
-        db.collection("requests").document(requestId).get()
-            .addOnSuccessListener { document ->
-                if (document != null) {
-                    val request = document.toObject(Request::class.java)
-                    if (request != null) {
-                        binding.patientName.setText(request.patientName)
-                     //   binding.phone.setText(request.phone)
-                        binding.age.setText(request.age.toString())
-                        binding.bloodType.setSelection(getBloodTypeIndex(request.bloodType))
-                        binding.requiredUnit.setText(request.requiredUnit.toString())
-                        binding.edDateRequired.setText(request.dateRequired)
-                        binding.hospital.setText(request.hospital)
-                        setLocationSpinner(request.location)
-                        binding.critical.isChecked = request.critical
-                        isCritical = request.critical
-                    }
-                }
-            }
-            .addOnFailureListener { e ->
-                Log.w("CreateRequestActivity", "Error loading request data", e)
-                Toast.makeText(this, "Error loading request data", Toast.LENGTH_SHORT).show()
-            }
-    }
-
     private fun updateRequest() {
         val currentUser = FirebaseAuth.getInstance().currentUser
         if (currentUser == null) {
@@ -309,12 +302,13 @@ class CreateRequestActivity : AppCompatActivity() {
             return
         }
 
+        Log.d("CreateRequestActivity", "Critical status before updating request: $isCritical")
+
         val selectedId = binding.bloodForMyselfGroup.checkedRadioButtonId
         val bloodFor = findViewById<RadioButton>(selectedId).text.toString()
 
         val updatedRequest = mapOf(
             "patientName" to binding.patientName.text.toString().trim(),
-          //  "phone" to binding.phone.text.toString().trim(),
             "age" to binding.age.text.toString().trim().toInt(),
             "bloodType" to binding.bloodType.selectedItem.toString().trim(),
             "requiredUnit" to binding.requiredUnit.text.toString().trim().toInt(),
@@ -343,6 +337,31 @@ class CreateRequestActivity : AppCompatActivity() {
                     Toast.makeText(this, "Error updating request", Toast.LENGTH_SHORT).show()
                 }
         }
+    }
+
+    private fun loadRequestData(requestId: String) {
+        db.collection("requests").document(requestId).get()
+            .addOnSuccessListener { document ->
+                if (document != null) {
+                    val request = document.toObject(Request::class.java)
+                    if (request != null) {
+                        binding.patientName.setText(request.patientName)
+                     //   binding.phone.setText(request.phone)
+                        binding.age.setText(request.age.toString())
+                        binding.bloodType.setSelection(getBloodTypeIndex(request.bloodType))
+                        binding.requiredUnit.setText(request.requiredUnit.toString())
+                        binding.edDateRequired.setText(request.dateRequired)
+                        binding.hospital.setText(request.hospital)
+                        setLocationSpinner(request.location)
+                        binding.critical.isChecked = request.critical
+                        isCritical = request.critical
+                    }
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.w("CreateRequestActivity", "Error loading request data", e)
+                Toast.makeText(this, "Error loading request data", Toast.LENGTH_SHORT).show()
+            }
     }
 
     override fun onBackPressed() {

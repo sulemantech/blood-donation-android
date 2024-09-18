@@ -43,6 +43,8 @@ class HomeActivity : AppCompatActivity() {
         binding=ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+
         val name = intent.getStringExtra("name")
         val bloodGroup = intent.getStringExtra("bloodGroup")
         val location = intent.getStringExtra("location")
@@ -57,11 +59,10 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+
         val openFragment = intent.getStringExtra("openFragment")
         if (openFragment == "NotificationFragment") {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, NotificationFragment())
-                .commit()
+            openNotificationFragment()
         }
         binding.navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
@@ -177,6 +178,21 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    private fun openNotificationFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container, NotificationFragment())
+            .commit()
+    }
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        if (intent?.hasExtra("openFragment") == true) {
+            val fragmentName = intent.getStringExtra("openFragment")
+            if (fragmentName == "NotificationFragment") {
+                openNotificationFragment()
+            }
+        }
+    }
     fun openPlaystore(context: Context) {
         val appPackageName = context.packageName
         try {

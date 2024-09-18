@@ -14,6 +14,7 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -40,7 +41,8 @@ class AddDonorsActivity : AppCompatActivity() {
             setWindowFlag(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, true)
         }
         if (Build.VERSION.SDK_INT >= 19) {
-            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+            window.decorView.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         }
         if (Build.VERSION.SDK_INT >= 21) {
             setWindowFlag(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, false)
@@ -56,6 +58,9 @@ class AddDonorsActivity : AppCompatActivity() {
         val cityAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, cities)
         autoCompleteCity.setAdapter(cityAdapter)
 
+
+        autoCompleteCity.threshold = 1
+
         autoCompleteCity.setOnItemClickListener { parent, view, position, id ->
             val selectedCity = parent.getItemAtPosition(position) as String
             filterDonors(selectedCity, binding.spinnerBloodgroup.selectedItem as String)
@@ -68,12 +73,18 @@ class AddDonorsActivity : AppCompatActivity() {
 
         val bloodGroupSpinner: Spinner = binding.spinnerBloodgroup
         val bloodGroups = resources.getStringArray(R.array.blood_groups)
-        val bloodGroupAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, bloodGroups)
+        val bloodGroupAdapter =
+            ArrayAdapter(this, android.R.layout.simple_spinner_item, bloodGroups)
         bloodGroupAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         bloodGroupSpinner.adapter = bloodGroupAdapter
 
         bloodGroupSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 val selectedBloodGroup = parent.getItemAtPosition(position) as String
                 filterDonors(autoCompleteCity.text.toString(), selectedBloodGroup)
             }
@@ -146,7 +157,7 @@ class AddDonorsActivity : AppCompatActivity() {
         }
         donorList.addAll(filteredDonors)
         communityAdapter.notifyDataSetChanged()
-      //  displayRequestCount(donorList.size)
+        //  displayRequestCount(donorList.size)
     }
 
 //    private fun displayRequestCount(count: Int) {
@@ -178,6 +189,11 @@ class AddDonorsActivity : AppCompatActivity() {
 
         val alertDialog = builder.create()
         alertDialog.show()
+
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+            .setTextColor(ContextCompat.getColor(this, android.R.color.holo_red_dark))
+        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+            .setTextColor(ContextCompat.getColor(this, android.R.color.holo_red_dark))
     }
 
     private fun deleteDonor(communityDonors: CommunityDonors) {

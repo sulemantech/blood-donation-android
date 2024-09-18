@@ -118,9 +118,8 @@ class DonationHistoryFragment : Fragment() {
         alertDialog.show()
 
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(requireContext(), android.R.color.holo_red_dark))
-
         alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(requireContext(), android.R.color.holo_red_dark))
-    }
+     }
 
     private fun deleteDonation(donation: Donation) {
         val donationId = donation.id

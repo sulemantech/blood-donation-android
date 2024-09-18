@@ -220,8 +220,6 @@
             android:layout_marginStart="24dp"
             android:layout_marginEnd="20dp" />
 
-
-
         <TextView
             android:id="@+id/text_location"
             android:layout_width="wrap_content"
@@ -303,7 +301,6 @@
             android:layout_marginStart="24dp"
             android:layout_marginEnd="20dp" />
 
-
         <CheckBox
             android:id="@+id/critical"
             android:layout_width="wrap_content"
@@ -312,7 +309,6 @@
             android:layout_marginTop="15dp"
             android:text="Patient Critical"
             android:buttonTint="@color/maron"
-            android:checked="true"
             android:backgroundTint="@color/maron"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -49,6 +49,7 @@ class ProfileActivity : AppCompatActivity() {
         binding.btnEditProfile.setOnClickListener {
             val intent = Intent(this, EditProfileActivity::class.java)
             startActivityForResult(intent, EDIT_PROFILE_REQUEST_CODE)
+            finish()
         }
 
         binding.btnDeleteProfile.setOnClickListener {
@@ -141,4 +142,4 @@ class ProfileActivity : AppCompatActivity() {
     companion object {
         private const val EDIT_PROFILE_REQUEST_CODE = 1001
     }
-}
+}//

@@ -15,6 +15,6 @@
         android:icon="@drawable/vector_notification"/>
     <item
         android:id="@+id/history"
-        android:title="Menu"
+        android:title="Setting"
         android:icon="@drawable/ic_group"/>
 </menu>

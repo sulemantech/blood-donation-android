@@ -123,8 +123,8 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:src="@drawable/mobile"
                      />
 
@@ -145,8 +145,8 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:src="@drawable/ic_loc"
                     />
 
@@ -167,8 +167,8 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:src="@drawable/ic_gender"
                  />
 

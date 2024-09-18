@@ -145,8 +145,8 @@
             android:id="@+id/blood_req"
             android:text="Find Donors"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="85dp"
+            android:layout_marginTop="17dp"
+            android:layout_marginEnd="76dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/linear"
             android:textAppearance="@style/create_request"/>
@@ -157,7 +157,7 @@
             android:layout_height="wrap_content"
             android:text="Emergency Patients"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="15dp"
             android:textAppearance="@style/home_screen_heading"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardview5"/>
@@ -180,7 +180,7 @@
             android:text="See All"
             android:textAppearance="@style/see_all"
             android:layout_marginEnd="30dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="15dp"
             android:textSize="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardview5"

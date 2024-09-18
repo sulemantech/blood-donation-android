@@ -293,16 +293,13 @@ class RegisterActivity : AppCompatActivity() {
             return
         }
 
-        // Show progress bar
         binding.progressBar.visibility = View.VISIBLE
 
-        // Fetch the FCM token
         FirebaseMessaging.getInstance().token.addOnCompleteListener { tokenTask ->
             if (tokenTask.isSuccessful) {
                 val fcmToken = tokenTask.result
 
                 if (userId != null) {
-                    // Update existing user
                     updateExistingUser(
                         email,
                         name,
@@ -314,7 +311,6 @@ class RegisterActivity : AppCompatActivity() {
                         fcmToken
                     )
                 } else {
-                    // Add new user
                     val userID = db.collection("users").document().id
 
                     val user = hashMapOf(
@@ -325,7 +321,7 @@ class RegisterActivity : AppCompatActivity() {
                         "bloodGroup" to bloodGroup,
                         "location" to location,
                         "isDonor" to wantsToDonate,
-                        "fcmToken" to fcmToken, // Set the FCM token
+                        "fcmToken" to fcmToken,
                         "lastLoginAt" to null,
                         "userType" to userType,
                         "addedByAdmin" to true,
@@ -450,7 +446,6 @@ class RegisterActivity : AppCompatActivity() {
                     val userID = auth.currentUser?.uid
 
                     if (userID != null) {
-                        // Generate FCM Token
                         FirebaseMessaging.getInstance().token
                             .addOnCompleteListener { tokenTask ->
                                 if (tokenTask.isSuccessful) {
@@ -464,14 +459,13 @@ class RegisterActivity : AppCompatActivity() {
                                         "bloodGroup" to bloodGroup,
                                         "location" to location,
                                         "isDonor" to binding.noYes.isChecked,
-                                        "fcmToken" to fcmToken, // Set the FCM token
+                                        "fcmToken" to fcmToken,
                                         "lastLoginAt" to null,
                                         "userType" to "user",
                                         "addedByAdmin" to false,
                                         "registrationTimestamp" to com.google.firebase.firestore.FieldValue.serverTimestamp()
                                     )
 
-                                    // Update Firestore with user details and FCM token
                                     db.collection("users").document(userID).set(user, SetOptions.merge())
                                         .addOnSuccessListener {
                                             Log.d(TAG, "DocumentSnapshot successfully written!")

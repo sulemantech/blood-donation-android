@@ -9,6 +9,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.ImageView
@@ -26,6 +27,9 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
+        // Check if the activity was started by a notification
+        handleNotificationIntent()
+
         if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
             setWindowFlag(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, true)
         }
@@ -36,11 +40,6 @@ class SplashActivity : AppCompatActivity() {
             setWindowFlag(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, false)
             window.statusBarColor = ContextCompat.getColor(this, android.R.color.transparent)
         }
-
-        // imageView = findViewById(R.id.load_image)
-
-        // val animationDrawable = imageView.drawable as AnimationDrawable
-        // animationDrawable.start()
 
         // Request notification permission after splash screen if needed
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -96,7 +95,11 @@ class SplashActivity : AppCompatActivity() {
             val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
 
             if (isLoggedIn) {
-                val intent = Intent(this, HomeActivity::class.java)
+                val intent = Intent(this, MainActivity::class.java) // Change to your main activity if needed
+                val extras = intent.extras
+                if (extras?.getString("openFragment") == "NotificationFragment") {
+                    intent.putExtra("openFragment", "NotificationFragment")
+                }
                 startActivity(intent)
                 finish()
             } else {
@@ -105,5 +108,20 @@ class SplashActivity : AppCompatActivity() {
                 finish()
             }
         }, 2000)
+    }
+
+    private fun handleNotificationIntent() {
+        val openFragment = intent.getStringExtra("openFragment")
+        if (openFragment == "NotificationFragment") {
+            intent.removeExtra("openFragment")
+            navigateToNotificationFragment()
+        }
+    }
+
+    private fun navigateToNotificationFragment() {
+        val intent = Intent(this, HomeActivity::class.java)
+        intent.putExtra("openFragment", "NotificationFragment")
+        startActivity(intent)
+        finish()
     }
 }

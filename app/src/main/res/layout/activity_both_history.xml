@@ -6,44 +6,41 @@
     android:background="@drawable/both_activity_background"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.cardview.widget.CardView
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        app:cardCornerRadius="5dp"
-        android:id="@+id/cardview"
+        android:scaleType="fitXY"
+        android:id="@+id/img_home"
+        android:src="@drawable/header_img"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Blood Requests"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:id="@+id/title"
+        android:gravity="center"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitXY"
-            android:src="@drawable/header_img"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Blood Requests"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/inter_bold"
-            android:layout_gravity="center"/>
-        <TextView
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/inter_bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="43dp"
-            android:drawableLeft="@drawable/back"
-            android:layout_marginStart="20dp"
-            android:textSize="25dp"
-            android:id="@+id/back_arrow"
-            android:drawableTint="@color/white"
-            android:gravity="center" />
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/inter_bold" />
 
-    </androidx.cardview.widget.CardView>
-
+    <TextView
+        android:layout_width="60sp"
+        android:layout_height="60dp"
+        android:fontFamily="@font/inter_bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="28sp"
+        android:drawableLeft="@drawable/back"
+        android:layout_marginStart="25dp"
+        android:textSize="25dp"
+        android:id="@+id/backArrow"
+        android:drawableTint="@color/white"
+        android:gravity="center" />
 <!--    <androidx.cardview.widget.CardView-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="110dp"-->
@@ -92,8 +89,8 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="10dp"
         android:id="@+id/cardview5"
-        android:layout_below="@id/cardview"
-        app:layout_constraintTop_toBottomOf="@id/cardview"
+        android:layout_below="@id/img_home"
+        app:layout_constraintTop_toBottomOf="@id/img_home"
         android:src="@drawable/background_blood_icons" />
 
 
@@ -117,8 +114,8 @@
         android:text="Create Requests"
         android:layout_gravity="right"
         android:textColor="@color/maron"
-        android:layout_marginTop="180dp"
-        android:layout_marginStart="202dp"
+        android:layout_marginTop="178dp"
+        android:layout_marginStart="222dp"
         app:layout_constraintEnd_toEndOf="parent"
         android:textAppearance="@style/create_request"/>
 
@@ -126,8 +123,7 @@
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        app:tabMode="fixed"
-        app:tabIndicatorColor="@color/white"
+        app:tabIndicatorColor="@color/maron"
         app:tabBackground="@drawable/tab_background"
         app:tabTextColor="@color/white"
         app:tabTextAppearance="@style/CustomTabTextStyle"

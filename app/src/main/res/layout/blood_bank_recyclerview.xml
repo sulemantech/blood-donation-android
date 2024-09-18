@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="180dp"
+    android:layout_height="145dp"
     android:layout_marginBottom="5dp">
     <FrameLayout
         android:layout_width="match_parent"
@@ -15,8 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="12dp">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:layout_width="48dp"
@@ -66,7 +65,7 @@
                             android:layout_gravity="left"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Khyber Medical University (KMU)"
+                            android:text="Khyber Medical University\n(KMU)"
                             android:textAppearance="@style/patient_name" />
 
                         <TextView
@@ -120,71 +119,6 @@
                         android:text="http://www.sundas.org/"
                         android:textAppearance="@style/hospital_name" />
 
-                    <TextView
-                        android:id="@+id/contactInfo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/dateRequired"
-                        android:layout_marginTop="1dp"
-                        android:text="Al-Khidmat Hospital"
-                        android:visibility="gone"
-                        android:textAppearance="@style/hospital_name" />
-
-                    <TextView
-                        android:id="@+id/required_unit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/contactInfo"
-                        android:layout_marginTop="1dp"
-                        android:visibility="gone"
-                        android:text="A+(A Positive)"
-                        android:textAppearance="@style/hospital_name"
-                        />
-
-                    <LinearLayout
-                        android:id="@+id/llpatientBloodDetail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/contactInfo"
-                        android:layout_marginTop="1dp"
-                        android:visibility="gone"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/bloodGroup"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_horizontal|center_vertical"
-                            android:text="A+"
-                            android:textAppearance="@style/blood_type" />
-
-                        <TextView
-                            android:id="@+id/tvBloodGroup"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="1dp"
-                            android:gravity="center_horizontal|center_vertical"
-                            android:text="(A Positive)"
-                            android:textAppearance="@style/label_text" />
-
-                        <TextView
-                            android:id="@+id/requiredUnit"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="1dp"
-                            android:gravity="center_horizontal|center_vertical"
-                            android:text="1 Unit"
-                            android:textAppearance="@style/blood_group_unit_needed" />
-
-                        <TextView
-                            android:id="@+id/tvBloodUnit"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="1dp"
-                            android:gravity="center_horizontal|center_vertical"
-                            android:text="Blood"
-                            android:textAppearance="@style/label_text" />
-                    </LinearLayout>
                 </LinearLayout>
 
 
@@ -196,25 +130,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="right"
+                android:layout_alignParentEnd="true"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="View Detail"
-                    android:id="@+id/btnViewDetail"
-                    android:layout_marginEnd="10dp"
-                    android:textSize="10sp"
-                    android:visibility="gone"
-                    android:textColor="@color/black"/>
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginStart="360dp"
+                    android:layout_marginStart="370dp"
                     android:id="@+id/image_blood_group"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="10dp"
                     android:src="@drawable/blood_bottle"
                     android:layout_gravity="right"/>
 
@@ -224,7 +148,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="left"
-                android:layout_marginStart="267dp"
+                android:layout_marginStart="280dp"
                 android:layout_below="@+id/linear_top"
                 android:orientation="horizontal">
                 <TextView
@@ -233,6 +157,7 @@
                     android:background="@drawable/ic_world"
                     android:layout_marginBottom="8dp"
                     android:id="@+id/website"
+                    android:layout_marginEnd="5sp"
                     android:gravity="center"
                     android:layout_gravity="right"
                     android:textColor="@color/white"
@@ -246,7 +171,7 @@
                     android:layout_marginBottom="8dp"
                     android:id="@+id/phone_call"
                     android:gravity="center"
-
+                    android:layout_marginEnd="5sp"
                     android:layout_gravity="right"
                     android:layout_marginStart="3dp"
                     android:textColor="@color/white"
