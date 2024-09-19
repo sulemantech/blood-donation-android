@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/group"
-    android:padding="10dp">
+    android:background="@drawable/group">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="10dp"
         android:orientation="vertical">
 
         <ImageView
@@ -17,7 +17,7 @@
             android:layout_height="120dp"
             android:layout_gravity="center"
             app:tint="@color/maron"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="40dp"
             android:contentDescription="Profile Image"
             android:src="@drawable/top_image" />
         <TextView
@@ -42,7 +42,7 @@
             android:id="@+id/edName"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:hint="Full Name"
             android:inputType="textCapSentences"
             android:paddingStart="10dp"
@@ -59,7 +59,8 @@
             android:hint="Email Address"
             android:paddingStart="10dp"
             android:paddingLeft="5dp"
-            android:inputType="textCapSentences"
+            android:layout_marginTop="5sp"
+            android:inputType="textEmailAddress"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:drawableRight="@drawable/ic_vector_email"
@@ -72,6 +73,7 @@
             android:hint="Phone"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
+            android:layout_marginTop="5sp"
             android:drawableRight="@drawable/mobile"
             android:paddingStart="10dp"
             android:backgroundTint="@color/maron"
@@ -85,6 +87,7 @@
             android:paddingStart="10dp"
             android:drawableRight="@drawable/ic_birthday"
             android:inputType="date"
+            android:layout_marginTop="6sp"
             android:backgroundTint="@color/maron"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
@@ -96,6 +99,7 @@
             android:layout_height="50dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
+            android:layout_marginTop="5sp"
             android:entries="@array/gender_array"
             android:spinnerMode="dropdown"/>
         <View
@@ -103,17 +107,18 @@
             android:layout_height="1dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
+            android:layout_marginTop="5sp"
             android:background="@color/maron" />
 
         <AutoCompleteTextView
             android:id="@+id/spinnerBloodGroup"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_marginTop="5sp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:hint="Blood Group"
             android:paddingStart="10dp"
-            android:layout_marginTop="9sp"
             android:backgroundTint="@color/maron"
             android:inputType="textCapSentences"
             android:entries="@array/blood_groups"
@@ -124,6 +129,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="City"
+            android:layout_marginTop="5sp"
             android:inputType="textCapSentences"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
@@ -138,6 +144,7 @@
             android:layout_height="50dp"
             android:hint="Last Donation Date"
             android:inputType="date"
+            android:layout_marginTop="5sp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:paddingStart="10dp"
@@ -149,6 +156,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="5sp"
             android:buttonTint="@color/maron"
             android:backgroundTint="@color/maron"
             android:text="Ready To Donate Blood" />
@@ -172,8 +180,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/progressBar"
+            android:layout_marginTop="5sp"
             android:visibility="gone"
             />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="5sp"
+            android:background="@android:color/transparent"
+            app:layout_constraintTop_toBottomOf="@+id/send_request" />
 
     </LinearLayout>
 </ScrollView>

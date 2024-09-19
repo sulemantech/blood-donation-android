@@ -5,9 +5,11 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
 import android.text.InputType
 import android.text.SpannableString
 import android.text.Spanned
+import android.text.TextWatcher
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
@@ -16,6 +18,7 @@ import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.CheckBox
 import android.widget.TextView
 import android.widget.Toast
@@ -37,6 +40,8 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
 
+    private lateinit var bloodGroups: Array<String>
+    private lateinit var locations: Array<String>
     private lateinit var selectedDateOfBirth: String
     private lateinit var selectedLastDonationDate: String
     private var isAddedByAdmin: Boolean = false
@@ -48,6 +53,8 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setupAutoCompleteTextViews()
 
         binding.imgTogglePassword.setOnClickListener {
             togglePasswordVisibility()
@@ -179,6 +186,67 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupAutoCompleteTextViews() {
+        bloodGroups = resources.getStringArray(R.array.blood_groups)
+        locations = resources.getStringArray(R.array.pakistan_cities)
+
+        // Setup Blood Group AutoCompleteTextView
+        val bloodGroupAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, bloodGroups)
+        binding.spinnerBloodGroup.setAdapter(bloodGroupAdapter)
+        binding.spinnerBloodGroup.setThreshold(1) // Show suggestions after 1 character
+
+        // Setup Location AutoCompleteTextView
+        val locationAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, locations)
+        binding.edLocation.setAdapter(locationAdapter)
+        binding.edLocation.setThreshold(1) // Show suggestions after 1 character
+
+        // Add TextWatcher to validate input
+        binding.spinnerBloodGroup.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                validateBloodGroup(s.toString())
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+        binding.edLocation.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                validateLocation(s.toString())
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+        // Clear focus on item selected
+        (binding.spinnerBloodGroup as AutoCompleteTextView).setOnItemClickListener { _, _, _, _ ->
+            binding.spinnerBloodGroup.clearFocus()
+        }
+
+        (binding.edLocation as AutoCompleteTextView).setOnItemClickListener { _, _, _, _ ->
+            binding.edLocation.clearFocus()
+        }
+    }
+
+    private fun validateBloodGroup(input: String) {
+        if (!bloodGroups.contains(input)) {
+            binding.spinnerBloodGroup.error = "Invalid blood group"
+        } else {
+            binding.spinnerBloodGroup.error = null
+        }
+    }
+
+    private fun validateLocation(input: String) {
+        if (!locations.contains(input)) {
+            binding.edLocation.error = "Invalid location"
+        } else {
+            binding.edLocation.error = null
+        }
+    }
+
     private fun togglePasswordVisibility() {
         if (isPasswordVisible) {
 
@@ -225,7 +293,7 @@ class RegisterActivity : AppCompatActivity() {
                         binding.edPhone.setText(communityDonors.phone)
                         binding.edEmail.setText(communityDonors.email)
 
-                        setupSpinners()
+                      //  setupSpinners()
 
                         binding.spinnerBloodGroup.setSelection(getBloodTypeIndex(communityDonors.bloodGroup))
                         binding.edLocation.setSelection(getLocationIndex(communityDonors.location))
@@ -238,15 +306,15 @@ class RegisterActivity : AppCompatActivity() {
             }
     }
 
-    private fun setupSpinners() {
-        val bloodGroups = resources.getStringArray(R.array.blood_groups)
-        val bloodGroupAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, bloodGroups)
-        bloodGroupAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        val adapter = ArrayAdapter(this, R.layout.spinner_item, R.id.spinner_item_text, bloodGroups)
-        binding.spinnerBloodGroup.adapter = bloodGroupAdapter
-        binding.spinnerBloodGroup.adapter = adapter
-
-    }
+//    private fun setupSpinners() {
+//        val bloodGroups = resources.getStringArray(R.array.blood_groups)
+//        val bloodGroupAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, bloodGroups)
+//        bloodGroupAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+//        val adapter = ArrayAdapter(this, R.layout.spinner_item, R.id.spinner_item_text, bloodGroups)
+//        binding.spinnerBloodGroup.adapter = bloodGroupAdapter
+//        binding.spinnerBloodGroup.adapter = adapter
+//
+//    }
 
     private fun getBloodTypeIndex(bloodType: String): Int {
         val adapter = binding.spinnerBloodGroup.adapter
@@ -279,9 +347,9 @@ class RegisterActivity : AppCompatActivity() {
         val name = binding.edName.text.toString().trim()
         val email = binding.edEmail.text.toString().trim()
         val phone = binding.edPhone.text.toString().trim()
-        val bloodGroup = binding.spinnerBloodGroup.selectedItem.toString()
+        val bloodGroup = binding.spinnerBloodGroup.text.toString()
         val wantsToDonate = binding.noYes.isChecked
-        val location = binding.edLocation.selectedItem.toString()
+        val location = binding.edLocation.text.toString()
         val userType = "user"
 
         if (!isValidEmail(email)) {
@@ -420,8 +488,8 @@ class RegisterActivity : AppCompatActivity() {
         val name = binding.edName.text.toString().trim()
         val email = binding.edEmail.text.toString().trim()
         val phone = binding.edPhone.text.toString().trim()
-        val bloodGroup = binding.spinnerBloodGroup.selectedItem.toString()
-        val location = binding.edLocation.selectedItem.toString()
+        val bloodGroup = binding.spinnerBloodGroup.text.toString()
+        val location = binding.edLocation.text.toString()
         val password = binding.edPassword.text.toString().trim()
 
         if (!isValidEmail(email)) {

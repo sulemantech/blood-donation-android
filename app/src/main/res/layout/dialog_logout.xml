@@ -55,8 +55,9 @@
             android:layout_height="wrap_content"
             android:text="Logout"
             android:textAllCaps="false"
-            android:textColor="@android:color/black"
-            android:backgroundTint="@android:color/holo_red_dark"/>
+            android:textColor="@color/black"
+            android:backgroundTint="@color/light_grey"
+            />
     </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

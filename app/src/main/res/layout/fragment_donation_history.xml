@@ -88,5 +88,6 @@
         android:layout_height="wrap_content"
         android:text="No donations yet"
         android:gravity="right"
+        android:layout_marginEnd="20sp"
         app:layout_constraintTop_toTopOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

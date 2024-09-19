@@ -32,6 +32,8 @@ class CreateRequestActivity : AppCompatActivity() {
     private lateinit var selectedDonationDate: String
     private var isCritical: Boolean = false
     private var notified: Boolean = false
+    private lateinit var bloodGroups: Array<String>
+    private lateinit var locations: Array<String>
     private var requestId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,12 +63,12 @@ class CreateRequestActivity : AppCompatActivity() {
             isCritical = isChecked
         }
 
-        binding.bloodType.setOnTouchListener { _, _ ->
+        binding.spinnerBloodGroup.setOnTouchListener { _, _ ->
             clearEditTextFocus()
             false
         }
 
-        binding.location.setOnTouchListener { _, _ ->
+        binding.edLocation.setOnTouchListener { _, _ ->
             clearEditTextFocus()
             false
         }
@@ -79,6 +81,9 @@ class CreateRequestActivity : AppCompatActivity() {
                 R.id.radio_for_others -> clearFormFields()
             }
         }
+
+        setupAutoCompleteTextViews()
+
 
         binding.sendRequest.setOnClickListener {
             if (validateInputs()) {
@@ -98,6 +103,67 @@ class CreateRequestActivity : AppCompatActivity() {
         requestId = intent.getStringExtra("REQUEST_ID")
         if (requestId != null) {
             loadRequestData(requestId!!)
+        }
+    }
+
+    private fun setupAutoCompleteTextViews() {
+        bloodGroups = resources.getStringArray(R.array.blood_groups)
+        locations = resources.getStringArray(R.array.pakistan_cities)
+
+        // Setup Blood Group AutoCompleteTextView
+        val bloodGroupAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, bloodGroups)
+        binding.spinnerBloodGroup.setAdapter(bloodGroupAdapter)
+        binding.spinnerBloodGroup.setThreshold(1) // Show suggestions after 1 character
+
+        // Setup Location AutoCompleteTextView
+        val locationAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, locations)
+        binding.edLocation.setAdapter(locationAdapter)
+        binding.edLocation.setThreshold(1) // Show suggestions after 1 character
+
+        // Add TextWatcher to validate input
+        binding.spinnerBloodGroup.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                validateBloodGroup(s.toString())
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+        binding.edLocation.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                validateLocation(s.toString())
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+        // Clear focus on item selected
+        (binding.spinnerBloodGroup as AutoCompleteTextView).setOnItemClickListener { _, _, _, _ ->
+            binding.spinnerBloodGroup.clearFocus()
+        }
+
+        (binding.edLocation as AutoCompleteTextView).setOnItemClickListener { _, _, _, _ ->
+            binding.edLocation.clearFocus()
+        }
+    }
+
+    private fun validateBloodGroup(input: String) {
+        if (!bloodGroups.contains(input)) {
+            binding.spinnerBloodGroup.error = "Invalid blood group"
+        } else {
+            binding.spinnerBloodGroup.error = null
+        }
+    }
+
+    private fun validateLocation(input: String) {
+        if (!locations.contains(input)) {
+            binding.edLocation.error = "Invalid location"
+        } else {
+            binding.edLocation.error = null
         }
     }
 
@@ -133,8 +199,8 @@ class CreateRequestActivity : AppCompatActivity() {
                         val location = document.getString("location") ?: ""
 
                         binding.patientName.setText(name)
-                        binding.bloodType.setSelection(getBloodTypeIndex(bloodGroup))
-                        setLocationSpinner(location)
+                        binding.spinnerBloodGroup.setText(bloodGroup, false)
+                        binding.edLocation.setText(location, false)
                     } else {
                         Log.d("CreateRequestActivity", "No such document")
                     }
@@ -147,8 +213,8 @@ class CreateRequestActivity : AppCompatActivity() {
 
     private fun clearFormFields() {
         binding.patientName.setText("")
-        binding.bloodType.setSelection(0)
-        binding.location.setSelection(0)
+        binding.spinnerBloodGroup.setSelection(0)
+        binding.edLocation.setSelection(0)
     }
 
     private fun getBloodTypeIndex(bloodGroup: String): Int {
@@ -160,7 +226,7 @@ class CreateRequestActivity : AppCompatActivity() {
         val locations = resources.getStringArray(R.array.pakistan_cities)
         val index = locations.indexOf(location)
         if (index >= 0) {
-            binding.location.setSelection(index)
+            binding.edLocation.setSelection(index)
         }
     }
 
@@ -207,11 +273,11 @@ class CreateRequestActivity : AppCompatActivity() {
     private fun validateInputs(): Boolean {
         val patientName = binding.patientName.text.toString().trim()
         val ageStr = binding.age.text.toString().trim()
-        val bloodType = binding.bloodType.selectedItem.toString().trim()
+        val bloodType = binding.spinnerBloodGroup.text.toString().trim()
         val requiredUnitStr = binding.requiredUnit.text.toString().trim()
         val dateRequired = binding.edDateRequired.text.toString().trim()
       //  val phone = binding.edDateRequired.text.toString().trim()
-        val location = binding.location.selectedItem.toString().trim()
+        val location = binding.edLocation.text.toString().trim()
 
         if (patientName.isEmpty()) {
             binding.patientName.error = "Patient name is required"
@@ -267,11 +333,11 @@ class CreateRequestActivity : AppCompatActivity() {
         val request = hashMapOf(
             "patientName" to binding.patientName.text.toString().trim(),
             "age" to binding.age.text.toString().trim().toInt(),
-            "bloodType" to binding.bloodType.selectedItem.toString().trim(),
+            "bloodType" to binding.spinnerBloodGroup.text.toString().trim(),
             "requiredUnit" to binding.requiredUnit.text.toString().trim().toInt(),
             "dateRequired" to binding.edDateRequired.text.toString().trim(),
             "hospital" to binding.hospital.text.toString().trim(),
-            "location" to binding.location.selectedItem.toString().trim(),
+            "location" to binding.edLocation.text.toString().trim(),
             "bloodFor" to bloodFor,
             "userId" to currentUser.uid,
             "recipientId" to currentUser.uid,
@@ -310,11 +376,11 @@ class CreateRequestActivity : AppCompatActivity() {
         val updatedRequest = mapOf(
             "patientName" to binding.patientName.text.toString().trim(),
             "age" to binding.age.text.toString().trim().toInt(),
-            "bloodType" to binding.bloodType.selectedItem.toString().trim(),
+            "bloodType" to binding.spinnerBloodGroup.text.toString().trim(),
             "requiredUnit" to binding.requiredUnit.text.toString().trim().toInt(),
             "dateRequired" to binding.edDateRequired.text.toString().trim(),
             "hospital" to binding.hospital.text.toString().trim(),
-            "location" to binding.location.selectedItem.toString().trim(),
+            "location" to binding.edLocation.text.toString().trim(),
             "bloodFor" to bloodFor,
             "userId" to currentUser.uid,
             "recipientId" to currentUser.uid,
@@ -348,11 +414,11 @@ class CreateRequestActivity : AppCompatActivity() {
                         binding.patientName.setText(request.patientName)
                      //   binding.phone.setText(request.phone)
                         binding.age.setText(request.age.toString())
-                        binding.bloodType.setSelection(getBloodTypeIndex(request.bloodType))
+                        binding.spinnerBloodGroup.setText(request.bloodType)
                         binding.requiredUnit.setText(request.requiredUnit.toString())
                         binding.edDateRequired.setText(request.dateRequired)
                         binding.hospital.setText(request.hospital)
-                        setLocationSpinner(request.location)
+                        binding.edLocation.setText(request.location)
                         binding.critical.isChecked = request.critical
                         isCritical = request.critical
                     }

@@ -187,11 +187,10 @@ class LoginActivity : AppCompatActivity() {
                         }
                 } else {
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
-                    Toast.makeText(this, "Authentication Failed", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Make sure you are entering the correct username and password", Toast.LENGTH_SHORT).show()
                 }
             }
     }
-
 
 
     private fun loginUser() {

@@ -58,63 +58,39 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text" />
 
-    <Spinner
-        android:id="@+id/bloodTypeEditText"
+    <AutoCompleteTextView
+        android:id="@+id/spinnerBloodGroup"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginTop="4dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginEnd="22dp"
         android:paddingStart="15dp"
         android:paddingEnd="20dp"
+        android:inputType="textCapSentences"
+        android:hint="@string/BloodGroup"
+        android:backgroundTint="@color/maron"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/blood_type"
         android:entries="@array/blood_groups" />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        app:layout_constraintTop_toBottomOf="@+id/bloodTypeEditText"
-        android:background="@color/maron"
-        android:layout_marginStart="28dp"
-        android:layout_marginEnd="22dp"/>
 
-
-    <TextView
-        android:id="@+id/location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Location"
-        android:fontFamily="@font/inter_bold"
-        android:textSize="15dp"
-        android:visibility="gone"
-        android:textColor="@color/black1"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="35dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bloodTypeEditText" />
-
-    <Spinner
-        android:id="@+id/locationEditText"
+    <AutoCompleteTextView
+        android:id="@+id/edLocation"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginTop="5dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
+        android:hint="Location"
+        android:layout_marginStart="28dp"
+        android:layout_marginEnd="22dp"
         android:paddingStart="15dp"
+        android:inputType="textCapSentences"
+        android:backgroundTint="@color/maron"
         android:paddingEnd="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/location"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerBloodGroup"
         android:entries="@array/pakistan_cities" />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        app:layout_constraintTop_toBottomOf="@+id/locationEditText"
-        android:background="@color/maron"
-        android:layout_marginStart="28dp"
-        android:layout_marginEnd="22dp"/>
-
     <TextView
         android:id="@+id/date"
         android:layout_width="wrap_content"
@@ -127,7 +103,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginStart="35dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/locationEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/edLocation" />
 
     <EditText
         android:id="@+id/ed_date"
@@ -159,7 +135,7 @@
         android:visibility="gone"
         android:layout_marginStart="35dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/locationEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/edLocation" />
 
     <EditText
         android:id="@+id/ed_donation_date"

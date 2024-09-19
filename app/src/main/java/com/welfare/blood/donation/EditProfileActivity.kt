@@ -14,6 +14,7 @@ import android.view.WindowManager
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.DatePicker
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -84,7 +85,6 @@ class EditProfileActivity : AppCompatActivity() {
         // Save profile data
         binding.btnSave.setOnClickListener { saveUserProfile() }
     }
-
     private fun setWindowFlag(bits: Int, on: Boolean) {
         val win = window
         val winParams = win.attributes
@@ -135,7 +135,6 @@ class EditProfileActivity : AppCompatActivity() {
         (binding.spinnerBloodGroup as AutoCompleteTextView).setOnItemClickListener { _, _, _, _ ->
             binding.spinnerBloodGroup.clearFocus()
         }
-
         (binding.edLocation as AutoCompleteTextView).setOnItemClickListener { _, _, _, _ ->
             binding.edLocation.clearFocus()
         }

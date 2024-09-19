@@ -4,15 +4,20 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.welfare.blood.donation.databinding.ActivityDonateBloodBinding
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -23,11 +28,15 @@ class DonateBloodActivity : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
     private lateinit var selectedDonationDate: String
     private lateinit var auth: FirebaseAuth
+    private lateinit var bloodGroups: Array<String>
+    private lateinit var locations: Array<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDonateBloodBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setupAutoCompleteTextViews()
 
 
         if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
@@ -61,6 +70,67 @@ class DonateBloodActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupAutoCompleteTextViews() {
+        bloodGroups = resources.getStringArray(R.array.blood_groups)
+        locations = resources.getStringArray(R.array.pakistan_cities)
+
+        // Setup Blood Group AutoCompleteTextView
+        val bloodGroupAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, bloodGroups)
+        binding.spinnerBloodGroup.setAdapter(bloodGroupAdapter)
+        binding.spinnerBloodGroup.setThreshold(1) // Show suggestions after 1 character
+
+        // Setup Location AutoCompleteTextView
+        val locationAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, locations)
+        binding.edLocation.setAdapter(locationAdapter)
+        binding.edLocation.setThreshold(1) // Show suggestions after 1 character
+
+        // Add TextWatcher to validate input
+        binding.spinnerBloodGroup.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                validateBloodGroup(s.toString())
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+        binding.edLocation.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                validateLocation(s.toString())
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+        // Clear focus on item selected
+        (binding.spinnerBloodGroup as AutoCompleteTextView).setOnItemClickListener { _, _, _, _ ->
+            binding.spinnerBloodGroup.clearFocus()
+        }
+
+        (binding.edLocation as AutoCompleteTextView).setOnItemClickListener { _, _, _, _ ->
+            binding.edLocation.clearFocus()
+        }
+    }
+
+    private fun validateBloodGroup(input: String) {
+        if (!bloodGroups.contains(input)) {
+            binding.spinnerBloodGroup.error = "Invalid blood group"
+        } else {
+            binding.spinnerBloodGroup.error = null
+        }
+    }
+
+    private fun validateLocation(input: String) {
+        if (!locations.contains(input)) {
+            binding.edLocation.error = "Invalid location"
+        } else {
+            binding.edLocation.error = null
+        }
+    }
+
     private fun setWindowFlag(bits: Int, on: Boolean) {
         val win = window
         val winParams = win.attributes
@@ -74,19 +144,39 @@ class DonateBloodActivity : AppCompatActivity() {
 
     private fun showDatePickerDialogForLastDonationDate() {
         val calendar = Calendar.getInstance()
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
+        val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+
+        // Set initial date to the previously selected date, if available
+        if (::selectedDonationDate.isInitialized) {
+            try {
+                val date = sdf.parse(selectedDonationDate)
+                date?.let {
+                    calendar.time = it
+                }
+            } catch (e: ParseException) {
+                e.printStackTrace()
+            }
+        } else {
+            // Default to current date if no previous date is set
+            calendar.timeInMillis = System.currentTimeMillis()
+        }
+
         val day = calendar.get(Calendar.DAY_OF_MONTH)
+        val month = calendar.get(Calendar.MONTH)
+        val year = calendar.get(Calendar.YEAR)
 
-        val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
-            val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-            calendar.set(selectedYear, selectedMonth, selectedDay)
-            selectedDonationDate = sdf.format(calendar.time)
-            binding.edDate.setText(selectedDonationDate)
-        }, year, month, day)
-
-        datePickerDialog.datePicker.minDate = calendar.timeInMillis
-
+        val datePickerDialog = DatePickerDialog(
+            this,
+            { _, selectedYear, selectedMonth, selectedDay ->
+                // Set the selected date
+                calendar.set(selectedYear, selectedMonth, selectedDay)
+                selectedDonationDate = sdf.format(calendar.time)
+                binding.edDate.setText(selectedDonationDate)
+            },
+            year,
+            month,
+            day
+        )
 
         datePickerDialog.show()
     }
@@ -102,8 +192,8 @@ class DonateBloodActivity : AppCompatActivity() {
     }
 
     private fun saveDonationData() {
-        val bloodType = binding.bloodTypeEditText.selectedItem.toString()
-        val location = binding.locationEditText.selectedItem.toString()
+        val bloodType = binding.spinnerBloodGroup.text.toString()
+        val location = binding.edLocation.text.toString()
         val date = binding.edDate.text.toString()
         val currentUserId = auth.currentUser?.uid
 

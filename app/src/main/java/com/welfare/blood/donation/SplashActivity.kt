@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
+import kotlin.math.log
 
 class SplashActivity : AppCompatActivity() {
 
@@ -95,7 +96,7 @@ class SplashActivity : AppCompatActivity() {
             val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
 
             if (isLoggedIn) {
-                val intent = Intent(this, MainActivity::class.java) // Change to your main activity if needed
+                val intent = Intent(this, HomeActivity::class.java)
                 val extras = intent.extras
                 if (extras?.getString("openFragment") == "NotificationFragment") {
                     intent.putExtra("openFragment", "NotificationFragment")
@@ -104,6 +105,7 @@ class SplashActivity : AppCompatActivity() {
                 finish()
             } else {
                 val intent = Intent(this, LoginActivity::class.java)
+                Log.d("loginActivity", "Error loading")
                 startActivity(intent)
                 finish()
             }

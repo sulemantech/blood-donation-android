@@ -323,7 +323,7 @@ class HomeActivity : AppCompatActivity() {
         dialogView.findViewById<Button>(R.id.send).setOnClickListener {
             val feedback = editTextFeedback.text.toString().trim()
             if (feedback.isNotEmpty()) {
-                Toast.makeText(this, "Thank you for your feedback: $feedback", Toast.LENGTH_SHORT).show()
+                storeFeedback(feedback)
                 alertDialog.dismiss()
             } else {
                 Toast.makeText(this, "Please Enter Your Feedback", Toast.LENGTH_SHORT).show()
@@ -336,6 +336,29 @@ class HomeActivity : AppCompatActivity() {
 
         alertDialog.setCancelable(false)
         alertDialog.show()
+    }
+
+    private fun storeFeedback(feedback: String) {
+        val user = auth.currentUser
+        if (user != null) {
+            val feedbackData = hashMapOf(
+                "userId" to user.uid,
+                "feedback" to feedback,
+                "date" to com.google.firebase.Timestamp.now()
+            )
+
+            db.collection("feedback")
+                .add(feedbackData)
+                .addOnSuccessListener {
+                    Toast.makeText(this, "Thank you for your feedback!", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(this, "Failed to submit feedback: ${e.message}", Toast.LENGTH_SHORT).show()
+                    Log.e("FeedbackSubmission", "Error adding feedback", e)
+                }
+        } else {
+            Toast.makeText(this, "User not authenticated", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun showRateUsDialog(homeActivity: HomeActivity) {
@@ -357,22 +380,16 @@ class HomeActivity : AppCompatActivity() {
     private fun navigateToPrivacyPolicy(homeActivity: HomeActivity) {
         val intent = Intent(this, PrivacyPolicyActivity::class.java)
         startActivity(intent)
-
-
     }
-
     private fun navigateToBloodBankActivity(homeActivity: HomeActivity) {
         val intent = Intent(this, BloodbankActivity::class.java)
         startActivity(intent)
 
     }
-
     private fun navigateToEditProfile() {
         val intent = Intent(this, EditProfileActivity::class.java)
         startActivity(intent)
     }
-
-
     private fun setWindowFlag(bits: Int, on: Boolean) {
         val win = window
         val winParams = win.attributes
