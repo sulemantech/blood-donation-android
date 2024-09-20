@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SearchActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <ImageView
         android:layout_width="match_parent"
@@ -46,9 +50,12 @@
         android:layout_height="50dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5sp"
         android:hint="Search City"
+        android:inputType="textCapSentences"
         android:backgroundTint="@color/maron"
+        android:paddingRight="15sp"
+        android:drawableRight="@drawable/baseline_youtube_searched_for_24"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:entries="@array/pakistan_cities"
@@ -361,7 +368,7 @@
         android:layout_gravity="center"
         android:textColor="@color/maron"
         app:layout_constraintTop_toBottomOf="@+id/img7"
-        android:layout_marginTop="40sp"
+        android:layout_marginTop="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
      />
@@ -384,7 +391,7 @@
         android:layout_height="55dp"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="55sp"
         android:background="@drawable/save_password_button__2_"
         android:gravity="center"
         android:textAllCaps="false"
@@ -393,4 +400,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/spinner_bloodunit" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:layout_constraintTop_toBottomOf="@id/btnSearch"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

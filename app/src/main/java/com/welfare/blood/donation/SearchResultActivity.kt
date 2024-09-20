@@ -21,11 +21,15 @@ class SearchResultActivity : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
     private lateinit var userAdapter: UserAdapter
 
+    private var bloodGroup: String? = null
+    private var location: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySearchResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Adjust window flags for transparent status bar
         if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
             setWindowFlag(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, true)
         }
@@ -37,8 +41,9 @@ class SearchResultActivity : AppCompatActivity() {
             window.statusBarColor = ContextCompat.getColor(this, android.R.color.transparent)
         }
 
+        // Set back arrow functionality
         binding.backArrow.setOnClickListener {
-            onBackPressed()
+            navigateBackToSearch()
         }
 
         db = FirebaseFirestore.getInstance()
@@ -49,21 +54,34 @@ class SearchResultActivity : AppCompatActivity() {
             adapter = userAdapter
         }
 
-
-        val bloodGroup = intent.getStringExtra("bloodGroup")
-        val location = intent.getStringExtra("location")
+        // Retrieve blood group and location from intent
+        bloodGroup = intent.getStringExtra("bloodGroup")
+        location = intent.getStringExtra("location")
 
         if (bloodGroup != null && location != null) {
-            fetchUsers(bloodGroup, location)
+            fetchUsers(bloodGroup!!, location!!)
         } else {
             Log.e(TAG, "Search criteria not found in Intent extras")
             Toast.makeText(this, "No search criteria found", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, SearchActivity::class.java)
-            startActivity(intent)
-            finish()
+            navigateBackToSearch()
         }
     }
 
+    // Custom method to handle navigating back to SearchActivity with search criteria
+    private fun navigateBackToSearch() {
+        val intent = Intent(this, SearchActivity::class.java)
+        intent.putExtra("bloodGroup", bloodGroup)
+        intent.putExtra("location", location)
+        startActivity(intent)
+        finish() // Ensure this activity is finished after navigation
+    }
+
+    // Override the back press to retain search criteria
+    override fun onBackPressed() {
+        navigateBackToSearch()
+    }
+
+    // Method to set window flags
     private fun setWindowFlag(bits: Int, on: Boolean) {
         val win = window
         val winParams = win.attributes
@@ -75,6 +93,7 @@ class SearchResultActivity : AppCompatActivity() {
         win.attributes = winParams
     }
 
+    // Fetch users based on search criteria
     private fun fetchUsers(bloodGroup: String, location: String) {
         binding.progressBar.visibility = View.VISIBLE
         binding.recyclerView.visibility = View.GONE
@@ -92,7 +111,7 @@ class SearchResultActivity : AppCompatActivity() {
 
         usersRef.get()
             .addOnSuccessListener { result ->
-                handleUserResult(result, currentUserID, bloodGroup, location)
+                handleUserResult(result, currentUserID)
             }
             .addOnFailureListener { e ->
                 Log.e(TAG, "Error fetching users", e)
@@ -101,7 +120,7 @@ class SearchResultActivity : AppCompatActivity() {
             }
     }
 
-    private fun handleUserResult(result: QuerySnapshot, currentUserID: String?, bloodGroup: String, location: String) {
+    private fun handleUserResult(result: QuerySnapshot, currentUserID: String?) {
         val users = result.toObjects(Register::class.java)
         val filteredUsers = users.filter { user -> user.userID != currentUserID }
 
@@ -111,12 +130,7 @@ class SearchResultActivity : AppCompatActivity() {
         } else {
             Log.d(TAG, "No users found matching criteria")
             Toast.makeText(this, "No users found matching criteria", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, SearchActivity::class.java).apply {
-                putExtra("bloodGroup", bloodGroup)
-                putExtra("location", location)
-            }
-            startActivity(intent)
-            finish()
+            navigateBackToSearch()
         }
 
         binding.progressBar.visibility = View.GONE

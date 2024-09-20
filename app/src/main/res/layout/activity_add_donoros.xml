@@ -85,6 +85,8 @@
             android:layout_marginStart="15sp"
            android:backgroundTint="@color/maron"
         android:hint="Search City"
+        android:paddingRight="15sp"
+        android:drawableRight="@drawable/baseline_youtube_searched_for_24"
         android:inputType="textCapSentences"
         android:fontFamily="@font/opensanshebrew_regular"
         android:textColorHint="@color/black"

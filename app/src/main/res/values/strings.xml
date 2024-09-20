@@ -242,7 +242,7 @@
     <string name="title_activity">My Activity</string>
     <string name="title_notification">Notification</string>
     <string name="title_history">Settings</string>
-    <string name="personal_information_name_email_contact_number_blood_group_city_usage_data_information_on_how_you_use_the_app_such_as_interaction_with_features">- Personal Information: Name, Email, Contact Number,   Blood Group, City.\n- Usage Data: Information on how you use the app, such as interaction with features.</string>
+    <string name="personal_information_name_email_contact_number_blood_group_city_usage_data_information_on_how_you_use_the_app_such_as_interaction_with_features">- Personal Information: Name, Email, Contact Number, Blood Group, City.\n- Usage Data: Information on how you use the app, such as interaction with features.</string>
     <string name="to_connect_blood_donors_with_those_in_need_to_notify_users_of_blood_donation_requests_that_match_their_blood_group_and_location">- To connect blood donors with those in need.\n- To notify users of blood donation requests that match their blood group and location.</string>
     <string name="we_share_your_information_with_authorized_personnel_and_other_users_as_necessary_to_fulfill_blood_donation_requests_we_do_not_sell_or_rent_your_personal_information_to_third_parties">- We share your information with authorized personnel and other users as necessary to fulfill blood donation requests.\n- We do not sell or rent your personal information to third parties.</string>
     <string name="katlang_blood_donation_amp_thalassemia_center"><![CDATA[Katlang Blood Donation & Thalassemia Center]]></string>
@@ -275,7 +275,7 @@
     <string name="show_password">Show Password</string>
     <string name="enter_password">Enter Password</string>
     <string name="enter_email">Enter Email</string>
-    <string name="forgot_password1">Forgot password?</string>
+    <string name="forgot_password1">Forgot Password?</string>
     <string name="don_t_have_account">Don\'t have account?</string>
     <string name="reset_textview">Reset</string>
     <string name="sign_up">Sign Up</string>
@@ -284,6 +284,7 @@
     <string name="community_donors">Community Donors</string>
     <string name="please_enter_your_details">Please enter your details</string>
     <string name="term_and"><font color="#0589F3">Term</font><font color="#000000"> and</font></string>
+    <string name="sign_in">Sign In</string>
     <!-- Other strings -->
 
 </resources>

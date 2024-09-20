@@ -1,5 +1,6 @@
 package com.welfare.blood.donation
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Build
@@ -30,6 +31,8 @@ class DonateBloodActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var bloodGroups: Array<String>
     private lateinit var locations: Array<String>
+    private lateinit var loadingDialog:AlertDialog
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +40,13 @@ class DonateBloodActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupAutoCompleteTextViews()
+
+        val builder = AlertDialog.Builder(this)
+        val inflater = layoutInflater
+        val dialogView = inflater.inflate(R.layout.custom_loader, null)
+        builder.setView(dialogView)
+        builder.setCancelable(false)
+        loadingDialog = builder.create()
 
 
         if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
@@ -74,17 +84,14 @@ class DonateBloodActivity : AppCompatActivity() {
         bloodGroups = resources.getStringArray(R.array.blood_groups)
         locations = resources.getStringArray(R.array.pakistan_cities)
 
-        // Setup Blood Group AutoCompleteTextView
         val bloodGroupAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, bloodGroups)
         binding.spinnerBloodGroup.setAdapter(bloodGroupAdapter)
-        binding.spinnerBloodGroup.setThreshold(1) // Show suggestions after 1 character
+        binding.spinnerBloodGroup.setThreshold(1)
 
-        // Setup Location AutoCompleteTextView
         val locationAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, locations)
         binding.edLocation.setAdapter(locationAdapter)
-        binding.edLocation.setThreshold(1) // Show suggestions after 1 character
+        binding.edLocation.setThreshold(1)
 
-        // Add TextWatcher to validate input
         binding.spinnerBloodGroup.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
@@ -105,7 +112,6 @@ class DonateBloodActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {}
         })
 
-        // Clear focus on item selected
         (binding.spinnerBloodGroup as AutoCompleteTextView).setOnItemClickListener { _, _, _, _ ->
             binding.spinnerBloodGroup.clearFocus()
         }
@@ -146,7 +152,6 @@ class DonateBloodActivity : AppCompatActivity() {
         val calendar = Calendar.getInstance()
         val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
 
-        // Set initial date to the previously selected date, if available
         if (::selectedDonationDate.isInitialized) {
             try {
                 val date = sdf.parse(selectedDonationDate)
@@ -157,7 +162,6 @@ class DonateBloodActivity : AppCompatActivity() {
                 e.printStackTrace()
             }
         } else {
-            // Default to current date if no previous date is set
             calendar.timeInMillis = System.currentTimeMillis()
         }
 
@@ -168,7 +172,6 @@ class DonateBloodActivity : AppCompatActivity() {
         val datePickerDialog = DatePickerDialog(
             this,
             { _, selectedYear, selectedMonth, selectedDay ->
-                // Set the selected date
                 calendar.set(selectedYear, selectedMonth, selectedDay)
                 selectedDonationDate = sdf.format(calendar.time)
                 binding.edDate.setText(selectedDonationDate)
@@ -181,15 +184,15 @@ class DonateBloodActivity : AppCompatActivity() {
         datePickerDialog.show()
     }
 
-    private fun showProgressBar() {
-        binding.progressBar.visibility = View.VISIBLE
-        binding.donateButton.visibility = View.GONE
-    }
-
-    private fun hideProgressBar() {
-        binding.progressBar.visibility = View.GONE
-        binding.donateButton.visibility = View.VISIBLE
-    }
+//    private fun showProgressBar() {
+//        binding.progressBar.visibility = View.VISIBLE
+//        binding.donateButton.visibility = View.GONE
+//    }
+//
+//    private fun hideProgressBar() {
+//        binding.progressBar.visibility = View.GONE
+//        binding.donateButton.visibility = View.VISIBLE
+//    }
 
     private fun saveDonationData() {
         val bloodType = binding.spinnerBloodGroup.text.toString()
@@ -206,23 +209,21 @@ class DonateBloodActivity : AppCompatActivity() {
                 "status" to "pending"
             )
 
-            showProgressBar()
-
+            loadingDialog.show()
             db.collection("donations")
                 .add(donationData)
                 .addOnSuccessListener { documentReference ->
                     Log.d("DonateBloodActivity", "DocumentSnapshot added with ID: ${documentReference.id}")
-                    Toast.makeText(this, "Send Successful", Toast.LENGTH_SHORT).show()
-                    hideProgressBar()
+                   // Toast.makeText(this, "Send Successful", Toast.LENGTH_SHORT).show()
+                    loadingDialog.dismiss()
                     val intent = Intent(this, HomeActivity::class.java)
                     startActivity(intent)
                     finish()
                 }
                 .addOnFailureListener { e ->
                     Log.w("DonateBloodActivity", "Error adding document", e)
-                    Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
-                    hideProgressBar()
-                }
+                  //  Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
+                    loadingDialog.dismiss()                }
         } else {
             Log.w("DonateBloodActivity", "Please fill all fields")
         }

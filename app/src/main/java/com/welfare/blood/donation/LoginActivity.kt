@@ -4,7 +4,9 @@ import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
 import android.text.SpannableString
+import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.text.style.UnderlineSpan
@@ -25,8 +27,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.auth.api.signin.GoogleSignInResult
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
@@ -44,27 +44,60 @@ class LoginActivity : AppCompatActivity() {
     private var isPasswordVisible = false
     private val RC_SIGN_IN = 9001
     private var isLoginInProgress = false
+    private lateinit var errorMessageTextView: TextView
+    private lateinit var loadingDialog: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        errorMessageTextView = findViewById(R.id.errorMessageTextView)
 
+        // Loading Dialog Setup
+        val builder = AlertDialog.Builder(this)
+        val inflater = layoutInflater
+        val dialogView = inflater.inflate(R.layout.custom_loader, null)
+        builder.setView(dialogView)
+        builder.setCancelable(false)
+        loadingDialog = builder.create()
+
+        // TextWatcher to hide error message on text change
+        binding.edUsername.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                errorMessageTextView.visibility = View.GONE
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+        binding.edPassword.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                errorMessageTextView.visibility = View.GONE
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+        // Set up Google sign-in
         setupGoogleSignIn()
 
+        // Underline text for "Sign Up" and "Reset"
         val mTextView = findViewById<TextView>(R.id.register)
         val mTextView1 = findViewById<TextView>(R.id.reset)
         val mString = "Sign Up"
         val mString1 = "Reset"
-
         val mSpannableString = SpannableString(mString)
         val mSpannableString1 = SpannableString(mString1)
-
         mSpannableString.setSpan(UnderlineSpan(), 0, mSpannableString.length, 0)
         mSpannableString1.setSpan(UnderlineSpan(), 0, mSpannableString1.length, 0)
         mTextView.text = mSpannableString
         mTextView1.text = mSpannableString1
 
+        // Status bar customization
         if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
             setWindowFlag(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, true)
         }
@@ -85,38 +118,30 @@ class LoginActivity : AppCompatActivity() {
             return
         }
 
+        // Login button listener
         binding.btnLogin.setOnClickListener {
             loginUser()
         }
+
+        // Show password toggle
         binding.checkBoxShowPassword.setOnCheckedChangeListener { _, isChecked ->
             isPasswordVisible = isChecked
             togglePasswordVisibility()
         }
+
+        // Sign up navigation
         binding.register.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
             finish()
         }
-        binding.reset.setOnClickListener{
-            val builder = AlertDialog.Builder(this)
-            val view = layoutInflater.inflate(R.layout.forget_password, null)
-            val userEmail = view.findViewById<EditText>(R.id.editBox)
 
-            builder.setView(view)
-            val dialog = builder.create()
-
-            view.findViewById<Button>(R.id.reset).setOnClickListener {
-                compareEmail(userEmail)
-                dialog.dismiss()
-            }
-            view.findViewById<Button>(R.id.cancel).setOnClickListener {
-                dialog.dismiss()
-            }
-            if (dialog.window != null)
-                dialog.window!!.setBackgroundDrawable(ColorDrawable(0))
-            dialog.show()
+        // Reset password dialog
+        binding.reset.setOnClickListener {
+            showResetPasswordDialog()
         }
 
+        // Google sign-in button
         binding.btnGoogleSignIn.setOnClickListener {
             signInWithGoogle()
         }
@@ -135,10 +160,9 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setupGoogleSignIn() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("623168470227-ft3172k1c3hdmtufnlabepl32jum964c.apps.googleusercontent.com") // Use client_id from JSON
+            .requestIdToken("YOUR_GOOGLE_CLIENT_ID")
             .requestEmail()
             .build()
-
         googleSignInClient = GoogleSignIn.getClient(this, gso)
     }
 
@@ -149,7 +173,6 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
@@ -157,7 +180,7 @@ class LoginActivity : AppCompatActivity() {
                 firebaseAuthWithGoogle(account)
             } catch (e: ApiException) {
                 Log.w(TAG, "Google sign in failed", e)
-                Toast.makeText(this, "Google sign-in failed", Toast.LENGTH_SHORT).show()
+                showError("Google sign-in failed")
             }
         }
     }
@@ -167,31 +190,22 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    Log.d(TAG, "signInWithCredential:success")
-                    Toast.makeText(this, "Google Sign-In Successful", Toast.LENGTH_SHORT).show()
                     val userID = auth.currentUser!!.uid
                     val lastLoginAt = Calendar.getInstance().time
                     val updateData = hashMapOf("lastLoginAt" to lastLoginAt)
                     db.collection("users").document(userID).set(updateData, SetOptions.merge())
                         .addOnSuccessListener {
-                            val sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
-                            with(sharedPreferences.edit()) {
-                                putBoolean("isLoggedIn", true)
-                                apply()
-                            }
                             navigateToHome()
                         }
                         .addOnFailureListener { e ->
                             Log.w(TAG, "Error updating document", e)
-                            Toast.makeText(this, "Error updating login timestamp", Toast.LENGTH_SHORT).show()
+                            showError("Error updating login timestamp")
                         }
                 } else {
-                    Log.w(TAG, "signInWithCredential:failure", task.exception)
-                    Toast.makeText(this, "Make sure you are entering the correct username and password", Toast.LENGTH_SHORT).show()
+                    showError("Google sign-in failed")
                 }
             }
     }
-
 
     private fun loginUser() {
         if (isLoginInProgress) {
@@ -203,16 +217,16 @@ class LoginActivity : AppCompatActivity() {
         val password = binding.edPassword.text.toString().trim()
 
         if (!isValidEmail(email)) {
-            Toast.makeText(this, "Please enter a valid email address", Toast.LENGTH_SHORT).show()
+            showError("Please enter a valid Email")
             return
         }
 
         if (email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show()
+            showError("Please enter Email and Password")
             return
         }
 
-        binding.progressBar.visibility = View.VISIBLE
+        loadingDialog.show()
         isLoginInProgress = true
         binding.btnLogin.isEnabled = false
 
@@ -220,42 +234,24 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 isLoginInProgress = false
                 binding.btnLogin.isEnabled = true
-                binding.progressBar.visibility = View.GONE
+                loadingDialog.dismiss()
 
                 if (task.isSuccessful) {
-                    Log.d(TAG, "signInWithEmail:success")
-                    Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
-
                     val userID = auth.currentUser!!.uid
                     val lastLoginAt = Calendar.getInstance().time
-
                     val updateData = hashMapOf("lastLoginAt" to lastLoginAt)
-
                     db.collection("users").document(userID).set(updateData, SetOptions.merge())
                         .addOnSuccessListener {
-                            val sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
-                            with(sharedPreferences.edit()) {
-                                putBoolean("isLoggedIn", true)
-                                apply()
-                            }
                             navigateToHome()
                         }
                         .addOnFailureListener { e ->
                             Log.w(TAG, "Error updating document", e)
-                            Toast.makeText(this, "Error updating login timestamp", Toast.LENGTH_SHORT).show()
+                            showError("Error updating login timestamp")
                         }
                 } else {
-                    Log.w(TAG, "signInWithEmail:failure", task.exception)
-                    Toast.makeText(this, "Authentication Failed", Toast.LENGTH_SHORT).show()
+                    showError("Incorrect Email or Password. Please try again.")
                 }
             }
-    }
-
-    private fun isValidEmail(email: String): Boolean {
-        val emailPattern = Pattern.compile(
-            "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
-        )
-        return emailPattern.matcher(email).matches()
     }
 
     private fun togglePasswordVisibility() {
@@ -267,27 +263,71 @@ class LoginActivity : AppCompatActivity() {
         binding.edPassword.setSelection(binding.edPassword.text.length)
     }
 
+    private fun isValidEmail(email: String): Boolean {
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
+    private fun showResetPasswordDialog() {
+        // Create AlertDialog.Builder to show custom dialog
+        val builder = AlertDialog.Builder(this)
+
+        // Inflate the custom dialog layout 'forget_password.xml'
+        val dialogView = layoutInflater.inflate(R.layout.forget_password, null)
+
+        // Set the custom view for the AlertDialog
+        builder.setView(dialogView)
+
+        // Create the AlertDialog
+        val alertDialog = builder.create()
+
+        // Find the EditText where the user will enter the email
+        val emailEditText = dialogView.findViewById<EditText>(R.id.editBox)
+
+        // Find custom buttons in your custom layout
+        val sendButton = dialogView.findViewById<Button>(R.id.reset) // Assuming you have a button with id 'btnSend'
+        val cancelButton = dialogView.findViewById<Button>(R.id.cancel) // Assuming you have a button with id 'btnCancel'
+
+        // Handle the Send button click
+        sendButton.setOnClickListener {
+            val email = emailEditText.text.toString().trim()
+            if (isValidEmail(email)) {
+                sendResetPasswordEmail(email)
+            } else {
+                showError("Please enter a valid email address")
+            }
+            alertDialog.dismiss() // Close the dialog after action
+        }
+
+        // Handle the Cancel button click
+        cancelButton.setOnClickListener {
+            alertDialog.dismiss() // Close the dialog when cancel is clicked
+        }
+
+        // Show the custom AlertDialog
+        alertDialog.show()
+    }
+
+    private fun sendResetPasswordEmail(email: String) {
+        auth.sendPasswordResetEmail(email)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(this, "Password reset Email sent.", Toast.LENGTH_SHORT).show()
+                } else {
+                    showError("Failed to send Password reset Email.")
+                }
+            }
+    }
+
     private fun navigateToHome() {
         val intent = Intent(this, HomeActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
         finish()
     }
 
-    private fun compareEmail(userEmail: EditText) {
-        val email = userEmail.text.toString().trim()
-        if (email.isEmpty()) {
-            Toast.makeText(this, "Please enter email", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        auth.sendPasswordResetEmail(email)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Toast.makeText(this, "Reset email sent", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(this, "Error sending reset email", Toast.LENGTH_SHORT).show()
-                }
-            }
+    private fun showError(message: String) {
+        errorMessageTextView.text = message
+        errorMessageTextView.visibility = View.VISIBLE
     }
 
     companion object {

@@ -64,7 +64,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal|center_vertical"
-                            android:text="Sara Zaid"
+                            android:text="Muhammad zeeshan malik"
                             android:textAppearance="@style/patient_name" />
 
                         <TextView
@@ -76,17 +76,6 @@
                             android:text="Critical"
                             android:textAppearance="@style/patient_condition" />
 
-                        <TextView
-                            android:id="@+id/condition"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="15dp"
-                            android:background="@drawable/waiting_status"
-                            android:gravity="center"
-                            android:text="pending"
-                            android:textAlignment="center"
-                            android:textAppearance="@style/patient_blood_status" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -109,7 +98,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/llpatientName"
                         android:layout_marginTop="1dp"
-                            android:layout_marginStart="5dp"
+                            android:layout_marginStart="20sp"
                         android:text="(13 July 2024, 5:00 PM)"
                         android:textAppearance="@style/blood_request_date" />
 
@@ -190,15 +179,35 @@
                     android:gravity="right"
                     android:orientation="vertical">
 
-                    <ImageView
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:layout_marginEnd="10dp"
-                        android:id="@+id/image_blood_group"
-                        android:layout_marginBottom="20dp"
-                        android:src="@drawable/ic_a_plus"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        >
+                        <TextView
+                            android:id="@+id/condition"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="15dp"
+                            android:background="@drawable/waiting_status"
+                            android:text="pending"
+                            android:layout_marginTop="5sp"
+                            android:textAlignment="center"
+                            android:textAppearance="@style/patient_blood_status" />
+
+                        <ImageView
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:layout_marginEnd="10dp"
+                            android:id="@+id/image_blood_group"
+                            android:layout_marginBottom="20dp"
+                            android:src="@drawable/ic_a_plus"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+
+                    </LinearLayout>
+
 
                     <ImageButton
                         android:layout_width="wrap_content"

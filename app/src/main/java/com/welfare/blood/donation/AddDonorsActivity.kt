@@ -153,7 +153,7 @@ class AddDonorsActivity : AppCompatActivity() {
         donorList.clear()
         val filteredDonors = allDonors.filter {
             (city.isEmpty() || it.location.equals(city, ignoreCase = true)) &&
-                    (bloodGroup == "Select Blood Group" || it.bloodGroup == bloodGroup)
+                    (bloodGroup == "Blood Group" || it.bloodGroup == bloodGroup)
         }
         donorList.addAll(filteredDonors)
         communityAdapter.notifyDataSetChanged()

@@ -13,12 +13,15 @@ import com.welfare.blood.donation.AppDatabase
 import com.welfare.blood.donation.adapters.NotificationAdapter
 import com.welfare.blood.donation.databinding.FragmentNotificationBinding
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class NotificationFragment : Fragment() {
 
     private var _binding: FragmentNotificationBinding? = null
     private val binding get() = _binding!!
+    private var fetchNotificationsJob: Job? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,16 +39,18 @@ class NotificationFragment : Fragment() {
     }
 
     private fun fetchNotifications() {
-        lifecycleScope.launch(Dispatchers.IO) {
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val db = AppDatabase.getDatabase(requireContext())
                 val notifications = db.notificationDao().getAllNotifications()
 
-                launch(Dispatchers.Main) {
-                    if (notifications.isNotEmpty()) {
-                        binding.notificationRecyclerView.adapter = NotificationAdapter(notifications)
-                    } else {
-                        Toast.makeText(requireContext(), "No notifications found", Toast.LENGTH_SHORT).show()
+                withContext(Dispatchers.Main) {
+                    if (_binding != null) {
+                        if (notifications.isNotEmpty()) {
+                            binding.notificationRecyclerView.adapter = NotificationAdapter(notifications)
+                        } else {
+                            Toast.makeText(requireContext(), "No notifications found", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
             } catch (e: Exception) {
@@ -57,6 +62,7 @@ class NotificationFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        fetchNotificationsJob?.cancel()
         _binding = null
     }
 }

@@ -1,5 +1,6 @@
 package com.welfare.blood.donation
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.graphics.Color
@@ -47,6 +48,8 @@ class RegisterActivity : AppCompatActivity() {
     private var isAddedByAdmin: Boolean = false
     private var userId: String? = null
     private var isPasswordVisible = false
+    private lateinit var loadingDialog: AlertDialog
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,6 +58,13 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupAutoCompleteTextViews()
+
+        val builder = AlertDialog.Builder(this)
+        val inflater = layoutInflater
+        val dialogView = inflater.inflate(R.layout.custom_loader, null)
+        builder.setView(dialogView)
+        builder.setCancelable(false) // Prevent dialog from being cancelled by tapping outside
+        loadingDialog = builder.create()
 
         binding.imgTogglePassword.setOnClickListener {
             togglePasswordVisibility()
@@ -361,7 +371,7 @@ class RegisterActivity : AppCompatActivity() {
             return
         }
 
-        binding.progressBar.visibility = View.VISIBLE
+       // binding.progressBar.visibility = View.VISIBLE
 
         FirebaseMessaging.getInstance().token.addOnCompleteListener { tokenTask ->
             if (tokenTask.isSuccessful) {
@@ -396,26 +406,31 @@ class RegisterActivity : AppCompatActivity() {
                         "registrationTimestamp" to com.google.firebase.firestore.FieldValue.serverTimestamp()
                     )
 
+                    loadingDialog.show() //
                     db.collection("users").document(userID).set(user, SetOptions.merge())
                         .addOnSuccessListener {
-                            Log.d(TAG, "DocumentSnapshot successfully written!")
-                            binding.progressBar.visibility = View.GONE
-                            Toast.makeText(this, "New user Added", Toast.LENGTH_SHORT).show()
+                            loadingDialog.dismiss()
+                          //  Log.d(TAG, "DocumentSnapshot successfully written!")
+                          //  binding.progressBar.visibility = View.GONE
+                           // Toast.makeText(this, "New user Added", Toast.LENGTH_SHORT).show()
 
                             val intent = Intent(this, AddDonorsActivity::class.java)
                             startActivity(intent)
                             finish()
                         }
+
                         .addOnFailureListener { e ->
-                            Log.w(TAG, "Error writing document", e)
+                            loadingDialog.dismiss()
+                          //  Log.w(TAG, "Error writing document", e)
                             binding.progressBar.visibility = View.GONE
-                            Toast.makeText(this, "Registration Failed", Toast.LENGTH_SHORT).show()
+                          //  Toast.makeText(this, "Registration Failed", Toast.LENGTH_SHORT).show()
                         }
                 }
             } else {
                 Log.w(TAG, "Fetching FCM token failed", tokenTask.exception)
-                binding.progressBar.visibility = View.GONE
-                Toast.makeText(this, "Registration Failed", Toast.LENGTH_SHORT).show()
+              //  binding.progressBar.visibility = View.GONE
+                loadingDialog.dismiss()
+              //  Toast.makeText(this, "Registration Failed", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -442,21 +457,27 @@ class RegisterActivity : AppCompatActivity() {
             "fcmToken" to fcmToken
         )
 
+        loadingDialog.show() // Show the loading dialog
+
         db.collection("users").document(userId!!)
             .set(userUpdates, SetOptions.merge())
             .addOnSuccessListener {
-                Log.d(TAG, "User details successfully updated!")
-                binding.progressBar.visibility = View.GONE
-                Toast.makeText(this, "User details updated", Toast.LENGTH_SHORT).show()
+                loadingDialog.dismiss() // Show the loading dialog
+
+                //  Log.d(TAG, "User details successfully updated!")
+               /// binding.progressBar.visibility = View.GONE
+               // Toast.makeText(this, "User details updated", Toast.LENGTH_SHORT).show()
 
                 val intent = Intent(this, AddDonorsActivity::class.java)
                 startActivity(intent)
                 finish()
             }
             .addOnFailureListener { e ->
-                Log.w(TAG, "Error updating document", e)
-                binding.progressBar.visibility = View.GONE
-                Toast.makeText(this, "Update Failed", Toast.LENGTH_SHORT).show()
+                loadingDialog.dismiss() // Show the loading dialog
+
+                // Log.w(TAG, "Error updating document", e)
+               // binding.progressBar.visibility = View.GONE
+              //  Toast.makeText(this, "Update Failed", Toast.LENGTH_SHORT).show()
             }
     }
 
@@ -506,7 +527,7 @@ class RegisterActivity : AppCompatActivity() {
             return
         }
 
-        binding.progressBar.visibility = View.VISIBLE
+       // binding.progressBar.visibility = View.VISIBLE
 
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
@@ -534,32 +555,41 @@ class RegisterActivity : AppCompatActivity() {
                                         "registrationTimestamp" to com.google.firebase.firestore.FieldValue.serverTimestamp()
                                     )
 
+                                    loadingDialog.show() // Show the loading dialog
+
                                     db.collection("users").document(userID).set(user, SetOptions.merge())
                                         .addOnSuccessListener {
+                                            loadingDialog.dismiss() // Show the loading dialog
+
                                             Log.d(TAG, "DocumentSnapshot successfully written!")
-                                            binding.progressBar.visibility = View.GONE
-                                            Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show()
+                                          //  binding.progressBar.visibility = View.GONE
+                                           // Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show()
 
                                             val intent = Intent(this, HomeActivity::class.java)
                                             startActivity(intent)
                                             finish()
                                         }
                                         .addOnFailureListener { e ->
+                                            loadingDialog.dismiss() // Show the loading dialog
+
                                             Log.w(TAG, "Error writing document", e)
-                                            binding.progressBar.visibility = View.GONE
-                                            Toast.makeText(this, "Registration Failed", Toast.LENGTH_SHORT).show()
+                                           // binding.progressBar.visibility = View.GONE
+                                         //   Toast.makeText(this, "Registration Failed", Toast.LENGTH_SHORT).show()
                                         }
                                 } else {
                                     Log.w(TAG, "Fetching FCM token failed", tokenTask.exception)
-                                    binding.progressBar.visibility = View.GONE
-                                    Toast.makeText(this, "Registration Failed", Toast.LENGTH_SHORT).show()
+                                    //binding.progressBar.visibility = View.GONE
+                                    loadingDialog.dismiss() // Show the loading dialog
+
+                                    //
+                              //  Toast.makeText(this, "Registration Failed", Toast.LENGTH_SHORT).show()
                                 }
                             }
                     }
                 } else {
                     Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                    binding.progressBar.visibility = View.GONE
-                    Toast.makeText(this, "Registration Failed", Toast.LENGTH_SHORT).show()
+                  //  binding.progressBar.visibility = View.GONE
+                   // Toast.makeText(this, "Registration Failed", Toast.LENGTH_SHORT).show()
                 }
             }
     }

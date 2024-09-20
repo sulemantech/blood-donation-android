@@ -35,11 +35,21 @@ class CreateRequestActivity : AppCompatActivity() {
     private lateinit var bloodGroups: Array<String>
     private lateinit var locations: Array<String>
     private var requestId: String? = null
+    private lateinit var loadingDialog:AlertDialog
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCreateRequestBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+        val builder = AlertDialog.Builder(this)
+        val inflater = layoutInflater
+        val dialogView = inflater.inflate(R.layout.custom_loader, null)
+        builder.setView(dialogView)
+        builder.setCancelable(false) // Prevent dialog from being cancelled by tapping outside
+        loadingDialog = builder.create()
 
         if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
             setWindowFlag(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, true)
@@ -87,7 +97,7 @@ class CreateRequestActivity : AppCompatActivity() {
 
         binding.sendRequest.setOnClickListener {
             if (validateInputs()) {
-                showProgressBar()
+              //  showProgressBar()
                 if (requestId != null) {
                     updateRequest()
                 } else {
@@ -110,17 +120,14 @@ class CreateRequestActivity : AppCompatActivity() {
         bloodGroups = resources.getStringArray(R.array.blood_groups)
         locations = resources.getStringArray(R.array.pakistan_cities)
 
-        // Setup Blood Group AutoCompleteTextView
         val bloodGroupAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, bloodGroups)
         binding.spinnerBloodGroup.setAdapter(bloodGroupAdapter)
-        binding.spinnerBloodGroup.setThreshold(1) // Show suggestions after 1 character
+        binding.spinnerBloodGroup.setThreshold(1)
 
-        // Setup Location AutoCompleteTextView
         val locationAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, locations)
         binding.edLocation.setAdapter(locationAdapter)
-        binding.edLocation.setThreshold(1) // Show suggestions after 1 character
+        binding.edLocation.setThreshold(1)
 
-        // Add TextWatcher to validate input
         binding.spinnerBloodGroup.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
@@ -141,7 +148,6 @@ class CreateRequestActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {}
         })
 
-        // Clear focus on item selected
         (binding.spinnerBloodGroup as AutoCompleteTextView).setOnItemClickListener { _, _, _, _ ->
             binding.spinnerBloodGroup.clearFocus()
         }
@@ -234,7 +240,6 @@ class CreateRequestActivity : AppCompatActivity() {
         val calendar = Calendar.getInstance()
         val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
 
-        // Set the initial date to the previously selected date, if available
         if (::selectedDonationDate.isInitialized) {
             try {
                 val date = sdf.parse(selectedDonationDate)
@@ -245,7 +250,6 @@ class CreateRequestActivity : AppCompatActivity() {
                 e.printStackTrace()
             }
         } else {
-            // Default to the current date if no previous date is set
             calendar.timeInMillis = System.currentTimeMillis()
         }
 
@@ -256,9 +260,7 @@ class CreateRequestActivity : AppCompatActivity() {
         val datePickerDialog = DatePickerDialog(
             this,
             { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDay: Int ->
-                // Update the calendar with the new selected date
                 calendar.set(selectedYear, selectedMonth, selectedDay)
-                // Format the selected date and update the EditText
                 selectedDonationDate = sdf.format(calendar.time)
                 binding.edDateRequired.setText(selectedDonationDate)
             },
@@ -266,6 +268,8 @@ class CreateRequestActivity : AppCompatActivity() {
             month,
             day
         )
+
+        datePickerDialog.datePicker.minDate = System.currentTimeMillis() - 1000
 
         datePickerDialog.show()
     }
@@ -346,18 +350,19 @@ class CreateRequestActivity : AppCompatActivity() {
             "notified" to notified,
         )
 
+        loadingDialog.show()
         db.collection("requests")
             .add(request)
             .addOnSuccessListener {
-                hideProgressBar()
-                Toast.makeText(this, "Request sent successfully", Toast.LENGTH_SHORT).show()
+                loadingDialog.dismiss()
+              //  Toast.makeText(this, "Request sent successfully", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, SentSuccessfullActivity::class.java))
                 finish()
             }
             .addOnFailureListener { e ->
-                hideProgressBar()
+                loadingDialog.dismiss()
                 Log.w("CreateRequestActivity", "Error adding request", e)
-                Toast.makeText(this, "Error sending request", Toast.LENGTH_SHORT).show()
+             //   Toast.makeText(this, "Error sending request", Toast.LENGTH_SHORT).show()
             }
     }
 
@@ -388,19 +393,21 @@ class CreateRequestActivity : AppCompatActivity() {
             "critical" to isCritical
         )
 
+        loadingDialog.show()
         requestId?.let {
             db.collection("requests").document(it)
                 .update(updatedRequest)
                 .addOnSuccessListener {
-                    hideProgressBar()
-                    Toast.makeText(this, "Request updated successfully", Toast.LENGTH_SHORT).show()
+
+                    loadingDialog.dismiss()
+                  //  Toast.makeText(this, "Request updated successfully", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this, BothHistoryActivity::class.java))
                     finish()
                 }
                 .addOnFailureListener { e ->
-                    hideProgressBar()
+                    loadingDialog.show()
                     Log.w("CreateRequestActivity", "Error updating request", e)
-                    Toast.makeText(this, "Error updating request", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(this, "Error updating request", Toast.LENGTH_SHORT).show()
                 }
         }
     }

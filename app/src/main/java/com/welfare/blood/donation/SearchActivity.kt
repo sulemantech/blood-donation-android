@@ -38,9 +38,13 @@ class SearchActivity : AppCompatActivity() {
             window.statusBarColor = ContextCompat.getColor(this, android.R.color.transparent)
         }
 
+
+
         val locations = resources.getStringArray(R.array.pakistan_cities)
         val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, locations)
         binding.autoCompleteCity.setAdapter(adapter)
+
+        binding.autoCompleteCity.threshold = 1
 
         binding.autoCompleteCity.setOnItemClickListener { parent, view, position, id ->
             selectedLocation = parent.getItemAtPosition(position) as String
@@ -108,4 +112,4 @@ class SearchActivity : AppCompatActivity() {
         selectedBloodGroup = bloodGroup
         binding.tvSelectedGroup.text = bloodGroup
     }
-}
+}//autocompletetxtview mw first letter likhny py city ajni chahiye

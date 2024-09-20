@@ -41,6 +41,7 @@ class EditProfileActivity : AppCompatActivity() {
     private lateinit var selectedLastDonationDate: String
     private var userProfileImageUrl: String? = null
     private var selectedGender: String? = null
+    private lateinit var loadingDialog:AlertDialog
 
     companion object {
         private const val TAG = "EditProfileActivity"
@@ -52,7 +53,13 @@ class EditProfileActivity : AppCompatActivity() {
         binding = ActivityEditProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Set up UI flags for different Android versions
+        val builder = AlertDialog.Builder(this)
+        val inflater = layoutInflater
+        val dialogView = inflater.inflate(R.layout.custom_loader, null)
+        builder.setView(dialogView)
+        builder.setCancelable(false)
+        loadingDialog = builder.create()
+
         if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
             setWindowFlag(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, true)
         }
@@ -64,25 +71,19 @@ class EditProfileActivity : AppCompatActivity() {
             window.statusBarColor = ContextCompat.getColor(this, android.R.color.transparent)
         }
 
-        // Initialize Firebase components
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
         storageRef = FirebaseStorage.getInstance().reference
 
-        // Initialize AutoCompleteTextViews
         setupAutoCompleteTextViews()
 
-        // Load user profile data
         loadUserProfile()
 
-        // Set up date pickers
         binding.edDateBirth.setOnClickListener { showDatePickerDialogForDateOfBirth() }
         binding.edLastdonationdate.setOnClickListener { showDatePickerDialogForLastDonationDate() }
 
-        // Set up profile image picker
         binding.profileImageView.setOnClickListener { pickImageFromGallery() }
 
-        // Save profile data
         binding.btnSave.setOnClickListener { saveUserProfile() }
     }
     private fun setWindowFlag(bits: Int, on: Boolean) {
@@ -100,17 +101,14 @@ class EditProfileActivity : AppCompatActivity() {
         bloodGroups = resources.getStringArray(R.array.blood_groups)
         locations = resources.getStringArray(R.array.pakistan_cities)
 
-        // Setup Blood Group AutoCompleteTextView
         val bloodGroupAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, bloodGroups)
         binding.spinnerBloodGroup.setAdapter(bloodGroupAdapter)
-        binding.spinnerBloodGroup.setThreshold(1) // Show suggestions after 1 character
+        binding.spinnerBloodGroup.setThreshold(1)
 
-        // Setup Location AutoCompleteTextView
         val locationAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, locations)
         binding.edLocation.setAdapter(locationAdapter)
-        binding.edLocation.setThreshold(1) // Show suggestions after 1 character
+        binding.edLocation.setThreshold(1)
 
-        // Add TextWatcher to validate input
         binding.spinnerBloodGroup.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
@@ -131,7 +129,6 @@ class EditProfileActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {}
         })
 
-        // Clear focus on item selected
         (binding.spinnerBloodGroup as AutoCompleteTextView).setOnItemClickListener { _, _, _, _ ->
             binding.spinnerBloodGroup.clearFocus()
         }
@@ -177,7 +174,6 @@ class EditProfileActivity : AppCompatActivity() {
                 binding.spinnerGender.setSelection(spinnerPosition)
 
 
-                // Load profile image
                 val imageUrl = document.getString("profileImageUrl")
                 if (!imageUrl.isNullOrEmpty()) {
                     userProfileImageUrl = imageUrl
@@ -199,7 +195,6 @@ class EditProfileActivity : AppCompatActivity() {
         val location = binding.edLocation.text.toString()
         val gender = binding.spinnerGender.selectedItem.toString()
 
-        // Check if the values are valid before saving
         if (!bloodGroups.contains(bloodGroup)) {
             showToast("Invalid blood group. Please select from the list.")
             return
@@ -223,15 +218,17 @@ class EditProfileActivity : AppCompatActivity() {
             "profileImageUrl" to userProfileImageUrl
         )
 
+        loadingDialog.show()
         db.collection("users").document(userId).set(userProfile, SetOptions.merge())
             .addOnSuccessListener {
-                showToast("Profile updated successfully!")
-                showToast("Profile updated successfully!")
+                loadingDialog.dismiss()
                 setResult(RESULT_OK)
                 finish()
+               // showToast("Profile updated successfully!")
             }
             .addOnFailureListener {
-                showToast("Error updating profile.")
+                loadingDialog.dismiss() // Hide the loading dialog
+              //  showToast("Error updating profile.")
             }
     }
 
@@ -239,7 +236,6 @@ class EditProfileActivity : AppCompatActivity() {
         val calendar = Calendar.getInstance()
         val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
 
-        // Set initial date to the previously selected date, if available
         if (::selectedDateOfBirth.isInitialized) {
             try {
                 val date = sdf.parse(selectedDateOfBirth)
@@ -250,7 +246,6 @@ class EditProfileActivity : AppCompatActivity() {
                 e.printStackTrace()
             }
         } else {
-            // Default to the current date if no previous date is set
             calendar.timeInMillis = System.currentTimeMillis()
         }
 
@@ -261,7 +256,7 @@ class EditProfileActivity : AppCompatActivity() {
         val datePickerDialog = DatePickerDialog(
             this,
             { _, selectedYear, selectedMonth, selectedDay ->
-                // Set the selected date
+
                 calendar.set(selectedYear, selectedMonth, selectedDay)
                 selectedDateOfBirth = sdf.format(calendar.time)
                 binding.edDateBirth.setText(selectedDateOfBirth)
@@ -271,9 +266,8 @@ class EditProfileActivity : AppCompatActivity() {
             day
         )
 
-        // Set the minimum and maximum date limits
         datePickerDialog.datePicker.minDate = Calendar.getInstance().apply {
-            add(Calendar.YEAR, -100) // 100 years ago
+            add(Calendar.YEAR, -100)
         }.timeInMillis
 
         datePickerDialog.datePicker.maxDate = Calendar.getInstance().timeInMillis
@@ -284,7 +278,6 @@ class EditProfileActivity : AppCompatActivity() {
         val calendar = Calendar.getInstance()
         val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
 
-        // Set initial date to the previously selected date, if available
         if (::selectedLastDonationDate.isInitialized) {
             try {
                 val date = sdf.parse(selectedLastDonationDate)
@@ -295,7 +288,6 @@ class EditProfileActivity : AppCompatActivity() {
                 e.printStackTrace()
             }
         } else {
-            // Default to current date if no previous date is set
             calendar.timeInMillis = System.currentTimeMillis()
         }
 
@@ -306,7 +298,6 @@ class EditProfileActivity : AppCompatActivity() {
         val datePickerDialog = DatePickerDialog(
             this,
             { _, selectedYear, selectedMonth, selectedDay ->
-                // Set the selected date
                 calendar.set(selectedYear, selectedMonth, selectedDay)
                 selectedLastDonationDate = sdf.format(calendar.time)
                 binding.edLastdonationdate.setText(selectedLastDonationDate)
