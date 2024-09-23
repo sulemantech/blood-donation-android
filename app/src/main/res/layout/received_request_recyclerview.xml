@@ -83,6 +83,8 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@id/requestDate"
                             android:text="Islamabad"
+                            android:fontFamily="@font/opensanshebrew_regular"
+
                             android:textSize="12sp"
                             android:textColor="#000000"/>
 
@@ -93,6 +95,8 @@
                         android:layout_below="@id/donorName"
                         android:text="19/03/2024 03:55 PM"
                         android:textSize="12sp"
+                        android:fontFamily="@font/opensanshebrew_regular"
+
                         android:layout_marginStart="30sp"
                         android:textColor="#000000"/>
 
@@ -106,6 +110,8 @@
                         android:layout_below="@id/location"
                         android:text="Blood Group"
                         android:textSize="12sp"
+                        android:fontFamily="@font/opensanshebrew_regular"
+
                         android:textColor="#000000"/>
 
                     <TextView

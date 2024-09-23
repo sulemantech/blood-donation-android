@@ -4,48 +4,67 @@
         android:title="General Info"
         android:enabled="false"
         android:checkable="false"
+        android:fontFamily="@font/opensanshebrew_regular"
         android:textColor="@color/black">
     </item>
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_edit_profile"
             android:title="Edit Profile"
+            android:fontFamily="@font/opensanshebrew_regular"
+
             android:icon="@drawable/ic_vector_person"/>
         <item
             android:id="@+id/nav_blood_bank"
             android:title="Blood Bank"
+            android:fontFamily="@font/opensanshebrew_regular"
+
             android:icon="@drawable/blood"/>
         <item
             android:id="@+id/nav_share"
             android:title="Share with Friends"
-            android:icon="@drawable/share"/>
+            android:icon="@drawable/share"
+            android:fontFamily="@font/opensanshebrew_regular"
+            />
         <item
             android:id="@+id/nav_rate_us"
             android:title="Rate our App"
-            android:icon="@drawable/ic_star"/>
+            android:icon="@drawable/ic_star"
+            android:fontFamily="@font/opensanshebrew_regular"
+            />
         <item
             android:id="@+id/nav_delete_profile"
             android:title="Delete Profile"
-            android:icon="@drawable/baseline_delete_24"/>
+            android:icon="@drawable/baseline_delete_24"
+            android:fontFamily="@font/opensanshebrew_regular"
+            />
     </group>
     <item
         android:title="Privacy"
         android:enabled="false"
         android:checkable="false"
+        android:fontFamily="@font/opensanshebrew_regular"
+
         android:textColor="@color/black">
     </item>
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_feedback"
+            android:fontFamily="@font/opensanshebrew_regular"
+
             android:title="Feedback &amp; Suggestion"
             android:icon="@drawable/baseline_feed_24"/>
         <item
             android:id="@+id/nav_policy"
+            android:fontFamily="@font/opensanshebrew_regular"
+
             android:title="Privacy &amp; Policy"
             android:icon="@drawable/feedback"/>
     </group>
     <item
         android:id="@+id/nav_logout"
         android:title="Logout"
+        android:fontFamily="@font/opensanshebrew_regular"
+
         android:icon="@drawable/ic_logout"/>
 </menu>

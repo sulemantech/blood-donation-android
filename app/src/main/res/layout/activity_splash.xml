@@ -34,6 +34,8 @@
         android:layout_marginTop="6sp"
         android:gravity="center"
         android:id="@+id/text_eng"
+        android:fontFamily="@font/opensanshebrew_regular"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ayat"/>
@@ -46,6 +48,8 @@
         android:layout_gravity="center"
         android:text="(Quran 5:32)"
         android:gravity="center"
+        android:fontFamily="@font/opensanshebrew_regular"
+
         android:textColor="@color/maron"
         android:background="@drawable/ayat_btn"
         app:layout_constraintTop_toBottomOf="@+id/text_eng"
@@ -74,6 +78,7 @@
         android:layout_marginTop="80sp"
         android:textColor="@color/white"
         android:fontFamily="@font/oregano"
+
         android:text="@string/katlang_blood_donation_amp_thalassemia_center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

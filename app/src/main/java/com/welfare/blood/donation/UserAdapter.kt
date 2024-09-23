@@ -54,9 +54,9 @@ class UserAdapter(
 
             binding.requiredUnit.text = "${user.bloodGroup} (${getBloodGroupFullName(user.bloodGroup)})"
 
-            binding.btnViewDetail.setOnClickListener {
-                showUserDetailsDialog(user)
-            }
+//            binding.btnViewDetail.setOnClickListener {
+//                showUserDetailsDialog(user)
+//            }
 
 //            binding.btnSendRequest.setOnClickListener {
 //                // Handle send request action

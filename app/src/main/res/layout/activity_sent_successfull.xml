@@ -38,6 +38,8 @@
         android:layout_marginStart="30dp"
         android:layout_marginEnd="100dp"
         android:textSize="15dp"
+        android:fontFamily="@font/opensanshebrew_regular"
+
         app:layout_constraintTop_toBottomOf="@+id/successful"
         android:id="@+id/text" />
     <ImageView

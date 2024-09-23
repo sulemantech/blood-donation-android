@@ -10,6 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:tabMode="fixed"
+        android:fontFamily="@font/opensanshebrew_regular"
+
         app:tabIndicatorColor="@color/white"
         app:tabBackground="@drawable/tab_background"
         app:tabTextColor="@color/white"

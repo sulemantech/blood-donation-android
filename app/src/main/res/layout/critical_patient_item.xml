@@ -190,6 +190,7 @@
                             android:layout_marginEnd="15dp"
                             android:background="@drawable/waiting_status"
                             android:text="pending"
+                            android:fontFamily="@font/opensanshebrew_regular"
                             android:layout_marginTop="5sp"
                             android:textAlignment="center"
                             android:textAppearance="@style/patient_blood_status" />

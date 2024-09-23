@@ -45,6 +45,7 @@
         android:text="Critical Patients: 0"
         android:textSize="18sp"
         android:layout_margin="18dp"
+        android:fontFamily="@font/opensanshebrew_regular"
         android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/img_home"
         app:layout_constraintStart_toStartOf="parent" />

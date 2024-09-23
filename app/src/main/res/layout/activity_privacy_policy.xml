@@ -48,6 +48,8 @@
                 android:layout_marginTop="20sp"
                 android:textSize="15sp"
                 android:textStyle="bold"
+                android:fontFamily="@font/opensanshebrew_regular"
+
                 android:id="@+id/text1"
                 android:textColor="@color/black"
                 android:layout_marginStart="30sp"
@@ -64,6 +66,8 @@
                 android:layout_marginTop="12sp"
                 android:textSize="20sp"
                 android:textStyle="bold"
+                android:fontFamily="@font/opensanshebrew_regular"
+
                 android:id="@+id/text2"
                 android:layout_marginStart="30sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -76,6 +80,8 @@
                 android:layout_marginTop="2sp"
                 android:textSize="15sp"
                 android:id="@+id/text3"
+                android:fontFamily="@font/opensanshebrew_regular"
+
                 android:layout_marginStart="30sp"
                 android:layout_marginEnd="30dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -88,6 +94,8 @@
                 android:layout_marginTop="12sp"
                 android:textSize="15sp"
                 android:id="@+id/text4"
+                android:fontFamily="@font/opensanshebrew_regular"
+
                 android:layout_marginStart="30sp"
                 android:layout_marginEnd="10dp"
                 android:textStyle="bold"
@@ -101,6 +109,8 @@
                 android:layout_marginTop="12sp"
                 android:textSize="15sp"
                 android:id="@+id/text5"
+                android:fontFamily="@font/opensanshebrew_regular"
+
                 android:layout_marginStart="30sp"
                 android:layout_marginEnd="20sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -116,6 +126,8 @@
                 android:layout_marginStart="30sp"
                 android:layout_marginEnd="10dp"
                 android:textStyle="bold"
+                android:fontFamily="@font/opensanshebrew_regular"
+
                 app:layout_constraintStart_toStartOf="parent"
                 android:text="2. How We Use Your Information"
                 app:layout_constraintTop_toBottomOf="@+id/text5" />
@@ -128,6 +140,8 @@
                 android:id="@+id/text7"
                 android:layout_marginStart="30sp"
                 android:layout_marginEnd="20sp"
+                android:fontFamily="@font/opensanshebrew_regular"
+
                 android:text="@string/to_connect_blood_donors_with_those_in_need_to_notify_users_of_blood_donation_requests_that_match_their_blood_group_and_location"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text6" />
@@ -141,6 +155,8 @@
                 android:layout_marginStart="30sp"
                 android:layout_marginEnd="20sp"
                 android:textStyle="bold"
+                android:fontFamily="@font/opensanshebrew_regular"
+
                 app:layout_constraintStart_toStartOf="parent"
                 android:text="3. Data Sharing"
                 app:layout_constraintTop_toBottomOf="@+id/text7" />
@@ -153,6 +169,8 @@
                 android:id="@+id/text9"
                 android:layout_marginStart="30sp"
                 android:layout_marginEnd="20sp"
+                android:fontFamily="@font/opensanshebrew_regular"
+
                 android:text="@string/we_share_your_information_with_authorized_personnel_and_other_users_as_necessary_to_fulfill_blood_donation_requests_we_do_not_sell_or_rent_your_personal_information_to_third_parties"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text8" />
@@ -166,6 +184,8 @@
                 android:layout_marginStart="30sp"
                 android:layout_marginEnd="20sp"
                 android:textStyle="bold"
+                android:fontFamily="@font/opensanshebrew_regular"
+
                 app:layout_constraintStart_toStartOf="parent"
                 android:text="4. Data Security"
                 app:layout_constraintTop_toBottomOf="@+id/text9" />
@@ -178,6 +198,8 @@
                 android:id="@+id/text11"
                 android:layout_marginStart="30sp"
                 android:layout_marginEnd="20sp"
+                android:fontFamily="@font/opensanshebrew_regular"
+
                 android:text="We use industry-standard measures to protect your data, including encryption and secure servers. However, no method of transmission over the internet is 100% secure."
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text10" />
@@ -191,6 +213,8 @@
                 android:layout_marginStart="30sp"
                 android:layout_marginEnd="20sp"
                 android:textStyle="bold"
+                android:fontFamily="@font/opensanshebrew_regular"
+
                 app:layout_constraintStart_toStartOf="parent"
                 android:text="5. User Control"
                 app:layout_constraintTop_toBottomOf="@+id/text11" />
@@ -201,6 +225,8 @@
                 android:layout_marginTop="12sp"
                 android:textSize="15sp"
                 android:id="@+id/text13"
+                android:fontFamily="@font/opensanshebrew_regular"
+
                 android:layout_marginStart="30sp"
                 android:layout_marginEnd="20sp"
                 android:text="@string/you_can_access_or_update_your_personal_information_through_your_profile_settings_you_can_also_request_deletion_of_your_account"

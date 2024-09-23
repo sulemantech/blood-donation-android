@@ -1,6 +1,7 @@
 package com.welfare.blood.donation.adapters
 
 import android.app.AlertDialog
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -91,9 +92,8 @@ class CriticalPatientAdapter(
             }
         }
 
-
         private fun showConfirmationDialog(patient: CriticalPatient) {
-            AlertDialog.Builder(binding.root.context)
+            val dialog = AlertDialog.Builder(binding.root.context)
                 .setTitle("Confirm Donation")
                 .setMessage("Do you want to donate blood?")
                 .setPositiveButton("Yes") { _, _ ->
@@ -101,6 +101,9 @@ class CriticalPatientAdapter(
                 }
                 .setNegativeButton("No", null)
                 .show()
+
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE)?.setTextColor(Color.RED)
+            dialog.getButton(AlertDialog.BUTTON_NEGATIVE)?.setTextColor(Color.RED)
         }
 
         private fun addDonor(patient: CriticalPatient) {

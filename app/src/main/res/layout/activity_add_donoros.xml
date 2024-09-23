@@ -54,6 +54,7 @@
         android:layout_height="wrap_content"
         android:textSize="13sp"
         android:id="@+id/blood_req1"
+        android:fontFamily="@font/opensanshebrew_regular"
         android:text="Add Community Donors!"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"

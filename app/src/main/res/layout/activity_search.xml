@@ -52,6 +52,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="5sp"
         android:hint="Search City"
+        android:fontFamily="@font/opensanshebrew_regular"
+
         android:inputType="textCapSentences"
         android:backgroundTint="@color/maron"
         android:paddingRight="15sp"
@@ -67,6 +69,8 @@
         android:text="Select Group Blood"
         app:layout_constraintTop_toBottomOf="@+id/autoCompleteCity"
         android:layout_marginStart="20dp"
+        android:fontFamily="@font/opensanshebrew_regular"
+
         app:layout_constraintStart_toStartOf="parent"
         android:textColor="@color/black"
         android:textStyle="bold"/>
@@ -98,6 +102,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="A+"
+                android:fontFamily="@font/opensanshebrew_regular"
+
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
@@ -135,6 +141,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="A-"
+        android:fontFamily="@font/opensanshebrew_regular"
+
         android:textSize="15sp"
         android:textStyle="bold"
         android:textColor="@color/black"
@@ -171,6 +179,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="B+"
+        android:fontFamily="@font/opensanshebrew_regular"
+
         android:textSize="15sp"
         android:textStyle="bold"
         android:textColor="@color/black"
@@ -210,6 +220,8 @@
         android:textSize="15sp"
         android:textStyle="bold"
         android:textColor="@color/black"
+        android:fontFamily="@font/opensanshebrew_regular"
+
         android:layout_marginStart="320dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img3" />
@@ -242,6 +254,8 @@
         android:text="AB+"
         android:textSize="15sp"
         android:textStyle="bold"
+        android:fontFamily="@font/opensanshebrew_regular"
+
         android:textColor="@color/black"
         android:layout_marginStart="45dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -279,6 +293,8 @@
         android:text="AB-"
         android:textSize="15sp"
         android:textStyle="bold"
+        android:fontFamily="@font/opensanshebrew_regular"
+
         android:textColor="@color/black"
         android:layout_marginStart="133dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -317,6 +333,8 @@
         android:text="O+"
         android:textSize="15sp"
         android:textStyle="bold"
+        android:fontFamily="@font/opensanshebrew_regular"
+
         android:textColor="@color/black"
         android:layout_marginStart="228dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -351,6 +369,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="O-"
+        android:fontFamily="@font/opensanshebrew_regular"
+
         android:textSize="15sp"
         android:textStyle="bold"
         android:textColor="@color/black"
@@ -363,6 +383,8 @@
         android:layout_width="wrap_content"
         android:layout_height="130dp"
         android:text=""
+        android:fontFamily="@font/opensanshebrew_regular"
+
         android:textSize="108sp"
         android:textStyle="bold"
         android:layout_gravity="center"

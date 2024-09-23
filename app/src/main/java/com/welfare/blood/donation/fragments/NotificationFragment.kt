@@ -44,18 +44,23 @@ class NotificationFragment : Fragment() {
                 val db = AppDatabase.getDatabase(requireContext())
                 val notifications = db.notificationDao().getAllNotifications()
 
+                // Switch back to Main thread for UI updates
                 withContext(Dispatchers.Main) {
                     if (_binding != null) {
                         if (notifications.isNotEmpty()) {
                             binding.notificationRecyclerView.adapter = NotificationAdapter(notifications)
                         } else {
+                            // Show Toast on the Main thread
                             Toast.makeText(requireContext(), "No notifications found", Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
             } catch (e: Exception) {
-                Log.e("NotificationFragment", "Error fetching notifications", e)
-                Toast.makeText(requireContext(), "Error fetching notifications", Toast.LENGTH_SHORT).show()
+                // Ensure Toast is shown on the Main thread
+                withContext(Dispatchers.Main) {
+                    Log.e("NotificationFragment", "Error fetching notifications", e)
+                    Toast.makeText(requireContext(), "Error fetching notifications", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }

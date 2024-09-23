@@ -4,50 +4,58 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="5dp">
+    android:layout_marginBottom="7dp">
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="110dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/test"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/click"/>
         <!-- RelativeLayout with patient details -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingTop="12dp">
 
-            <ImageView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:src="@drawable/patient_icon"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="5dp">
+                android:orientation="horizontal">
 
+
+                <LinearLayout
+                    android:id="@+id/ll_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:src="@drawable/patient_icon"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/ll_middle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
-                    android:layout_marginStart="43dp"
                     android:layout_weight="2"
                     android:orientation="vertical">
 
                     <LinearLayout
                         android:id="@+id/llpatientName"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
@@ -56,41 +64,47 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal|center_vertical"
-                            android:text="Sara Zaid"
+                            android:text="Muhammad zeeshan malik"
                             android:textAppearance="@style/patient_name" />
 
                         <TextView
-                            android:id="@+id/condition2"
+                            android:id="@+id/criticalStatus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal|center_vertical"
-                            android:layout_marginStart="26dp"
+                            android:layout_marginStart="20dp"
                             android:text="Critical"
                             android:visibility="gone"
                             android:textAppearance="@style/patient_condition" />
 
-                        <TextView
-                            android:id="@+id/condition"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="26dp"
-                            android:background="@drawable/waiting_status"
-                            android:gravity="center_horizontal|center_vertical"
-                            android:textAlignment="center"
-                            android:visibility="gone"
-                            android:textAppearance="@style/patient_blood_status" />
                     </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/tvAddress"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/llpatientName"
-                        android:layout_marginTop="1dp"
-                        android:text="13 July 2024, 5:00 PM"
-                        android:textAppearance="@style/blood_request_date" />
+                        android:orientation="horizontal">
 
+                        <TextView
+                            android:id="@+id/tvAddress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/dateRequired"
+                            android:layout_marginTop="1dp"
+                            android:text="Al-Khidmat Hospital,"
+                            android:textAppearance="@style/hospital_name" />
+
+                        <TextView
+                            android:id="@+id/phone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/llpatientName"
+                            android:layout_marginTop="1dp"
+                            android:visibility="gone"
+                            android:layout_marginStart="20sp"
+                            android:text="(13 July 2024, 5:00 PM)"
+                            android:textAppearance="@style/blood_request_date" />
+
+                    </LinearLayout>
                     <TextView
                         android:id="@+id/hospital"
                         android:layout_width="wrap_content"
@@ -102,16 +116,6 @@
                         android:textAppearance="@style/hospital_name" />
 
                     <TextView
-                        android:id="@+id/contactInfo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/dateRequired"
-                        android:layout_marginTop="1dp"
-                        android:text="Al-Khidmat Hospital"
-                        android:visibility="gone"
-                        android:textAppearance="@style/hospital_name" />
-
-                    <TextView
                         android:id="@+id/required_unit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -119,16 +123,6 @@
                         android:layout_marginTop="1dp"
                         android:text="A+(A Positive)"
                         android:textStyle="bold"
-                        android:textAppearance="@style/hospital_name"
-                        />
-                    <TextView
-                        android:id="@+id/phone"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/contactInfo"
-                        android:layout_marginTop="1dp"
-                        android:text="phone"
-                        android:visibility="gone"
                         android:textAppearance="@style/hospital_name"
                         />
 
@@ -176,21 +170,28 @@
                             android:text="Blood"
                             android:textAppearance="@style/label_text" />
                     </LinearLayout>
+
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="1dp"
+                        android:layout_gravity="bottom"
+                        android:layout_weight="1"
                         android:orientation="horizontal">
                         <TextView
                             android:layout_width="25sp"
-                            android:layout_height="25dp"
-                            android:layout_marginStart="2dp"
+                            android:layout_height="30dp"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginEnd="4dp"
+                            android:layout_marginStart="5dp"
                             android:background="@drawable/edit_request"
                             android:id="@+id/edit"/>
 
                         <TextView
                             android:layout_width="25sp"
-                            android:layout_height="25dp"
+                            android:layout_height="28dp"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginEnd="4dp"
+                            android:layout_marginStart="10dp"
                             android:background="@drawable/trash"
                             android:id="@+id/delete"/>
 
@@ -199,86 +200,88 @@
                 </LinearLayout>
 
 
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:layout_weight="1"
-                android:gravity="right"
-                android:orientation="vertical">
-
-                <TextView
+                <LinearLayout
+                    android:id="@+id/ll_right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="View Detail"
-                    android:id="@+id/btnViewDetail"
-                    android:layout_marginEnd="10dp"
-                    android:textSize="10sp"
-                    android:visibility="gone"
-                    android:textColor="@color/black"/>
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginStart="360dp"
-                    android:id="@+id/image_blood_group"
-                    android:layout_marginBottom="20dp"
-                    android:src="@drawable/ic_a_plus"
-                    android:layout_gravity="right"/>
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        >
+                        <TextView
+                            android:id="@+id/condition"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="15dp"
+                            android:background="@drawable/waiting_status"
+                            android:text="pending"
+                            android:visibility="gone"
+                            android:layout_marginTop="5sp"
+                            android:textAlignment="center"
+                            android:textAppearance="@style/patient_blood_status" />
+
+                        <ImageView
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:layout_marginEnd="10dp"
+                            android:id="@+id/image_blood_group"
+                            android:layout_marginBottom="20dp"
+                            android:src="@drawable/ic_a_plus"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="8dp">
+
+
+                        <ImageButton
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:background="@drawable/phonefram"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginEnd="15dp"
+                            android:id="@+id/phoneCall"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent" />
+                        <ImageButton
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:background="@drawable/chat"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginEnd="15dp"
+                            android:id="@+id/chat"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent" />
+                        <ImageButton
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:background="@drawable/sharefram"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginEnd="15dp"
+                            android:id="@+id/share"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
 
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_weight="1"
-                android:gravity="left"
-                android:layout_marginStart="275dp"
-                android:layout_below="@+id/ll_right"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:background="@drawable/phonefram"
-                    android:layout_marginBottom="8dp"
-                    android:id="@+id/phone_call"
-                    android:gravity="center"
-                    android:layout_marginEnd="10dp"
-                    android:layout_gravity="right"
-                    android:textColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
 
-                <TextView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:background="@drawable/chat"
-                    android:layout_marginBottom="8dp"
-                    android:id="@+id/chat"
-                    android:gravity="center"
-                    android:layout_marginEnd="10dp"
-                    android:layout_gravity="right"
-                    android:textColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
-
-                <TextView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:background="@drawable/sharefram"
-                    android:layout_marginBottom="5dp"
-                    android:id="@+id/share"
-                    android:gravity="center"
-                    android:layout_gravity="right"
-                    android:textColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
-
-            </LinearLayout>
         </RelativeLayout>
     </FrameLayout>
 

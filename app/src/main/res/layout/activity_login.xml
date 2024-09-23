@@ -60,6 +60,8 @@
             android:drawablePadding="8dp"
             android:drawableEnd="@drawable/ic_vector_person"
             android:hint="@string/enter_email"
+            android:fontFamily="@font/opensanshebrew_regular"
+
             android:drawableTint="@color/maron"
             android:backgroundTint="@color/maron"
             android:padding="8dp"
@@ -94,6 +96,8 @@
             android:drawablePadding="8dp"
             android:drawableEnd="@drawable/ic_vector_lock"
             android:hint="@string/enter_password"
+            android:fontFamily="@font/opensanshebrew_regular"
+
             android:inputType="textPassword"
             android:backgroundTint="@color/maron"
             android:padding="8dp"
@@ -188,6 +192,7 @@
             android:layout_marginTop="18dp"
             android:text="@string/don_t_have_account"
             android:textSize="15sp"
+            android:fontFamily="@font/opensanshebrew_regular"
             android:textColor="@color/hint_text_color"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

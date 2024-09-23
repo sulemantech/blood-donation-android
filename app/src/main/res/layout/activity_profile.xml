@@ -60,6 +60,8 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="8dp"
                 android:text="Sara Zaid"
+                android:fontFamily="@font/opensanshebrew_regular"
+
                 android:textSize="18sp"
                 android:textColor="@color/maron"
                 android:textStyle="bold" />
@@ -71,6 +73,8 @@
                 android:layout_below="@id/tvName"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="4dp"
+                android:fontFamily="@font/opensanshebrew_regular"
+
                 android:text="abc@gmail.com"
                 android:textSize="14sp" />
 
@@ -94,6 +98,8 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="4dp"
                 android:textStyle="bold"
+                android:fontFamily="@font/opensanshebrew_regular"
+
                 android:textColor="@color/black"
                 android:text="Profile Completion 85%"
                 android:textSize="14sp" />
@@ -133,6 +139,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:fontFamily="@font/opensanshebrew_regular"
+
                     android:text="+92 348294582"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -155,6 +163,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:fontFamily="@font/opensanshebrew_regular"
+
                     android:text="1-9/islamabad"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -178,6 +188,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:text="Add your gender"
+                    android:fontFamily="@font/opensanshebrew_regular"
+
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -199,6 +211,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:text="Add your Birthday"
+                    android:fontFamily="@font/opensanshebrew_regular"
+
                     android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>

@@ -63,7 +63,7 @@ class RegisterActivity : AppCompatActivity() {
         val inflater = layoutInflater
         val dialogView = inflater.inflate(R.layout.custom_loader, null)
         builder.setView(dialogView)
-        builder.setCancelable(false) // Prevent dialog from being cancelled by tapping outside
+        builder.setCancelable(false)
         loadingDialog = builder.create()
 
         binding.imgTogglePassword.setOnClickListener {
@@ -97,8 +97,8 @@ class RegisterActivity : AppCompatActivity() {
         spannableString.setSpan(termsClickableSpan, termsStart, termsEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         spannableString.setSpan(privacyClickableSpan, privacyStart, privacyEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
-        val termsColorSpan = ForegroundColorSpan(Color.BLUE)  // Set your desired color
-        val privacyColorSpan = ForegroundColorSpan(Color.BLUE)  // Set your desired color
+        val termsColorSpan = ForegroundColorSpan(Color.BLUE)
+        val privacyColorSpan = ForegroundColorSpan(Color.BLUE)
 
         spannableString.setSpan(termsColorSpan, termsStart, termsEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         spannableString.setSpan(privacyColorSpan, privacyStart, privacyEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
@@ -305,8 +305,8 @@ class RegisterActivity : AppCompatActivity() {
 
                       //  setupSpinners()
 
-                        binding.spinnerBloodGroup.setSelection(getBloodTypeIndex(communityDonors.bloodGroup))
-                        binding.edLocation.setSelection(getLocationIndex(communityDonors.location))
+                        binding.spinnerBloodGroup.setText(communityDonors.bloodGroup)
+                        binding.edLocation.setText(communityDonors.location)
                     }
                 }
             }
@@ -555,11 +555,11 @@ class RegisterActivity : AppCompatActivity() {
                                         "registrationTimestamp" to com.google.firebase.firestore.FieldValue.serverTimestamp()
                                     )
 
-                                    loadingDialog.show() // Show the loading dialog
+                                    loadingDialog.show()
 
                                     db.collection("users").document(userID).set(user, SetOptions.merge())
                                         .addOnSuccessListener {
-                                            loadingDialog.dismiss() // Show the loading dialog
+                                            loadingDialog.dismiss()
 
                                             Log.d(TAG, "DocumentSnapshot successfully written!")
                                           //  binding.progressBar.visibility = View.GONE
@@ -570,7 +570,7 @@ class RegisterActivity : AppCompatActivity() {
                                             finish()
                                         }
                                         .addOnFailureListener { e ->
-                                            loadingDialog.dismiss() // Show the loading dialog
+                                            loadingDialog.dismiss()
 
                                             Log.w(TAG, "Error writing document", e)
                                            // binding.progressBar.visibility = View.GONE

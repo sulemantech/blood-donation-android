@@ -92,6 +92,7 @@
                     android:layout_marginTop="10dp"
                     android:text="Generally, anyone who is healthy, weighs at least 50 kg, and is aged between 18 to 60 years can donate blood. However, certain medical conditions, medications, or recent procedures may disqualify someone from donating."
                     android:textSize="15dp"
+                    android:fontFamily="@font/opensanshebrew_regular"
                     android:id="@+id/handing"
                     android:gravity="left"
                     android:layout_marginStart="30dp"
@@ -122,6 +123,7 @@
                     android:textSize="15dp"
                     android:id="@+id/handing1"
                     android:gravity="left"
+                    android:fontFamily="@font/opensanshebrew_regular"
                     android:layout_marginStart="30dp"
                     android:layout_marginEnd="30dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -150,6 +152,7 @@
                     android:textSize="15dp"
                     android:id="@+id/handing2"
                     android:gravity="left"
+                    android:fontFamily="@font/opensanshebrew_regular"
                     android:layout_marginStart="30dp"
                     android:layout_marginEnd="30dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -177,6 +180,8 @@
                     android:textSize="15dp"
                     android:id="@+id/handing3"
                     android:gravity="left"
+                    android:fontFamily="@font/opensanshebrew_regular"
+
                     android:layout_marginStart="30dp"
                     android:layout_marginEnd="30dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -203,6 +208,8 @@
                     android:layout_marginTop="10dp"
                     android:text="During the blood donation process, you will be seated comfortably while a small amount of your blood is drawn from your arm. The process typically takes about 10 to 15 minutes. Afterward, you may rest and have a light snack."
                     android:textSize="15dp"
+                    android:fontFamily="@font/opensanshebrew_regular"
+
                     android:id="@+id/handing4"
                     android:gravity="left"
                     android:layout_marginStart="30dp"
@@ -231,6 +238,8 @@
                     android:layout_marginTop="10dp"
                     android:text="After donating blood, you should rest for a few minutes, drink plenty of fluids, and eat a light meal. Avoid strenuous physical activity for the rest of the day. If you feel lightheaded or unwell, sit or lie down until you feel better."
                     android:textSize="15dp"
+                    android:fontFamily="@font/opensanshebrew_regular"
+
                     android:id="@+id/handing5"
                     android:gravity="left"
                     android:layout_marginStart="30dp"
@@ -261,6 +270,8 @@
                     android:textSize="15dp"
                     android:id="@+id/handing6"
                     android:gravity="left"
+                    android:fontFamily="@font/opensanshebrew_regular"
+
                     android:layout_marginStart="30dp"
                     android:layout_marginEnd="30dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -289,6 +300,8 @@
                     android:textSize="15dp"
                     android:id="@+id/handing7"
                     android:gravity="left"
+                    android:fontFamily="@font/opensanshebrew_regular"
+
                     android:layout_marginStart="30dp"
                     android:layout_marginEnd="30dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -315,6 +328,8 @@
                     android:layout_marginTop="10dp"
                     android:text="Donated blood is used for a variety of medical treatments, including surgeries, trauma care, cancer treatment, and for patients with blood disorders like anemia or hemophilia. Your donation could help save multiple lives."
                     android:textSize="15dp"
+                    android:fontFamily="@font/opensanshebrew_regular"
+
                     android:id="@+id/handing8"
                     android:gravity="left"
                     android:layout_marginStart="30dp"
@@ -345,6 +360,8 @@
                     android:textSize="15dp"
                     android:id="@+id/handing9"
                     android:gravity="left"
+                    android:fontFamily="@font/opensanshebrew_regular"
+
                     android:layout_marginStart="30dp"
                     android:layout_marginEnd="30dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -369,6 +386,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:fontFamily="@font/opensanshebrew_regular"
+
                     android:text="Yes, most blood donation centers will inform you of your blood type after your donation. This can be helpful information for your future donations or medical needs."
                     android:textSize="15dp"
                     android:id="@+id/handing10"
@@ -401,6 +420,8 @@
                     android:textSize="15dp"
                     android:id="@+id/handing11"
                     android:gravity="left"
+                    android:fontFamily="@font/opensanshebrew_regular"
+
                     android:layout_marginStart="30dp"
                     android:layout_marginEnd="30dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -429,6 +450,8 @@
                     android:textSize="15dp"
                     android:id="@+id/handing12"
                     android:gravity="left"
+                    android:fontFamily="@font/opensanshebrew_regular"
+
                     android:layout_marginStart="30dp"
                     android:layout_marginEnd="30dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -456,6 +479,8 @@
                     android:layout_marginTop="10dp"
                     android:text="Bring a form of identification, such as a driver's license or ID card, and any relevant medical information. It is also a good idea to wear clothing with sleeves that can be easily rolled up."
                     android:textSize="15dp"
+                    android:fontFamily="@font/opensanshebrew_regular"
+
                     android:id="@+id/handing13"
                     android:gravity="left"
                     android:layout_marginStart="30dp"

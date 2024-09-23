@@ -103,6 +103,7 @@
         android:layout_gravity="right"
         android:layout_marginTop="130dp"
         android:layout_marginStart="43dp"
+        android:fontFamily="@font/opensanshebrew_regular"
         android:layout_marginEnd="40dp"
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -126,6 +127,7 @@
         app:tabIndicatorColor="@color/maron"
         app:tabBackground="@drawable/tab_background"
         app:tabTextColor="@color/white"
+        android:fontFamily="@font/opensanshebrew_regular"
         app:tabTextAppearance="@style/CustomTabTextStyle"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="30dp"

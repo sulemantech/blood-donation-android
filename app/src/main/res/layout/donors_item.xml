@@ -57,6 +57,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal|center_vertical"
                             android:text="Sara Zaid"
+
                             android:textAppearance="@style/patient_name" />
 
                         <TextView
@@ -88,6 +89,8 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/llpatientName"
                         android:layout_marginTop="1dp"
+                        android:fontFamily="@font/opensanshebrew_regular"
+
                         android:text="13 July 2024, 5:00 PM"
                         android:textAppearance="@style/blood_request_date" />
 
@@ -118,6 +121,8 @@
                         android:layout_below="@id/contactInfo"
                         android:layout_marginTop="1dp"
                         android:text="phone"
+                        android:fontFamily="@font/opensanshebrew_regular"
+
                         android:textAppearance="@style/hospital_name"
                         />
                     <TextView
@@ -128,6 +133,8 @@
                         android:layout_marginTop="1dp"
                         android:text="A+(A Positive)"
                         android:textStyle="bold"
+                        android:fontFamily="@font/opensanshebrew_regular"
+
                         android:textAppearance="@style/hospital_name"
                         />
 

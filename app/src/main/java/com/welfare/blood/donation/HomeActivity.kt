@@ -315,11 +315,13 @@ class HomeActivity : AppCompatActivity() {
     private fun showFeedbackDialog(homeActivity: HomeActivity) {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_rate_us, null)
         val editTextFeedback = dialogView.findViewById<EditText>(R.id.editTextFeedback)
+        val viewTextView = dialogView.findViewById<TextView>(R.id.view)
 
         val alertDialog = AlertDialog.Builder(this)
             .setView(dialogView)
             .create()
 
+        // Set up the "Send" button click listener
         dialogView.findViewById<Button>(R.id.send).setOnClickListener {
             val feedback = editTextFeedback.text.toString().trim()
             if (feedback.isNotEmpty()) {
@@ -330,12 +332,41 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
+        // Set up the "Cancel" button click listener
         dialogView.findViewById<Button>(R.id.cancel).setOnClickListener {
             alertDialog.dismiss()
         }
 
+        // Set up the "View" TextView click listener
+        viewTextView.setOnClickListener {
+            fetchAndDisplayUserFeedback(editTextFeedback)
+        }
+
         alertDialog.setCancelable(false)
         alertDialog.show()
+    }
+
+    private fun fetchAndDisplayUserFeedback(editTextFeedback: EditText) {
+        val user = auth.currentUser
+        if (user != null) {
+            db.collection("feedback")
+                .whereEqualTo("userId", user.uid)
+                .get()
+                .addOnSuccessListener { documents ->
+                    if (!documents.isEmpty) {
+                        val feedback = documents.documents[0].getString("feedback")
+                        editTextFeedback.setText(feedback)
+                    } else {
+                        Toast.makeText(this, "No feedback found", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(this, "Failed to fetch feedback: ${e.message}", Toast.LENGTH_SHORT).show()
+                    Log.e("FeedbackFetch", "Error fetching feedback", e)
+                }
+        } else {
+            Toast.makeText(this, "User not authenticated", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun storeFeedback(feedback: String) {
@@ -347,14 +378,36 @@ class HomeActivity : AppCompatActivity() {
                 "date" to com.google.firebase.Timestamp.now()
             )
 
+            // Check if feedback exists for the user
             db.collection("feedback")
-                .add(feedbackData)
-                .addOnSuccessListener {
-                    Toast.makeText(this, "Thank you for your feedback!", Toast.LENGTH_SHORT).show()
+                .whereEqualTo("userId", user.uid)
+                .get()
+                .addOnSuccessListener { documents ->
+                    if (!documents.isEmpty) {
+                        // Update existing feedback
+                        val docId = documents.documents[0].id
+                        db.collection("feedback").document(docId)
+                            .update(feedbackData as Map<String, Any>)
+                            .addOnSuccessListener {
+                                Toast.makeText(this, "Feedback updated successfully", Toast.LENGTH_SHORT).show()
+                            }
+                            .addOnFailureListener { e ->
+                                Toast.makeText(this, "Failed to update feedback: ${e.message}", Toast.LENGTH_SHORT).show()
+                            }
+                    } else {
+                        // Add new feedback
+                        db.collection("feedback")
+                            .add(feedbackData)
+                            .addOnSuccessListener {
+                                Toast.makeText(this, "Thank you for your feedback!", Toast.LENGTH_SHORT).show()
+                            }
+                            .addOnFailureListener { e ->
+                                Toast.makeText(this, "Failed to submit feedback: ${e.message}", Toast.LENGTH_SHORT).show()
+                            }
+                    }
                 }
                 .addOnFailureListener { e ->
-                    Toast.makeText(this, "Failed to submit feedback: ${e.message}", Toast.LENGTH_SHORT).show()
-                    Log.e("FeedbackSubmission", "Error adding feedback", e)
+                    Toast.makeText(this, "Failed to check existing feedback: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
         } else {
             Toast.makeText(this, "User not authenticated", Toast.LENGTH_SHORT).show()

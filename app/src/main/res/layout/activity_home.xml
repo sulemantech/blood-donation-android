@@ -62,6 +62,7 @@
         app:itemTextColor="@color/maron"
         android:background="@color/white"
         android:paddingStart="30dp"
+        android:fontFamily="@font/opensanshebrew_regular"
         android:paddingEnd="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,6 +76,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:itemIconTint="@color/maron"
+        android:fontFamily="@font/opensanshebrew_regular"
+
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/drawer_menu" >
 

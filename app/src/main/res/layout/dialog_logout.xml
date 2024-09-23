@@ -18,6 +18,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Logout?"
+        android:fontFamily="@font/opensanshebrew_regular"
+
         android:textStyle="bold"
         android:textColor="@color/black"
         android:textSize="20sp"
@@ -29,6 +31,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
+        android:fontFamily="@font/opensanshebrew_regular"
+
         android:text="@string/are_you_sure_you_want_to_logout"
         android:layout_gravity="center_horizontal"
         android:paddingBottom="20dp"/>
@@ -44,6 +48,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cancel"
+            android:fontFamily="@font/opensanshebrew_regular"
+
             android:textAllCaps="false"
             android:textColor="@color/black"
             android:backgroundTint="@color/light_grey"
@@ -54,6 +60,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Logout"
+            android:fontFamily="@font/opensanshebrew_regular"
+
             android:textAllCaps="false"
             android:textColor="@color/black"
             android:backgroundTint="@color/light_grey"

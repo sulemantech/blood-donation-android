@@ -25,6 +25,8 @@
         android:id="@+id/text_emoji2"
         app:layout_constraintStart_toStartOf="parent"
         android:textSize="17dp"
+        android:fontFamily="@font/opensanshebrew_regular"
+
         android:layout_marginStart="30dp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/text_emoji"
@@ -46,6 +48,8 @@
             android:layout_gravity="right"
             android:text="Cancel"
             android:gravity="center"
+            android:fontFamily="@font/opensanshebrew_regular"
+
             android:background="@drawable/button_can"
             android:layout_marginEnd="5dp"
             android:textAllCaps="false"
@@ -57,6 +61,8 @@
             android:layout_gravity="right"
             android:text="Logout"
             android:gravity="center"
+            android:fontFamily="@font/opensanshebrew_regular"
+
             android:background="@drawable/button_log"
             android:layout_marginStart="5dp"
             android:textAllCaps="false"

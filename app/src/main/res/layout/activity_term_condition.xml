@@ -50,6 +50,8 @@
                 android:textStyle="bold"
                 android:id="@+id/text1"
                 android:gravity="center"
+                android:fontFamily="@font/opensanshebrew_regular"
+
                 android:textColor="@color/black"
                 android:layout_marginStart="30sp"
                 android:layout_marginEnd="20sp"
@@ -65,6 +67,8 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:id="@+id/text2"
+                android:fontFamily="@font/opensanshebrew_regular"
+
                 android:layout_marginStart="30sp"
                 android:layout_marginEnd="20sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -79,6 +83,8 @@
                 android:id="@+id/text3"
                 android:layout_marginStart="30sp"
                 android:layout_marginEnd="20sp"
+                android:fontFamily="@font/opensanshebrew_regular"
+
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:text="Welcome to the Katlang Blood Donation &amp; Thalassemia Center application. By using our app, you agree to the following Terms &amp; Conditions:"
@@ -92,6 +98,8 @@
                 android:id="@+id/text4"
                 android:layout_marginStart="30sp"
                 android:layout_marginEnd="20sp"
+                android:fontFamily="@font/opensanshebrew_regular"
+
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 android:text="1. Acceptance of Terms"
@@ -105,6 +113,8 @@
                 android:id="@+id/text5"
                 android:layout_marginStart="30sp"
                 android:layout_marginEnd="20sp"
+                android:fontFamily="@font/opensanshebrew_regular"
+
                 android:text="By registering and using the app, you agree to these Terms &amp; Conditions. If you do not agree, please do not use the app"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text4"/>
@@ -118,6 +128,8 @@
                 android:layout_marginStart="30sp"
                 android:layout_marginEnd="20sp"
                 android:textStyle="bold"
+                android:fontFamily="@font/opensanshebrew_regular"
+
                 app:layout_constraintStart_toStartOf="parent"
                 android:text="2. User Responsibilities"
                 app:layout_constraintTop_toBottomOf="@+id/text5"/>
@@ -130,6 +142,8 @@
                 android:id="@+id/text7"
                 android:layout_marginStart="30sp"
                 android:layout_marginEnd="20sp"
+                android:fontFamily="@font/opensanshebrew_regular"
+
                 android:text="@string/you_must_provide_accurate_and_up_to_date_information_during_registration_you_agree_not_to_misuse_the_app_including_but_not_limited_to_using_it_for_unauthorized_or_unlawful_purposes"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text6"/>
@@ -143,6 +157,8 @@
                 android:layout_marginStart="30sp"
                 android:layout_marginEnd="20sp"
                 android:textStyle="bold"
+                android:fontFamily="@font/opensanshebrew_regular"
+
                 app:layout_constraintStart_toStartOf="parent"
                 android:text="3. Data Collection and Use"
                 app:layout_constraintTop_toBottomOf="@+id/text7"/>
@@ -155,6 +171,8 @@
                 android:id="@+id/text9"
                 android:layout_marginStart="30sp"
                 android:layout_marginEnd="20sp"
+                android:fontFamily="@font/opensanshebrew_regular"
+
                 android:text="We collect personal information (Name, Email, Contact Number, Blood Group, City) to facilitate blood donation requests and connect donors with recipients. Your data will be used solely for these purposes."
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text8"/>
@@ -168,6 +186,8 @@
                 android:layout_marginStart="30sp"
                 android:layout_marginEnd="20sp"
                 android:textStyle="bold"
+                android:fontFamily="@font/opensanshebrew_regular"
+
                 app:layout_constraintStart_toStartOf="parent"
                 android:text="4. Data Sharing"
                 app:layout_constraintTop_toBottomOf="@+id/text9"/>
@@ -180,6 +200,8 @@
                 android:id="@+id/text11"
                 android:layout_marginStart="30sp"
                 android:layout_marginEnd="20sp"
+                android:fontFamily="@font/opensanshebrew_regular"
+
                 android:text="Your data may be shared with authorized personnel of the Katlang Blood Donation &amp; Thalassemia Center and with other registered users in case of a blood donation request."
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text10"/>
@@ -193,6 +215,8 @@
                 android:layout_marginStart="30sp"
                 android:layout_marginEnd="20sp"
                 android:textStyle="bold"
+                android:fontFamily="@font/opensanshebrew_regular"
+
                 app:layout_constraintStart_toStartOf="parent"
                 android:text="5. Account Termination"
                 app:layout_constraintTop_toBottomOf="@+id/text11"/>
@@ -205,6 +229,8 @@
                 android:id="@+id/text13"
                 android:layout_marginStart="30sp"
                 android:layout_marginEnd="20sp"
+                android:fontFamily="@font/opensanshebrew_regular"
+
                 android:text="We reserve the right to terminate accounts for violations of these terms."
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text12"/>

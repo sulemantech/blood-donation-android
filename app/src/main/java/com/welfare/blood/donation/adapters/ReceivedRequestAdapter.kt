@@ -2,6 +2,7 @@ package com.welfare.blood.donation.adapters
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -81,14 +82,19 @@ class ReceivedRequestAdapter(
         }
 
         private fun showConfirmationDialog(request: ReceivedRequest) {
-            AlertDialog.Builder(binding.root.context)
+            val dialog = AlertDialog.Builder(binding.root.context)
                 .setTitle("Confirm Donation")
                 .setMessage("Do you want to donate?")
                 .setPositiveButton("Yes") { _, _ ->
                     addDonor(request)
                 }
                 .setNegativeButton("Cancel", null)
-                .show()
+                .create()
+
+            dialog.show()
+
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE)?.setTextColor(Color.RED)
+            dialog.getButton(AlertDialog.BUTTON_NEGATIVE)?.setTextColor(Color.RED)
         }
 
         private fun addDonor(request: ReceivedRequest) {
