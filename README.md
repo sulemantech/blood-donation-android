@@ -32,4 +32,4 @@ The Blood Donation Application is an Android app designed to connect blood donor
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/blood-donation-app.git
+   git clone [https://github.com/yourusername/blood-donation-app.git]
