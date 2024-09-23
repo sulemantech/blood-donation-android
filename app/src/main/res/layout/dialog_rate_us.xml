@@ -30,16 +30,6 @@
        android:layout_marginTop="20dp"
         app:layout_constraintTop_toTopOf="parent"
         android:text="Help us to Improve App!"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/view"
-            android:textColor="@color/blue"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="25sp"
-            android:layout_marginEnd="10sp"
-            android:text="View"/>
 
     <EditText
         android:layout_width="match_parent"

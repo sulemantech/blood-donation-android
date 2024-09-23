@@ -315,13 +315,12 @@ class HomeActivity : AppCompatActivity() {
     private fun showFeedbackDialog(homeActivity: HomeActivity) {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_rate_us, null)
         val editTextFeedback = dialogView.findViewById<EditText>(R.id.editTextFeedback)
-        val viewTextView = dialogView.findViewById<TextView>(R.id.view)
-
         val alertDialog = AlertDialog.Builder(this)
             .setView(dialogView)
             .create()
 
-        // Set up the "Send" button click listener
+        fetchAndDisplayUserFeedback(editTextFeedback)
+
         dialogView.findViewById<Button>(R.id.send).setOnClickListener {
             val feedback = editTextFeedback.text.toString().trim()
             if (feedback.isNotEmpty()) {
@@ -332,14 +331,8 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
-        // Set up the "Cancel" button click listener
         dialogView.findViewById<Button>(R.id.cancel).setOnClickListener {
             alertDialog.dismiss()
-        }
-
-        // Set up the "View" TextView click listener
-        viewTextView.setOnClickListener {
-            fetchAndDisplayUserFeedback(editTextFeedback)
         }
 
         alertDialog.setCancelable(false)
@@ -378,7 +371,6 @@ class HomeActivity : AppCompatActivity() {
                 "date" to com.google.firebase.Timestamp.now()
             )
 
-            // Check if feedback exists for the user
             db.collection("feedback")
                 .whereEqualTo("userId", user.uid)
                 .get()

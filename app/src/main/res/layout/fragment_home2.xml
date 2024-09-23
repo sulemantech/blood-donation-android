@@ -48,6 +48,7 @@
             android:layout_height="160dp"
             app:layout_constraintTop_toBottomOf="@+id/home1"
             android:src="@drawable/top_image"
+            android:layout_marginTop="15sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             />
@@ -59,7 +60,6 @@
             android:layout_marginTop="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-
             app:layout_constraintTop_toBottomOf="@+id/home1"
             android:scaleType="fitXY" />
 
