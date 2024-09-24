@@ -35,9 +35,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:fontFamily="@font/opensanshebrew_regular"
-
             android:textSize="12sp"
+            android:layout_marginEnd="10sp"
             android:text="1:19 AM"
+            android:layout_gravity="right"
             android:textColor="@android:color/black" />
 
         </LinearLayout>
