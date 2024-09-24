@@ -68,7 +68,7 @@ class NotificationFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        fetchNotificationsJob?.cancel()  // Cancel job when the view is destroyed
-        _binding = null  // Clear binding
+        fetchNotificationsJob?.cancel()
+        _binding = null
     }
 }
