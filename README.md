@@ -16,7 +16,7 @@ The Blood Donation Application is an Android app designed to connect blood donor
 
 - Android SDK
 - Kotlin
-- Firebase for user authentication and real-time database
+- Firebase for user authentication and FireStore for database
 - Retrofit for API calls
 - Coroutines for asynchronous programming
 
